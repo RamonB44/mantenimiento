@@ -17,7 +17,7 @@ class LaborFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'labor' => $this->faker->unique()->lexify('????????'),
         ];
     }
 }

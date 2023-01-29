@@ -17,7 +17,7 @@ class ModeloDeTractorFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'modelo_de_tractor' => $this->faker->lexify('????????'),
         ];
     }
 }

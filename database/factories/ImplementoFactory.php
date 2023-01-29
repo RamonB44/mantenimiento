@@ -2,6 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\CentroDeCosto;
+use App\Models\ModeloDelImplemento;
+use App\Models\Sede;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +21,12 @@ class ImplementoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'modelo_del_implemento_id' => ModeloDelImplemento::all()->random()->id,
+            'numero_del_implemento' => $this->faker->unique()->randomNumber(3,false),
+            'horas_de_uso' => $this->faker->randomFloat(2,30,300),
+            'user_id' => User::all()->random()->id,
+            'sede_id' => Sede::all()->random()->id,
+            'centro_de_costo_id' => CentroDeCosto::all()->random()->id
         ];
     }
 }

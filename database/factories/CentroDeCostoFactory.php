@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Sede;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class CentroDeCostoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'codigo' => $this->faker->unique()->numerify('######'),
+            'descripcion' => $this->faker->lexify('????????'),
+            'sede_id' => Sede::all()->random()->id,
+            'monto'=> 0
         ];
     }
 }

@@ -17,7 +17,8 @@ class UnidadDeMedidaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'unidad_de_medida' => $this->faker->unique()->lexify('????????'),
+            'abreviacion' => $this->faker->unique()->lexify('???'),
         ];
     }
 }

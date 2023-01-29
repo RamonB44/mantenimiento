@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Sede;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class FundoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'fundo' => $this->faker->lexify('????????'),
+            'sede_id' => Sede::all()->random()->id,
         ];
     }
 }

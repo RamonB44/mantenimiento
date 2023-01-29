@@ -17,7 +17,7 @@ class EppFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'epp' => $this->faker->unique()->lexify('????????'),
         ];
     }
 }

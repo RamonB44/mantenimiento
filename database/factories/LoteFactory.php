@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Fundo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class LoteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'lote' => $this->faker->unique()->lexify('????????'),
+            'fundo_id' => Fundo::all()->random()->id,
         ];
     }
 }

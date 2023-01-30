@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('solicitud_de_pedido_id')->constrained();
             $table->string('nuevo_articulo');
-            $table->decimal('cantidad','8,2');
+            $table->decimal('cantidad',8,2);
             $table->foreignId('unidad_de_medida_id')->constrained();
             $table->text('ficha_tecnica');
             $table->string('imagen',2048)->nullable();
             $table->enum('estado',['PENDIENTE','CREADO','RECHAZADO'])->default('PENDIENTE');
             $table->foreignId('articulo_id')->nullable()->constrained();
-            $table->text('observation');
+            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }

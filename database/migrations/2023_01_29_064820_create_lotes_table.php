@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('lotes', function (Blueprint $table) {
             $table->id();
             $table->string('lote')->unique();
-            $table->foreignId('fundo')->constrained();
+            $table->foreignId('fundo_id')->constrained();
             $table->timestamps();
         });
     }

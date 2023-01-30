@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MontosParaAsignarAlCentroDeCosto>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sede>
  */
-class MontosParaAsignarAlCentroDeCostoFactory extends Factory
+class SedeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class MontosParaAsignarAlCentroDeCostoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'sede' => $this->faker->unique()->lexify('????????'),
         ];
     }
 }

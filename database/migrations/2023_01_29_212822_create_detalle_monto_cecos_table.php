@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('montos_para_asignar_al_centro_de_costos', function (Blueprint $table) {
+        Schema::create('detalle_monto_cecos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('centro_de_costo_id')->constrained();
-            $table->decimal('monto_para_asignado',8,2);
+            $table->decimal('monto',8,2);
             $table->boolean('esta_asignado')->default(false);
-            $table->date('fecha_para_asignar');
+            $table->date('fecha_de_asignacion');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('montos_para_asignar_al_centro_de_costos');
+        Schema::dropIfExists('detalle_monto_cecos');
     }
 };

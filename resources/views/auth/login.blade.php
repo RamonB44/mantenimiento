@@ -16,8 +16,8 @@
             @csrf
 
             <div>
-                <x-jet-label for="code" value="{{ __('Código') }}" />
-                <x-jet-input id="code" class="block mt-1 w-full" type="number" name="code" :value="old('code')" required autofocus autocomplete="code" />
+                <x-jet-label for="codigo" value="{{ __('Código') }}" />
+                <x-jet-input id="codigo" class="block mt-1 w-full" type="number" name="codigo" :value="old('codigo')" required autofocus autocomplete="codigo" />
             </div>
 
             <div class="mt-4">

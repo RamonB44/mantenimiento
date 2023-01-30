@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Componente extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function Articulo(){
+        return $this->hasOne(Articulo::class);
+    }
 }

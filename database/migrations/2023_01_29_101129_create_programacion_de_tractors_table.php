@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->enum('turno',['MAÑANA','NOCHE']);
             $table->foreignId('lote_id')->constrained();
+            $table->boolean('esta_reportado')->default(false);
             $table->timestamps();
         });
     }

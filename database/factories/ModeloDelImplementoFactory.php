@@ -17,7 +17,7 @@ class ModeloDelImplementoFactory extends Factory
     public function definition()
     {
         return [
-            'modelo_de_implemento' => $this->faker->unqiue()->lexify('????????'),
+            'modelo_de_implemento' => $this->faker->unique()->lexify('????????'),
         ];
     }
 }

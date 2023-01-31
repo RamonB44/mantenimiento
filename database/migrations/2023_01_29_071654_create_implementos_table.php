@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreignId('modelo_del_implemento_id')->constrained();
             $table->integer('numero_del_implemento');
             $table->decimal('horas_de_uso',8,2);
-            $table->foreignId('user_id')->constrained(); //Responsable
+            $table->unsignedBigInteger('responsable');
+            $table->foreign('responsable')->references('id')->on('users');
             $table->foreignId('sede_id')->constrained();
             $table->foreignId('centro_de_costo_id')->constrained();
             $table->timestamps();

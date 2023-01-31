@@ -16,10 +16,10 @@ class Implemento extends Model
     }
 
     public function Responsable(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'responsable');
     }
 
     public function CentroDeCosto(){
-        return $this->belongsTo(CentroDeCosto::class);
+        return $this->belongsTo(CentroDeCosto::class,);
     }
 }

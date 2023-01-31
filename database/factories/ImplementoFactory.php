@@ -24,7 +24,7 @@ class ImplementoFactory extends Factory
             'modelo_del_implemento_id' => ModeloDelImplemento::all()->random()->id,
             'numero_del_implemento' => $this->faker->unique()->randomNumber(3,false),
             'horas_de_uso' => $this->faker->randomFloat(2,30,300),
-            'user_id' => User::all()->random()->id,
+            'responsable' => User::all()->random()->id,
             'sede_id' => Sede::all()->random()->id,
             'centro_de_costo_id' => CentroDeCosto::all()->random()->id
         ];

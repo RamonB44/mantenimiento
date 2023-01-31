@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('reporte_de_tractors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('tractorista');
+            $table->foreign('tractorista')->references('id')->on('users');
             $table->foreignId('tractor_id')->constrained();
             $table->foreignId('labor_id')->constrained();
             $table->string('correlativo',30)->unique();
@@ -26,6 +27,9 @@ return new class extends Migration
             $table->decimal('horometro_final',8,2);
             $table->decimal('horas',8,2);
             $table->foreignId('lote_id')->constrained();
+            $table->foreignId('sede_id')->constrained();
+            $table->unsignedBigInteger('validado_por');
+            $table->foreign('validado_por')->references('id')->on('users');
             $table->timestamps();
         });
     }

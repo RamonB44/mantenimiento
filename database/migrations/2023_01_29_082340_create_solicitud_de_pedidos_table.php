@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('solicitud_de_pedidos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('solicitante');
+            $table->foreign('solicitante')->references('id')->on('users');
             $table->foreignId('implemento_id')->constrained();
             $table->enum('estado',['PENDIENTE', 'CERRADO', 'VALIDADO', 'RECHAZADO', 'CONCLUIDO'])->default('PENDIENTE');
             $table->unsignedBigInteger('validado_por')->nullable();

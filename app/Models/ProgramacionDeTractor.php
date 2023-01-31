@@ -12,7 +12,7 @@ class ProgramacionDeTractor extends Model
     protected $guarded = [];
 
     public function Tractorista(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'tractorista');
     }
 
     public function Labor(){
@@ -29,5 +29,9 @@ class ProgramacionDeTractor extends Model
 
     public function Lote(){
         return $this->belongsTo(Lote::class);
+    }
+
+    public function ValidadoPor(){
+        return $this->belongsTo(User::class,'validado_por');
     }
 }

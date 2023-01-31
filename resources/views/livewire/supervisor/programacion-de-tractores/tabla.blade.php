@@ -1,11 +1,28 @@
-<div class="p-6">
+<div>
     @if ($programacion_de_tractores->count())
-        <table class="min-w-max w-full table-fixed overflow-x-scroll">
+        <table class="w-full table-fixed overflow-x-scroll">
             <thead>
                 <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                     <th class="py-3 text center">
                         <span class="hidden sm:block">Tractorista</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/tractorista.png" alt="driver" width="25">
+                        <img class="sm:hidden flex mx-auto" src="/img/tabla/tractorista.png" alt="tractortista" width="25">
+                    </th>
+                    <th class="py-3 text-center">
+                        <span class="hidden sm:block">Tractor</span>
+                        <img class="sm:hidden flex mx-auto" src="/img/tabla/tractor.svg" alt="tractor"
+                            width="25">
+                    </th>
+                    <th class="py-3 text-center">
+                        <span class="hidden sm:block">Implemento</span>
+                        <img class="sm:hidden flex mx-auto" src="/img/tabla/implemento.png" alt="implemento" width="25">
+                    </th>
+                    <th class="py-3 text-center">
+                        <span class="hidden sm:block">Día</span>
+                        <img class="sm:hidden flex mx-auto" src="/img/tabla/fecha.svg" alt="fecha" width="28">
+                    </th>
+                    <th class="py-3 text-center">
+                        <span class="hidden sm:block">Labor</span>
+                        <img class="sm:hidden flex mx-auto" src="/img/tabla/labor.svg" alt="labor" width="25">
                     </th>
                 </tr>
             </thead>
@@ -14,7 +31,31 @@
                     <tr style="cursor:pointer" wire:click="seleccionar({{$programacion_de_tractor->id}})" class="border-b {{ $programacion_de_tractor->id == $programacion_id ? 'bg-blue-200' : '' }} border-gray-200">
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $programacion_de_tractor->Responsable->name }}</span>
+                                <span class="font-medium">{{ $programacion_de_tractor->Tractorista->name }}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 text-center">
+                            <div>
+                                <span class="font-medium">{{ $programacion_de_tractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion_de_tractor->Tractor->numero_de_tractor }}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 text-center">
+                            <div>
+                                <span class="font-medium">{{ $programacion_de_tractor->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion_de_tractor->Implemento->numero_del_implemento }}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 text-center">
+                            <div>
+                                <span class="font-medium">{{ $programacion_de_tractor->fecha }}</span>
+                                <div class="flex items-center justify-center">
+                                    <img src="img/tabla/{{ $programacion_de_tractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg"
+                                        alt="turno" width="25">
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 px-2 text-center">
+                            <div>
+                                <span class="font-medium">{{ $programacion_de_tractor->labor->labor }}</span>
                             </div>
                         </td>
                     </tr>
@@ -28,5 +69,5 @@
     @endif
         <div class="px-4 py-4">
             {{ $programacion_de_tractores->links() }}
-
+        </div>
 </div>

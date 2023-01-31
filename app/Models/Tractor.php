@@ -10,4 +10,8 @@ class Tractor extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function ModeloDeTractor(){
+        return $this->belongsTo(ModeloDeTractor::class);
+    }
 }

@@ -15,6 +15,12 @@
 
         <!-- Styles -->
         @livewireStyles
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -33,7 +39,7 @@
 
             <!-- Page Content -->
             <main>
-                <div class="min-w-screen min-h-3/4 flex items-center justify-center bg-gray-100 font-sans overflow-y-hidden">
+                <div class="min-w-screen min-h-3/4 p-6 flex items-center justify-center bg-gray-100 font-sans overflow-y-hidden">
                     {{ $slot }}
                 </div>
             </main>
@@ -42,5 +48,19 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script>
+            /*------Alerta para registro----------------------------------------------------*/
+            Livewire.on('alerta', data =>{
+                Swal.fire({
+                    position: data[0],
+                    icon: data[1],
+                    title: data[2],
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            });
+        </script>
+
     </body>
 </html>

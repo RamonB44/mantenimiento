@@ -15,9 +15,16 @@ class Tabla extends Component
 
     public $programacion_id = 0;
 
+    protected $listeners =['actualizarTabla'=>'render'];
+
+    public function seleccionar($id){
+        $this->programacion_id = $id;
+        $this->emit('obtener_programacion',$id);
+    }
+
     public function render()
     {
-        $programacion_de_tractores = ProgramacionDeTractor::where('sede_id',Auth::user()->sede_id)->paginate(8);
+        $programacion_de_tractores = ProgramacionDeTractor::where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->paginate(8);
         $tractores = Tractor::where('sede_id',Auth::user()->sede_id);
 
         return view('livewire.supervisor.programacion-de-tractores.tabla',compact('programacion_de_tractores'));

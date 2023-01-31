@@ -22,4 +22,8 @@ class Implemento extends Model
     public function CentroDeCosto(){
         return $this->belongsTo(CentroDeCosto::class,);
     }
+
+    public function ModeloDelImplemento(){
+        return $this->belongsTo(ModeloDelImplemento::class);
+    }
 }

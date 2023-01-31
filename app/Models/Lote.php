@@ -11,7 +11,7 @@ class Lote extends Model
 
     protected $guarded = [];
 
-    public function fundo(){
+    public function Fundo(){
         return $this->belongsTo(Fundo::class);
     }
 

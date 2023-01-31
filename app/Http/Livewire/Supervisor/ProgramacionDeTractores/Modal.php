@@ -15,7 +15,6 @@ use Livewire\Component;
 class Modal extends Component
 {
     public $open = false;
-    public $accion = "crear";
 
     public $fecha;
     public $turno;
@@ -24,14 +23,14 @@ class Modal extends Component
     public $correlativo;
     public $tractorista;
     public $tractor;
-    public $horometro_inicial;
-    public $horometro_final;
     public $implemento;
     public $labor;
 
     public $tractores_usados = [];
     public $tractoristas_usados = [];
     public $implementos_usados = [];
+
+    public $programacion_id;
 
     protected $listeners = ['abrir_modal'];
 
@@ -80,11 +79,32 @@ class Modal extends Component
         $this->tractor = 0;
         $this->implemento = 0;
         $this->labor = 0;
+        $this->programacion_id = 0;
     }
 
-    public function abrir_modal($accion){
-        $this->accion = $accion;
+    public function abrir_modal($id){
+        $this->programacion_id = $id;
+
+        if($id > 0){
+            $programacion = ProgramacionDeTractor::find($id);
+
+            $this->fecha = $programacion->fecha;
+            $this->turno = $programacion->turno;
+            $this->fundo = $programacion->Lote->fundo_id;
+            $this->lote = $programacion->lote_id;
+            $this->tractorista = $programacion->tractorista;
+            $this->tractor = $programacion->tractor_id;
+            $this->implemento = $programacion->implemento_id;
+            $this->labor = $programacion->labor_id;
+        }
+
         $this->open = true;
+    }
+
+    public function updatedOpen(){
+        if(!$this->open){
+            $this->resetExcept('open','fecha','turno');
+        }
     }
 
     public function updatedFundo(){
@@ -103,23 +123,43 @@ class Modal extends Component
         $this->validate();
 
         $fundo_obj = Fundo::find($this->fundo);
+        if($this->programacion_id > 0){
+            $programacion = ProgramacionDeTractor::find($this->programacion_id);
 
-        ProgramacionDeTractor::create([
-            'fecha' => $this->fecha,
-            'turno' => $this->turno,
-            'sede_id' => $fundo_obj->sede_id,
-            'lote_id' => $this->lote,
-            'tractorista' => $this->tractorista,
-            'tractor_id' => $this->tractor,
-            'implemento_id' => $this->implemento,
-            'labor_id' => $this->labor,
-            'validado_por' => Auth::user()->id,
-        ]);
+            $programacion->fecha = $this->fecha;
+            $programacion->turno = $this->turno;
+            $programacion->sede_id = $fundo_obj->sede_id;
+            $programacion->lote_id = $this->lote;
+            $programacion->tractorista = $this->tractorista;
+            $programacion->tractor_id = $this->tractor;
+            $programacion->implemento_id = $this->implemento;
+            $programacion->labor_id = $this->labor;
+            $programacion->validado_por = Auth::user()->id;
+
+            $programacion->save();
+
+
+            $this->emit('alerta',['center','success','Programación Registrada']);
+        }else{
+            ProgramacionDeTractor::create([
+                'fecha' => $this->fecha,
+                'turno' => $this->turno,
+                'sede_id' => $fundo_obj->sede_id,
+                'lote_id' => $this->lote,
+                'tractorista' => $this->tractorista,
+                'tractor_id' => $this->tractor,
+                'implemento_id' => $this->implemento,
+                'labor_id' => $this->labor,
+                'validado_por' => Auth::user()->id,
+            ]);
+
+
+            $this->emit('alerta',['center','success','Programación Editada']);
+        }
 
         $this->resetExcept('fecha','turno');
 
         $this->emitTo('supervisor.programacion-de-tractores.tabla','actualizarTabla');
-        $this->emit('alerta',['center','success','Programación Registrado']);
     }
 
 
@@ -136,7 +176,12 @@ class Modal extends Component
 
         if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->exists()){
             /*--------------Obtener registros ya seleccionados-------------------------------*/
+            if($this->programacion_id > 0){
+                $repetidos = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id])->get();
+            }else{
                 $repetidos = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->get();
+            }
+
                 foreach($repetidos as $repetido){
                     array_push($this->tractoristas_usados,$repetido->tractorista);
                     array_push($this->tractores_usados,$repetido->tractor_id);

@@ -1,7 +1,8 @@
 <div>
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
-            Registrar Programación de tractores
+            Registrar Programación de tractores {{$programacion_id}}
+
             @foreach ($tractoristas_usados as $item)
                 {{$item}}
             @endforeach

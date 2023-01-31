@@ -2,6 +2,9 @@
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
             Registrar Programación de tractores
+            @foreach ($tractoristas_usados as $item)
+                {{$item}}
+            @endforeach
         </x-slot>
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
@@ -73,7 +76,7 @@
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Implemento:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model.defer='implement'>
+                    <select class="form-select" style="width: 100%" wire:model.defer='implemento'>
                         <option value="0">Seleccione una opción</option>
                     @foreach ($implementos as $implemento)
                         <option value="{{ $implemento->id }}">{{ $implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento->numero_del_implemento }}</option>

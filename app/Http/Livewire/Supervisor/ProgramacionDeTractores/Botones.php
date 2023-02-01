@@ -9,6 +9,7 @@ class Botones extends Component
 {
 
     public $programacion_id = 0;
+    public $boton_activo = false;
 
     protected $listeners = ['obtener_programacion'];
 
@@ -16,8 +17,12 @@ class Botones extends Component
         $this->programacion_id = $id;
     }
 
-    public function abrir_modal($accion){
-        $this->emit('abrir_modal',$accion);
+    public function abrir_modal($id){
+        $this->emitTo('supervisor.programacion-de-tractores.modal','abrir_modal',$id);
+    }
+
+    public function imprimir(){
+        $this->emitTo('supervisor.programacion-de-tractores.imprimir','abrir_modal');
     }
 
     public function anular(){
@@ -39,6 +44,8 @@ class Botones extends Component
 
     public function render()
     {
+        $this->boton_activo = $this->programacion_id > 0;
+
         return view('livewire.supervisor.programacion-de-tractores.botones');
     }
 }

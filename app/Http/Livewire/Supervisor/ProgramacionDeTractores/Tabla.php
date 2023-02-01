@@ -15,11 +15,11 @@ class Tabla extends Component
 
     public $programacion_id = 0;
 
-    protected $listeners =['actualizarTabla'=>'render'];
+    protected $listeners =['render'];
 
     public function seleccionar($id){
         $this->programacion_id = $id;
-        $this->emit('obtener_programacion',$id);
+        $this->emitTo('supervisor.programacion-de-tractores.botones','obtener_programacion',$id);
     }
 
     public function render()

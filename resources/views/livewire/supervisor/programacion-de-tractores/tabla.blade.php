@@ -21,6 +21,10 @@
                         <img class="sm:hidden flex mx-auto" src="/img/tabla/fecha.svg" alt="fecha" width="28">
                     </th>
                     <th class="py-3 text-center">
+                        <span class="hidden sm:block">Lote</span>
+                        <img class="sm:hidden flex mx-auto" src="/img/tabla/lote.png" alt="fecha" width="25">
+                    </th>
+                    <th class="py-3 text-center">
                         <span class="hidden sm:block">Labor</span>
                         <img class="sm:hidden flex mx-auto" src="/img/tabla/labor.svg" alt="labor" width="25">
                     </th>
@@ -51,6 +55,11 @@
                                     <img src="img/tabla/{{ $programacion_de_tractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg"
                                         alt="turno" width="25">
                                 </div>
+                            </div>
+                        </td>
+                        <td class="py-3 px-2 text-center">
+                            <div>
+                                <span class="font-medium">{{ $programacion_de_tractor->Lote->lote }}</span>
                             </div>
                         </td>
                         <td class="py-3 px-2 text-center">

@@ -1,11 +1,7 @@
 <div>
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
-            Registrar Programación de tractores {{$programacion_id}}
-
-            @foreach ($tractoristas_usados as $item)
-                {{$item}}
-            @endforeach
+            Registrar Programación de tractores
         </x-slot>
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
@@ -113,9 +109,4 @@
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>
-    <script>
-        document.addEventListener('livewire:load', function() {
-            $('.select2').select2();
-        })
-    </script>
 </div>

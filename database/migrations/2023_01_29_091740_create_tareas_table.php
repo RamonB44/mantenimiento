@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('tareas', function (Blueprint $table) {
             $table->id();
             $table->string('tarea')->unique();
-            $table->foreignId('componente_id')->constrained();
+            $table->foreignId('articulo_id')->constrained();
+            $table->enum('tipo',['RUTINARIO','PREVENTIVO','RECAMBIO']);
             $table->decimal('tiempo_estimado',8,2);
             $table->timestamps();
         });

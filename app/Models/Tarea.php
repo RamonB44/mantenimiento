@@ -10,4 +10,8 @@ class Tarea extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function ArticuloParaTarea(){
+    	return $this->hasMany(ArticuloParaTarea::class,'tarea_id','id');
+    }
 }

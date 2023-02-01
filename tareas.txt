@@ -1,19 +1,12 @@
 Hacer trriggers a la bd para:
-1. Tabla componentes:
-    -Al agregar:
-        --agregar como componente o pieza a la de articulos.
-    -Al editar:
-        --editar o cambiar componente a pieza replicar en articulos.
-    -Al eliminar:
-        --eliminar de articulos.
-2. Programacion de tractores:
+1. Programacion de tractores:
     -Al agregar:
         --agregar la rutina.
     -Al editar:
         --editar la rutina.
     -Al anular:
         --eliminar la rutina.
-3. Componentes por modelo de implemento:
+3. Articulos por modelo de implemento:
     -Al agregar:
         --agregar a la tabla componentes por modelo por cada implemento del modelo regitrado.
     -Al editar:

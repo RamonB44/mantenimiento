@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Tarea;
 use App\Models\Articulo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PiezaPorModelo>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ArticuloParaTarea>
  */
-class PiezaPorModeloFactory extends Factory
+class ArticuloParaTareaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +19,8 @@ class PiezaPorModeloFactory extends Factory
     public function definition()
     {
         return [
-            'pieza' => Articulo::where('tipo','PIEZA')->get()->random()->id,
-            'articulo_id' => Articulo::where('tipo','COMPONENTE')->get()->random()->id,
+            'tarea_id' => Tarea::all()->random()->id,
+            'articulo_id' => Articulo::all()->random()->id,
         ];
     }
 }

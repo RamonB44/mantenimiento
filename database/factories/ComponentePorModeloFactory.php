@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Componente;
+use App\Models\Articulo;
 use App\Models\ModeloDelImplemento;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,8 +19,9 @@ class ComponentePorModeloFactory extends Factory
     public function definition()
     {
         return [
-            'componente_id' => Componente::all()->random()->id,
+            'articulo_id' => Articulo::all()->random()->id,
             'modelo_id' => ModeloDelImplemento::all()->random()->id,
+            'sistema' => $this->faker->randomElement(['HIDRAÚLICO','MECÁNICO','NEUMÁTICO','OLEO HIDRAÚLICO','ELECTRÓNICO','ELÉCTRICO']),
         ];
     }
 }

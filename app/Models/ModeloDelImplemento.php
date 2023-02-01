@@ -16,6 +16,6 @@ class ModeloDelImplemento extends Model
     }
 
     public function ComponentePorModelo(){
-        return $this->hasMany(ComponentePorModelo::class);
+        return $this->hasMany(ComponentePorModelo::class,'modelo_id','id');
     }
 }

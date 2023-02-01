@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('pieza_por_modelos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pieza');
-            $table->foreign('pieza')->references('id')->on('componentes');
-            $table->foreignId('componente_id')->constrained();
+            $table->foreign('pieza')->references('id')->on('articulos');
+            $table->foreignId('articulo_id')->constrained();
             $table->timestamps();
-            $table->index(['pieza', 'componente_id']);
+            $table->index(['pieza', 'articulo_id']);
         });
     }
 

@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('pieza_por_componentes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pieza');
-            $table->foreign('pieza')->references('id')->on('componentes');
-            $table->foreignId('componente_id')->constrained();
+            $table->foreign('pieza')->references('id')->on('articulos');
+            $table->foreignId('articulo_id')->constrained();
             $table->decimal('horas',8,2)->default(0);
             $table->enum('estado',['EN USO','PARA CAMBIO','CAMBIO ORDENADO','CAMBIADO'])->default('EN USO');
             $table->timestamps();
-            $table->index(['pieza','componente_id']);
+            $table->index(['pieza','articulo_id']);
         });
     }
 

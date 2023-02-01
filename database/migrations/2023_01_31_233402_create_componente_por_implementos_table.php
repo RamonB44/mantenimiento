@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('componente_por_implementos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('componente_id')->constrained();
+            $table->foreignId('articulo_id')->constrained();
             $table->foreignId('implemento_id')->constrained();
             $table->decimal('horas',8,2)->default(0);
             $table->enum('estado',['EN USO','PARA CAMBIO','CAMBIO ORDENADO','CAMBIADO'])->default('EN USO');
             $table->timestamps();
-            $table->index(['componente_id','implemento_id']);
+            $table->index(['articulo_id','implemento_id']);
         });
     }
 

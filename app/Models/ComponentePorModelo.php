@@ -12,4 +12,7 @@ class ComponentePorModelo extends Model
     public function Modelo(){
         return $this->belongsTo(ModeloDelImplemento::class);
     }
+    public function Articulo(){
+    	return $this->belongsTo(Articulo::class);
+    }
 }

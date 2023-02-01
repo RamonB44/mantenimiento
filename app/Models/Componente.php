@@ -12,6 +12,9 @@ class Componente extends Model
     protected $guarded = [];
 
     public function Articulo(){
-        return $this->hasOne(Articulo::class);
+        return $this->belongsTo(Articulo::class);
+    }
+    public function Tarea(){
+        return $this->hasMany(Tarea::class);
     }
 }

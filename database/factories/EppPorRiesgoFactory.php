@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Epp;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Riesgo>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\EppPorRiesgo>
  */
-class RiesgoFactory extends Factory
+class EppPorRiesgoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +18,8 @@ class RiesgoFactory extends Factory
     public function definition()
     {
         return [
-            'riesgo' => $this->faker->unique()->lexify('????????')
+            'epp_id' => Epp::all()->random()->id,
+            'riesgo_id' => Epp::all()->random()->id,
         ];
     }
 }

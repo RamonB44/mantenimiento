@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('componentes', function (Blueprint $table) {
+        Schema::create('rutinarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('articulo_id')->constrained();
-            $table->string('componente')->unique();
-            $table->enum('sistema',['HIDRAÚLICO','MECÁNICO','NEUMÁTICO','OLEO HIDRAÚLICO','ELECTRÓNICO']);
-            $table->boolean('es_pieza')->default(false);
-            $table->decimal('tiempo_de_vida',8,2)->default(0);
+            $table->foreignId('programacion_de_tractor_id')->constrained();
+            $table->foreignId('tarea_id')->constrained();
+            $table->boolean('realizado')->default(false);
+            $table->unsignedBigInteger('validado_por')->nullable();
+            $table->foreign('validado_por')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('componentes');
+        Schema::dropIfExists('rutinarios');
     }
 };

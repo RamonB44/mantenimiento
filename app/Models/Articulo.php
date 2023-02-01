@@ -14,4 +14,8 @@ class Articulo extends Model
     public function UnidadDeMedida(){
         return $this->belongsTo(UnidadDeMedida::class);
     }
+
+    public function Componente(){
+        return $this->hasOne(Componente::class);
+    }
 }

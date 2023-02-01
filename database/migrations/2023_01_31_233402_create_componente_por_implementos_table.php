@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tareas', function (Blueprint $table) {
+        Schema::create('componente_por_implementos', function (Blueprint $table) {
             $table->id();
-            $table->string('tarea')->unique();
             $table->foreignId('componente_id')->constrained();
-            $table->decimal('tiempo_estimado',8,2);
+            $table->foreignId('implemento_id')->constrained();
+            $table->decimal('horas',8,2)->default(0);
+            $table->enum('estado',['EN USO','PARA CAMBIO','CAMBIO ORDENADO','CAMBIADO'])->default('EN USO');
             $table->timestamps();
+            $table->index(['componente_id','implemento_id']);
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tareas');
+        Schema::dropIfExists('componente_por_implementos');
     }
 };

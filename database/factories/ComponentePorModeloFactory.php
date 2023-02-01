@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Componente;
+use App\Models\ModeloDelImplemento;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tarea>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ComponentePorModelo>
  */
-class TareaFactory extends Factory
+class ComponentePorModeloFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +19,8 @@ class TareaFactory extends Factory
     public function definition()
     {
         return [
-            'tarea' => $this->faker->unique()->lexify('????????'),
             'componente_id' => Componente::all()->random()->id,
-            'tiempo_estimado' => 30,
+            'modelo_id' => ModeloDelImplemento::all()->random()->id,
         ];
     }
 }

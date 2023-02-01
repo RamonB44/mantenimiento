@@ -17,7 +17,9 @@ class ComponenteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'articulo_id' => '',
+            'componente' => $this->faker->unique()->lexify('??????'),
+            'sistema' => $this->faker->randomElement(['HIDRAÚLICO','MECÁNICO','NEUMÁTICO','OLEO HIDRAÚLICO','ELECTRÓNICO']),
         ];
     }
 }

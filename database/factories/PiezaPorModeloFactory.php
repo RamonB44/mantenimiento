@@ -6,9 +6,9 @@ use App\Models\Componente;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tarea>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PiezaPorModelo>
  */
-class TareaFactory extends Factory
+class PiezaPorModeloFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,8 @@ class TareaFactory extends Factory
     public function definition()
     {
         return [
-            'tarea' => $this->faker->unique()->lexify('????????'),
-            'componente_id' => Componente::all()->random()->id,
-            'tiempo_estimado' => 30,
+            'pieza' => Componente::where('es_pieza',0)->get(),
+            'componente_id' => Componente::where('ez_pieza',1)->get(),
         ];
     }
 }

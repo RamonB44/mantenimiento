@@ -14,4 +14,8 @@ class ModeloDelImplemento extends Model
     public function Implemento(){
         return $this->hasMany(Implemento::class);
     }
+
+    public function ComponentePorModelo(){
+        return $this->hasMany(ComponentePorModelo::class);
+    }
 }

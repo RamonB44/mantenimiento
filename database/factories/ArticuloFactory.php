@@ -22,7 +22,7 @@ class ArticuloFactory extends Factory
             'articulo' => $this->faker->lexify('????????'),
             'unidad_de_medida_id' => UnidadDeMedida::all()->random()->id,
             'precio_estimado' => $this->faker->randomFloat(2,500,5000),
-            'tipo' => $this->faker->randomElement(['FUNGIBLE','HERRAMIENTA']),
+            'tipo' => "COMPONENTE",
         ];
     }
 }

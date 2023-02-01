@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('componentes', function (Blueprint $table) {
+        Schema::create('epp_por_riesgos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('articulo_id')->constrained();
-            $table->string('componente')->unique();
-            $table->enum('sistema',['HIDRAÚLICO','MECÁNICO','NEUMÁTICO','OLEO HIDRAÚLICO','ELECTRÓNICO']);
-            $table->boolean('es_pieza')->default(false);
-            $table->decimal('tiempo_de_vida',8,2)->default(0);
+            $table->foreignId('epp_id')->constrained();
+            $table->foreignId('riesgo_id')->constrained();
             $table->timestamps();
+            $table->index(['epp_id', 'riesgo_id'],);
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('componentes');
+        Schema::dropIfExists('epp_por_riesgos');
     }
 };

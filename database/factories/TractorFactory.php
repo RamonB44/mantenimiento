@@ -20,7 +20,7 @@ class TractorFactory extends Factory
     {
         return [
             'modelo_de_tractor_id' => ModeloDeTractor::all()->random()->id,
-            'numero_de_tractor' => $this->faker->unique()->randomNumber(3,false),
+            'numero' => $this->faker->unique()->randomNumber(3,false),
             'horometro' => $this->faker->unique()->randomFloat(2,30,300),
             'sede_id' => Sede::all()->random()->id,
         ];

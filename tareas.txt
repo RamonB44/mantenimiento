@@ -6,16 +6,12 @@ Hacer trriggers a la bd para:
         --editar la rutina.
     -Al anular:
         --eliminar la rutina.
-3. Articulos por modelo de implemento:
-    -Al agregar:
-        --agregar a la tabla componentes por modelo por cada implemento del modelo regitrado.
+2. Articulos por modelo de implemento:
     -Al editar:
         --editar a la tabla de componentes por modelo por cada implemento del modelo editado.
     -Al eliminar:
         --eliminar a la tabla de componentes por modelo por cada implemento del modelo eliminado.
-4. Piezas por modelo de componente:
-    -Al agregar:
-        --agregar a la tabla componentes por modelo por cada componente del modelo regitrado.
+3. Piezas por modelo de componente:
     -Al editar:
         --editar a la tabla de componentes por modelo por cada componente del modelo editado.
     -Al eliminar:

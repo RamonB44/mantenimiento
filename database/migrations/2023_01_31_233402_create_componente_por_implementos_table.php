@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('horas',8,2)->default(0);
             $table->enum('estado',['EN USO','PARA CAMBIO','CAMBIO ORDENADO','CAMBIADO'])->default('EN USO');
             $table->timestamps();
-            $table->index(['articulo_id','implemento_id']);
+            $table->unique(['articulo_id','implemento_id']);
         });
     }
 

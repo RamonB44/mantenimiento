@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('epp_id')->constrained();
             $table->foreignId('riesgo_id')->constrained();
             $table->timestamps();
-            $table->index(['epp_id', 'riesgo_id'],);
+            $table->unique(['epp_id', 'riesgo_id'],);
         });
     }
 

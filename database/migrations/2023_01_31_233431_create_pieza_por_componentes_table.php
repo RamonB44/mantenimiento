@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pieza');
             $table->foreign('pieza')->references('id')->on('articulos');
-            $table->foreignId('articulo_id')->constrained();
+            $table->foreignId('componente_por_implemento_id')->constrained();
             $table->decimal('horas',8,2)->default(0);
             $table->enum('estado',['EN USO','PARA CAMBIO','CAMBIO ORDENADO','CAMBIADO'])->default('EN USO');
             $table->timestamps();
-            $table->index(['pieza','articulo_id']);
+            $table->unique(['pieza','componente_por_implemento_id']);
         });
     }
 

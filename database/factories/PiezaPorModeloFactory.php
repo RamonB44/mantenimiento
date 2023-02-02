@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Articulo;
+use App\Models\PiezaPorModelo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

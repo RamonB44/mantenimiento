@@ -10,7 +10,7 @@ class ComponentePorModelo extends Model
     use HasFactory;
 
     public function Modelo(){
-        return $this->belongsTo(ModeloDelImplemento::class);
+        return $this->belongsTo(ModeloDelImplemento::class,'modelo_id','id');
     }
     public function Articulo(){
     	return $this->belongsTo(Articulo::class);

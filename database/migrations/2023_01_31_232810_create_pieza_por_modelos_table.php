@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('pieza')->references('id')->on('articulos');
             $table->foreignId('articulo_id')->constrained();
             $table->timestamps();
-            $table->index(['pieza', 'articulo_id']);
+            $table->unique(['pieza', 'articulo_id']);
         });
     }
 

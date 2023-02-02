@@ -41,11 +41,9 @@ class DatabaseSeeder extends Seeder
         ModeloDeTractor::factory(3)->has(Tractor::factory()->count(7))->create();
         Articulo::factory(6)->create(['tipo' => 'FUNGIBLE']);
         Articulo::factory(4)->create(['tipo' => 'HERRAMIENTA']);
-        Articulo::factory(18)->create(['tipo' => 'PIEZA']);
-        Articulo::factory(6)->has(Tarea::factory()->count(5)->has(ArticuloParaTarea::factory()->count(4)))->create();
-        ModeloDelImplemento::factory(4)->has(Implemento::factory()->count(5))->has(ComponentePorModelo::factory()->count(4))->create();
-        PiezaPorModelo::factory(18)->create();
-        //ComponentePorModelo::factory(10)->create();
+        Articulo::factory(36)->has(Tarea::factory()->count(5)->has(ArticuloParaTarea::factory()->count(4)))->create();
+        ModeloDelImplemento::factory(4)->has(Implemento::factory()->count(3))->has(ComponentePorModelo::factory()->count(3))->create();
+        Articulo::factory(36)->has(PiezaPorModelo::factory()->count(1))->create(['tipo' => 'PIEZA']);
         $this->call([
             RoleSeeder::class
         ]);

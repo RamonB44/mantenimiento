@@ -18,4 +18,8 @@ class Articulo extends Model
     public function Tarea(){
         return $this->hasMany(Tarea::class);
     }
+
+    public function PiezaPorModelo(){
+        return $this->hasMany(PiezaPorModelo::class,'pieza','id');
+    }
 }

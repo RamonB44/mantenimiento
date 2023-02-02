@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('tractors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('modelo_de_tractor_id')->constrained();
-            $table->integer('numero_de_tractor');
+            $table->integer('numero');
             $table->decimal('horometro',8,2);
             $table->foreignId('sede_id')->constrained();
             $table->timestamps();
-            $table->index(['modelo_de_tractor_id','numero_de_tractor']);
+            $table->unique(['modelo_de_tractor_id','numero']);
         });
     }
 

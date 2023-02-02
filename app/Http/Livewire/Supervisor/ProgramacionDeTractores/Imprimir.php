@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Supervisor\ProgramacionDeTractores;
 
 use App\Models\ProgramacionDeTractor;
+use App\Models\Rutinario;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 
@@ -23,10 +24,10 @@ class Imprimir extends Component
     }
 
     public function imprimirProgramacion(){
-        $titulo = 'Programación del '.$this->fecha.'.pdf';
         if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('esta_anulado',0)->doesntExist()){
             $this->emit('alerta',['center','warning','No existe programacion']);
         }else{
+            $titulo = 'Programación del '.$this->fecha.'.pdf';
             $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('esta_anulado',0)->get();
             $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('esta_anulado',0)->get();
             $data = [
@@ -35,6 +36,24 @@ class Imprimir extends Component
                 'fecha' => $this->fecha,
             ];
             $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4', 'landscape')->output();
+
+            return response()->streamDownload(
+                fn () => print($pdfContent),
+                $titulo
+            );
+        }
+    }
+
+    public function imprimirRutinario(){
+        if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('esta_anulado',0)->doesntExist()){
+            $this->emit('alerta',['center','warning','No existe programacion']);
+        }else{
+            $titulo = 'Rutinario del '.$this->fecha.'.pdf';
+            $rutinarios = Rutinario::;
+            $implementos = [];
+            $data = [];
+
+            $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4')->output();
 
             return response()->streamDownload(
                 fn () => print($pdfContent),

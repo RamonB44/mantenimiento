@@ -40,12 +40,12 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $programacion_de_tractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion_de_tractor->Tractor->numero_de_tractor }}</span>
+                                <span class="font-medium">{{ $programacion_de_tractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion_de_tractor->Tractor->numero }}</span>
                             </div>
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $programacion_de_tractor->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion_de_tractor->Implemento->numero_del_implemento }}</span>
+                                <span class="font-medium">{{ $programacion_de_tractor->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion_de_tractor->Implemento->numero }}</span>
                             </div>
                         </td>
                         <td class="py-3 text-center">

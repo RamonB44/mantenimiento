@@ -64,7 +64,7 @@
                         <option value="0">Seleccione una opción</option>
                         @foreach ($tractores as $tractor)
                             <option value="{{ $tractor->id }}">{{ $tractor->ModeloDeTractor->modelo_de_tractor }}
-                                {{ $tractor->numero_de_tractor }}</option>
+                                {{ $tractor->numero }}</option>
                         @endforeach
                     </select>
 
@@ -76,7 +76,7 @@
                     <select class="form-select" style="width: 100%" wire:model.defer='implemento'>
                         <option value="0">Seleccione una opción</option>
                     @foreach ($implementos as $implemento)
-                        <option value="{{ $implemento->id }}">{{ $implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento->numero_del_implemento }}</option>
+                        <option value="{{ $implemento->id }}">{{ $implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento->numero }}</option>
                     @endforeach
                     </select>
 

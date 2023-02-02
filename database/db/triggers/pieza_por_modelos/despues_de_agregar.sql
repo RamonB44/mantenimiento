@@ -12,7 +12,7 @@ BEGIN
                 END IF;
                     FETCH cursor_componentes INTO componente;
                     IF NOT EXISTS (SELECT * FROM pieza_por_componentes WHERE pieza = new.pieza AND componente_por_implemento_id = componente) THEN
-                        INSERT INTO pieza_por_componentes (pieza,componente_por_implemento_id) VALUES (new.pieza,componente);
+                        INSERT INTO pieza_por_componentes (pieza,componente_por_implemento_id,created_at,updated_at) VALUES (new.pieza,componente,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
                     END IF;
             END LOOP bucle_componentes;
         CLOSE cursor_componentes;

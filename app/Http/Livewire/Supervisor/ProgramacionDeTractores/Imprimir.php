@@ -12,6 +12,7 @@ class Imprimir extends Component
     public $open = false;
 
     public $fecha;
+    public $data = array();
 
     protected $listeners = ['abrir_modal'];
 
@@ -49,16 +50,25 @@ class Imprimir extends Component
             $this->emit('alerta',['center','warning','No existe programacion']);
         }else{
             $titulo = 'Rutinario del '.$this->fecha.'.pdf';
-            $rutinarios = Rutinario::;
-            $implementos = [];
-            $data = [];
 
-            $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4')->output();
+            $data = array();
+            $implementos = array();
+
+            $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha,)->where('turno','MAÑANA')->select('implemento_id')->get();
+            $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha,)->where('turno','NOCHE')->select('implemento_id')->get();
+
+            foreach ($programaciones_am as $programacion) {
+                array_push($data,$programacion->implemento_id);
+            }
+
+            $this->data = $data;
+
+            /*$pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.rutinarios', $data)->setPaper('a4')->output();
 
             return response()->streamDownload(
                 fn () => print($pdfContent),
                 $titulo
-            );
+            );*/
         }
     }
 

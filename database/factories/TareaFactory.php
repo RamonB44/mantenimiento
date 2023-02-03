@@ -19,7 +19,7 @@ class TareaFactory extends Factory
     {
         return [
             'tarea' => $this->faker->unique()->lexify('????????'),
-            'articulo_id' => Articulo::all()->random()->id,
+            'articulo_id' => Articulo::where('tipo','COMPONENTE')->get()->random()->id,
             'tipo' => $this->faker->randomElement(['RUTINARIO','PREVENTIVO']),
             'tiempo_estimado' => 30,
         ];

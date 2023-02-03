@@ -2,9 +2,20 @@
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
             Registrar Programación de tractores
-            @foreach ($data as $item)
-                {{ $item }}
-            @endforeach
+            @if ($data != [])
+                @foreach ($data['implementos'] as $implemento)
+                    IMPLEMENTO: {{$implemento['modelo']}} {{$implemento['numero']}}
+                    @foreach ($implemento['sistemas'] as $sistema)
+                        SISTEMA :{{$sistema['sistema']}}
+                        @foreach ($sistema['componentes'] as $componente)
+                           COMPONENTE: {{$componente['componente']}}
+                            @foreach ($componente['tareas'] as $tarea)
+                                TAREA : {{$tarea}}
+                            @endforeach
+                        @endforeach
+                    @endforeach
+                @endforeach
+            @endif
         </x-slot>
         <x-slot name="content">
             <div class="py-2" style="padding-left: 1rem; padding-right:1rem">

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Programación de Tractores del {{ $date }}</title>
+    <title>Programación de Tractores</title>
 
     <style>
         html{
@@ -123,36 +123,46 @@
                 @foreach ($implementos as $implemento)
                     <div class="sub{{ $loop->index > 0 ? ' page-break' : '' }}">
                         <div class="title">
-                            <label>Rutinario del Implemento: {{$implemento->id}} {{ $implemento->ModeloDelImplemento->modelo_del_implemento }} {{ $implemento->numero }} </label>
+                            <label>Rutinario del Implemento: {{  $implemento['modelo']  }} {{  $implemento['numero']  }} </label>
                             <div class="detalle">
-                                <label>Operador: {{ $implemento->Responsable->name }} </label><br>
-                                <label>Fecha: {{ $fecha }} </label>
-                                <label>Turno: {{ $implemento->turno }} </label>
+                                <label>Operador: {{  $implemento['operario']  }} </label><br>
+                                <label>Fecha: {{  date_format($implemento['fecha'],'d/m/Y')  }} </label>
+                                <label>Turno: {{  $implemento['turno']  }} </label>
                             </div>
                         </div>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Item</th>
+                                    <th>Sistema</th>
                                     <th>Componente</th>
                                     <th>Tarea</th>
                                     <th>¿Verficado?</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tareas as $tarea)
-                                    @if($tarea->routine_task_id == $implement->id)
-                                        <tr>
-                                            <td> {{  ++$item  }} </td>
-                                            <td> {{  $tarea->componente  }} </td>
-                                            <td> {{  $tarea->tarea  }} </td>
+                                @foreach ($implemento['sistemas'] as $sistema)
+                                  @foreach ($sistema['componentes'] as $indice_componente => $componente)
+                                  @php
+                                      $cantidad_de_tareas = count($sistema['componentes'])*count($componente['tareas']);
+                                  @endphp
+                                  @foreach ($componente['tareas'] as $indice_tarea => $tarea)
+                                    <tr>
+                                            @if ($indice_tarea == 0)
+                                                <td rowspan="{{count($sistema['componentes'])*count($componente['tareas'])}}"> {{$sistema['sistema']}} </td>
+                                            @endif
+                                            @if ($indice_tarea == 0)
+                                                <td  rowspan="{{count($componente['tareas'])}}">{{ $componente['componente'] }}</td>
+                                            @endif
+                                            <td>{{$tarea}}</td>
                                             <td>
                                                 <div class="checkbox">
                                                     <label for="checkbox"></label>
                                                 </div>
                                             </td>
-                                        </tr>
-                                    @endif
+                                    </tr>
+                                    {{$cantidad_de_tareas--}}
+                                    @endforeach
+                                  @endforeach
                                 @endforeach
                             </tbody>
                         </table>

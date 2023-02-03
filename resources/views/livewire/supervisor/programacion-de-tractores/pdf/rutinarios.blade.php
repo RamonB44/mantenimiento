@@ -144,8 +144,8 @@
                                   @foreach ($sistema['componentes'] as $indice_componente => $componente)
                                   @foreach ($componente['tareas'] as $indice_tarea => $tarea)
                                     <tr>
-                                            @if ($indice_tarea == 0)
-                                                <td rowspan="{{count($sistema['componentes'])*count($componente['tareas'])}}"> {{$sistema['sistema']}} </td>
+                                            @if ($indice_tarea == 0 && $indice_componente == 0)
+                                                <td rowspan="{{ $sistema['cantidad_de_tareas']}}"> {{$sistema['sistema']}} </td>
                                             @endif
                                             @if ($indice_tarea == 0)
                                                 <td  rowspan="{{count($componente['tareas'])}}">{{ $componente['componente'] }}</td>
@@ -166,9 +166,6 @@
                             <p>Observaciones:</p>
                         </div>
                     </div>
-                    @php
-                        $item = 0;
-                    @endphp
                 @endforeach
             </div>
         </div>

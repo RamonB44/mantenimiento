@@ -9,12 +9,12 @@ use App\Models\ProgramacionDeTractor;
 use App\Models\Rutinario;
 use App\Models\Tarea;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Imprimir extends Component
 {
     public $open = false;
-    public $data = [];
     public $fecha;
 
     protected $listeners = ['abrir_modal'];
@@ -55,39 +55,43 @@ class Imprimir extends Component
             $titulo = 'Rutinario del '.$this->fecha.'.pdf';
 
             $data = [];
-            $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->select('implemento_id')->get();
-            $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->select('implemento_id')->get();
+            $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->select('implemento_id','turno')->orderBy('turno','asc')->get();
             $fecha = date_create($this->fecha);
-            foreach ($programaciones_am as $indice_implemento => $programacion) {
+            foreach ($programaciones as $indice_implemento => $programacion) {
                 $implemento = Implemento::find($programacion->implemento_id);
                 $data['implementos'][$indice_implemento]['modelo'] = $implemento->ModeloDelImplemento->modelo_de_implemento;
                 $data['implementos'][$indice_implemento]['numero'] = $implemento->numero;
                 $data['implementos'][$indice_implemento]['fecha'] = $fecha;
-                $data['implementos'][$indice_implemento]['turno'] = "MAÑANA";
+                $data['implementos'][$indice_implemento]['turno'] = $programacion->turno;
                 $data['implementos'][$indice_implemento]['operario'] = $implemento->Responsable->name;
                 $sistemas = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('sistema')->groupBy('sistema')->get();
                 foreach($sistemas as $indice_sistema => $sistema) {
-                    $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['sistema'] = $sistema->sistema;
-                    $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema',$sistema->sistema)->select('articulo_id')->get();
-                    $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'] = [];
-                    foreach($componentes as $indice_componente => $componente) {
-                        $articulo = Articulo::find($componente->articulo_id);
-                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente]['componente'] = $articulo->articulo;
-                        $tareas = Tarea::where('articulo_id', $articulo->id)->select('tarea')->get();
-                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'] = [];
-                        foreach($tareas as $indice_tarea => $tarea){
-                            $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea] = $tarea->tarea;
+                    if(DB::table('tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
+                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['sistema'] = $sistema->sistema;
+                        $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema',$sistema->sistema)->select('articulo_id')->get();
+
+                        $cantidad_de_tareas = DB::table('tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
+                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
+
+                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
+                        foreach($componentes as $indice_componente => $componente) {
+                            $articulo = Articulo::find($componente->articulo_id);
+                            $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente]['componente'] = $articulo->articulo;
+                            $tareas = Tarea::where('articulo_id', $articulo->id)->select('tarea')->get();
+                            $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'] = [];
+                            foreach($tareas as $indice_tarea => $tarea){
+                                $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea] = $tarea->tarea;
+                            }
                         }
                     }
                 }
             }
-            $this->data = $data;
-            /*$pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.rutinarios', $data)->setPaper('a4')->output();
+            $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.rutinarios', $data)->setPaper('a4')->output();
 
             return response()->streamDownload(
                 fn () => print($pdfContent),
                 $titulo
-            );*/
+            );
         }
     }
 

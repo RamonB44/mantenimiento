@@ -14,9 +14,8 @@ use Livewire\Component;
 class Imprimir extends Component
 {
     public $open = false;
-
+    public $data = [];
     public $fecha;
-    public $data = array();
 
     protected $listeners = ['abrir_modal'];
 
@@ -70,6 +69,7 @@ class Imprimir extends Component
                 foreach($sistemas as $indice_sistema => $sistema) {
                     $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['sistema'] = $sistema->sistema;
                     $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema',$sistema->sistema)->select('articulo_id')->get();
+                    $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'] = [];
                     foreach($componentes as $indice_componente => $componente) {
                         $articulo = Articulo::find($componente->articulo_id);
                         $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente]['componente'] = $articulo->articulo;
@@ -81,13 +81,13 @@ class Imprimir extends Component
                     }
                 }
             }
-
-            $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.rutinarios', $data)->setPaper('a4')->output();
+            $this->data = $data;
+            /*$pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.rutinarios', $data)->setPaper('a4')->output();
 
             return response()->streamDownload(
                 fn () => print($pdfContent),
                 $titulo
-            );
+            );*/
         }
     }
 

@@ -142,9 +142,6 @@
                             <tbody>
                                 @foreach ($implemento['sistemas'] as $sistema)
                                   @foreach ($sistema['componentes'] as $indice_componente => $componente)
-                                  @php
-                                      $cantidad_de_tareas = count($sistema['componentes'])*count($componente['tareas']);
-                                  @endphp
                                   @foreach ($componente['tareas'] as $indice_tarea => $tarea)
                                     <tr>
                                             @if ($indice_tarea == 0)
@@ -160,7 +157,6 @@
                                                 </div>
                                             </td>
                                     </tr>
-                                    {{$cantidad_de_tareas--}}
                                     @endforeach
                                   @endforeach
                                 @endforeach

@@ -125,7 +125,7 @@
                         <div class="title">
                             <label>Rutinario del Implemento: {{  $implemento['modelo']  }} {{  $implemento['numero']  }} </label>
                             <div class="detalle">
-                                <label>Operador: {{  $implemento['operario']  }} </label><br>
+                                <label>Operario: {{  $implemento['operario']  }} </label><br>
                                 <label>Fecha: {{  date_format($implemento['fecha'],'d/m/Y')  }} </label>
                                 <label>Turno: {{  $implemento['turno']  }} </label>
                             </div>

@@ -27,6 +27,7 @@
 
               @role('supervisor')
               <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Programación de Tractores</a>
+              <a href="{{ route('supervisor.validar-rutinarios') }}" class="{{ request()->routeIs('supervisor.validar-rutinarios') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Validar Rutinarios</a>
               @endrole
 
               @role('asistente')

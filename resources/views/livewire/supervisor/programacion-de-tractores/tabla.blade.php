@@ -52,8 +52,7 @@
                             <div>
                                 <span class="font-medium">{{ $programacion_de_tractor->fecha }}</span>
                                 <div class="flex items-center justify-center">
-                                    <img src="img/tabla/{{ $programacion_de_tractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg"
-                                        alt="turno" width="25">
+                                    <img src="/img/tabla/{{ $programacion_de_tractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg" alt="turno" width="25">
                                 </div>
                             </div>
                         </td>

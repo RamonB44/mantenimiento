@@ -34,4 +34,8 @@ class ProgramacionDeTractor extends Model
     public function ValidadoPor(){
         return $this->belongsTo(User::class,'validado_por');
     }
+
+    public function Rutinarios(){
+        return $this->belongsTo(Rutinario::class,'id','programacion_de_tractor_id');
+    }
 }

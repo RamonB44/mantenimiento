@@ -66,7 +66,7 @@ class Imprimir extends Component
                 $data['implementos'][$indice_implemento]['operario'] = $implemento->Responsable->name;
                 $sistemas = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('sistema')->groupBy('sistema')->get();
                 foreach($sistemas as $indice_sistema => $sistema) {
-                    if(DB::table('tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
+                    if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
                         $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['sistema'] = $sistema->sistema;
                         $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema',$sistema->sistema)->select('articulo_id')->get();
 

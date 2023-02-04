@@ -23,9 +23,9 @@
                         @if ($indice_tarea == 0)
                             <td  rowspan="{{count($componente['tareas'])}}" style="border: 3px solid black; padding: 0.2rem; text-align: center">{{ $componente['componente'] }}</td>
                         @endif
-                        <td style="border: 3px solid black; padding: 0.2rem; text-align: center">{{$tarea}}</td>
+                        <td style="border: 3px solid black; padding: 0.2rem; text-align: center">{{$tarea['tarea']}}</td>
                         <td style="border: 3px solid black; padding: 0.4rem; text-align: center">
-                            <input type="checkbox" wire:model="">
+                            <input type="checkbox" name="casillero" {{ $tarea['estado'] ? 'checked' : '' }} wire:click="toggle_tarea({{$tarea['id']}})">
                         </td>
                 </tr>
                 @endforeach

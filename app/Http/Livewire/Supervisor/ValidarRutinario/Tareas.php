@@ -7,6 +7,7 @@ use App\Models\ComponentePorModelo;
 use App\Models\Implemento;
 use App\Models\Rutinario;
 use App\Models\Tarea;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -23,18 +24,24 @@ class Tareas extends Component
 
     public function autocompletar(){
         if($this->implemento_id > 0){
-            $implemento = Implemento::find($this->implemento_id);
-            $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('articulo_id')->get();
-            foreach($componentes as $componente){
-                Rutinario::create([
-
-                ]);
-            }
+            DB::select('call autocompletar_rutinario(?,?)',[$this->implemento_id,Auth::user()->id]);
+            $this->emit('check_all');
         }
     }
 
-    public function render()
-    {
+    public function toggle_tarea($tarea){
+        if(Rutinario::where('programacion_de_tractor_id',$this->implemento_id)->where('tarea_id',$tarea)->exists()){
+            Rutinario::where('programacion_de_tractor_id',$this->implemento_id)->where('tarea_id',$tarea)->delete();
+        }else{
+            Rutinario::create([
+                'programacion_de_tractor_id' => $this->implemento_id,
+                'tarea_id' => $tarea,
+                'validado_por' => Auth::user()->id,
+            ]);
+        }
+    }
+
+    private function listar_tareas(){
         if($this->implemento_id > 0){
             $implemento = Implemento::find($this->implemento_id);
             $sistemas = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('sistema')->groupBy('sistema')->get();
@@ -43,17 +50,19 @@ class Tareas extends Component
                     $data['sistemas'][$indice_sistema]['sistema'] = $sistema->sistema;
                     $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema',$sistema->sistema)->select('articulo_id')->get();
 
-                    $cantidad_de_tareas = DB::table('tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
+                    $cantidad_de_tareas = DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
                     $data['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
 
                     $data['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
                     foreach($componentes as $indice_componente => $componente) {
                         $articulo = Articulo::find($componente->articulo_id);
                         $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['componente'] = $articulo->articulo;
-                        $tareas = Tarea::where('articulo_id', $articulo->id)->select('tarea')->get();
+                        $tareas = Tarea::where('articulo_id', $articulo->id)->select('id','tarea')->get();
                         $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'] = [];
                         foreach($tareas as $indice_tarea => $tarea){
-                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea] = $tarea->tarea;
+                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea]['id'] = $tarea->id;
+                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea]['tarea'] = $tarea->tarea;
+                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea]['estado'] =  false;
                         }
                     }
                 }
@@ -61,6 +70,12 @@ class Tareas extends Component
         }else{
             $data = [];
         }
+        return $data;
+    }
+
+    public function render()
+    {
+        $data = $this->listar_tareas();
 
         return view('livewire.supervisor.validar-rutinario.tareas',compact('data'));
     }

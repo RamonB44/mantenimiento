@@ -60,6 +60,13 @@
                     timer: 1000
                 })
             });
+            Livewire.on('check_all', () =>{
+                checkboxes = document.getElementsByName('casillero');
+                for(var i=0;i<checkboxes.length;i++) {
+                    checkboxes[i].checked = true;
+                }
+            });
+
         </script>
 
     </body>

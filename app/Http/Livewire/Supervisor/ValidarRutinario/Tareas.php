@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Supervisor\ValidarRutinario;
 
 use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
-use App\Models\Implemento;
 use App\Models\ProgramacionDeTractor;
 use App\Models\Rutinario;
 use App\Models\Tarea;
@@ -50,20 +49,22 @@ class Tareas extends Component
                 if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
                     $data['sistemas'][$indice_sistema]['sistema'] = $sistema->sistema;
                     $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema',$sistema->sistema)->select('articulo_id')->get();
-
                     $cantidad_de_tareas = DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
                     $data['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
-
-                    $data['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
+                    $restart = 0;
                     foreach($componentes as $indice_componente => $componente) {
-                        $articulo = Articulo::find($componente->articulo_id);
-                        $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['componente'] = $articulo->articulo;
-                        $tareas = Tarea::where('articulo_id', $articulo->id)->select('id','tarea')->get();
-                        $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'] = [];
-                        foreach($tareas as $indice_tarea => $tarea){
-                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea]['id'] = $tarea->id;
-                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea]['tarea'] = $tarea->tarea;
-                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente]['tareas'][$indice_tarea]['estado'] =  false;
+                        if (Tarea::where('articulo_id',$componente->articulo_id)->count() > 0){
+                            $articulo = Articulo::find($componente->articulo_id);
+                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['componente'] = $articulo->articulo;
+                            $tareas = Tarea::where('articulo_id', $articulo->id)->select('id','tarea')->get();
+                            $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'] = [];
+                            foreach($tareas as $indice_tarea => $tarea){
+                                $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['id'] = $tarea->id;
+                                $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['tarea'] = $tarea->tarea;
+                                $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['estado'] =  false;
+                            }
+                        }else{
+                            $restart++;
                         }
                     }
                 }

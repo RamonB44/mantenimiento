@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Supervisor\ValidarRutinario;
 use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
 use App\Models\Implemento;
+use App\Models\ProgramacionDeTractor;
 use App\Models\Rutinario;
 use App\Models\Tarea;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +44,7 @@ class Tareas extends Component
 
     private function listar_tareas(){
         if($this->implemento_id > 0){
-            $implemento = Implemento::find($this->implemento_id);
+            $implemento = ProgramacionDeTractor::find($this->implemento_id)->Implemento;
             $sistemas = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('sistema')->groupBy('sistema')->get();
             foreach($sistemas as $indice_sistema => $sistema) {
                 if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){

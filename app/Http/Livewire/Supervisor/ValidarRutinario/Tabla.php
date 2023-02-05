@@ -10,6 +10,8 @@ class Tabla extends Component
 {
     public $validados;
 
+    protected $listeners = ['render'];
+
     public function mount(){
         $this->validados = true;
     }

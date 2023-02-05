@@ -13,28 +13,28 @@ use Livewire\Component;
 
 class Tareas extends Component
 {
-    public $implemento_id = 0;
+    public $implemento = 0;
     public $tarea = 0;
 
     protected $listeners = ['mostrarTareas'];
 
     public function mostrarTareas($implemento){
-        $this->implemento_id = $implemento;
+        $this->implemento = $implemento;
     }
 
     public function autocompletar(){
-        if($this->implemento_id > 0){
-            DB::select('call autocompletar_rutinario(?,?)',[$this->implemento_id,Auth::user()->id]);
+        if($this->implemento > 0){
+            DB::select('call autocompletar_rutinario(?,?)',[$this->implemento,Auth::user()->id]);
             $this->emit('check_all');
         }
     }
 
     public function toggle_tarea($tarea){
-        if(Rutinario::where('programacion_de_tractor_id',$this->implemento_id)->where('tarea_id',$tarea)->exists()){
-            Rutinario::where('programacion_de_tractor_id',$this->implemento_id)->where('tarea_id',$tarea)->delete();
+        if(Rutinario::where('programacion_de_tractor_id',$this->implemento)->where('tarea_id',$tarea)->exists()){
+            Rutinario::where('programacion_de_tractor_id',$this->implemento)->where('tarea_id',$tarea)->delete();
         }else{
             Rutinario::create([
-                'programacion_de_tractor_id' => $this->implemento_id,
+                'programacion_de_tractor_id' => $this->implemento,
                 'tarea_id' => $tarea,
                 'validado_por' => Auth::user()->id,
             ]);
@@ -42,8 +42,8 @@ class Tareas extends Component
     }
 
     private function listar_tareas(){
-        if($this->implemento_id > 0){
-            $implemento = ProgramacionDeTractor::find($this->implemento_id)->Implemento;
+        if($this->implemento > 0){
+            $implemento = ProgramacionDeTractor::find($this->implemento)->Implemento;
             $sistemas = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('sistema')->groupBy('sistema')->get();
             foreach($sistemas as $indice_sistema => $sistema) {
                 if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){

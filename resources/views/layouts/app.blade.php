@@ -31,7 +31,7 @@
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
@@ -39,7 +39,7 @@
 
             <!-- Page Content -->
             <main>
-                <div class="min-w-screen min-h-3/4 p-6 flex items-center justify-center bg-gray-100 font-sans overflow-y-hidden">
+                <div class="flex items-center justify-center p-6 overflow-y-hidden font-sans bg-gray-100 min-w-screen min-h-3/4">
                     {{ $slot }}
                 </div>
             </main>
@@ -61,11 +61,19 @@
                 })
             });
             Livewire.on('check_all', () =>{
-                checkboxes = document.getElementsByName('casillero');
+                checkboxes = document.getElementsByName('check_tarea');
                 for(var i=0;i<checkboxes.length;i++) {
                     checkboxes[i].checked = true;
                 }
             });
+
+            Livewire.on('checkout_all', () =>{
+                checkboxes = document.getElementsByName('check_tarea');
+                for(var i=0;i<checkboxes.length;i++) {
+                    checkboxes[i].checked = false;
+                }
+            });
+
 
         </script>
 

@@ -25,7 +25,7 @@
                         @endif
                         <td style="border: 3px solid black; padding: 0.2rem; text-align: center">{{$tarea['tarea']}}</td>
                         <td style="border: 3px solid black; padding: 0.4rem; text-align: center">
-                            <input type="checkbox" name="casillero" {{ $tarea['estado'] ? 'checked' : '' }} wire:click="toggle_tarea({{$tarea['id']}})">
+                            <input type="checkbox" id="tarea{{$tarea['id']}}" name="check_tarea" wire:click="toggle_tarea({{$tarea['id']}})">
                         </td>
                 </tr>
                 @endforeach

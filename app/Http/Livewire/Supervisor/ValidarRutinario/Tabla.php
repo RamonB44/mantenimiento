@@ -16,6 +16,10 @@ class Tabla extends Component
         $this->validados = true;
     }
 
+    public function abrir_modal($programacion){
+        $this->emitTo('supervisor.validar-rutinario.modal','abrir_modal',$programacion);
+    }
+
     public function render()
     {
         if($this->validados){

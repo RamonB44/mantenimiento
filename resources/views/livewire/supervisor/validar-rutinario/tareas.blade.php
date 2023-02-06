@@ -9,7 +9,6 @@
                 <th style="border: 3px solid black; padding: 0.2rem; text-align: center">Sistema</th>
                 <th style="border: 3px solid black; padding: 0.2rem; text-align: center">Componente</th>
                 <th style="border: 3px solid black; padding: 0.2rem; text-align: center">Tarea</th>
-                <th style="border: 3px solid black; padding: 0.2rem; text-align: center">¿Verficado?</th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +22,7 @@
                         @if ($indice_tarea == 0)
                             <td  rowspan="{{count($componente['tareas'])}}" style="border: 3px solid black; padding: 0.2rem; text-align: center">{{ $componente['componente'] }}</td>
                         @endif
-                        <td style="border: 3px solid black; padding: 0.2rem; text-align: center">{{$tarea['tarea']}}</td>
-                        <td style="border: 3px solid black; padding: 0.4rem; text-align: center">
-                            <input type="checkbox" id="tarea{{$tarea['id']}}" name="check_tarea" wire:click="toggle_tarea({{$tarea['id']}})">
-                        </td>
+                        <td style="border: 3px solid black; padding: 0.2rem; text-align: center" wire:click="toggle_tarea({{$tarea['id']}})" class="bg-{{ $tarea['estado'] ? 'green' : 'red' }}-400">{{$tarea['tarea']}}</td>
                 </tr>
                 @endforeach
               @endforeach

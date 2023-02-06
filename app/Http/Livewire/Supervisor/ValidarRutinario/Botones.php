@@ -6,9 +6,8 @@ use Livewire\Component;
 
 class Botones extends Component
 {
-    public function abrir_modal($modal){
-        if($modal == 'rutinarios_no_validados')
-        $this->emitTo('supervisor.validar-rutinario.modal','abrir_modal');
+    public function abrir_modal($programacion){
+        $this->emitTo('supervisor.validar-rutinario.modal','abrir_modal',$programacion);
     }
 
     public function render()

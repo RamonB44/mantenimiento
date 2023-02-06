@@ -22,19 +22,22 @@ class Modal extends Component
     }
 
     public function abrir_modal($programacion){
+        $this->rutinario = $programacion;
         if($programacion > 0){
-            $this->accion = "crear";
-        }else{
             $this->accion = "editar";
-            $this->reset('rutinario');
+            $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',$this->rutinario);
+        }else{
+            
+            $this->accion = "crear";
         }
         $this->open = true;
     }
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->emitTo('supervisor.validar-rutinario.tabla','render');
             $this->reset('rutinario');
+            $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',$this->rutinario);
+            $this->emitTo('supervisor.validar-rutinario.tabla','render');
         }
     }
 

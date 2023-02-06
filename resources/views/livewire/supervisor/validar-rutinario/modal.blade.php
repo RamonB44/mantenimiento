@@ -1,7 +1,7 @@
 <div>
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
-            Rutinarios {{$accion = "crear" ? 'no' : ''}} validados
+            Rutinarios {{$accion == "crear" ? 'no' : ''}} validados
         </x-slot>
         <x-slot name="content">
             @if ($accion == "crear")
@@ -25,14 +25,8 @@
             @livewire('supervisor.validar-rutinario.tareas')
         </x-slot>
         <x-slot name="footer">
-            <x-jet-button wire:loading.attr="disabled" wire:click="registrar()">
-                Guardar
-            </x-jet-button>
-            <div wire:loading wire:target="registrar">
-                Registrando...
-            </div>
             <x-jet-secondary-button wire:click="$set('open',false)" class="ml-2">
-                Cancelar
+                Cerrar
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>

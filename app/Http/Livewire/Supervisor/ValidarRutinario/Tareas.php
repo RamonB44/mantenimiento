@@ -25,7 +25,6 @@ class Tareas extends Component
     public function autocompletar(){
         if($this->implemento > 0){
             DB::select('call autocompletar_rutinario(?,?)',[$this->implemento,Auth::user()->id]);
-            $this->emit('check_all');
         }
     }
 
@@ -61,7 +60,7 @@ class Tareas extends Component
                             foreach($tareas as $indice_tarea => $tarea){
                                 $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['id'] = $tarea->id;
                                 $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['tarea'] = $tarea->tarea;
-                                $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['estado'] =  false;
+                                $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['estado'] =  Rutinario::where('programacion_de_tractor_id', $this->implemento)->where('tarea_id',$tarea->id)->exists();
                             }
                         }else{
                             $restart++;

@@ -43,7 +43,6 @@ class Modal extends Component
 
     public function updatedRutinario(){
         $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',$this->rutinario);
-        $this->emit('checkout_all');
     }
 
     public function render()

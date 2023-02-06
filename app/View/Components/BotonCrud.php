@@ -15,12 +15,20 @@ class BotonCrud extends Component
     public $accion;
     public $color;
     public $activo;
+    public $colspan;
+    public $colspansm;
 
-    public function __construct(string $accion = null, string $color = null,bool $activo = true)
+    public function __construct(string $accion = null, string $color = null,bool $activo = true, int $colspan = 1, int $colspansm = 1)
     {
         $this->accion = $accion;
         $this->color = $color;
         $this->activo = $activo;
+        if($colspan < 1 || $colspan > 6){
+            $this->colspan = 1;
+        }else{
+            $this->colspan = $colspan;
+        }
+        $this->colspansm = $colspansm;
     }
 
     /**

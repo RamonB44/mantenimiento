@@ -11,11 +11,11 @@
                     <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Implemento:</x-jet-label>
+                    <x-jet-label>Programacion:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='rutinario'>
                         <option value="0">Seleccione una opción</option>
-                    @foreach ($rutinarios as $item)
-                        <option value="{{ $item->id }}"> {{ $item->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $item->Implemento->numero }}</option>
+                    @foreach ($programaciones as $programacion)
+                        <option value="{{ $programacion->id }}">{{$programacion->turno}} - {{ $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion->Implemento->numero }}</option>
                     @endforeach
                     </select>
                 </div>

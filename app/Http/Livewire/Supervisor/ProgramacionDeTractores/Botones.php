@@ -34,7 +34,7 @@ class Botones extends Component
                 $programacion->esta_anulado = 1;
                 $programacion->save();
                 $this->programacion_id = 0;
-                $this->emitTo('supervisor.programacion-de-tractores.tabla','actualizarTabla');
+                $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
                 $this->emit('alerta',['center','success','Anulado']);
             }
         }else{

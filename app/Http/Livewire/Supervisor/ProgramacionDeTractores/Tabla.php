@@ -22,7 +22,7 @@ class Tabla extends Component
 
     public function render()
     {
-        $programacion_de_tractores = ProgramacionDeTractor::where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->orderBy('id','desc')->paginate(6);
+        $programacion_de_tractores = ProgramacionDeTractor::where('validado_por',Auth::user()->id)->where('esta_anulado',0)->orderBy('id','desc')->paginate(6);
 
         return view('livewire.supervisor.programacion-de-tractores.tabla',compact('programacion_de_tractores'));
     }

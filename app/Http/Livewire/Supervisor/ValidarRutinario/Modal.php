@@ -47,8 +47,8 @@ class Modal extends Component
 
     public function render()
     {
-        $rutinarios = ProgramacionDeTractor::doesnthave('Rutinarios')->where('fecha',$this->fecha)->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->get();
+        $programaciones = ProgramacionDeTractor::doesnthave('Rutinarios')->where('fecha',$this->fecha)->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->get();
 
-        return view('livewire.supervisor.validar-rutinario.modal',compact('rutinarios'));
+        return view('livewire.supervisor.validar-rutinario.modal',compact('programaciones'));
     }
 }

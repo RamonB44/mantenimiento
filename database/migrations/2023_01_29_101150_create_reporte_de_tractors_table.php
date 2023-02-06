@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('labor_id')->constrained();
             $table->string('correlativo',30)->unique();
             $table->date('fecha');
-            $table->enum('shift',['MAÑANA','NOCHE']);
+            $table->enum('turno',['MAÑANA','NOCHE']);
             $table->foreignId('implemento_id')->constrained();
             $table->decimal('horometro_inicial',8,2);
             $table->decimal('horometro_final',8,2);

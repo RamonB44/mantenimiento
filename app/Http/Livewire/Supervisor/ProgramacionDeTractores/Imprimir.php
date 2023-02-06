@@ -9,6 +9,7 @@ use App\Models\ProgramacionDeTractor;
 use App\Models\Rutinario;
 use App\Models\Tarea;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -32,8 +33,8 @@ class Imprimir extends Component
             $this->emit('alerta',['center','warning','No existe programacion']);
         }else{
             $titulo = 'Programación del '.$this->fecha.'.pdf';
-            $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('esta_anulado',0)->get();
-            $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('esta_anulado',0)->get();
+            $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->get();
+            $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->get();
             $data = [
                 'programaciones_am' => $programaciones_am,
                 'programaciones_pm' => $programaciones_pm,
@@ -55,7 +56,7 @@ class Imprimir extends Component
             $titulo = 'Rutinario del '.$this->fecha.'.pdf';
 
             $data = [];
-            $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->select('implemento_id','turno')->orderBy('turno','asc')->get();
+            $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->select('implemento_id','turno')->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->orderBy('turno','asc')->get();
             $fecha = date_create($this->fecha);
             foreach ($programaciones as $indice_implemento => $programacion) {
                 $implemento = Implemento::find($programacion->implemento_id);

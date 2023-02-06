@@ -16,13 +16,13 @@
               @foreach ($sistema['componentes'] as $indice_componente => $componente)
               @foreach ($componente['tareas'] as $indice_tarea => $tarea)
                 <tr>
-                        @if ($indice_tarea == 0 && $indice_componente == 0)
-                            <td rowspan="{{ $sistema['cantidad_de_tareas']}}" style="border: 3px solid black; padding: 0.2rem; text-align: center"> {{$sistema['sistema']}} </td>
-                        @endif
-                        @if ($indice_tarea == 0)
-                            <td  rowspan="{{count($componente['tareas'])}}" style="border: 3px solid black; padding: 0.2rem; text-align: center">{{ $componente['componente'] }}</td>
-                        @endif
-                        <td style="border: 3px solid black; padding: 0.2rem; text-align: center" wire:click="toggle_tarea({{$tarea['id']}})" class="bg-{{ $tarea['estado'] ? 'green' : 'red' }}-400">{{$tarea['tarea']}}</td>
+                    @if ($indice_tarea == 0 && $indice_componente == 0)
+                        <td rowspan="{{ $sistema['cantidad_de_tareas']}}" style="border: 3px solid black; padding: 0.2rem; text-align: center"> {{$sistema['sistema']}} </td>
+                    @endif
+                    @if ($indice_tarea == 0)
+                        <td  rowspan="{{count($componente['tareas'])}}" style="border: 3px solid black; padding: 0.2rem; text-align: center">{{ $componente['componente'] }}</td>
+                    @endif
+                    <td style="border: 3px solid black; padding: 0.2rem; text-align: center; cursor:pointer" wire:click="toggle_tarea({{$tarea['id']}})" class="bg-{{ $tarea['estado'] ? 'green' : 'red' }}-400">{{$tarea['tarea']}}</td>
                 </tr>
                 @endforeach
               @endforeach

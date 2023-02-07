@@ -74,6 +74,10 @@
                 }
             });
 
+            Livewire.on('focus',input =>{
+                document.getElementById(input).focus();
+            });
+
 
         </script>
 

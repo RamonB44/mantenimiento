@@ -11,12 +11,8 @@ class ReporteDeTractor extends Model
 
     protected $guarded = [];
 
-    public function Tractorista(){
-        return $this->belongsTo(User::class,'tractorista');
-    }
-
-    public function Tractor(){
-        return $this->belongsTo(Tractor::class);
+    public function ProgramacionDeTractor(){
+        return $this->belongsTo(ProgramacionDeTractor::class);
     }
 
     public function Labor(){

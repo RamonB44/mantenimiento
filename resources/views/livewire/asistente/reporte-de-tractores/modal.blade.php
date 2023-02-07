@@ -1,10 +1,11 @@
 <div>
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
-            Registrar Reporte de tractores
+            Registrar Reporte de tractores {{$programacion_id}} {{$reporte_id}}
         </x-slot>
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
+            @if($accion == "crear")
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Día:</x-jet-label>
                     <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
@@ -22,79 +23,59 @@
                     <x-jet-input-error for="turno"/>
 
                 </div>
+                <div class="py-2 cols-span-1 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Programacion:</x-jet-label>
+                    <select class="form-select" style="width: 100%" wire:model='programacion_id'>
+                        <option value="0">Seleccione una opción</option>
+                    @foreach ($programaciones as $programacion)
+                        <option value="{{ $programacion->id }}">{{$programacion->turno}} - {{ $programacion->Tractorista->name  }}</option>
+                    @endforeach
+                    </select>
+                </div>
+            @endif
+            @if ($programacion_id > 0)
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Ubicación:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model='fundo'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($fundos as $fundo)
-                            <option value="{{ $fundo->id }}">{{ $fundo->fundo }}</option>
-                        @endforeach
-                    </select>
-
-                    <x-jet-input-error for="fundo"/>
-
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{$fundo}}" disabled/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Lote:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model='lote'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($lotes as $lote)
-                            <option value="{{ $lote->id }}">{{ $lote->lote }}</option>
-                        @endforeach
-                    </select>
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{$lote}}" disabled/>
+                </div>
+                <div class="py-2 col-span-1 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Correlativo:</x-jet-label>
+                    <x-jet-input type="text" style="height:40px;width: 100%" wire:model="correlativo" id="correlativo"/>
 
-                    <x-jet-input-error for="lote"/>
-
+                    <x-jet-input-error for="correlativo"/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Operador:</x-jet-label>
-                    <select id="tractorista" class="form-select" style="width: 100%" wire:model.defer='tractorista'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($tractoristas as $tractorista)
-                            <option value="{{ $tractorista->id }}">{{ $tractorista->name }}</option>
-                        @endforeach
-                    </select>
-
-                    <x-jet-input-error for="tractorista"/>
-
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{$tractorista}}" disabled/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Tractor:</x-jet-label>
-                    <select id="tractor" class="form-select" style="width: 100%" wire:model.defer='tractor'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($tractores as $tractor)
-                            <option value="{{ $tractor->id }}">{{ $tractor->ModeloDeTractor->modelo_de_tractor }}
-                                {{ $tractor->numero }}</option>
-                        @endforeach
-                    </select>
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{$tractor}}" disabled/>
+                </div>
+                
+                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Horometro Inicial:</x-jet-label>
+                    <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_inicial" disabled/>
+                </div>
+                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Horometro Final:</x-jet-label>
+                    <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_final"/>
 
-                    <x-jet-input-error for="tractor"/>
-
+                    <x-jet-input-error for="horometro_final"/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Implemento:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model.defer='implemento'>
-                        <option value="0">Seleccione una opción</option>
-                    @foreach ($implementos as $implemento)
-                        <option value="{{ $implemento->id }}">{{ $implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento->numero }}</option>
-                    @endforeach
-                    </select>
-
-                    <x-jet-input-error for="implemento"/>
-
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{$implemento}}" disabled/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Labor:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model.defer='labor'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($labores as $labor)
-                            <option value="{{ $labor->id }}">{{ $labor->labor }}</option>
-                        @endforeach
-                    </select>
-
-                    <x-jet-input-error for="labor"/>
-
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{$labor}}" disabled/>
                 </div>
+            @endif
             </div>
         </x-slot>
         <x-slot name="footer">

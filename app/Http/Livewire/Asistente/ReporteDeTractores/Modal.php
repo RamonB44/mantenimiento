@@ -2,13 +2,9 @@
 
 namespace App\Http\Livewire\Asistente\ReporteDeTractores;
 
-use App\Models\Fundo;
-use App\Models\Implemento;
-use App\Models\Labor;
-use App\Models\Lote;
+use App\Models\ProgramacionDeTractor;
 use App\Models\ReporteDeTractor;
 use App\Models\Tractor;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -19,17 +15,13 @@ class Modal extends Component
 
     public $fecha;
     public $turno;
-    public $fundo;
-    public $lote;
-    public $correlativo;
-    public $tractorista;
-    public $tractor;
-    public $implemento;
-    public $labor;
+    
+    public $accion;
 
-    public $tractores_usados = [];
-    public $tractoristas_usados = [];
-    public $implementos_usados = [];
+    public $programacion_id;
+    public $correlativo;
+    public $horometro_inicial;
+    public $horometro_final;
 
     public $reporte_id;
 
@@ -37,66 +29,47 @@ class Modal extends Component
 
     protected function rules(){
         return [
-            'fundo' => 'required|exists:fundos,id',
-            'lote' => 'required|exists:lotes,id',
-            'tractorista' => 'required|exists:users,id',
-            'labor' => 'required|exists:labors,id',
-            'tractor' => 'required|exists:tractors,id',
-            'implemento' => 'required|exists:implementos,id',
-            'fecha' => 'required|date|date_format:Y-m-d',
-            'turno' => 'required|in:MAÑANA,NOCHE'
+            'correlativo' => 'required|unique:reporte_de_tractors,correlativo,'.$this->programacion_id,
+            'programacion_id' => 'required|exists:programacion_de_tractors,id',
+            'horometro_final' => "required|gt:horometro_inicial",
         ];
     }
 
     protected function messages(){
         return [
-            'fundo.required' => 'Seleccione una ubicación',
-            'lote.required' => 'Seleccione el lote',
-            'tractorista.required' => 'Seleccione al operador',
-            'labor.required' => 'Seleccione la labor',
-            'tractor.required' => 'Seleccione el tractor',
-            'implemento.required' => 'Seleccione el implemento',
-            'fecha.required' => 'Seleccione la fecha',
-            'shift.required' => 'Seleccione el turno',
+            'correlativo.required' => 'Ingrese el correlativo',
+            'programacion_id.required' => 'Elija una programacion',
+            'horometro_final.required' => 'Ingrese el horómetro final',
 
-            'fundo.exists' => 'La ubicación no existe',
-            'lote.exists' => 'El lote no existe',
-            'tractorista.exists' => 'El operador no existe',
-            'labor.exists' => 'La labor no existe',
-            'tractor.exists' => 'El tractor no existe',
-            'implemento.exists' => 'El implemento no existe',
-            'fecha.date' => 'Debe ingresar un fecha',
-            'date.date_format' => 'Formato incorrecto',
-            'fecha.in' => 'El turno no existe',
+            'correlativo.unique' => 'Correlativo duplicado',
+            'programacion_id.exists' => 'La programacion no existe',
+            'horometro_final.gt' => 'El horómetro final debe ser mayor que el inicial'
         ];
     }
 
     public function mount(){
-        $this->fecha = date('Y-m-d',strtotime(date('Y-m-d')."+1 days"));
+        $this->programacion_id = 0;
+        $this->correlativo = "";
+        $this->horometro_inicial = 0;
+        $this->horometro_final = 0;
+        $this->fecha = date('Y-m-d');
         $this->turno = "MAÑANA";
-        $this->fundo = 0;
-        $this->lote = 0;
-        $this->tractorista = 0;
-        $this->tractor = 0;
-        $this->implemento = 0;
-        $this->labor = 0;
-        $this->reporte_id = 0;
+        $this->accion = "crear";
     }
 
     public function abrir_modal($id){
         $this->reporte_id = $id;
 
         if($id > 0){
+            $this->accion = "editar";
             $reporte = ReporteDeTractor::find($id);
 
-            $this->fecha = $reporte->fecha;
-            $this->turno = $reporte->turno;
-            $this->fundo = $reporte->Lote->fundo_id;
-            $this->lote = $reporte->lote_id;
-            $this->tractorista = $reporte->tractorista;
-            $this->tractor = $reporte->tractor_id;
-            $this->implemento = $reporte->implemento_id;
-            $this->labor = $reporte->labor_id;
+            $this->programacion_id = $reporte->programacion_de_tractor_id;
+            $this->correlativo = $reporte->correlativo;
+            $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
+            $this->horometro_final = $reporte->horometro_final;
+        }else{
+            $this->accion = "crear";
         }
 
         $this->open = true;
@@ -108,33 +81,26 @@ class Modal extends Component
         }
     }
 
-    public function updatedFundo(){
-        $this->lote = 0;
-    }
-
     public function updatedFecha(){
-        $this->reset('tractorista','implemento','tractor');
+        $this->reset('programacion_id','horometro_inicial','horometro_final');
     }
 
     public function updatedTurno(){
-        $this->reset('tractorista','implemento','tractor');
+        $this->reset('programacion_id','horometro_inicial','horometro_final');
     }
 
     public function registrar(){
         $this->validate();
 
-        $fundo_obj = Fundo::find($this->fundo);
         if($this->reporte_id > 0){
+            $this->accion = "editar";
             $reporte = ReporteDeTractor::find($this->reporte_id);
 
-            $reporte->fecha = $this->fecha;
-            $reporte->turno = $this->turno;
-            $reporte->sede_id = $fundo_obj->sede_id;
-            $reporte->lote_id = $this->lote;
-            $reporte->tractorista = $this->tractorista;
-            $reporte->tractor_id = $this->tractor;
-            $reporte->implemento_id = $this->implemento;
-            $reporte->labor_id = $this->labor;
+            $reporte->programacion_de_tractor_id = $this->programacion_id;
+            $reporte->correlativo = $this->correlativo;
+            $reporte->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
+            $reporte->horometro_final = $this->horometro_final;
+            $reporte->sede_id = Auth::user()->sede_id;
             $reporte->validado_por = Auth::user()->id;
 
             $reporte->save();
@@ -142,15 +108,13 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
         }else{
+            $this->accion = 'crear';
             ReporteDeTractor::create([
-                'fecha' => $this->fecha,
-                'turno' => $this->turno,
-                'sede_id' => $fundo_obj->sede_id,
-                'lote_id' => $this->lote,
-                'tractorista' => $this->tractorista,
-                'tractor_id' => $this->tractor,
-                'implemento_id' => $this->implemento,
-                'labor_id' => $this->labor,
+                'programacion_de_tractor_id' => $this->programacion_id,
+                'correlativo' => $this->correlativo,
+                'horometro_inicial' => ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro,
+                'horometro_final' => $this->horometro_final,
+                'sede_id' => Auth::user()->sede_id,
                 'validado_por' => Auth::user()->id,
             ]);
 
@@ -163,37 +127,35 @@ class Modal extends Component
         $this->emitTo('asistente.reporte-de-tractores.tabla','render');
     }
 
+    public function updatedProgramacionId(){
+        $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
+        $this->horometro_final = number_format($this->horometro_inicial + 6.4,2);
+    }
+
     public function render()
     {
-        $this->reset('tractoristas_usados','tractores_usados','implementos_usados');
+        $programaciones = ProgramacionDeTractor::doesnthave('ReporteDeTractor')->where('fecha',$this->fecha)->where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->get();
+        
 
-        $fundos = Fundo::where('sede_id',Auth::user()->sede_id)->get();
-        if($this->fundo > 0){
-            $lotes = Lote::where('fundo_id',$this->fundo)->get();
+        if($this->programacion_id > 0){
+            $this->emit('focus',['correlativo']);
+            $programacion = ProgramacionDeTractor::find($this->programacion_id);
+            $fundo = $programacion->Lote->Fundo->fundo;
+            $lote = $programacion->Lote->lote;
+            $tractorista = $programacion->Tractorista->name;
+            $tractor = $programacion->Tractor->ModeloDeTractor->modelo_de_tractor.' '.$programacion->Tractor->numero;
+            $implemento = $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento.' '.$programacion->Implemento->numero;
+            $labor = $programacion->Labor->labor;
         }else{
-            $lotes = [];
+            $fundo = "";
+            $lote = "";
+            $tractorista = "";
+            $tractor = "";
+            $implemento = "";
+            $labor = "";
+            $horometro_inicial = 0;
         }
 
-        if(ReporteDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->exists()){
-            /*--------------Obtener registros ya seleccionados-------------------------------*/
-            if($this->reporte_id > 0){
-                $repetidos = ReporteDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->reporte_id])->get();
-            }else{
-                $repetidos = ReporteDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->get();
-            }
-
-                foreach($repetidos as $repetido){
-                    array_push($this->tractoristas_usados,$repetido->tractorista);
-                    array_push($this->tractores_usados,$repetido->tractor_id);
-                    array_push($this->implementos_usados,$repetido->implemento_id);
-                }
-            }
-
-        $tractoristas = User::where('sede_id',Auth::user()->sede_id)->whereNotIn('id',$this->tractoristas_usados)->get();
-        $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereNotIn('id',$this->tractores_usados)->get();
-        $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereNotIn('id',$this->implementos_usados)->get();
-        $labores = Labor::all();
-        
-        return view('livewire.asistente.reporte-de-tractores.modal',compact('fundos','lotes','tractoristas','tractores','implementos','labores'));
+        return view('livewire.asistente.reporte-de-tractores.modal',compact('programaciones','fundo','lote','tractorista','tractor','implemento','labor'));
     }
 }

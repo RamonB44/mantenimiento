@@ -38,4 +38,8 @@ class ProgramacionDeTractor extends Model
     public function Rutinarios(){
         return $this->belongsTo(Rutinario::class,'id','programacion_de_tractor_id');
     }
+
+    public function ReporteDeTractor(){
+        return $this->hasOne(ReporteDeTractor::class);
+    }
 }

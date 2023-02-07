@@ -26,7 +26,6 @@ return new class extends Migration
             $table->foreignId('sede_id')->constrained();
             $table->unsignedBigInteger('validado_por');
             $table->foreign('validado_por')->references('id')->on('users');
-            $table->boolean('esta_reportado')->default(false);
             $table->boolean('esta_anulado')->default(false);
             $table->timestamps();
         });

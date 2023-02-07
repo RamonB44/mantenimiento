@@ -17,12 +17,11 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->reporte_id = $id;
-        $this->emitTo('supervisor.reporte-de-tractores.botones','obtener_reporte',$id);
+        $this->emitTo('asistente.reporte-de-tractores.botones','obtener_reporte',$id);
     }
 
     public function render()
     {
-        $this->reporte_id = 0;
         $reporte_de_tractores = ReporteDeTractor::where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->orderBy('id','desc')->paginate(6);
 
         return view('livewire.asistente.reporte-de-tractores.tabla',compact('reporte_de_tractores'));

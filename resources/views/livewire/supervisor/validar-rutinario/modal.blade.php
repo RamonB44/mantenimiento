@@ -11,11 +11,18 @@
                     <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Turno:</x-jet-label>
+                    <select class="form-select" style="width: 100%" wire:model='turno'>
+                        <option>MAÑANA</option>
+                        <option>NOCHE</option>
+                    </select>
+                </div>
+                <div class="py-2 cols-span-1 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Programacion:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='rutinario'>
                         <option value="0">Seleccione una opción</option>
                     @foreach ($programaciones as $programacion)
-                        <option value="{{ $programacion->id }}">{{$programacion->turno}} - {{ $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion->Implemento->numero }}</option>
+                        <option value="{{ $programacion->id }}">{{ $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion->Implemento->numero }}</option>
                     @endforeach
                     </select>
                 </div>

@@ -9,9 +9,6 @@
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Día:</x-jet-label>
                     <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
-
-                    <x-jet-input-error for="fecha"/>
-
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Turno:</x-jet-label>
@@ -19,9 +16,6 @@
                         <option>MAÑANA</option>
                         <option>NOCHE</option>
                     </select>
-
-                    <x-jet-input-error for="turno"/>
-
                 </div>
                 <div class="py-2 cols-span-1 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Programacion:</x-jet-label>
@@ -42,9 +36,9 @@
                     <x-jet-label>Lote:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$lote}}" disabled/>
                 </div>
-                <div class="py-2 col-span-1 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="col-span-1 py-2 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Correlativo:</x-jet-label>
-                    <x-jet-input type="text" style="height:40px;width: 100%" wire:model="correlativo" id="correlativo"/>
+                    <x-jet-input type="text" style="height:40px;width: 100%" wire:model.defer="correlativo" id="correlativo"/>
 
                     <x-jet-input-error for="correlativo"/>
                 </div>
@@ -56,7 +50,7 @@
                     <x-jet-label>Tractor:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$tractor}}" disabled/>
                 </div>
-                
+
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Horometro Inicial:</x-jet-label>
                     <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_inicial" disabled/>

@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Asistente\ReporteDeTractores;
 
 use App\Models\ProgramacionDeTractor;
 use App\Models\ReporteDeTractor;
-use App\Models\Tractor;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -15,7 +14,7 @@ class Modal extends Component
 
     public $fecha;
     public $turno;
-    
+
     public $accion;
 
     public $programacion_id;
@@ -60,14 +59,22 @@ class Modal extends Component
     public function abrir_modal($id){
         $this->reporte_id = $id;
 
-        if($id > 0){
-            $this->accion = "editar";
-            $reporte = ReporteDeTractor::find($id);
+        if($this->reporte_id > 0){
+            $reporte = ReporteDeTractor::find($this->reporte_id);
+            $tractor = $reporte->ProgramacionDeTractor->tractor_id;
+            $programacion_del_tractor_actual = $reporte->programacion_de_tractor_id;
+            $ultima_programacion_del_tractor = ProgramacionDeTractor::where('tractor_id',$tractor)->orderBy('id','desc')->first()->id;
+            if($programacion_del_tractor_actual == $ultima_programacion_del_tractor){
+                $this->accion = "editar";
 
-            $this->programacion_id = $reporte->programacion_de_tractor_id;
-            $this->correlativo = $reporte->correlativo;
-            $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
-            $this->horometro_final = $reporte->horometro_final;
+                $this->programacion_id = $reporte->programacion_de_tractor_id;
+                $this->correlativo = $reporte->correlativo;
+                $this->horometro_inicial = $reporte->horometro_inicial;
+                $this->horometro_final = $reporte->horometro_final;
+            }else{
+                $this->emit('alerta',['center','warning','Solo se puede editar el último reporte del tractor.']);
+                return false;
+            }
         }else{
             $this->accion = "crear";
         }
@@ -98,9 +105,7 @@ class Modal extends Component
 
             $reporte->programacion_de_tractor_id = $this->programacion_id;
             $reporte->correlativo = $this->correlativo;
-            $reporte->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
             $reporte->horometro_final = $this->horometro_final;
-            $reporte->sede_id = Auth::user()->sede_id;
             $reporte->validado_por = Auth::user()->id;
 
             $reporte->save();
@@ -129,13 +134,13 @@ class Modal extends Component
 
     public function updatedProgramacionId(){
         $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
-        $this->horometro_final = number_format($this->horometro_inicial + 6.4,2);
+        $this->horometro_final = number_format($this->horometro_inicial + 8,2);
     }
 
     public function render()
     {
-        $programaciones = ProgramacionDeTractor::doesnthave('ReporteDeTractor')->where('fecha',$this->fecha)->where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->get();
-        
+        $programaciones = ProgramacionDeTractor::doesnthave('ReporteDeTractor')->where('fecha',$this->fecha)->where('turno',$this->turno)->where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->get();
+
 
         if($this->programacion_id > 0){
             $this->emit('focus',['correlativo']);

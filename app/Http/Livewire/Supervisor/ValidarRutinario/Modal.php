@@ -10,6 +10,7 @@ class Modal extends Component
 {
     public $open;
     public $fecha;
+    public $turno;
     public $rutinario;
     public $accion;
 
@@ -18,6 +19,7 @@ class Modal extends Component
     public function mount(){
         $this->open = false;
         $this->fecha = date('Y-m-d');
+        $this->turno = "MAÑANA";
         $this->rutinario = 0;
     }
 
@@ -27,7 +29,7 @@ class Modal extends Component
             $this->accion = "editar";
             $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',$this->rutinario);
         }else{
-            
+
             $this->accion = "crear";
         }
         $this->open = true;
@@ -47,7 +49,7 @@ class Modal extends Component
 
     public function render()
     {
-        $programaciones = ProgramacionDeTractor::doesnthave('Rutinarios')->where('fecha',$this->fecha)->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->get();
+        $programaciones = ProgramacionDeTractor::doesnthave('Rutinarios')->where('fecha',$this->fecha)->where('turno',$this->turno)->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->get();
 
         return view('livewire.supervisor.validar-rutinario.modal',compact('programaciones'));
     }

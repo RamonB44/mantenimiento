@@ -7,6 +7,7 @@ BEGIN
     DECLARE cantidad_de_horas DECIMAL(8,2);
     DECLARE cursor_componentes CURSOR FOR SELECT articulo_id FROM componente_por_modelos WHERE modelo_id = modelo_del_implemento;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET componente_final = 1;
+    IF new.horas_de_uso <> old.horas_de_uso THEN
     SET cantidad_de_horas = new.horas_de_uso - old.horas_de_uso;
     SELECT modelo_del_implemento_id INTO modelo_del_implemento FROM `implementos` WHERE id = new.id;
     OPEN cursor_componentes;
@@ -22,4 +23,5 @@ BEGIN
                 END IF;
         END LOOP bucle_componentes;
     CLOSE cursor_componentes;
+    END IF;
 END //

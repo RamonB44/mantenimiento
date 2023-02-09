@@ -111,7 +111,7 @@ class Modal extends Component
             $reporte->save();
 
 
-            $this->emit('alerta',['center','success','Programación Registrada']);
+            $this->emit('alerta',['center','success','Programación Editada']);
         }else{
             $this->accion = 'crear';
             ReporteDeTractor::create([
@@ -124,7 +124,7 @@ class Modal extends Component
             ]);
 
 
-            $this->emit('alerta',['center','success','Programación Editada']);
+            $this->emit('alerta',['center','success','Programación Registrada']);
         }
 
         $this->resetExcept('fecha','turno','open');

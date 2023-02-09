@@ -139,7 +139,7 @@ class Modal extends Component
             $programacion->save();
 
 
-            $this->emit('alerta',['center','success','Programación Registrada']);
+            $this->emit('alerta',['center','success','Programación Editada']);
         }else{
             ProgramacionDeTractor::create([
                 'fecha' => $this->fecha,
@@ -154,7 +154,7 @@ class Modal extends Component
             ]);
 
 
-            $this->emit('alerta',['center','success','Programación Editada']);
+            $this->emit('alerta',['center','success','Programación Registrada']);
         }
 
         $this->resetExcept('fecha','turno','open');

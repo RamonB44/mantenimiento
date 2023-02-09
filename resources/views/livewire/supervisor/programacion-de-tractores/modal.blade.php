@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Ubicación:</x-jet-label>
+                    <x-jet-label>Fundo:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='fundo'>
                         <option value="0">Seleccione una opción</option>
                         @foreach ($fundos as $fundo)

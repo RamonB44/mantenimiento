@@ -157,7 +157,7 @@ class Modal extends Component
             $this->emit('alerta',['center','success','Programación Editada']);
         }
 
-        $this->resetExcept('fecha','turno');
+        $this->resetExcept('fecha','turno','open');
 
         $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
     }

@@ -14,6 +14,10 @@ class SeleccionarImplemento extends Component
         $this->implemento_id = 0;
     }
 
+    public function updatedImplementoId(){
+        $this->emit('cambiar_implemento',$this->implemento_id);
+    }
+
     public function render()
     {
         $implementos = Implemento::where('responsable',Auth::user()->id)->get();

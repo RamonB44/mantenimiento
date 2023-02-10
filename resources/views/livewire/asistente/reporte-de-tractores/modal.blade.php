@@ -1,7 +1,7 @@
 <div>
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
-            Registrar Reporte de tractores {{$programacion_id}} {{$reporte_id}}
+            Registrar Reporte de tractores
         </x-slot>
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">

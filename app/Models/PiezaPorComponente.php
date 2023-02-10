@@ -12,10 +12,10 @@ class PiezaPorComponente extends Model
     protected $guarded = [];
 
     public function Pieza(){
-    	return $this->belongsTo(Articulo::class,'id','pieza')
+    	return $this->belongsTo(Articulo::class,'pieza','id');
     }
 
     public function Componente(){
-    	return $this->belongsTo(Articulo::class,'id','articulo_id')
+    	return $this->belongsTo(Articulo::class,'articulo_id','id');
     }
 }

@@ -4,10 +4,10 @@
 @tailwind utilities;
 
 .form-select{
-    @apply appearance-none block w-full p-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
+    @apply block w-full p-2 m-0 text-sm font-normal text-gray-700 transition ease-in-out bg-white bg-no-repeat border border-gray-300 border-solid rounded appearance-none bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
 }
 .form-control{
-    @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
+    @apply border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
 }
 
 
@@ -105,7 +105,7 @@
 .bg-blue-300	{background-color: rgb(147 197 253);}
 .bg-blue-400	{background-color: rgb(96 165 250);}
 .bg-blue-500	{background-color: rgb(59 130 246);}
-.b.g-blue-600	{background-color: rgb(37 99 235);}
+.bg-blue-600	{background-color: rgb(37 99 235);}
 .bg-blue-700	{background-color: rgb(29 78 216);}
 .bg-blue-800	{background-color: rgb(30 64 175);}
 .bg-blue-900	{background-color: rgb(30 58 138);}

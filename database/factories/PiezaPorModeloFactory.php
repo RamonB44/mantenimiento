@@ -19,7 +19,7 @@ class PiezaPorModeloFactory extends Factory
     public function definition()
     {
         return [
-            'pieza' => Articulo::where('tipo','PIEZA')->get()->random()->id,
+            'pieza' => Articulo::doesnthave('PiezaPorModelo')->where('tipo','PIEZA')->get()->random()->id,
             'articulo_id' => Articulo::where('tipo','COMPONENTE')->get()->random()->id,
         ];
     }

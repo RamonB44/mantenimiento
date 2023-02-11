@@ -42,6 +42,13 @@ class RoleSeeder extends Seeder
             'guard_name' => 'supervisor',
         ]);
 
+        User::find(1)->assignRole($jefe);
+        User::find(2)->assignRole($asistente);
+        User::find(3)->assignRole($operador);
+        User::find(4)->assignRole($planificador);
+        User::find(5)->assignRole($supervisor);
+
+
         Permission::create([
             'name' => 'supervisor.programacion-de-tractores',
             'guard_name' => 'supervisor',
@@ -67,41 +74,37 @@ class RoleSeeder extends Seeder
             'guard_name' => 'jefe',
         ])->syncRoles(['jefe']);
 
-        $users = User::all();
+        /*$users = User::all();
         $user1 = $users->find(1);
 
         $role1 = Role::find(1);
 
         $user1->assignRole($role1);
 
-        $users = User::all();
         $user2 = $users->find(2);
 
         $role2 = Role::find(2);
 
         $user2->assignRole($role2);
 
-        $users = User::all();
         $user3 = $users->find(3);
 
         $role3 = Role::find(3);
 
         $user3->assignRole($role3);
 
-        $users = User::all();
         $user4 = $users->find(4);
 
         $role4 = Role::find(4);
 
         $user4->assignRole($role4);
 
-        $users = User::all();
         $user5 = $users->find(5);
 
         $role5 = Role::find(5);
 
         $user5->assignRole($role5);
-
+*/
 
     }
 }

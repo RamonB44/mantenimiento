@@ -48,11 +48,12 @@ class Modal extends Component
             }else if($this->accion == "pieza"){
                 $modelo_id = Implemento::find($this->implemento_id)->modelo_del_implemento_id;
                 $componentes = ComponentePorModelo::where('modelo_id',$modelo_id)->get();
-                $articulos = PiezaPorModelo::where('articulo_id',$this->componente)->get();
-            }else if($this->accion == "fungible"){
-                $articulos = Articulo::where('tipo','FUNGIBLE')->get();
+                //$articulos = PiezaPorModelo::where('articulo_id',$this->componente)->get();
+                $articulos = Articulo::has('PiezaPorModelo',function($q){
+                    $q->where('articulo_id',$this->componente);
+                })->get();
             }else{
-                $articulos = Articulo::where('tipo','HERRAMIENTA')->get();
+                $articulos = Articulo::where('tipo',strtoupper($this->accion))->get();
             }
             if($this->accion != "pieza"){
                 $componentes = [];

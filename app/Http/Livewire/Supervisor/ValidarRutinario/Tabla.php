@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Supervisor\ValidarRutinario;
 use App\Models\ProgramacionDeTractor;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Tabla extends Component
 {
+    use WithPagination;
+    
     public $validados;
 
     protected $listeners = ['render'];

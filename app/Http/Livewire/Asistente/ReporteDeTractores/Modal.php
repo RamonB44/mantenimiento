@@ -110,7 +110,7 @@ class Modal extends Component
 
             $reporte->save();
 
-
+            $this->resetExcept('fecha','turno');
             $this->emit('alerta',['center','success','Programación Editada']);
         }else{
             $this->accion = 'crear';
@@ -123,11 +123,11 @@ class Modal extends Component
                 'validado_por' => Auth::user()->id,
             ]);
 
-
+            $this->resetExcept('fecha','turno','open','accion');
             $this->emit('alerta',['center','success','Programación Registrada']);
         }
 
-        $this->resetExcept('fecha','turno','open');
+        
 
         $this->emitTo('asistente.reporte-de-tractores.tabla','render');
     }

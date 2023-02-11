@@ -20,7 +20,7 @@ class CentroDeCostoFactory extends Factory
         return [
             'codigo' => $this->faker->unique()->numerify('######'),
             'descripcion' => $this->faker->lexify('????????'),
-            'sede_id' => Sede::all()->random()->id,
+            'sede_id' => 1,
             'monto'=> 0
         ];
     }

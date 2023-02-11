@@ -22,7 +22,7 @@
                     <select class="form-select" style="width: 100%" wire:model='programacion_id'>
                         <option value="0">Seleccione una opción</option>
                     @foreach ($programaciones as $programacion)
-                        <option value="{{ $programacion->id }}">{{$programacion->turno}} - {{ $programacion->Tractorista->name  }}</option>
+                        <option value="{{ $programacion->id }}">{{ $programacion->Tractorista->name  }}</option>
                     @endforeach
                     </select>
                 </div>

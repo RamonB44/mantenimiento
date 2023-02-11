@@ -19,7 +19,7 @@ class FundoFactory extends Factory
     {
         return [
             'fundo' => $this->faker->lexify('????????'),
-            'sede_id' => Sede::all()->random()->id,
+            'sede_id' => 1,
         ];
     }
 }

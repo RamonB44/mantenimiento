@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Operador;
 
 use App\Models\FechaDePedido;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class SolicitarArticulos extends Component
@@ -14,7 +15,7 @@ class SolicitarArticulos extends Component
 
     public function mount(){
         $this->implemento_id = 0;
-        $this->existe_pedido = FechaDePedido::where('estado','ABIERTO')->exists();
+        $this->existe_pedido = FechaDePedido::whereDate('fecha_de_apertura','<=',Carbon::today())->whereDate('fecha_de_cierre','>=',Carbon::today())->exists();
     }
 
     public function cambiar_implemento($id){

@@ -1,12 +1,12 @@
 <div>
-    @if($accion != "")
+    @if($tipo != "")
     <x-jet-dialog-modal maxWidth="sm" wire:model='open'>
         <x-slot name="title">
             Registrar
         </x-slot>
         <x-slot name="content">
             <div class="grid">
-                @if ($accion == "pieza")
+                @if ($tipo == "pieza")
                 <div>
                     <x-jet-label>Componente: </x-jet-label>
                     <select class="text-center form-control" style="width: 100%" wire:model='componente'>
@@ -18,17 +18,11 @@
                 </div>
                 @endif
                 <div>
-                    <x-jet-label>{{ ucfirst($accion) }}: </x-jet-label>
+                    <x-jet-label>{{ ucfirst($tipo) }}: </x-jet-label>
                     <select class="text-center form-control" style="width: 100%" wire:model='articulo'>
                         <option value="0">Seleccione una opción</option>
                         @foreach ($articulos as $articulo)
-                        @if ($accion == "componente")
-                        <option value="{{ $articulo->Articulo->id }}">{{$articulo->Articulo->codigo}} - {{$articulo->Articulo->articulo}}</option>
-                        @elseif($accion == "pieza")
-                        <option value="{{ $articulo->Pieza->id }}">{{$articulo->Pieza->codigo}} - {{$articulo->Pieza->articulo}}</option>
-                        @elseif ($accion == "fungible" || $accion == "herramienta")
                         <option value="{{ $articulo->id }}">{{$articulo->codigo}} - {{$articulo->articulo}}</option>
-                        @endif
                         @endforeach
                     </select>
                 </div>

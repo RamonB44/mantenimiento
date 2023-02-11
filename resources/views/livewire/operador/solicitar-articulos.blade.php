@@ -13,7 +13,7 @@
             </div>
             <div>
                 <!-------TABLA DE MATERIALES PEDIDOS YA EXISTENTES -->
-                @livewire('operador.solicitar-articulo.tabla')
+                @livewire('operador.solicitar-articulo.tabla',['implemento_id' => $implemento_id])
             </div>
             @else
             <div class="px-6 py-4 text-center">

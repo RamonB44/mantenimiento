@@ -3,7 +3,7 @@
         <thead>
             <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
                 <th class="py-3 text-center">
-                    <span>Código</span>
+                    <span>Código {{ $implemento_id }}</span>
                 </th>
                 <th class="py-3 text-center">
                     <span>Material</span>
@@ -34,7 +34,7 @@
                     </td>
                     <td class="px-6 py-3 text-center">
                         <div>
-                            <span class="font-bold text-red-600{{ $detalle_solicitud_de_pedido->cantidad }}</span>
+                            <span class="font-bold text-red-600">{{ $detalle_solicitud_de_pedido->cantidad }}</span>
                         </div>
                     </td>
                     <td class="px-6 py-3 text-center">

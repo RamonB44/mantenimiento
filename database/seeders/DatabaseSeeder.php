@@ -35,21 +35,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        UnidadDeMedida::factory(10)->create();
+        /*UnidadDeMedida::factory(10)->create();
         Labor::factory(7)->create();
         Epp::factory(20)->create();
         Riesgo::factory(4)->create();
         Sede::factory(1)->has(Fundo::factory()->count(3)->has(Lote::factory()->count(2)))->has(User::factory()->count(10))->has(CentroDeCosto::factory()->count(2))->create();
         $this->call([
-            RoleSeeder::class
+            RoleSeeder::class,
+            FechaDePedidoSeeder::class,
+            DetalleMontoCecoSeeder::class
         ]);
         ModeloDeTractor::factory(3)->has(Tractor::factory()->count(7))->create();
         Articulo::factory(6)->create(['tipo' => 'FUNGIBLE']);
         Articulo::factory(4)->create(['tipo' => 'HERRAMIENTA']);
         Articulo::factory(36)->has(Tarea::factory()->count(5)->has(ArticuloParaTarea::factory()->count(4)))->create();
         ModeloDelImplemento::factory(4)->has(Implemento::factory()->count(3))->has(ComponentePorModelo::factory()->count(3))->create();
-        Articulo::factory(36)->has(PiezaPorModelo::factory()->count(1))->create(['tipo' => 'PIEZA']);
-        StockSede::factory(40);
-        StockOperario::factory(35);
+        Articulo::factory(36)->has(PiezaPorModelo::factory()->count(1))->create(['tipo' => 'PIEZA']);*/
+        StockSede::factory(40)->create();
+        StockOperario::factory(35)->create();
     }
 }

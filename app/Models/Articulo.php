@@ -22,7 +22,16 @@ class Articulo extends Model
     public function PiezaPorModelo(){
         return $this->hasMany(PiezaPorModelo::class,'pieza','id');
     }
+
     public function ComponentePorModelo(){
         return $this->hasMany(ComponentePorModelo::class,'articulo_id','id');
+    }
+
+    public function StockSede(){
+        return $this->hasMany(StockSede::class);
+    }
+
+    public function StockOperario(){
+        return $this->hasMany(StockOperario::class);
     }
 }

@@ -20,7 +20,7 @@ class ComponentePorModeloFactory extends Factory
     public function definition()
     {
         return [
-            'articulo_id' => Articulo::doesnthave('ComponentePorModelo')->where('tipo','COMPONENTE')->get()->random()->id,
+            'articulo_id' => Articulo::where('tipo','COMPONENTE')->doesnthave('ComponentePorModelo')->get()->random()->id,
             'modelo_id' => ModeloDelImplemento::all()->random()->id,
             'sistema' => $this->faker->randomElement(['HIDRAÚLICO','MECÁNICO','NEUMÁTICO','OLEO HIDRAÚLICO','ELECTRÓNICO','ELÉCTRICO']),
         ];

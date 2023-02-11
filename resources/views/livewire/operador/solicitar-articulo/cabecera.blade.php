@@ -8,7 +8,7 @@
         <div class="grid grid-cols-1 gap-4">
             <div class="text-center">
                 <h1 class="text-xl font-bold">
-                    Falta {{  $fecha_de_cierre  }} para el cierre
+                    Cierre {{  $fecha_de_cierre  }}
                 </h1>
             </div>
         </div>

@@ -34,4 +34,8 @@ class Articulo extends Model
     public function StockOperario(){
         return $this->hasMany(StockOperario::class);
     }
+
+    public function DetalleDeSolicitudDePedido(){
+        return $this->hasMany(DetalleDeSolicitudDePedido::class);
+    }
 }

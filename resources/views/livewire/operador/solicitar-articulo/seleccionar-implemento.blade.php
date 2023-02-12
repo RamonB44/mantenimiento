@@ -9,7 +9,7 @@
     </div>
     @if ($implemento_id != 0)
     <div style="display:flex; align-items:center;justify-content:center" class="px-6 py-4">
-        <button wire:click="$emit('confirmarCerrarPedido','{{$implemento_id}}')" class="w-full h-16 text-2xl font-bold text-white bg-orange-500 rounded-full hover:bg-orange-700">
+        <button wire:click="cerrarPedido({{$implemento_id}})" class="w-full h-16 text-2xl font-bold text-white bg-orange-500 rounded-full hover:bg-orange-700">
             Cerrar Pedido
         </button>
     </div>

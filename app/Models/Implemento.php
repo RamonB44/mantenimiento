@@ -26,4 +26,8 @@ class Implemento extends Model
     public function ModeloDelImplemento(){
         return $this->belongsTo(ModeloDelImplemento::class);
     }
+
+    public function SolicitudDePedido(){
+        return $this->hasMany(SolicitudDePedido::class);
+    }
 }

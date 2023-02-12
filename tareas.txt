@@ -1,18 +1,3 @@
-Hacer trriggers a la bd para:
-1. Programacion de tractores:
-    -Al agregar:
-        --agregar la rutina.
-    -Al editar:
-        --editar la rutina.
-    -Al anular:
-        --eliminar la rutina.
-2. Articulos por modelo de implemento:
-    -Al editar:
-        --editar a la tabla de componentes por modelo por cada implemento del modelo editado.
-    -Al eliminar:
-        --eliminar a la tabla de componentes por modelo por cada implemento del modelo eliminado.
-3. Piezas por modelo de componente:
-    -Al editar:
-        --editar a la tabla de componentes por modelo por cada componente del modelo editado.
-    -Al eliminar:
-        --eliminar a la tabla de componentes por modelo por cada componente del modelo eliminado.
+-Agregar al detalle de solicitud de pedido cantidad_validada y la cantidad cambiar a cantidad_pedida.
+-Obtener cantidad gastada por ceco.
+-----------------------------Validar Solicitud de Pedido-----------------------------

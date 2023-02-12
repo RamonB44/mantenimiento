@@ -1,7 +1,8 @@
 <div>
+    <div wire:loading.remove>
     @if ($existe_pedido)
         @livewire('operador.solicitar-articulo.cabecera')
-        @livewire('operador.solicitar-articulo.seleccionar-implemento')
+        @livewire('operador.solicitar-articulo.seleccionar-implemento',['fecha_de_pedido' => $fecha_de_pedido])
         <div class="px-6 py-4 text-center">
             @if ($implemento_id > 0)
         <!-------GRID DE BOTONES PARA AGREGAR MATERIALES -->
@@ -13,7 +14,7 @@
             </div>
             <div>
                 <!-------TABLA DE MATERIALES PEDIDOS YA EXISTENTES -->
-                @livewire('operador.solicitar-articulo.tabla',['implemento_id' => $implemento_id])
+                @livewire('operador.solicitar-articulo.tabla',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido])
             </div>
             @else
             <div class="px-6 py-4 text-center">
@@ -21,7 +22,7 @@
             </div>
             @endif
         </div>
-        @livewire('operador.solicitar-articulo.modal')
+        @livewire('operador.solicitar-articulo.modal',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido, 'existe_pedido' => $existe_pedido])
     @else
     <div style="display:flex; align-items:center;justify-content:center;margin-bottom:15px">
         <div class="text-center">
@@ -31,4 +32,12 @@
         </div>
     </div>
     @endif
+    </div>
+    <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
+        <div class="text-center">
+            <h1 class="text-4xl font-bold">
+                CARGANDO DATOS...
+            </h1>
+        </div>
+    </div>
 </div>

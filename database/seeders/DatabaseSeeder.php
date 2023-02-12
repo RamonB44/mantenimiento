@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /*UnidadDeMedida::factory(10)->create();
+        UnidadDeMedida::factory(10)->create();
         Labor::factory(7)->create();
         Epp::factory(20)->create();
         Riesgo::factory(4)->create();
@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
         Articulo::factory(4)->create(['tipo' => 'HERRAMIENTA']);
         Articulo::factory(36)->has(Tarea::factory()->count(5)->has(ArticuloParaTarea::factory()->count(4)))->create();
         ModeloDelImplemento::factory(4)->has(Implemento::factory()->count(3))->has(ComponentePorModelo::factory()->count(3))->create();
-        Articulo::factory(36)->has(PiezaPorModelo::factory()->count(1))->create(['tipo' => 'PIEZA']);*/
+        Articulo::factory(36)->has(PiezaPorModelo::factory()->count(1))->create(['tipo' => 'PIEZA']);
         StockSede::factory(40)->create();
         StockOperario::factory(35)->create();
     }

@@ -22,7 +22,7 @@
         </thead>
         <tbody class="text-sm font-light text-gray-600">
             @foreach ($detalle_solicitud_de_pedidos as $detalle_solicitud_de_pedido)
-                <tr wire:click="editar({{$detalle_solicitud_de_pedido->id}})" class="border-b border-gray-200 unselected">
+                <tr wire:click="$emitTo('operador.solicitar-articulo.modal','abrir_modal', 'editar',{{ $detalle_solicitud_de_pedido->id }})" class="border-b border-gray-200 unselected">
                     <td class="px-6 py-3 text-center">
                         <div>
                             <span class="font-medium">{{$detalle_solicitud_de_pedido->codigo}} </span>
@@ -35,7 +35,7 @@
                     </td>
                     <td class="px-6 py-3 text-center">
                         <div>
-                            <span class="font-bold text-red-600">{{ $detalle_solicitud_de_pedido->cantidad }}</span>
+                            <span class="font-bold text-red-600">{{ $detalle_solicitud_de_pedido->cantidad_solicitada }}</span>
                         </div>
                     </td>
                     <td class="px-6 py-3 text-center">

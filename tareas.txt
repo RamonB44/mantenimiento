@@ -1,3 +1,5 @@
--Agregar al detalle de solicitud de pedido cantidad_validada y la cantidad cambiar a cantidad_pedida.
 -Obtener cantidad gastada por ceco.
------------------------------Validar Solicitud de Pedido-----------------------------
+---------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------
+-----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
+---------------------------OPERARIO: Verificar ordenes de trabajo(Generar reserva de materiales)--------------------------------
+---------------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------------

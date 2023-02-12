@@ -26,6 +26,7 @@ class Modal extends Component
     public $unidad_de_medida;
     public $fecha_de_pedido;
     public $existe_pedido;
+    public $detalle_de_solicitud;
 
     protected $listeners = ['cambiar_implemento','abrir_modal'];
 
@@ -40,15 +41,17 @@ class Modal extends Component
         $this->unidad_de_medida = "";
         $this->fecha_de_pedido = $fecha_de_pedido;
         $this->existe_pedido = $existe_pedido;
+        $this->detalle_de_solicitud = 0;
     }
 
     public function cambiar_implemento($id){
         $this->implemento_id = $id;
     }
 
-    public function abrir_modal($tipo){
+    public function abrir_modal($tipo,$detalle_de_solicitud=0){
         $this->tipo = $tipo;
         $this->open = true;
+        $this->detalle_de_solicitud = $detalle_de_solicitud;
     }
 
     public function updatedComponente(){
@@ -85,7 +88,7 @@ class Modal extends Component
                     'articulo_id' => $this->articulo,
                 ],
                 [
-                    'cantidad' => $this->cantidad,
+                    'cantidad_solicitada' => $this->cantidad,
                     'estimated_price' => $this->precio,
                     'estado' => 'ACEPTADO'
                 ]

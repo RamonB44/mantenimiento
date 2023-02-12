@@ -1,7 +1,7 @@
 <div>
     <div wire:loading.remove>
     @if ($existe_pedido)
-        @livewire('operador.solicitar-articulo.cabecera')
+        @livewire('operador.solicitar-articulo.cabecera',['fecha_de_pedido' => $fecha_de_pedido, 'existe_pedido' => $existe_pedido])
         @livewire('operador.solicitar-articulo.seleccionar-implemento',['fecha_de_pedido' => $fecha_de_pedido])
         <div class="px-6 py-4 text-center">
             @if ($implemento_id > 0)

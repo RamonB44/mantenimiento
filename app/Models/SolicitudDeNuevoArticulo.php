@@ -10,4 +10,8 @@ class SolicitudDeNuevoArticulo extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function SolicitudDePedido(){
+        return $this->belongsTo(SolicitudDePedido::class);
+    }
 }

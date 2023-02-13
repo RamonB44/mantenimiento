@@ -26,4 +26,7 @@ class SolicitudDePedido extends Model
     public function FechaDePedido(){
         return $this->belongsTo(FechaDePedido::class);
     }
+    public function SolicitudDeNuevoArticulo(){
+        return $this->hasMany(SolicitudDeNuevoArticulo::class);
+    }
 }

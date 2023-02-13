@@ -25,13 +25,12 @@ class Modal extends Component
     public $precio;
     public $unidad_de_medida;
     public $fecha_de_pedido;
-    public $existe_pedido;
     public $detalle_de_solicitud;
     public $articulo_name;
 
     protected $listeners = ['cambiar_implemento','abrir_modal'];
 
-    public function mount($implemento_id,$fecha_de_pedido,$existe_pedido){
+    public function mount($implemento_id,$fecha_de_pedido){
         $this->open = false;
         $this->implemento_id = $implemento_id;
         $this->tipo = "";
@@ -41,7 +40,6 @@ class Modal extends Component
         $this->precio = 0;
         $this->unidad_de_medida = "";
         $this->fecha_de_pedido = $fecha_de_pedido;
-        $this->existe_pedido = $existe_pedido;
         $this->detalle_de_solicitud = 0;
         $this->articulo_name = "";
     }
@@ -77,7 +75,7 @@ class Modal extends Component
     }
 
     public function registrar(){
-        if($this->existe_pedido && $this->articulo > 0 && $this->cantidad > 0){
+        if($this->articulo > 0 && $this->cantidad > 0){
             $solicitud_de_pedido = SolicitudDePedido::firstOrCreate([
                 'solicitante' => Auth::user()->id,
                 'implemento_id' => $this->implemento_id,

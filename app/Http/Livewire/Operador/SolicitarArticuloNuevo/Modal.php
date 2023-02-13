@@ -93,11 +93,12 @@ class Modal extends Component
     }
 
     public function registrar(){
-
+        $this->validate();
         $solicitud_de_pedido = SolicitudDePedido::firstOrCreate([
             'solicitante' => Auth::user()->id,
             'implemento_id' => $this->implemento_id,
-            'fecha_de_pedido_id' => $this->fecha_de_pedido
+            'fecha_de_pedido_id' => $this->fecha_de_pedido,
+            'sede_id' => Auth::user()->sede_id
         ]);
 
         if($this->imagen != ""){

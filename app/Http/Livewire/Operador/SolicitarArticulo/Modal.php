@@ -79,7 +79,8 @@ class Modal extends Component
             $solicitud_de_pedido = SolicitudDePedido::firstOrCreate([
                 'solicitante' => Auth::user()->id,
                 'implemento_id' => $this->implemento_id,
-                'fecha_de_pedido_id' => $this->fecha_de_pedido
+                'fecha_de_pedido_id' => $this->fecha_de_pedido,
+                'sede_id' => Auth::user()->sede_id,
             ]);
 
             DetalleDeSolicitudDePedido::updateOrCreate(
@@ -156,7 +157,7 @@ class Modal extends Component
                     $articulos = Articulo::where('tipo',strtoupper($this->tipo))->get();
                 }
             }
-            
+
             if($this->articulo > 0){
                 if(StockOperario::where('user_id',Auth::user()->id)->where('articulo_id',$this->articulo)->exists()){
                     $stock = StockOperario::where('user_id',Auth::user()->id)->where('articulo_id',$this->articulo)->first()->cantidad;

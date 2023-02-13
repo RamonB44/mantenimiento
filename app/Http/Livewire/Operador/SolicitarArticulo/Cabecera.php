@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Operador\SolicitarArticulo;
 
-use App\Models\DetalleMontoCeco;
 use App\Models\FechaDePedido;
 use App\Models\Implemento;
 use Livewire\Component;
@@ -23,7 +22,7 @@ class Cabecera extends Component
     public $centro_de_costo;
 
     protected $listeners = ['cambiar_implemento','obtener_montos'];
-    
+
     public function mount($fecha_de_pedido,$implemento_id){
         Carbon::setLocale(LC_ALL, 'es_ES');
         $pedido = FechaDePedido::find($fecha_de_pedido);
@@ -47,8 +46,13 @@ class Cabecera extends Component
     public function obtener_montos(){
         if($this->implemento_id > 0){
             $this->centro_de_costo = Implemento::find($this->implemento_id)->centro_de_costo_id;
-           $this->monto_asignado = DB::table('detalle_monto_cecos_por_meses')->where('centro_de_costo_id',$this->centro_de_costo)->whereIn('mes',[intval($this->fecha_pedido)+1,intval($this->fecha_pedido)+2])->sum('monto');    
-           $this->monto_usado = DB::table('monto_usado_solicitud_pedido')->where('fecha_de_pedido_id',$this->fecha_pedido_id)->where('centro_de_costo_id',$this->centro_de_costo)->first()->monto_usado;
+           $this->monto_asignado = DB::table('detalle_monto_cecos_por_meses')->where('centro_de_costo_id',$this->centro_de_costo)->whereIn('mes',[intval($this->fecha_pedido)+1,intval($this->fecha_pedido)+2])->sum('monto');
+           $this->monto_usado = DB::table('monto_usado_solicitud_pedido')->where('fecha_de_pedido_id',$this->fecha_pedido_id)->where('centro_de_costo_id',$this->centro_de_costo)->first();
+           if($this->monto_usado != NULL){
+            $this->monto_usado = $this->monto_usado->monto_usado;
+           }else{
+            $this->monto_usado = 0;
+           }
         }else{
             $this->reset('monto_asignado','monto_usado','monto_usado','centro_de_costo');
         }

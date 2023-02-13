@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('solicitante');
             $table->foreign('solicitante')->references('id')->on('users');
+            $table->foreignId('sede_id')->constrained();
             $table->foreignId('implemento_id')->constrained();
             $table->enum('estado',['PENDIENTE', 'CERRADO', 'VALIDADO', 'RECHAZADO', 'CONCLUIDO'])->default('PENDIENTE');
             $table->unsignedBigInteger('validado_por')->nullable();

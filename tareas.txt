@@ -1,4 +1,5 @@
 -Obtener cantidad gastada por ceco.
+-Falta solicitar material nuevo.
 ---------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
 ---------------------------OPERARIO: Verificar ordenes de trabajo(Generar reserva de materiales)--------------------------------

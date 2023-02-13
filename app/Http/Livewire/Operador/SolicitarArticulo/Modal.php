@@ -27,6 +27,7 @@ class Modal extends Component
     public $fecha_de_pedido;
     public $existe_pedido;
     public $detalle_de_solicitud;
+    public $articulo_name;
 
     protected $listeners = ['cambiar_implemento','abrir_modal'];
 
@@ -42,6 +43,7 @@ class Modal extends Component
         $this->fecha_de_pedido = $fecha_de_pedido;
         $this->existe_pedido = $existe_pedido;
         $this->detalle_de_solicitud = 0;
+        $this->articulo_name = "";
     }
 
     public function cambiar_implemento($id){
@@ -96,6 +98,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Agregado correctamente']);
             $this->resetExcept('open','implemento_id','existe_pedido','fecha_de_pedido');
+            $this->emitTo('operador.solicitar-articulo.cabecera','obtener_montos');
             $this->emitTo('operador.solicitar-articulo.tabla','render');
         }else{
             $this->emit('alerta',['center','error','Faltan datos']);
@@ -111,7 +114,13 @@ class Modal extends Component
         $en_proceso = 0;
         if($this->implemento_id > 0){
             if(SolicitudDePedido::where('solicitante',Auth::user()->id)->where('implemento_id',$this->implemento_id)->where('fecha_de_pedido_id',$this->fecha_de_pedido)->exists()){
-                if($this->tipo == "componente"){
+                if($this->tipo == "editar"){
+                    $detalle = DetalleDeSolicitudDePedido::find($this->detalle_de_solicitud);
+                    $this->articulo = $detalle->articulo_id;
+                    $this->articulo_name = strtoupper($detalle->Articulo->articulo);
+                    $this->cantidad = $detalle->cantidad_solicitada;
+                    $this->precio = $detalle->Articulo->precio_estimado;
+                }else if($this->tipo == "componente"){
                     $articulos = Articulo::whereDoesntHave('DetalleDeSolicitudDePedido',function ($q){
                         $q->where('solicitud_de_pedido_id',SolicitudDePedido::where('solicitante',Auth::user()->id)->where('implemento_id',$this->implemento_id)->where('fecha_de_pedido_id',$this->fecha_de_pedido)->first()->id);
                     })->whereHas('ComponentePorModelo',function($q){

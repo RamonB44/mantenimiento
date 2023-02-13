@@ -6,26 +6,33 @@
         </x-slot>
         <x-slot name="content">
             <div class="grid">
-                @if ($tipo == "pieza")
+                @if($tipo == "editar")
                 <div>
-                    <x-jet-label>Componente: </x-jet-label>
-                    <select class="text-center form-control" style="width: 100%" wire:model='componente'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($componentes as $componente)
-                        <option value="{{ $componente->Articulo->id }}">{{$componente->Articulo->codigo}} - {{$componente->Articulo->articulo}}</option>
-                        @endforeach
-                    </select>
+                    <x-jet-label>Material: </x-jet-label>
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{ $articulo_name }}" disabled/>
                 </div>
+                @else
+                    @if ($tipo == "pieza")
+                    <div>
+                        <x-jet-label>Componente: </x-jet-label>
+                        <select class="text-center form-control" style="width: 100%" wire:model='componente'>
+                            <option value="0">Seleccione una opción</option>
+                            @foreach ($componentes as $componente)
+                            <option value="{{ $componente->Articulo->id }}">{{$componente->Articulo->codigo}} - {{$componente->Articulo->articulo}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
+                    <div>
+                        <x-jet-label>{{ ucfirst($tipo) }}: </x-jet-label>
+                        <select class="text-center form-control" style="width: 100%" wire:model='articulo'>
+                            <option value="0">Seleccione una opción</option>
+                            @foreach ($articulos as $art)
+                            <option value="{{ $art->id }}">{{$art->codigo}} - {{$art->articulo}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 @endif
-                <div>
-                    <x-jet-label>{{ ucfirst($tipo) }}: </x-jet-label>
-                    <select class="text-center form-control" style="width: 100%" wire:model='articulo'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($articulos as $art)
-                        <option value="{{ $art->id }}">{{$art->codigo}} - {{$art->articulo}}</option>
-                        @endforeach
-                    </select>
-                </div>
             </div>
             <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex  wire:target="articulo">
                 <div class="text-center">

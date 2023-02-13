@@ -2,7 +2,7 @@
     <div class="grid grid-cols-1 gap-4">
         <div class="text-center">
             <h1 class="text-4xl font-bold">
-                PEDIDO DE {{ strtoupper($fecha_pedido) }}
+                PEDIDO DE {{ strtoupper($mes_de_pedido) }} {{ $monto_asignado }} {{ $monto_usado }}
             </h1>
         </div>
         <div class="grid grid-cols-1 gap-4">

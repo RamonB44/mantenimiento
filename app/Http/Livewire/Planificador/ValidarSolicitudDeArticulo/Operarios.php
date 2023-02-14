@@ -35,6 +35,7 @@ class Operarios extends Component
             $this->operarios_validados = $this->listar_operarios('VALIDADO');
         }else{
             $this->operarios_pendientes = new SolicitudDePedido();
+            $this->operarios_validados = new SolicitudDePedido();
         }
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Planificador\ValidarSolicitudDeArticulo;
 
 use App\Models\Implemento;
+use App\Models\SolicitudDePedido;
 use Livewire\Component;
 
 class Modal extends Component
@@ -15,7 +16,8 @@ class Modal extends Component
     public $monto_asignado;
     public $operario_id;
     public $operario;
-    public $pedidos_pendientes;
+    public $materiales_pendientes;
+    public $materiales_validados;
 
     protected $listeners = ['mostrar_pedidos'];
 
@@ -29,6 +31,8 @@ class Modal extends Component
         $this->monto_asignado = 0;
         $this->operario_id = 0;
         $this->operario = "";
+        $this->materiales_pendientes = new SolicitudDePedido();
+        $this->materiales_validados = new SolicitudDePedido();
     }
 
     public function updatedOpen(){
@@ -38,7 +42,13 @@ class Modal extends Component
     }
 
     public function udpatedImplementoId(){
-        
+        if($this->implemento_id > 0){
+            $solicitud = SolicitudDePedido::where('solicitante',$this->operario_id)->where('implemento_id',$this->implemento_id)->where('fecha_de_pedido_id',$this->fecha_de_pedido);
+            $this->materiales_pendientes = $solicitud->where('estado','CERRADO')->get();
+            $this->materiales_validados = $solicitud->where('estado','VALIDADO')->get();;
+        }else{
+            $this->reset('materiales_pendientes','materiales_validados');
+        }
     }
 
     public function mostrar_pedidos($operario_id,$operario,$estado){

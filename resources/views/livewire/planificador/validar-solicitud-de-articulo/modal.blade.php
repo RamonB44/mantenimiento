@@ -24,9 +24,9 @@
                 </div>
             </div>
                 @if($implemento_id > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 mt-4">
-                    @if(count($order_request_detail_operator))
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4  rounded-md bg-yellow-200 shadow-md py-4">
+                <div class="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-1">
+                    @if($materiales_pendientes->count())
+                        <div class="grid grid-cols-1 gap-4 py-4 bg-yellow-200 rounded-md shadow-md sm:grid-cols-2">
                             <div>
                                 <h1 class="text-lg font-bold">Pendiente a Validar</h1>
                             </div>
@@ -35,9 +35,9 @@
                             </div>
                         </div>
                         <div style="max-height:180px;overflow:auto">
-                            <table class="min-w-max w-full">
+                            <table class="w-full min-w-max">
                                 <thead>
-                                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                    <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
                                         <th class="py-3 text-center">
                                             <span>Código</span>
                                         </th>
@@ -55,34 +55,34 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="text-gray-600 text-sm font-light">
-                                    @foreach ($solicitud_de_articulos as $solicitud_de_articulo)
-                                        <tr wire:click="mostrarModalValidarMaterial({{$solicitud_de_articulo->id}})" class="border-b border-gray-200 unselected">
-                                            <td class="py-3 px-6 text-center">
+                                <tbody class="text-sm font-light text-gray-600">
+                                    @foreach ($materiales_pendientes as $materiales_pendiente)
+                                        <tr wire:click="mostrarModalValidarMaterial({{$materiales_pendiente->id}})" class="border-b border-gray-200 unselected">
+                                            <td class="px-6 py-3 text-center">
                                                 <div>
-                                                    <span class="font-medium">{{$solicitud_de_articulo->codigo}} </span>
+                                                    <span class="font-medium">{{$materiales_pendiente->Articulo->codigo}} </span>
                                                 </div>
                                             </td>
-                                            <td class="py-3 px-6 text-center">
+                                            <td class="px-6 py-3 text-center">
                                                 <div>
-                                                    <span class="font-bold {{$solicitud_de_articulo->type == "PIEZA" ? 'text-red-500' : ( $solicitud_de_articulo->type == "COMPONENTE" ? 'text-green-500' : ($solicitud_de_articulo->type == "COMPONENTE" ? 'text-green-500' : ($solicitud_de_articulo->type == "FUNGIBLE" ? 'text-amber-500' : 'text-blue-500')))}} ">
-                                                        {{ strtoupper($solicitud_de_articulo->item) }}
+                                                    <span class="font-bold {{$materiales_pendiente->Articulo->tipo == "PIEZA" ? 'text-red-500' : ( $materiales_pendiente->Articulo->tipo == "COMPONENTE" ? 'text-green-500' : ($materiales_pendiente->Articulo->tipo == "COMPONENTE" ? 'text-green-500' : ($materiales_pendiente->Articulo->tipo == "FUNGIBLE" ? 'text-amber-500' : 'text-blue-500')))}} ">
+                                                        {{ strtoupper($materiales_pendiente->Articulo->articulo) }}
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td class="py-3 px-6 text-center">
+                                            <td class="px-6 py-3 text-center">
                                                 <div>
-                                                    <span class="font-bold text-red-600">{{floatVal($solicitud_de_articulo->quantity)}} {{$solicitud_de_articulo->abbreviation}}</span>
+                                                    <span class="font-bold text-red-600">{{ $materiales_pendiente->cantidad_solicitada }}</span>
                                                 </div>
                                             </td>
-                                            <td class="py-3 px-6 text-center">
+                                            <td class="px-6 py-3 text-center">
                                                 <div>
-                                                    <span class="font-bold text-amber-600">{{floatVal($solicitud_de_articulo->ordered_quantity - $solicitud_de_articulo->used_quantity)}} {{$solicitud_de_articulo->abbreviation}}</span>
+                                                    <span class="font-bold text-amber-600">0</span>
                                                 </div>
                                             </td>
-                                            <td class="py-3 px-6 text-center">
+                                            <td class="px-6 py-3 text-center">
                                                 <div>
-                                                    <span class="font-bold text-green-600">{{floatVal($solicitud_de_articulo->stock)}} {{$solicitud_de_articulo->abbreviation}}</span>
+                                                    <span class="font-bold text-green-600">0</span>
                                                 </div>
                                             </td>
                                         </tr>

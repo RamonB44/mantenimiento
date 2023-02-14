@@ -12,6 +12,5 @@
         </select>
     </div>
     @livewire('planificador.validar-solicitud-de-articulo.operarios', ['fecha_de_pedido' => $fecha_de_pedido,'sede_id' => $sede_id])
-    @livewire('planificador.validar-solicitud-de-articulo.modal', ['fecha_de_pedido' => $fecha_de_pedido,'sede_id' => $sede_id])
     @endif
 </div>

@@ -45,8 +45,8 @@ class Operarios extends Component
                         })->get();
         }else{
             $operarios = User::whereHas('SolicitudDePedido',function($q){
-                $q->where('sede_id',Auth::user()->sede_id)->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('estado','VALIDADO');
-            })->get();
+                            $q->where('sede_id',Auth::user()->sede_id)->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('estado','VALIDADO');
+                        })->get();
         }
         return $operarios;
     }

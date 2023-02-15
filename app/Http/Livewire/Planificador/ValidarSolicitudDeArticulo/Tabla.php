@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Planificador\ValidarSolicitudDeArticulo;
 
 use App\Models\DetalleDeSolicitudDePedido;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Tabla extends Component
@@ -12,6 +13,7 @@ class Tabla extends Component
     public $tipo;
     public $operario_id;
     public $fecha_de_pedido;
+    public $monto_total;
 
     protected $listeners = ['cambiar_implemento'];
 
@@ -30,11 +32,18 @@ class Tabla extends Component
 
     public function obtenerListaDeMateriales($implemento_id){
         if($implemento_id > 0){
-            $this->lista_de_materiales = DetalleDeSolicitudDePedido::whereHas('SolicitudDePedido',function($q){
+            $consulta = DetalleDeSolicitudDePedido::whereHas('SolicitudDePedido',function($q){
                 $q->where('solicitante',$this->operario_id)->where('implemento_id',$this->implemento_id)->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('estado','CERRADO');
-            })->where('estado',$this->tipo)->get();
+            })->where('estado',$this->tipo);
+            $this->lista_de_materiales = $consulta->get();
+            if($this->tipo == 'VALIDADO'){
+                $this->monto_total = floatval($consulta->sum(DB::raw('estimated_price * cantidad_validada')));
+            }else{
+                $this->monto_total = floatval($consulta->sum(DB::raw('estimated_price * cantidad_solicitada')));
+            }
         }else{
             $this->lista_de_materiales = new DetalleDeSolicitudDePedido();
+            $this->monto_total = 0;
         }
     }
 

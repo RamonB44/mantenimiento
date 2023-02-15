@@ -11,7 +11,7 @@
                     <h5 class="mb-1 text-lg font-medium text-gray-900 dark:text-white">{{ $operario_pendiente->name }}</h5>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Operario</span>
                     <div class="flex mt-4 space-x-3 lg:mt-6">
-                        <button wire:click="$emit('mostrar_pedidos',{{$operario_pendiente->id}},'{{$operario_pendiente->name}}','CERRADO')" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver Pedido</button>
+                        <button wire:click="$emit('mostrarPedidos',{{$operario_pendiente->id}},'{{$operario_pendiente->name}}','CERRADO')" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver Pedido</button>
                     </div>
                 </div>
             </div>
@@ -29,12 +29,12 @@
                     <h5 class="mb-1 text-lg font-medium text-gray-900 dark:text-white">{{ $operario_validado->name }}</h5>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Operario</span>
                     <div class="flex mt-4 space-x-3 lg:mt-6">
-                        <button wire:click="$emit('mostrar_pedidos',{{$operario_validado->id}},'{{$operario_validado->name}}','VALIDADO')" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver Pedido</button>
+                        <button wire:click="$emit('mostrarPedidos',{{$operario_validado->id}},'{{$operario_validado->name}}','VALIDADO')" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver Pedido</button>
                     </div>
                 </div>
             </div>
             @endforeach
-        </div>            
+        </div>
         @endif
         @livewire('planificador.validar-solicitud-de-articulo.modal', ['fecha_de_pedido' => $fecha_de_pedido,'sede_id' => $sede_id])
     @endif

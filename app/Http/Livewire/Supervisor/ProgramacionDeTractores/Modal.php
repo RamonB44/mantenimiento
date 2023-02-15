@@ -104,6 +104,7 @@ class Modal extends Component
     public function updatedOpen(){
         if(!$this->open){
             $this->resetExcept('open','fecha','turno');
+            $this->resetValidation();
         }
     }
 
@@ -140,6 +141,9 @@ class Modal extends Component
 
 
             $this->emit('alerta',['center','success','Programación Editada']);
+
+            $this->resetExcept('fecha','turno');
+
         }else{
             ProgramacionDeTractor::create([
                 'fecha' => $this->fecha,
@@ -155,9 +159,9 @@ class Modal extends Component
 
 
             $this->emit('alerta',['center','success','Programación Registrada']);
-        }
 
-        $this->resetExcept('fecha','turno','open');
+            $this->resetExcept('fecha','turno','open');
+        }
 
         $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
     }

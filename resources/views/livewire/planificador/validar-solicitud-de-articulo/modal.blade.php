@@ -6,7 +6,6 @@
         <x-slot name="content">
             @if($operario_id > 0)
         <!------------ Boton para materiales nuevos----------------------->
-        <!------------------------------------------- SELECT DE LOS IMPLEMENTOS ------------------------------------------------- -->
             <div class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2">
                 <div class="py-2 bg-gray-200 rounded-md shadow-xl" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Implemento: </x-jet-label>
@@ -20,13 +19,14 @@
                 </div>
 
                 <div class="py-4 mt-2 bg-red-500 rounded-md">
-                    <h1 class="text-lg font-bold text-center text-white">Monto Disponible: S/.0</h1>
+                    <h1 class="text-lg font-bold text-center text-white">Monto Disponible: S/.{{ $monto_disponible }}</h1>
                 </div>
             </div>
                 @if($implementoid > 0)
                     @livewire('planificador.validar-solicitud-de-articulo.tabla', ['implemento_id' => $implementoid,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'ACEPTADO'])
                     @livewire('planificador.validar-solicitud-de-articulo.tabla', ['implemento_id' => $implementoid,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'VALIDADO'])
                     @livewire('planificador.validar-solicitud-de-articulo.tabla', ['implemento_id' => $implementoid,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'RECHAZADO'])
+                    @livewire('planificador.validar-solicitud-de-articulo.validar-material')
                 @endif
             @endif
         </x-slot>

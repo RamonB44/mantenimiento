@@ -29,7 +29,7 @@ class Botones extends Component
         if($this->programacion_id > 0){
             $programacion = ProgramacionDeTractor::find($this->programacion_id);
             if($programacion->fecha < now()->toDateString()){
-                $this->emit('alerta',['center','error',now()->toDateString()]);
+                $this->emit('alerta',['center','error','No se puede eliminar']);
             }else{
                 $programacion->esta_anulado = 1;
                 $programacion->save();

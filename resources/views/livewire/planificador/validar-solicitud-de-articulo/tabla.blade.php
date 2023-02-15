@@ -2,10 +2,10 @@
     @if($lista_de_materiales->count())
         <div class="grid grid-cols-1 gap-4 py-4 text-center bg-yellow-200 rounded-md shadow-md sm:grid-cols-2">
             <div>
-                <h1 class="text-lg font-bold">Validados</h1>
+                <h1 class="text-lg font-bold">Pedidos {{ $tipo == "ACEPTADO" ? 'Pendientes' : 'Validados' }}</h1>
             </div>
             <div>
-                <h1 class="text-lg font-bold">Precio Estimado: S/.3000</h1>
+                <h1 class="text-lg font-bold">Precio Estimado: {{ $monto_total }}</h1>
             </div>
         </div>
         <div style="max-height:180px;overflow:auto">
@@ -25,7 +25,7 @@
                 </thead>
                 <tbody class="text-sm font-light text-gray-600">
                     @foreach ($lista_de_materiales as $lista_de_material)
-                        <tr wire:click="validarMaterial({{$lista_de_material->id}})" class="border-b border-gray-200 unselected">
+                        <tr wire:click="$emitTo('planificador.validar-solicitud-de-articulo.validar-material','abrirModal',{{$lista_de_material->id}})" class="border-b border-gray-200 unselected">
                             <td class="px-6 py-3 text-center">
                                 <div>
                                     <span class="font-medium">{{$lista_de_material->Articulo->codigo}} </span>

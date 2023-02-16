@@ -29,7 +29,7 @@
             @endif
             @if ($programacion_id > 0)
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Ubicación:</x-jet-label>
+                    <x-jet-label>Fundo:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$fundo}}" disabled/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">

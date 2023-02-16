@@ -127,14 +127,17 @@ class Modal extends Component
             $this->emit('alerta',['center','success','Programación Registrada']);
         }
 
-        
-
         $this->emitTo('asistente.reporte-de-tractores.tabla','render');
     }
 
     public function updatedProgramacionId(){
-        $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
-        $this->horometro_final = number_format($this->horometro_inicial + 8,2);
+        if($this->programacion_id){
+            $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
+            $this->horometro_final = number_format($this->horometro_inicial + 8,2);
+        }else{
+            $this->reset('horometro_inicial','horometro_final');
+        }
+
     }
 
     public function render()

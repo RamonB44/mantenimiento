@@ -8,33 +8,33 @@ use Livewire\Component;
 
 class Tabla extends Component
 {
-    public $implemento_id;
+    public $solicitud_id;
     public $lista_de_materiales;
     public $tipo;
     public $operario_id;
     public $fecha_de_pedido;
     public $monto_total;
+    public $estado;
 
-    protected $listeners = ['cambiar_implemento'];
+    protected $listeners = ['cambiar_solicitud'];
 
-    public function mount($implemento_id,$tipo,$fecha_de_pedido,$operario_id){
-        $this->implemento_id = $implemento_id;
+    public function mount($solicitud_id,$tipo,$fecha_de_pedido,$operario_id,$estado){
+        $this->solicitud_id = $solicitud_id;
         $this->tipo = $tipo;
+        $this->estado = $estado;
         $this->operario_id = $operario_id;
         $this->fecha_de_pedido = $fecha_de_pedido;
-        $this->obtenerListaDeMateriales($implemento_id);
+        $this->obtenerListaDeMateriales($solicitud_id);
     }
 
-    public function cambiar_implemento($implemento_id){
-        $this->implemento_id = $implemento_id;
-        $this->obtenerListaDeMateriales($this->implemento_id);
+    public function cambiar_solicitud($solicitud_id){
+        $this->solicitud_id = $solicitud_id;
+        $this->obtenerListaDeMateriales($this->solicitud_id);
     }
 
-    public function obtenerListaDeMateriales($implemento_id){
-        if($implemento_id > 0){
-            $consulta = DetalleDeSolicitudDePedido::whereHas('SolicitudDePedido',function($q){
-                $q->where('solicitante',$this->operario_id)->where('implemento_id',$this->implemento_id)->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('estado','CERRADO');
-            })->where('estado',$this->tipo);
+    public function obtenerListaDeMateriales($solicitud_id){
+        if($solicitud_id > 0){
+            $consulta = DetalleDeSolicitudDePedido::where('solicitud_de_pedido_id',$solicitud_id)->where('estado',$this->tipo);
             $this->lista_de_materiales = $consulta->get();
             if($this->tipo == 'VALIDADO'){
                 $this->monto_total = floatval($consulta->sum(DB::raw('precio * cantidad_validada')));

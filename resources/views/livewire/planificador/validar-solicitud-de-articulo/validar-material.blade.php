@@ -53,20 +53,22 @@
         </div>
     </x-slot>
     <x-slot name="footer">
-        @if ($cantidad == 0)
-            <x-jet-button wire:loading.attr="disabled" wire:click="validar">
-                Rechazar
-            </x-jet-button>
-        @else
-            <x-jet-button wire:loading.attr="disabled" wire:click="validar">
-                Validar
-            </x-jet-button>
+        @if ($estado == "CERRADO")
+            @if ($cantidad == 0)
+                <x-jet-button wire:loading.attr="disabled" wire:click="validar">
+                    Rechazar
+                </x-jet-button>
+            @else
+                <x-jet-button wire:loading.attr="disabled" wire:click="validar">
+                    Validar
+                </x-jet-button>
+            @endif
+            <div wire:loading wire:target="validar">
+                Registrando...
+            </div>
         @endif
-        <div wire:loading wire:target="validar">
-            Registrando...
-        </div>
         <x-jet-secondary-button wire:click="$set('open',false)" class="ml-2">
-            Cancelar
+            Cerrar
         </x-jet-secondary-button>
     </x-slot>
 </x-jet-dialog-modal>

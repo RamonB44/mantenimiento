@@ -19,10 +19,11 @@ class ValidarMaterial extends Component
     public $stock;
     public $almacen;
     public $detalle_id;
+    public $estado;
 
     protected $listeners = ['abrirModal'];
 
-    public function mount(){
+    public function mount($estado){
         $this->open = false;
         $this->codigo = "";
         $this->articulo = "";
@@ -32,11 +33,12 @@ class ValidarMaterial extends Component
         $this->stock = 0;
         $this->almacen = 0;
         $this->detalle_id = 0;
+        $this->estado = $estado;
     }
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->resetExcept('open');
+            $this->resetExcept('open','estado');
         }
     }
 
@@ -57,11 +59,10 @@ class ValidarMaterial extends Component
             $detalle->estado = 'RECHAZADO';
             $detalle->cantidad_validada = 0;
         }
-
         $detalle->save();
 
-        $this->resetExcept();
-        $this->emitTo('planificador.validar-solicitud-de-articulo.modal','mostrarPedidos',0,0,0);
+        $this->resetExcept('estado');
+        $this->emitTo('planificador.validar-solicitud-de-articulo.modal','obtenerDatos');
     }
 
     public function obtenerDatos($detalle_id){

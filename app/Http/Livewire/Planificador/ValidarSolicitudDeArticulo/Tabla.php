@@ -37,9 +37,9 @@ class Tabla extends Component
             })->where('estado',$this->tipo);
             $this->lista_de_materiales = $consulta->get();
             if($this->tipo == 'VALIDADO'){
-                $this->monto_total = floatval($consulta->sum(DB::raw('estimated_price * cantidad_validada')));
+                $this->monto_total = floatval($consulta->sum(DB::raw('precio * cantidad_validada')));
             }else{
-                $this->monto_total = floatval($consulta->sum(DB::raw('estimated_price * cantidad_solicitada')));
+                $this->monto_total = floatval($consulta->sum(DB::raw('precio * cantidad_solicitada')));
             }
         }else{
             $this->lista_de_materiales = new DetalleDeSolicitudDePedido();

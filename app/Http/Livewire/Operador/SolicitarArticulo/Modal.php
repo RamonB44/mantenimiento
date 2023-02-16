@@ -5,12 +5,10 @@ namespace App\Http\Livewire\Operador\SolicitarArticulo;
 use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
 use App\Models\DetalleDeSolicitudDePedido;
-use App\Models\FechaDePedido;
 use App\Models\Implemento;
 use App\Models\SolicitudDePedido;
 use App\Models\StockOperario;
 use App\Models\StockSede;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -90,8 +88,7 @@ class Modal extends Component
                 ],
                 [
                     'cantidad_solicitada' => $this->cantidad,
-                    'estimated_price' => $this->precio,
-                    'estado' => 'ACEPTADO'
+                    'precio' => $this->precio,
                 ]
             );
 

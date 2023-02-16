@@ -1,6 +1,22 @@
--Obtener cantidad gastada por ceco.
--Falta solicitar material nuevo.
 ---------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------
+-Falta actualizar la lista de implementos en el modal.
+-Falta actualizar la lista de solicitudes ya validadas.
+-Falta el resumen del pedido.
+-Error al querer mostrar validados. Condicionar consulta en el modal.
+--------------------------------PLANNER: Importar Datos al sistema mediante excel----------------------------------------------------
+-Importar tractores.
+-Importar implementos.
+-Importar fundos.
+-Importar lotes.
+-Importar tractoristas.
+-Importar labores.
+-Importar materiales.
+-Importar epps.
+-Importar riesgos.
+-Importar centros de costos.
+-Importar tareas rutinarios.
+-Importar componentes por implementos.
+-Importar piezas por componentes.
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
 ---------------------------OPERARIO: Verificar ordenes de trabajo(Generar reserva de materiales)--------------------------------
 ---------------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------------

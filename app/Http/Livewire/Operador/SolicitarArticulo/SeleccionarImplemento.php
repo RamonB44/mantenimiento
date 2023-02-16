@@ -33,7 +33,7 @@ class SeleccionarImplemento extends Component
     public function render()
     {
         $implementos = Implemento::whereDoesntHave('SolicitudDePedido',function($q){
-            $q->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('estado','CERRADO');
+            $q->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('estado','VALIDADO')->orWhere('estado','CERRADO');
         })->where('responsable',Auth::user()->id)->get();
 
         return view('livewire.operador.solicitar-articulo.seleccionar-implemento',compact('implementos'));

@@ -50,7 +50,7 @@ class ValidarMaterial extends Component
         $detalle = DetalleDeSolicitudDePedido::find($this->detalle_id);
         if($this->cantidad > 0){
             $detalle->cantidad_validada = $this->cantidad;
-            $detalle->estimated_price = $this->precio;
+            $detalle->precio = $this->precio;
             $detalle->estado = 'VALIDADO';
 
         }else{
@@ -71,7 +71,7 @@ class ValidarMaterial extends Component
             $this->articulo = strtoupper($detalle->articulo);
             $this->unidad_de_medida = $detalle->unidad_de_medida;
             $this->cantidad = $detalle->cantidad_validada > 0 ? $detalle->cantidad_validada : $detalle->cantidad_solicitada;
-            $this->precio = floatval($detalle->precio_real);
+            $this->precio = floatval($detalle->precio);
             $this->stock = floatval($detalle->stock);
             $this->almacen = floatval($detalle->almacen);
         }else{

@@ -18,12 +18,12 @@
                     <x-jet-input-error for="implementoid"/>
                 </div>
 
-                <div class="py-4 mt-2 bg-red-500 rounded-md">
+                <div class="py-4 mt-2 bg-{{ $monto_disponible > 0 ? 'green' : 'red' }}-500 rounded-md">
                     <h1 class="text-lg font-bold text-center text-white">Monto Disponible: S/.{{ $monto_disponible }}</h1>
                 </div>
             </div>
                 @if($implementoid > 0)
-                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['implemento_id' => $implementoid,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'ACEPTADO'])
+                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['implemento_id' => $implementoid,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'PENDIENTE'])
                     @livewire('planificador.validar-solicitud-de-articulo.tabla', ['implemento_id' => $implementoid,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'VALIDADO'])
                     @livewire('planificador.validar-solicitud-de-articulo.tabla', ['implemento_id' => $implementoid,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'RECHAZADO'])
                     @livewire('planificador.validar-solicitud-de-articulo.validar-material')
@@ -34,9 +34,6 @@
             @if($implementoid > 0)
                 <button wire:loading.attr="disabled" wire:click="validarSolicitudPedido()" style="width: 200px" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700">
                     Validar
-                </button>
-                <button wire:loading.attr="disabled" wire:click="rechazarSolicitudPedido()" style="width: 200px" class="px-4 py-2 ml-2 text-white bg-red-500 rounded-md hover:bg-red-700">
-                    Rechazar
                 </button>
             @endif
             <x-jet-secondary-button wire:click="$set('open',false)" class="ml-2">

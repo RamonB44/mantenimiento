@@ -2,7 +2,7 @@
     @if($lista_de_materiales->count())
         <div class="grid grid-cols-1 gap-4 py-4 text-center bg-yellow-200 rounded-md shadow-md sm:grid-cols-2">
             <div>
-                <h1 class="text-lg font-bold">Pedidos {{ $tipo == "ACEPTADO" ? 'Pendientes' : 'Validados' }}</h1>
+                <h1 class="text-lg font-bold">PEDIDOS {{ $tipo }}</h1>
             </div>
             <div>
                 <h1 class="text-lg font-bold">Precio Estimado: {{ $monto_total }}</h1>

@@ -34,7 +34,7 @@ class Tabla extends Component
         $detalle_solicitud_de_pedidos = [];
         try{
             if($this->implemento_id > 0 && $this->fecha_de_pedido > 0){
-                $detalle_solicitud_de_pedidos = DB::table('lista_de_detalle_de_pedido')->where('solicitante',Auth::user()->id)->where('implemento_id',$this->implemento_id)->where('fecha_de_pedido',$this->fecha_de_pedido)->select('id','codigo','articulo','tipo','precio_estimado','abreviacion','cantidad_solicitada','stock','almacen')->get();
+                $detalle_solicitud_de_pedidos = DB::table('lista_de_detalle_de_pedido')->where('solicitante',Auth::user()->id)->where('implemento_id',$this->implemento_id)->where('fecha_de_pedido',$this->fecha_de_pedido)->select('id','codigo','articulo','tipo','precio','abreviacion','cantidad_solicitada','stock','almacen')->get();
             }
         }catch(Exception $e){
             $detalle_solicitud_de_pedidos = [];

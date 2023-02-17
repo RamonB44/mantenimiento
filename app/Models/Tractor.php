@@ -14,4 +14,8 @@ class Tractor extends Model
     public function ModeloDeTractor(){
         return $this->belongsTo(ModeloDeTractor::class);
     }
+
+    public function Sede(){
+        return $this->belongsTo(Sede::class);
+    }
 }

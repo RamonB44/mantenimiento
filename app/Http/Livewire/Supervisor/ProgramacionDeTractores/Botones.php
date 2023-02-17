@@ -15,6 +15,7 @@ class Botones extends Component
 
     public function obtener_programacion($id){
         $this->programacion_id = $id;
+        $this->boton_activo = $this->programacion_id > 0;
     }
 
     public function abrir_modal($id){
@@ -44,8 +45,6 @@ class Botones extends Component
 
     public function render()
     {
-        $this->boton_activo = $this->programacion_id > 0;
-
         return view('livewire.supervisor.programacion-de-tractores.botones');
     }
 }

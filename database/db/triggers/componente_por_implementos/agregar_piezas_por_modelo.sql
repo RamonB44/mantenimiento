@@ -9,13 +9,13 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET pieza_final = 1;
     OPEN cursor_piezas;
         bucle_piezas:LOOP
+            FETCH cursor_piezas INTO pieza_id;
+            IF pieza_id is not null THEN
+                INSERT INTO pieza_por_componentes (pieza,componente_por_implemento_id,horas,created_at,updated_at) VALUES (pieza_id,new.id,new.horas,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+            END IF;
             IF pieza_final = 1 THEN
                 leave bucle_piezas;
             END IF;
-                FETCH cursor_piezas INTO pieza_id;
-                IF pieza_id is not null THEN
-                    INSERT INTO pieza_por_componentes (pieza,componente_por_implemento_id,horas,created_at,updated_at) VALUES (pieza_id,new.id,new.horas,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
-                END IF;
         END LOOP bucle_piezas;
     CLOSE cursor_piezas;
 END //

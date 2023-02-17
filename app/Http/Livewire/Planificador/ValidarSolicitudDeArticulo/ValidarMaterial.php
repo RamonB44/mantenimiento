@@ -2,9 +2,7 @@
 
 namespace App\Http\Livewire\Planificador\ValidarSolicitudDeArticulo;
 
-use App\Models\Articulo;
 use App\Models\DetalleDeSolicitudDePedido;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 

@@ -1,11 +1,12 @@
+Falta filtros
+Agregar campo cantidad en articulos para tarea.
+cambiar role de operador a operario
 ---------------------------------ASISTENTE: Reporte de Tractores---------------------------------------
 -Falta exportar el excel
 ---------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------
 -Falta el formulario para agregar materiales nuevos
 -Falta el resumen del pedido e imprimir un pdf.
 --------------------------------PLANNER: Importar Datos al sistema mediante excel----------------------------------------------------
--Importar tractores.
--Importar implementos.
 -Importar fundos.
 -Importar lotes.
 -Importar tractoristas.

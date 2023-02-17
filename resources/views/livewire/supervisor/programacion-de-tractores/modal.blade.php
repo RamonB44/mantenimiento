@@ -105,7 +105,7 @@
                 Registrando...
             </div>
             <x-jet-secondary-button wire:click="$set('open',false)" class="ml-2">
-                Cancelar
+                Cerrar
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>

@@ -5,15 +5,9 @@ Falta filtros
 -Falta el formulario para agregar materiales nuevos
 -Falta el resumen del pedido e imprimir un pdf.
 --------------------------------PLANNER: Importar Datos al sistema mediante excel----------------------------------------------------
--Importar fundos.
--Importar lotes.
--Importar tractoristas.
--Importar labores.
--Importar materiales.
--Importar epps.
--Importar riesgos.
--Importar centros de costos.
 -Importar tareas rutinarios.
+-Importar tareas mantenimiento.
+-Importar tareas recambio.
 -Importar componentes por implementos.
 -Importar piezas por componentes.
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------

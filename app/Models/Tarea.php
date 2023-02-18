@@ -14,4 +14,8 @@ class Tarea extends Model
     public function ArticuloParaTarea(){
     	return $this->hasMany(ArticuloParaTarea::class,'tarea_id','id');
     }
+
+    public function Articulo(){
+        return $this->belongsTo(Articulo::class);
+    }
 }

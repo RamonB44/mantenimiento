@@ -6,9 +6,11 @@ use Livewire\Component;
 
 class Base extends Component
 {
+    public $tablas;
     public $tabla;
 
     public function mount(){
+        $this->tablas = ['implemento','tractor','lote','usuario','articulo','centro de costo','epp','labor','rutinario'];
         $this->tabla = "";
     }
 

@@ -51,10 +51,10 @@ class ImplementsImport implements OnEachRow,WithHeadingRow
 
         $ceco = CentroDeCosto::firstOrCreate(
             [
-            'codigo' => $row['codigo_ceco'],
+                'codigo' => $row['codigo_ceco'],
             ],
             [
-                'descripcion' => $row['descripcion_ceco'],
+                'descripcion' => strtoupper($row['descripcion_ceco']),
                 'sede_id' => $sede->id,
                 'monto'=> $row['monto_ceco']
             ]

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Planificador\ImportarDatos\Implemento;
+namespace App\Http\Livewire\Planificador\ImportarDatos\Epp;
 
-use App\Imports\ImplementsImport;
+use App\Imports\EppsImport;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
@@ -34,7 +34,7 @@ class Importar extends Component
     public function importar(){
         $this->validate();
         try {
-            Excel::import(new ImplementsImport, $this->archivo);
+            Excel::import(new EppsImport, $this->archivo);
             $this->emit('alerta',['center','success','Archivo Importado']);
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $errores = $e->failures();
@@ -44,6 +44,6 @@ class Importar extends Component
 
     public function render()
     {
-        return view('livewire.planificador.importar-datos.implemento.importar');
+        return view('livewire.planificador.importar-datos.epp.importar');
     }
 }

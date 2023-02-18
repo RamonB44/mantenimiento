@@ -13,6 +13,7 @@ class TractorsImport implements OnEachRow,WithHeadingRow
 {
     public function onRow(Row $row)
     {
+        //Campos: sede, modelo, numero, horometro, sede
         $modelo = ModeloDeTractor::firstOrCreate([
             'modelo_de_tractor' => strtoupper($row['modelo'])
         ]);

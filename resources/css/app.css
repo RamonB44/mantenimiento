@@ -9,7 +9,7 @@
 .form-control{
     @apply border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
 }
-
+.rounded-2xl {	border-radius: 1rem; }
 
 .col-span-2 {	grid-column: span 2 / span 2; }
 .col-span-3 {	grid-column: span 3 / span 3; }

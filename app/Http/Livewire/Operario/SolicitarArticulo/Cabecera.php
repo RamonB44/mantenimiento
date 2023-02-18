@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Operador\SolicitarArticulo;
+namespace App\Http\Livewire\Operario\SolicitarArticulo;
 
 use App\Models\FechaDePedido;
 use App\Models\Implemento;
@@ -60,6 +60,6 @@ class Cabecera extends Component
 
     public function render()
     {
-        return view('livewire.operador.solicitar-articulo.cabecera');
+        return view('livewire.operario.solicitar-articulo.cabecera');
     }
 }

@@ -48,7 +48,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'operador' => [
+        'operario' => [
             'driver' => 'session',
             'provider' => 'users',
         ],

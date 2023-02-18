@@ -34,8 +34,8 @@
               <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte de tractores</a>
               @endrole
 
-              @role('operador')
-              <a href="{{ route('operador.solicitar-articulos') }}" class="{{ request()->routeIs('operator.solicitar-articulos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Solicitar Artículos</a>
+              @role('operario')
+              <a href="{{ route('operario.solicitar-articulos') }}" class="{{ request()->routeIs('operator.solicitar-articulos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Solicitar Artículos</a>
               @endrole
 
               @role('planificador')
@@ -90,8 +90,8 @@
         <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programación de Tractores</a>
         @endrole
 
-        @role('operador')
-        <a href="{{ route('operador.solicitar-articulos') }}" class="{{ request()->routeIs('operador.solicitar-articulos') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Solicitar Articulos</a>
+        @role('operario')
+        <a href="{{ route('operario.solicitar-articulos') }}" class="{{ request()->routeIs('operario.solicitar-articulos') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Solicitar Articulos</a>
         @endrole
 
         @role('asistente')

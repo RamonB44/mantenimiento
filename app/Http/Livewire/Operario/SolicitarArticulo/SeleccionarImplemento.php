@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Operador\SolicitarArticulo;
+namespace App\Http\Livewire\Operario\SolicitarArticulo;
 
 use App\Models\Implemento;
 use App\Models\SolicitudDePedido;
@@ -36,6 +36,6 @@ class SeleccionarImplemento extends Component
             $q->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('estado','VALIDADO')->orWhere('estado','CERRADO');
         })->where('responsable',Auth::user()->id)->get();
 
-        return view('livewire.operador.solicitar-articulo.seleccionar-implemento',compact('implementos'));
+        return view('livewire.operario.solicitar-articulo.seleccionar-implemento',compact('implementos'));
     }
 }

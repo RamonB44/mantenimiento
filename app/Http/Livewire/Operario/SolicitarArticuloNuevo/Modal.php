@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Operador\SolicitarArticuloNuevo;
+namespace App\Http\Livewire\Operario\SolicitarArticuloNuevo;
 
 use App\Models\SolicitudDeNuevoArticulo;
 use App\Models\SolicitudDePedido;
@@ -127,7 +127,7 @@ class Modal extends Component
             ]);
         }
         $this->resetExcept('fecha_de_pedido','implemento_id','iteracion','unidades_medida');
-        $this->emitTo('operador.solicitar-articulo-nuevo.tabla','cambiar_implemento',$this->implemento_id);
+        $this->emitTo('operario.solicitar-articulo-nuevo.tabla','cambiar_implemento',$this->implemento_id);
         $this->emit('alerta',['center','success','Operación Exitosa']);
         $this->iteracion++;
     }
@@ -135,6 +135,6 @@ class Modal extends Component
     public function render()
     {
 
-        return view('livewire.operador.solicitar-articulo-nuevo.modal');
+        return view('livewire.operario.solicitar-articulo-nuevo.modal');
     }
 }

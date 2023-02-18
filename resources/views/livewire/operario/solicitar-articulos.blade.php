@@ -1,8 +1,8 @@
 <div>
     <div wire:loading.remove>
     @if ($existe_pedido)
-        @livewire('operador.solicitar-articulo.cabecera',['fecha_de_pedido' => $fecha_de_pedido,'implemento_id' => $implemento_id])
-        @livewire('operador.solicitar-articulo.seleccionar-implemento',['fecha_de_pedido' => $fecha_de_pedido])
+        @livewire('operario.solicitar-articulo.cabecera',['fecha_de_pedido' => $fecha_de_pedido,'implemento_id' => $implemento_id])
+        @livewire('operario.solicitar-articulo.seleccionar-implemento',['fecha_de_pedido' => $fecha_de_pedido])
         <div class="px-6 py-4 text-center">
             @if ($implemento_id > 0)
         <!-------GRID DE BOTONES PARA AGREGAR MATERIALES -->
@@ -10,13 +10,13 @@
                 <div class="text-center">
                     <h1 class="font-bold text-md">Añadir a la solicitud:</h1>
                 </div>
-                @livewire('operador.solicitar-articulo.botones')
+                @livewire('operario.solicitar-articulo.botones')
             </div>
             <div>
                 <!-------TABLA DE MATERIALES PEDIDOS YA EXISTENTES -->
-                @livewire('operador.solicitar-articulo.tabla',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido])
-                @livewire('operador.solicitar-articulo.modal',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido])
-                @livewire('operador.solicitar-articulo-nuevo',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido])
+                @livewire('operario.solicitar-articulo.tabla',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido])
+                @livewire('operario.solicitar-articulo.modal',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido])
+                @livewire('operario.solicitar-articulo-nuevo',['implemento_id' => $implemento_id,'fecha_de_pedido' => $fecha_de_pedido])
             </div>
             @else
             <div class="px-6 py-4 text-center">

@@ -1,6 +1,4 @@
 Falta filtros
-Agregar campo cantidad en articulos para tarea.
-cambiar role de operador a operario
 ---------------------------------ASISTENTE: Reporte de Tractores---------------------------------------
 -Falta exportar el excel
 ---------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------

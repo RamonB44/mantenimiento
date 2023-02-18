@@ -48,9 +48,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('asistente')
                 ->group(base_path('routes/asistente.php'));
 
-            Route::middleware('web','auth','role:operador')
-                ->prefix('operador')
-                ->group(base_path('routes/operador.php'));
+            Route::middleware('web','auth','role:operario')
+                ->prefix('operario')
+                ->group(base_path('routes/operario.php'));
 
             Route::middleware('web','auth','role:planificador')
                 ->prefix('planificador')

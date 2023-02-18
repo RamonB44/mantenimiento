@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Operador\SolicitarArticulo;
+namespace App\Http\Livewire\Operario\SolicitarArticulo;
 
 use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
@@ -94,8 +94,8 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Agregado correctamente']);
             $this->resetExcept('open','implemento_id','existe_pedido','fecha_de_pedido');
-            $this->emitTo('operador.solicitar-articulo.cabecera','obtener_montos');
-            $this->emitTo('operador.solicitar-articulo.tabla','render');
+            $this->emitTo('operario.solicitar-articulo.cabecera','obtener_montos');
+            $this->emitTo('operario.solicitar-articulo.tabla','render');
         }else{
             $this->emit('alerta',['center','error','Faltan datos']);
         }
@@ -169,6 +169,6 @@ class Modal extends Component
             }
         }
 
-        return view('livewire.operador.solicitar-articulo.modal',compact('articulos','componentes','en_proceso','stock'));
+        return view('livewire.operario.solicitar-articulo.modal',compact('articulos','componentes','en_proceso','stock'));
     }
 }

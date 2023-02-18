@@ -27,9 +27,9 @@ class RoleSeeder extends Seeder
             'guard_name' => 'asistente',
         ]);
 
-        $operador = Role::create([
-            'name' => 'operador',
-            'guard_name' => 'operador',
+        $operario = Role::create([
+            'name' => 'operario',
+            'guard_name' => 'operario',
         ]);
 
         $planificador = Role::create([
@@ -44,7 +44,7 @@ class RoleSeeder extends Seeder
 
         User::find(1)->assignRole($jefe);
         User::find(2)->assignRole($asistente);
-        User::find(3)->assignRole($operador);
+        User::find(3)->assignRole($operario);
         User::find(4)->assignRole($planificador);
         User::find(5)->assignRole($supervisor);
 
@@ -60,9 +60,9 @@ class RoleSeeder extends Seeder
         ])->syncRoles(['asistente']);
 
         Permission::create([
-            'name' => 'operador.solicitud-de-materiales',
-            'guard_name' => 'operador',
-        ])->syncRoles(['operador']);
+            'name' => 'operario.solicitud-de-materiales',
+            'guard_name' => 'operario',
+        ])->syncRoles(['operario']);
 
         Permission::create([
             'name' => 'planificador.validar-pedidos',

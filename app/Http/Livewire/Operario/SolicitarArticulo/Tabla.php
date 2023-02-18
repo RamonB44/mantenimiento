@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Operador\SolicitarArticulo;
+namespace App\Http\Livewire\Operario\SolicitarArticulo;
 
 use App\Models\DetalleDeSolicitudDePedido;
 use App\Models\FechaDePedido;
@@ -39,6 +39,6 @@ class Tabla extends Component
         }catch(Exception $e){
             $detalle_solicitud_de_pedidos = [];
         }
-        return view('livewire.operador.solicitar-articulo.tabla',compact('detalle_solicitud_de_pedidos'));
+        return view('livewire.operario.solicitar-articulo.tabla',compact('detalle_solicitud_de_pedidos'));
     }
 }

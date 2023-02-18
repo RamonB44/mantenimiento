@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Operador\SolicitarArticuloNuevo;
+namespace App\Http\Livewire\Operario\SolicitarArticuloNuevo;
 
 use App\Models\SolicitudDeNuevoArticulo;
 use Illuminate\Support\Facades\Storage;
@@ -34,13 +34,13 @@ class Botones extends Component
         $solicitud = SolicitudDeNuevoArticulo::find($this->material_nuevo);
         Storage::delete($solicitud->imagen);
         $solicitud->delete();
-        $this->emitTo('operador.solicitar-articulo-nuevo.tabla','cambiar_implemento',$this->implemento_id);
+        $this->emitTo('operario.solicitar-articulo-nuevo.tabla','cambiar_implemento',$this->implemento_id);
     }
 
     public function render()
     {
         $this->boton_activo = $this->material_nuevo > 0;
 
-        return view('livewire.operador.solicitar-articulo-nuevo.botones');
+        return view('livewire.operario.solicitar-articulo-nuevo.botones');
     }
 }

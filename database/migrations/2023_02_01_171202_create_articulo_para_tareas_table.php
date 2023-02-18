@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('articulo_id')->contrained();
             $table->foreignId('tarea_id')->constrained();
+            $table->decimal('cantidad',8,2);
             $table->timestamps();
         });
     }

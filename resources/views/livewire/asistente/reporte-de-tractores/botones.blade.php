@@ -2,5 +2,5 @@
     <x-boton-crud accion="exportar_excel" color="gray">Exportar</x-boton-crud>
     <x-boton-crud accion="abrir_modal(0)" color="green">Registrar</x-boton-crud>
     <x-boton-crud accion="abrir_modal({{$reporte_id}})" color="amber" :activo="$boton_activo">Editar</x-boton-crud>
-    <x-boton-crud accion="filtros()" color="indigo">Filtros</x-boton-crud>
+    <x-boton-crud accion="$emitTo('asistente.reporte-de-tractores.filtros','abrirModal')" color="indigo">Filtros</x-boton-crud>
 </div>

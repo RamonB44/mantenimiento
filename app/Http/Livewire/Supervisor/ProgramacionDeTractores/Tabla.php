@@ -22,7 +22,7 @@ class Tabla extends Component
     public $implemento;
     public $labor;
 
-    protected $listeners =['render','filtrar'];
+    protected $listeners = ['render','filtrar'];
 
     public function mount(){
         $this->programacion_id = 0;

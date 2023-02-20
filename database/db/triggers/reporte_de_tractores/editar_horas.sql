@@ -1,4 +1,4 @@
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER editar_horas AFTER UPDATE ON reporte_de_tractors FOR EACH ROW
 BEGIN
 	DECLARE implemento INT;
@@ -8,4 +8,4 @@ BEGIN
     SET horas = new.horometro_final - old.horometro_final;
 	UPDATE tractors SET horometro = horometro + horas WHERE id = tractor;
     UPDATE implementos SET horas_de_uso = horas_de_uso + horas*(0.85) WHERE id = implemento;
-END //
+END $$

@@ -1,4 +1,4 @@
-DELIMITER //
+DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `autocompletar_rutinario`(IN `programacion_id` INT, IN `responsable` INT)
 BEGIN
 DECLARE tarea INT;
@@ -18,4 +18,4 @@ OPEN cursor_tareas;
         END IF;
     END LOOP bucle_tareas;
 CLOSE cursor_tareas;
-END //
+END $$

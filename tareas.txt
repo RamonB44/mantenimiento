@@ -1,5 +1,3 @@
-*Asistente
--Reporte de horas :
 *Planner:
 -Solicitudes de pedido
 ---------------------------------ASISTENTE: Reporte de Tractores---------------------------------------

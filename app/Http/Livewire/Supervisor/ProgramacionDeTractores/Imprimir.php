@@ -6,7 +6,6 @@ use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
 use App\Models\Implemento;
 use App\Models\ProgramacionDeTractor;
-use App\Models\Rutinario;
 use App\Models\Tarea;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;

@@ -11,7 +11,9 @@ Filtros:
 -Importar tareas recambio.
 -Importar componentes por implementos.
 -Importar piezas por componentes.
---Crud de tablas.
+__________________
+--Crud de tablas. |
+------------------
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
 ---------------------------OPERARIO: Verificar ordenes de trabajo(Generar reserva de materiales)--------------------------------
 ---------------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------------

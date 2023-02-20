@@ -18,4 +18,8 @@ class Rutinario extends Model
     public function ProgramacioDeTractor(){
         return $this->belognsTo(ProgramacioDeTractor::class);
     }
+
+    public function Operario(){
+        return $this->belongsTo(User::class,'operario','id');
+    }
 }

@@ -30,4 +30,8 @@ class Implemento extends Model
     public function SolicitudDePedido(){
         return $this->hasMany(SolicitudDePedido::class);
     }
+
+    public function ProgramacionDeTractor(){
+        return $this->hasMany(ProgramacionDeTractor::class);
+    }
 }

@@ -1,6 +1,9 @@
-Falta filtros
+*Asistente
+-Reporte de horas :
+*Planner:
+-Solicitudes de pedido
 ---------------------------------ASISTENTE: Reporte de Tractores---------------------------------------
--Falta exportar el excel
+-Falta exportar el excel reporte de horas
 ---------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------
 -Falta el formulario para agregar materiales nuevos
 -Falta el resumen del pedido e imprimir un pdf.

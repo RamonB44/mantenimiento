@@ -60,7 +60,7 @@
         </x-slot>
         <x-slot name="footer">
             <x-jet-button wire:loading.attr="disabled" wire:click="registrar()">
-                Actualizar
+                Guardar
             </x-jet-button>
             <div wire:loading wire:target="registrar">
                 Registrando...

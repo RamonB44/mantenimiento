@@ -18,4 +18,8 @@ class Tractor extends Model
     public function Sede(){
         return $this->belongsTo(Sede::class);
     }
+
+    public function ProgramacionDeTractor(){
+        return $this->hasMany(ProgramacionDeTractor::class);
+    }
 }

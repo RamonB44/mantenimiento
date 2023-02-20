@@ -27,7 +27,7 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $rutinario->Implemento->Responsable->name }}</span>
+                                <span class="font-medium">{{ $rutinario->Rutinarios->Operario->name }}</span>
                             </div>
                         </td>
                         <td class="py-3 text-center">

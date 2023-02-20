@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('rutinarios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('programacion_de_tractor_id')->constrained();
+            $table->unsignedBigInteger('operario');
+            $table->foreign('operario')->references('id')->on('users');
             $table->foreignId('tarea_id')->constrained();
             $table->boolean('realizado')->default(false);
             $table->unsignedBigInteger('validado_por')->nullable();

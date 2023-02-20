@@ -26,9 +26,7 @@ class Modal extends Component
     public $implemento;
     public $labor;
 
-    public $tractores_usados = [];
-    public $tractoristas_usados = [];
-    public $implementos_usados = [];
+    public $labores;
 
     public $programacion_id;
 
@@ -80,6 +78,7 @@ class Modal extends Component
         $this->implemento = 0;
         $this->labor = 0;
         $this->programacion_id = 0;
+        $this->labores = Labor::all();
     }
 
     public function abrir_modal($id){
@@ -103,7 +102,7 @@ class Modal extends Component
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->resetExcept('open','fecha','turno');
+            $this->resetExcept('open','fecha','turno','labores');
             $this->resetValidation();
         }
     }
@@ -142,7 +141,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Editada']);
 
-            $this->resetExcept('fecha','turno');
+            $this->resetExcept('fecha','turno','labores');
 
         }else{
             ProgramacionDeTractor::create([
@@ -160,7 +159,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->resetExcept('fecha','turno','open');
+            $this->resetExcept('fecha','turno','open','labores');
         }
 
         $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
@@ -169,8 +168,6 @@ class Modal extends Component
 
     public function render()
     {
-        $this->reset('tractoristas_usados','tractores_usados','implementos_usados');
-
         $fundos = Fundo::where('sede_id',Auth::user()->sede_id)->get();
         if($this->fundo > 0){
             $lotes = Lote::where('fundo_id',$this->fundo)->get();
@@ -179,25 +176,32 @@ class Modal extends Component
         }
 
         if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->exists()){
-            /*--------------Obtener registros ya seleccionados-------------------------------*/
             if($this->programacion_id > 0){
-                $repetidos = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id])->get();
+                $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
+                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
+                })->get();
+                $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
+                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
+                })->get();
+                $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
+                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
+                })->get();
             }else{
-                $repetidos = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->get();
+                $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
+                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0);
+                })->get();
+                $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
+                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
+                })->get();
+                $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
+                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
+                })->get();
             }
-
-                foreach($repetidos as $repetido){
-                    array_push($this->tractoristas_usados,$repetido->tractorista);
-                    array_push($this->tractores_usados,$repetido->tractor_id);
-                    array_push($this->implementos_usados,$repetido->implemento_id);
-                }
-            }
-
-        $tractoristas = User::where('sede_id',Auth::user()->sede_id)->whereNotIn('id',$this->tractoristas_usados)->get();
-        $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereNotIn('id',$this->tractores_usados)->get();
-        $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereNotIn('id',$this->implementos_usados)->get();
-        $labores = Labor::all();
-
-        return view('livewire.supervisor.programacion-de-tractores.modal',compact('fundos','lotes','tractoristas','tractores','implementos','labores'));
+        }else{
+            $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->get();
+            $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->get();
+            $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->get();
+        }
+        return view('livewire.supervisor.programacion-de-tractores.modal',compact('fundos','lotes','tractoristas','tractores','implementos'));
     }
 }

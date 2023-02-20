@@ -41,7 +41,7 @@ class RoleSeeder extends Seeder
             'guard_name' => 'supervisor',
         ]);
 
-        User::find(1)->assignRole($jefe);
+        User::find(1)->assignRole($operario);
         User::find(2)->assignRole($asistente);
         User::find(3)->assignRole($operario);
         User::find(4)->assignRole($planificador);

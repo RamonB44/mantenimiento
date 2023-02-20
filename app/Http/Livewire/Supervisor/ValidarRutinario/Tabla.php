@@ -10,26 +10,57 @@ use Livewire\WithPagination;
 class Tabla extends Component
 {
     use WithPagination;
-    
-    public $validados;
 
-    protected $listeners = ['render'];
+    public $implemento;
+    public $operario;
+    public $fecha;
+    public $turno;
+
+    protected $listeners = ['render','filtrar'];
 
     public function mount(){
-        $this->validados = true;
+        $this->implemento = 0;
+        $this->operario = 0;
+        $this->fecha = "";
+        $this->turno = "";
     }
 
     public function abrir_modal($programacion){
         $this->emitTo('supervisor.validar-rutinario.modal','abrir_modal',$programacion);
     }
 
+    public function filtrar($fecha,$turno,$operario,$implemento){
+        $this->resetPage();
+        $this->fecha = $fecha;
+        $this->turno = $turno;
+        $this->operario = $operario;
+        $this->implemento = $implemento;
+    }
+
     public function render()
     {
-        if($this->validados){
-            $rutinarios = ProgramacionDeTractor::has('Rutinarios')->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->orderBy('id','desc')->paginate(6);
+        $rutinarios = ProgramacionDeTractor::where('validado_por',Auth::user()->id)->where('esta_anulado',0);
+        
+        if($this->operario > 0){
+            $rutinarios = $rutinarios->whereHas('Rutinarios',function($q){
+                $q->where('operario',$this->operario);
+            });
         }else{
-            $rutinarios = ProgramacionDeTractor::doesnthave('Rutinarios')->where('validado_por',Auth::user()->id)->where('esta_anulado',0)->orderBy('id','desc')->paginate(6);
+            $rutinarios = $rutinarios->has('Rutinarios');
         }
+
+        if($this->implemento > 0){
+            $rutinarios = $rutinarios->where('implemento_id',$this->implemento);
+        }
+
+        if($this->fecha != ""){
+            $rutinarios = $rutinarios->where('fecha',$this->fecha);
+        }
+
+        if($this->turno != ""){
+            $rutinarios = $rutinarios->where('turno',$this->turno);
+        }
+        $rutinarios = $rutinarios->orderBy('id','desc')->paginate(6);
 
         return view('livewire.supervisor.validar-rutinario.tabla',compact('rutinarios'));
     }

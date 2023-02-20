@@ -67,4 +67,8 @@ class User extends Authenticatable
     public function SolicitudDePedido(){
         return $this->hasMany(SolicitudDePedido::class,'solicitante');
     }
+
+    public function ProgramacionDeTractor(){
+        return $this->hasMany(ProgramacionDeTractor::class,'tractorista');
+    }
 }

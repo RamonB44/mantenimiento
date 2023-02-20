@@ -18,7 +18,7 @@ class ImplementsImport implements OnEachRow,WithHeadingRow
 {
     public function onRow(Row $row)
     {
-        //Campos: modelo, numero, horas, codigo_operario, nombre, sede, codigo_ceco, descripcion_ceco, monto_ceco,
+        //Campos: modelo, numero, codigo_operario, nombre, sede, codigo_ceco, descripcion_ceco, monto_ceco,
         $modelo = ModeloDelImplemento::firstOrCreate([
             'modelo_de_implemento' => strtoupper($row['modelo'])
         ]);
@@ -67,7 +67,7 @@ class ImplementsImport implements OnEachRow,WithHeadingRow
                 'numero' => $row['numero'],
             ],
             [
-                'horas_de_uso' => $row['horas'],
+                'horas_de_uso' => 0,
                 'responsable' => $responsable->id,
                 'sede_id' => $sede->id,
                 'centro_de_costo_id' => $ceco->id

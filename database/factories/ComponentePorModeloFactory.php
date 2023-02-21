@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
 use App\Models\ModeloDelImplemento;
+use App\Models\Sistema;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,7 @@ class ComponentePorModeloFactory extends Factory
         return [
             'articulo_id' => Articulo::where('tipo','COMPONENTE')->whereDoesnthave('ComponentePorModelo')->get()->random()->id,
             'modelo_id' => ModeloDelImplemento::all()->random()->id,
-            'sistema' => $this->faker->randomElement(['HIDRAÚLICO','MECÁNICO','NEUMÁTICO','OLEO HIDRAÚLICO','ELECTRÓNICO','ELÉCTRICO']),
+            'sistema_id' => Sistema::all()->random()->id,
         ];
     }
 }

@@ -18,6 +18,7 @@ use App\Models\ModeloDelImplemento;
 use App\Models\ModeloDeTractor;
 use App\Models\Riesgo;
 use App\Models\Sede;
+use App\Models\Sistema;
 use App\Models\StockOperario;
 use App\Models\StockSede;
 use App\Models\Tarea;
@@ -39,6 +40,7 @@ class DatabaseSeeder extends Seeder
         Labor::factory(7)->create();
         Epp::factory(20)->create();
         Riesgo::factory(4)->create();
+        Sistema::factory(5)->create();
         Sede::factory(1)->has(Fundo::factory()->count(3)->has(Lote::factory()->count(2)))->has(User::factory()->count(10))->has(CentroDeCosto::factory()->count(2))->create();
         $this->call([
             RoleSeeder::class,

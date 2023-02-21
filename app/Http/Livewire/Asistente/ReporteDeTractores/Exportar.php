@@ -22,7 +22,11 @@ class Exportar extends Component
     }
 
     public function exportar() {
-        Excel::download(new TractorReportsExport,'reporte de tractores.xlsx');
+        if($this->fecha == ""){
+            $this->emit('alerta',['center','warning','Ingrese la fecha']);
+        }else{
+            return Excel::download(new TractorReportsExport($this->fecha),'Reporte de horas del '.$this->fecha.'.xlsx');
+        }
     }
 
     public function render()

@@ -17,8 +17,9 @@ class BotonCrud extends Component
     public $activo;
     public $colspan;
     public $colspansm;
+    public $padding;
 
-    public function __construct(string $accion = null, string $color = null,bool $activo = true, int $colspan = 1, int $colspansm = 1)
+    public function __construct(string $accion = null, string $color = null,bool $activo = true, int $colspan = 1, int $colspansm = 1,$padding = 4)
     {
         $this->accion = $accion;
         $this->color = $color;
@@ -29,6 +30,7 @@ class BotonCrud extends Component
             $this->colspan = $colspan;
         }
         $this->colspansm = $colspansm;
+        $this->padding = $padding;
     }
 
     /**

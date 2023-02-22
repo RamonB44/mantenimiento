@@ -18,6 +18,7 @@ class ValidarMaterial extends Component
     public $almacen;
     public $detalle_id;
     public $estado;
+    public $precio_total;
 
     protected $listeners = ['abrirModal'];
 
@@ -32,6 +33,7 @@ class ValidarMaterial extends Component
         $this->almacen = 0;
         $this->detalle_id = 0;
         $this->estado = $estado;
+        $this->precio_total = 0;
     }
 
     public function updatedOpen(){
@@ -80,6 +82,12 @@ class ValidarMaterial extends Component
 
     public function render()
     {
+        if($this->cantidad > 0 && $this->precio > 0){
+            $this->precio_total = $this->cantidad * $this->precio;
+        }else{
+            $this->precio_total = 0;
+        }
+
         return view('livewire.planificador.validar-solicitud-de-articulo.validar-material');
     }
 }

@@ -48,7 +48,7 @@
         </div>
         <div class="py-2" style="padding-left: 1rem; padding-right:1rem;">
             <x-jet-label>Precio Total</x-jet-label>
-            <x-jet-input type="number" min="0" disabled style="height:30px;width: 100%" class="text-center" value="{{$cantidad * $precio}}"/>
+            <x-jet-input type="number" min="0" disabled style="height:30px;width: 100%" class="text-center" value="{{ $precio_total }}"/>
 
         </div>
     </x-slot>

@@ -1,9 +1,9 @@
-Filtros:
-*Planner:
--Solicitudes de pedido
 ---------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------
 -Falta el formulario para agregar materiales nuevos
--Falta el resumen del pedido e imprimir un pdf.
+---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
+-Ver solicitudes de pedido anteriores:
+  --Por fecha de pedido, por sede y por ceco.
+  --Filtrar solicitudes de pedido
 --------------------------------PLANNER: Importar Datos al sistema mediante excel----------------------------------------------------
 -Importar tareas mantenimiento.
 -Importar tareas recambio.

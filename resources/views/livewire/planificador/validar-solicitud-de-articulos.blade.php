@@ -13,7 +13,8 @@
             </select>
         </div>
         @if ($sede_id > 0)
-        <x-boton-crud accion="mostrar_resumen" color="cyan">Mostrar Resumen</x-boton-crud>
+        <x-boton-crud accion="$emitTo('planificador.resumen-de-pedido.modal','abrirModal')" color="cyan">Mostrar Resumen</x-boton-crud>
+        @livewire('planificador.resumen-de-pedido.modal', ['fecha_de_pedido' => $fecha_de_pedido, 'sede_id' => $sede_id])
         @endif
     </div>
     @livewire('planificador.validar-solicitud-de-articulo.operarios', ['fecha_de_pedido' => $fecha_de_pedido,'sede_id' => $sede_id])

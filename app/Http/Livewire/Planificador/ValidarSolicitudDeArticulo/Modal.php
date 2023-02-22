@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire\Planificador\ValidarSolicitudDeArticulo;
 
-use App\Models\DetalleDeSolicitudDePedido;
-use App\Models\Implemento;
 use App\Models\SolicitudDePedido;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;

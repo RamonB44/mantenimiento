@@ -5,7 +5,7 @@
                 <h1 class="text-lg font-bold">PEDIDOS {{ $tipo }}</h1>
             </div>
             <div>
-                <h1 class="text-lg font-bold">Precio Estimado: {{ $monto_total }}</h1>
+                <h1 class="text-lg font-bold">Precio Estimado: {{ floatval($monto_total) }}</h1>
             </div>
         </div>
         <div style="max-height:180px;overflow:auto">

@@ -18,6 +18,7 @@
             border-collapse: collapse;
             width: 100%;
             font-size: 15px;
+            margin-top: 0.99rem;
         }
         th,td{
             border: 3px solid black;

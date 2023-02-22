@@ -14,4 +14,8 @@ class SolicitudDeNuevoArticulo extends Model
     public function SolicitudDePedido(){
         return $this->belongsTo(SolicitudDePedido::class);
     }
+
+    public function UnidadDeMedida(){
+        return $this->belongsTo(UnidadDeMedida::class);
+    }
 }

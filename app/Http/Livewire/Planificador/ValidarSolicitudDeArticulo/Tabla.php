@@ -11,19 +11,15 @@ class Tabla extends Component
     public $solicitud_id;
     public $lista_de_materiales;
     public $tipo;
-    public $operario_id;
-    public $fecha_de_pedido;
     public $monto_total;
     public $estado;
 
     protected $listeners = ['cambiar_solicitud'];
 
-    public function mount($solicitud_id,$tipo,$fecha_de_pedido,$operario_id,$estado){
+    public function mount($solicitud_id,$tipo,$estado){
         $this->solicitud_id = $solicitud_id;
         $this->tipo = $tipo;
         $this->estado = $estado;
-        $this->operario_id = $operario_id;
-        $this->fecha_de_pedido = $fecha_de_pedido;
         $this->obtenerListaDeMateriales($solicitud_id);
     }
 

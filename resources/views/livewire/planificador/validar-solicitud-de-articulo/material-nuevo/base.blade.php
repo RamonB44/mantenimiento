@@ -1,14 +1,13 @@
 <div>
     @if($cantidad_materiales_nuevos > 0)
-        <div>
-            <button wire:loading.attr="disabled" style="width: 100%" wire:click="$set('open_validate_new_material',true)" class="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-700">
+        <div class="mt-6">
+            <button wire:loading.attr="disabled" style="width: 100%" wire:click="$emitTo('planificador.validar-solicitud-de-articulo.material-nuevo.modal','abrirModal')" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-700 text-white rounded-md">
             @if($cantidad_materiales_nuevos > 1)
-                ¡Se solicitaron {{$cantidad_materiales_nuevos}} nuevos materiales! CLICK PARA VER
+                ¡Se solicitaron {{$cantidad_materiales_nuevos}} nuevos materiales!
             @elseif ($cantidad_materiales_nuevos == 1)
-                ¡Se solicitó un nuevo material! CLICK PARA VER
+                ¡Se solicitó un nuevo material!
             @endif
             </button>
         </div>
-        @livewire('planificador.validar-solicitud-de-articulo-nuevo.material-nuevo.modal', ['fecha_de_pedido' => $fecha_de_pedido, 'sede_id' => $sede_id])
     @endif
 </div>

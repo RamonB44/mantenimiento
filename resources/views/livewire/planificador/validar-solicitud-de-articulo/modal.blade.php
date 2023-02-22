@@ -5,8 +5,6 @@
         </x-slot>
         <x-slot name="content">
             @if($operario_id > 0)
-        <!------------ Boton para materiales nuevos----------------------->
-
             <div class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2">
                 <div class="py-2 bg-gray-200 rounded-md shadow-xl" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Implemento: </x-jet-label>
@@ -24,9 +22,10 @@
                 </div>
             </div>
                 @if($solicitud_id > 0)
-                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['solicitud_id' => $solicitud_id,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'PENDIENTE','estado'=>$estado],key(1))
-                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['solicitud_id' => $solicitud_id,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'VALIDADO','estado'=>$estado],key(2))
-                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['solicitud_id' => $solicitud_id,'fecha_de_pedido'=>$fecha_de_pedido,'operario_id' => $operario_id,'tipo' => 'RECHAZADO','estado'=>$estado],key(3))
+                    @livewire('planificador.validar-solicitud-de-articulo.material-nuevo.base', ['solicitud_id' => $solicitud_id])
+                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['solicitud_id' => $solicitud_id,'tipo' => 'PENDIENTE','estado'=>$estado],key(1))
+                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['solicitud_id' => $solicitud_id,'tipo' => 'VALIDADO','estado'=>$estado],key(2))
+                    @livewire('planificador.validar-solicitud-de-articulo.tabla', ['solicitud_id' => $solicitud_id,'tipo' => 'RECHAZADO','estado'=>$estado],key(3))
                     @livewire('planificador.validar-solicitud-de-articulo.validar-material', ['estado' => $estado])
                 @endif
             @endif
@@ -37,4 +36,8 @@
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>
+    @if ($solicitud_id > 0)
+        @livewire('planificador.validar-solicitud-de-articulo.material-nuevo.modal', ['solicitud_id' => $solicitud_id])
+        @livewire('planificador.validar-solicitud-de-articulo.material-nuevo.detalle', ['solicitud_id' => $solicitud_id])
+    @endif
 </div>

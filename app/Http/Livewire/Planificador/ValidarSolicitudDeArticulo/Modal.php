@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Planificador\ValidarSolicitudDeArticulo;
 
+use App\Models\SolicitudDeNuevoArticulo;
 use App\Models\SolicitudDePedido;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -17,6 +18,7 @@ class Modal extends Component
     public $operario_id;
     public $operario;
     public $estado;
+    public $cantidad_materiales_nuevos;
 
     protected $listeners = ['mostrarPedidos','obtenerDatos'];
 
@@ -46,6 +48,7 @@ class Modal extends Component
 
     public function obtenerDatos(){
         if($this->solicitud_id > 0){
+            $this->emit('cambiarSolicitud',$this->solicitud_id);
             $ceco = SolicitudDePedido::find($this->solicitud_id)->Implemento->centro_de_costo_id;
             $monto_asignado = DB::table('detalle_monto_cecos_por_meses')->where('centro_de_costo_id',$ceco)->whereIn('mes',[intval($this->fecha_de_pedido)+1,intval($this->fecha_de_pedido)+2])->sum('monto');
             $monto_usado = DB::table('montos_usado_validar_pedido')->where('fecha_de_pedido',$this->fecha_de_pedido)->where('centro_de_costo_id',$ceco)->first();
@@ -57,6 +60,7 @@ class Modal extends Component
            $this->monto_disponible = $monto_asignado - $monto_usado;
         }else{
             $this->monto_disponible = 0;
+            $this->cantidad_materiales_nuevos = 0;
         }
         $this->emitTo('planificador.validar-solicitud-de-articulo.tabla','cambiar_solicitud',$this->solicitud_id);
     }

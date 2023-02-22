@@ -1,6 +1,6 @@
-<div class="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-1" wire:loading.remove>
+<div wire:loading.remove>
     @if($lista_de_materiales->count())
-        <div class="grid grid-cols-1 gap-4 py-4 text-center bg-yellow-200 rounded-md shadow-md sm:grid-cols-2">
+        <div class="grid grid-cols-1 mt-4 gap-4 py-4 text-center bg-yellow-200 rounded-md shadow-md sm:grid-cols-2">
             <div>
                 <h1 class="text-lg font-bold">PEDIDOS {{ $tipo }}</h1>
             </div>

@@ -23,7 +23,6 @@ class ArticuloFactory extends Factory
             'unidad_de_medida_id' => UnidadDeMedida::all()->random()->id,
             'precio_estimado' => $this->faker->randomFloat(2,500,5000),
             'tipo' => 'COMPONENTE',
-            'tiempo_de_vida' => $this->faker->randomFloat(2,500,1500),
         ];
     }
 }

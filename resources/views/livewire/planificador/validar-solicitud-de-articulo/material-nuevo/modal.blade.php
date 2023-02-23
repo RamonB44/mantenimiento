@@ -5,9 +5,9 @@
     </x-slot>
     <x-slot name="content">
         <div style="max-height:180px;overflow:auto">
-            <table class="min-w-max w-full">
+            <table class="w-full min-w-max">
                 <thead>
-                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
                         <th class="py-3 text-center">
                             <span>Componentes</span>
                         </th>
@@ -16,17 +16,17 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="text-gray-600 text-sm font-light">
+                <tbody class="text-sm font-light text-gray-600">
                     @foreach ($lista_de_materiales_nuevos as $request)
                         <tr wire:click="$emitTo('planificador.validar-solicitud-de-articulo.material-nuevo.detalle','abrirModal',{{$request->id}})" class="border-b border-gray-200 unselected">
-                            <td class="py-3 px-6 text-center">
+                            <td class="px-6 py-3 text-center">
                                 <div>
                                     <span class="font-medium">{{$request->nuevo_articulo}} </span>
                                 </div>
                             </td>
-                            <td class="py-3 px-6 text-center">
+                            <td class="px-6 py-3 text-center">
                                 <div>
-                                    <span class="font-medium">{{$request->cantidad}} {{$request->UnidadDeMedida->abreviacion}}</span>
+                                    <span class="font-medium">{{$request->cantidad}} {{$request->UnidadDeMedida->unidad_de_medida}}</span>
                                 </div>
                             </td>
                         </tr>

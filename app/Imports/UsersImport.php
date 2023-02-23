@@ -14,14 +14,14 @@ class UsersImport implements OnEachRow,WithHeadingRow
 {
     public function onRow(Row $row)
     {
-        //Campos: sede, codigo_operario, nombre, rol
+        //Campos: sede, codigo, nombre, rol
         $sede = Sede::firstOrCreate([
             'sede' => strtoupper($row['sede'])
         ]);
 
        $usuario = User::firstOrCreate(
             [
-                'codigo' => $row['codigo_operario'],
+                'codigo' => $row['codigo'],
             ],
             [
                 'name' => strtoupper($row['nombre']),
@@ -39,7 +39,7 @@ class UsersImport implements OnEachRow,WithHeadingRow
         );
 
         if($row['rol'] != ""){
-            $role = Role::where('name', $row['rol'])->first();
+            $role = Role::where('name', strtolower($row['rol']))->first();
             $usuario->assignRole($role);
         }
     }

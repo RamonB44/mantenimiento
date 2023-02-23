@@ -60,7 +60,7 @@ class Modal extends Component
         if($this->articulo > 0){
             $modelo_articulo = Articulo::find($this->articulo);
             $this->precio = $modelo_articulo->precio_estimado;
-            $this->unidad_de_medida = $modelo_articulo->UnidadDeMedida->abreviacion;
+            $this->unidad_de_medida = $modelo_articulo->UnidadDeMedida->unidad_de_medida;
         }else{
             $this->reset('precio','unidad_de_medida');
         }

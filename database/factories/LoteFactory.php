@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Cultivo;
 use App\Models\Fundo;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +21,8 @@ class LoteFactory extends Factory
     {
         return [
             'lote' => $this->faker->unique()->lexify('????????'),
+            'encargado' => 5,
+            'cultivo_id' => Cultivo::all()->random()->id,
             'fundo_id' => Fundo::all()->random()->id,
         ];
     }

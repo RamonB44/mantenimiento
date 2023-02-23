@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('unidad_de_medidas', function (Blueprint $table) {
+        Schema::create('frecuencia_mantenimientos', function (Blueprint $table) {
             $table->id();
-            $table->string('unidad_de_medida',5)->unique();
+            $table->foreignId('articulo_id')->constrained();
+            $table->decimal('frecuencia',8,2);
+            $table->decimal('tiempo_de_vida',8,2);
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unidad_de_medidas');
+        Schema::dropIfExists('frecuencia_mantenimientos');
     }
 };

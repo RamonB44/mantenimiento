@@ -15,7 +15,7 @@ class RutinariosImport implements OnEachRow
 {
     public function onRow(Row $row)
     {
-        //Campos: sistema,modelo_del_implemento, codigo, componente, unidad_de_medida, tiempo_de_vida, tarea
+        //Campos: sistema,modelo_del_implemento, codigo, componente, unidad_de_medida, tarea
         $sistema = Sistema::firstOrCreate([
             'sistema' => strtoupper($row['sistema'])
         ]);
@@ -24,14 +24,9 @@ class RutinariosImport implements OnEachRow
             'modelo' => strtoupper($row['modelo_del_implemento'])
         ]);
 
-        $unidad_de_medida = UnidadDeMedida::firstOrCreate(
-            [
-                'unidad_de_medida' => strtoupper($row['unidad_de_medida'])
-            ],
-            [
-                'abreviacion' => $row['unidad_de_medida']
-            ]
-        );
+        $unidad_de_medida = UnidadDeMedida::firstOrCreate([
+            'unidad_de_medida' => strtoupper($row['unidad_de_medida'])
+        ]);
 
         $articulo = Articulo::firstOrCreate(
             [
@@ -42,7 +37,6 @@ class RutinariosImport implements OnEachRow
                 'unidad_de_medida_id' => $unidad_de_medida->id,
                 'precio_estimado' => 0,
                 'tipo' => 'COMPONENTE',
-                'tiempo_de_vida' => $row['tiempo_de_vida'] == "" ? 0 : $row['tiempo_de_vida'],
             ]
         );
 

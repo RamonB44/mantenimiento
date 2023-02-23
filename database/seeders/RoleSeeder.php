@@ -73,37 +73,5 @@ class RoleSeeder extends Seeder
             'guard_name' => 'jefe',
         ])->syncRoles(['jefe']);
 
-        /*$users = User::all();
-        $user1 = $users->find(1);
-
-        $role1 = Role::find(1);
-
-        $user1->assignRole($role1);
-
-        $user2 = $users->find(2);
-
-        $role2 = Role::find(2);
-
-        $user2->assignRole($role2);
-
-        $user3 = $users->find(3);
-
-        $role3 = Role::find(3);
-
-        $user3->assignRole($role3);
-
-        $user4 = $users->find(4);
-
-        $role4 = Role::find(4);
-
-        $user4->assignRole($role4);
-
-        $user5 = $users->find(5);
-
-        $role5 = Role::find(5);
-
-        $user5->assignRole($role5);
-*/
-
     }
 }

@@ -56,7 +56,7 @@
                         </h2>
                         @if ($ceco_id > 0)
                         <div>
-                            <label style="font-size: 20px; font-weight: 400">Ceco: {{ $codigo_ceco }} - {{ $descripcion_ceco }} </label>
+                            <label style="font-size: 20px; font-weight: 400">Ceco: {{ $codigo_ceco }} </label>
                         </div>
                         @endif
                     </div>

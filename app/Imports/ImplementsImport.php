@@ -18,13 +18,14 @@ class ImplementsImport implements OnEachRow,WithHeadingRow
 {
     public function onRow(Row $row)
     {
-        //Campos: modelo, numero, codigo_operario, nombre, sede, codigo_ceco, descripcion_ceco, monto_ceco,
-        $modelo = ModeloDelImplemento::firstOrCreate([
-            'modelo_de_implemento' => strtoupper($row['modelo'])
-        ]);
+        //Campos: sede, modelo, numero, codigo_operario, nombre, codigo_ceco, monto_ceco,
 
         $sede = Sede::firstOrCreate([
             'sede' => strtoupper($row['sede'])
+        ]);
+
+        $modelo = ModeloDelImplemento::firstOrCreate([
+            'modelo_de_implemento' => strtoupper($row['modelo'])
         ]);
 
         $responsable = User::firstOrCreate(
@@ -55,9 +56,8 @@ class ImplementsImport implements OnEachRow,WithHeadingRow
                 'codigo' => $row['codigo_ceco'],
             ],
             [
-                'descripcion' => strtoupper($row['descripcion_ceco']),
                 'sede_id' => $sede->id,
-                'monto'=> $row['monto_ceco']
+                'monto'=> $row['monto_ceco'] == "" ? 0 : $row['monto']
             ]
         );
 

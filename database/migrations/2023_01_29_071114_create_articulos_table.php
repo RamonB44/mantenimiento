@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('unidad_de_medida_id')->constrained();
             $table->decimal('precio_estimado',8,2);
             $table->enum('tipo',['FUNGIBLE','COMPONENTE','PIEZA','HERRAMIENTA']);
-            $table->decimal('tiempo_de_vida',8,2);
             $table->boolean('esta_activo')->default(true);
             $table->timestamps();
         });

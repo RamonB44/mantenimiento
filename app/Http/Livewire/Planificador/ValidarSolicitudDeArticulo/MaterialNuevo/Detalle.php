@@ -66,7 +66,7 @@ class Detalle extends Component
         $this->solicitud_nuevo_id = $id;
         $this->solicitud_id = $solicitud->solicitud_de_pedido_id;
         $this->cantidad_solicitada = $solicitud->cantidad;
-        $this->um = $solicitud->UnidadDeMedida->abreviacion;
+        $this->um = $solicitud->UnidadDeMedida->unidad_de_medida;
         $this->ficha_tecnica = $solicitud->ficha_tecnica;
         $this->articulo = $solicitud->nuevo_articulo;
         $this->unidad_de_medida_id = $solicitud->unidad_de_medida_id;
@@ -83,7 +83,6 @@ class Detalle extends Component
             'unidad_de_medida_id' => $this->unidad_de_medida_id,
             'precio_estimado' => $this->precio,
             'tipo' => $this->tipo,
-            'tiempo_de_vida' => 0,
         ]);
         DetalleDeSolicitudDePedido::create([
             'solicitud_de_pedido_id' => $this->solicitud_id,

@@ -38,13 +38,13 @@ class Modal extends Component
     }
 
     public function imprimir() {
-        
+
         $titulo = 'Programación del '.$this->fecha.'.pdf';
         if($this->ceco_id > 0){
             $materiales = DB::table('resumen_pedido_por_ceco')->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('sede_id',$this->sede_id)->where('ceco_id',$this->ceco_id);
         }else{
             $materiales = DB::table('resumen_pedido_por_fecha')->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('sede_id',$this->sede_id);
-        }        
+        }
         $lista_de_materiales = $materiales->get();
         $monto_total = $materiales->sum('total');
         $data = [
@@ -57,10 +57,8 @@ class Modal extends Component
         if($this->ceco_id > 0){
             $ceco = CentroDeCosto::find($this->ceco_id);
             $data['codigo_ceco'] = $ceco->codigo;
-            $data['descripcion_ceco'] = $ceco->descripcion;
         }
-        
-        
+
         $pdfContent = PDF::loadView('livewire.planificador.resumen-de-pedido.pdf.resumen-de-pedido', $data)->setPaper('a4')->output();
 
         return response()->streamDownload(
@@ -68,7 +66,7 @@ class Modal extends Component
             $titulo
         );
     }
-    
+
     public function render()
     {
         return view('livewire.planificador.resumen-de-pedido.modal');

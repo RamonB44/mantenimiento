@@ -12,15 +12,10 @@ class ArticulosImport implements OnEachRow,WithHeadingRow
 {
     public function onRow(Row $row)
     {
-        //Campos: codigo, descripcion, unidad de medida, precio, vencimiento
-        $unidad_de_medida = UnidadDeMedida::firstOrCreate(
-            [
-                'unidad_de_medida' => $row['unidad_de_medida'],
-            ],
-            [
-                'abreviacion' => $row['unidad_de_medida'],
-            ]
-        );
+        //Campos: codigo, descripcion, unidad de medida, precio
+        $unidad_de_medida = UnidadDeMedida::firstOrCreate([
+            'unidad_de_medida' => $row['unidad_de_medida']
+        ]);
 
         Articulo::firstOrCreate(
             [
@@ -31,7 +26,6 @@ class ArticulosImport implements OnEachRow,WithHeadingRow
                 'unidad_de_medida_id' => $unidad_de_medida->id,
                 'precio_estimado' => $row['precio'],
                 'tipo' => 'FUNGIBLE',
-                'tiempo_de_vida' => $row['vencimiento'] == "" ? 0 : $row['vencimiento'],
             ]
         );
 

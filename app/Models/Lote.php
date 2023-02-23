@@ -15,4 +15,11 @@ class Lote extends Model
         return $this->belongsTo(Fundo::class);
     }
 
+    public function Encargado(){
+        return $this->belongsTo(User::class,'encargado');
+    }
+
+    public function Cultivo(){
+        return $this->belongsTo(Cultivo::class);
+    }
 }

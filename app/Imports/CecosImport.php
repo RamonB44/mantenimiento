@@ -12,7 +12,7 @@ class CecosImport implements OnEachRow,WithGroupedHeadingRow
 {
     public function onRow(Row $row)
     {
-        //Campos: sede, codigo_ceco,descripcion_ceco,monto_ceco
+        //Campos: sede, codigo_ceco,monto_ceco
         $sede = Sede::firstOrCreate([
             'sede' => strtoupper($row['sede'])
         ]);
@@ -22,7 +22,6 @@ class CecosImport implements OnEachRow,WithGroupedHeadingRow
                 'codigo' => $row['codigo_ceco'],
             ],
             [
-                'descripcion' => strtoupper($row['descripcion_ceco']),
                 'sede_id' => $sede->id,
                 'monto'=> $row['monto_ceco']
             ]

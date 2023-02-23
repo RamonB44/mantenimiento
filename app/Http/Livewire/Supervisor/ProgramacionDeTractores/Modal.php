@@ -168,9 +168,11 @@ class Modal extends Component
 
     public function render()
     {
-        $fundos = Fundo::where('sede_id',Auth::user()->sede_id)->get();
+        $fundos = Fundo::whereHas('Lotes',function($q){
+            $q->where('encargado',Auth::user()->id);
+        })->get();
         if($this->fundo > 0){
-            $lotes = Lote::where('fundo_id',$this->fundo)->get();
+            $lotes = Lote::where('fundo_id',$this->fundo)->where('encargado',Auth::user()->id)->get();
         }else{
             $lotes = [];
         }

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UnidadDeMedida>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cultivo>
  */
-class UnidadDeMedidaFactory extends Factory
+class CultivoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class UnidadDeMedidaFactory extends Factory
     public function definition()
     {
         return [
-            'unidad_de_medida' => $this->faker->unique()->lexify('???'),
+            'cultivo' => $this->faker->unique()->lexify('????????')
         ];
     }
 }

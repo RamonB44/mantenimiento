@@ -8,6 +8,7 @@ use App\Models\Articulo;
 use App\Models\CentroDeCosto;
 use App\Models\ArticuloParaTarea;
 use App\Models\ComponentePorModelo;
+use App\Models\Cultivo;
 use App\Models\PiezaPorModelo;
 use App\Models\Epp;
 use App\Models\Fundo;
@@ -37,11 +38,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         UnidadDeMedida::factory(10)->create();
+        Cultivo::factory(4)->create();
         Labor::factory(7)->create();
         Epp::factory(20)->create();
         Riesgo::factory(4)->create();
         Sistema::factory(5)->create();
-        Sede::factory(1)->has(Fundo::factory()->count(3)->has(Lote::factory()->count(2)))->has(User::factory()->count(10))->has(CentroDeCosto::factory()->count(2))->create();
+        Sede::factory(1)->has(User::factory()->count(10))->has(Fundo::factory()->count(3)->has(Lote::factory()->count(2)))->has(CentroDeCosto::factory()->count(2))->create();
         $this->call([
             RoleSeeder::class,
             FechaDePedidoSeeder::class,

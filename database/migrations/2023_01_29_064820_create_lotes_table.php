@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('lotes', function (Blueprint $table) {
             $table->id();
             $table->string('lote')->unique();
+            $table->unsignedBigInteger('encargado');
+            $table->foreign('encargado')->references('id')->on('users');
+            $table->foreignId('cultivo_id')->constrained();
             $table->foreignId('fundo_id')->constrained();
             $table->timestamps();
         });

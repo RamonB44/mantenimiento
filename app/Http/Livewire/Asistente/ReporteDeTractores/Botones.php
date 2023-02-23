@@ -16,10 +16,6 @@ class Botones extends Component
         $this->reporte_id = $id;
     }
 
-    public function abrirModal($id){
-        $this->emitTo('asistente.reporte-de-tractores.modal','abrir_modal',$id);
-    }
-
     public function render()
     {
         $this->boton_activo = $this->reporte_id > 0;

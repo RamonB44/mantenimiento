@@ -29,7 +29,7 @@ class ValidarSolicitudDeArticulos extends Component
     }
 
     public function updatedSedeId(){
-        $this->emit('cambiar_sede',$this->sede_id);
+        $this->emit('cambiarSede',$this->sede_id);
     }
 
     public function render()

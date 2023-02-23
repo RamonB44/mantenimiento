@@ -26,7 +26,7 @@ class Modal extends Component
     public $detalle_de_solicitud;
     public $articulo_name;
 
-    protected $listeners = ['cambiar_implemento','abrir_modal'];
+    protected $listeners = ['cambiarImplemento','abrirModal'];
 
     public function mount($implemento_id,$fecha_de_pedido){
         $this->open = false;
@@ -42,11 +42,11 @@ class Modal extends Component
         $this->articulo_name = "";
     }
 
-    public function cambiar_implemento($id){
+    public function cambiarImplemento($id){
         $this->implemento_id = $id;
     }
 
-    public function abrir_modal($tipo,$detalle_de_solicitud=0){
+    public function abrirModal($tipo,$detalle_de_solicitud=0){
         $this->tipo = $tipo;
         $this->open = true;
         $this->detalle_de_solicitud = $detalle_de_solicitud;

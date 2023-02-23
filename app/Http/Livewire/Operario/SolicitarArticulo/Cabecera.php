@@ -21,7 +21,7 @@ class Cabecera extends Component
     public $mes_de_pedido;
     public $centro_de_costo;
 
-    protected $listeners = ['cambiar_implemento','obtener_montos'];
+    protected $listeners = ['cambiarImplemento','obtener_montos'];
 
     public function mount($fecha_de_pedido,$implemento_id){
         Carbon::setLocale(LC_ALL, 'es_ES');
@@ -38,7 +38,7 @@ class Cabecera extends Component
         $this->implemento_id = $implemento_id;
     }
 
-    public function cambiar_implemento($id){
+    public function cambiarImplemento($id){
         $this->implemento_id = $id;
         $this->obtener_montos();
     }

@@ -37,7 +37,7 @@ class Modal extends Component
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->emitTo('planificador.validar-solicitud-de-articulo.operarios','cambiar_sede',$this->sede_id);
+            $this->emitTo('planificador.validar-solicitud-de-articulo.operarios','cambiarSede',$this->sede_id);
             $this->resetExcept('open','fecha_de_pedido','sede_id');
         }
     }
@@ -62,7 +62,7 @@ class Modal extends Component
             $this->monto_disponible = 0;
             $this->cantidad_materiales_nuevos = 0;
         }
-        $this->emitTo('planificador.validar-solicitud-de-articulo.tabla','cambiar_solicitud',$this->solicitud_id);
+        $this->emitTo('planificador.validar-solicitud-de-articulo.tabla','cambiarSolicitud',$this->solicitud_id);
     }
 
     public function mostrarPedidos($operario_id,$operario,$estado){

@@ -19,7 +19,7 @@
             </thead>
             <tbody class="text-sm font-light text-gray-600">
                 @foreach ($rutinarios as $rutinario)
-                    <tr style="cursor:pointer" wire:click="abrir_modal({{$rutinario->id}})" class="border-b border-gray-200">
+                    <tr style="cursor:pointer" wire:click="$emitTo('supervisor.validar-rutinario.modal','abrirModal',{{$rutinario->id}})" class="border-b border-gray-200">
                         <td class="py-3 text-center">
                             <div>
                                 <span class="font-medium">{{ $rutinario->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $rutinario->Implemento->numero }}</span>

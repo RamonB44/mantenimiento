@@ -14,7 +14,7 @@ class Tabla extends Component
     public $lista_materiales_nuevos;
     public $material_nuevo = 0;
 
-    protected $listeners = ['cambiar_implemento'];
+    protected $listeners = ['cambiarImplemento'];
 
     public function mount($implemento_id,$fecha_de_pedido){
         $this->fecha_de_pedido = $fecha_de_pedido;
@@ -28,7 +28,7 @@ class Tabla extends Component
         }
     }
 
-    public function cambiar_implemento($id){
+    public function cambiarImplemento($id){
         $this->implemento_id = $id;
         if($id > 0 && SolicitudDePedido::where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('implemento_id',$this->implemento_id)->exists()){
             $this->lista_materiales_nuevos = SolicitudDeNuevoArticulo::whereHas('SolicitudDePedido',function($q){
@@ -41,7 +41,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->material_nuevo = $id;
-        $this->emitTo('operario.solicitar-articulo-nuevo.botones','cambiar_material_nuevo',$id);
+        $this->emitTo('operario.solicitar-articulo-nuevo.botones','cambiarMaterialNuevo',$id);
     }
 
     public function render()

@@ -18,7 +18,7 @@ class SeleccionarImplemento extends Component
     }
 
     public function updatedImplementoId(){
-        $this->emit('cambiar_implemento',$this->implemento_id);
+        $this->emit('cambiarImplemento',$this->implemento_id);
     }
 
     public function cerrarPedido(){
@@ -27,7 +27,7 @@ class SeleccionarImplemento extends Component
         $solicitud_de_pedido->save();
         $this->emit('alerta',['center','success','Solicitud Cerrada']);
         $this->reset('implemento_id');
-        $this->emit('cambiar_implemento',$this->implemento_id);
+        $this->emit('cambiarImplemento',$this->implemento_id);
     }
 
     public function render()

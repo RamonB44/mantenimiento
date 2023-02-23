@@ -17,13 +17,13 @@ class Imprimir extends Component
     public $open = false;
     public $fecha;
 
-    protected $listeners = ['abrir_modal'];
+    protected $listeners = ['abrirModal'];
 
     public function mount(){
         $this->fecha = date('Y-m-d',strtotime(date('Y-m-d')."+1 days"));
     }
 
-    public function abrir_modal(){
+    public function abrirModal(){
         $this->open =true;
     }
 

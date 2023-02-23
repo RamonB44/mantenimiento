@@ -27,7 +27,7 @@ class Modal extends Component
     public $iteracion;
     public $material_nuevo;
 
-    protected $listeners = ['abrir_modal','cambiar_implemento'];
+    protected $listeners = ['abrirModal','cambiarImplemento'];
 
     protected function rules(){
         return [
@@ -53,7 +53,7 @@ class Modal extends Component
         $this->iteracion = 0;
     }
 
-    public function cambiar_implemento($id){
+    public function cambiarImplemento($id){
         $this->implemento_id = $id;
     }
 
@@ -79,7 +79,7 @@ class Modal extends Component
         }
     }
 
-    public function abrir_modal($id){
+    public function abrirModal($id){
         $this->material_nuevo = $id;
         if($id > 0){
             $solicitud_de_material_nuevo = SolicitudDeNuevoArticulo::find($id);
@@ -127,7 +127,7 @@ class Modal extends Component
             ]);
         }
         $this->resetExcept('fecha_de_pedido','implemento_id','iteracion','unidades_medida');
-        $this->emitTo('operario.solicitar-articulo-nuevo.tabla','cambiar_implemento',$this->implemento_id);
+        $this->emitTo('operario.solicitar-articulo-nuevo.tabla','cambiarImplemento',$this->implemento_id);
         $this->emit('alerta',['center','success','Operación Exitosa']);
         $this->iteracion++;
     }

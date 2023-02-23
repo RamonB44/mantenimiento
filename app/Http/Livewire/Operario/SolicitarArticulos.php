@@ -12,7 +12,7 @@ class SolicitarArticulos extends Component
     public $existe_pedido;
     public $fecha_de_pedido;
 
-    protected $listeners = ['cambiar_implemento'];
+    protected $listeners = ['cambiarImplemento'];
 
     public function mount(){
         $this->implemento_id = 0;
@@ -24,7 +24,7 @@ class SolicitarArticulos extends Component
         }
     }
 
-    public function cambiar_implemento($id){
+    public function cambiarImplemento($id){
         $this->implemento_id = $id;
     }
 

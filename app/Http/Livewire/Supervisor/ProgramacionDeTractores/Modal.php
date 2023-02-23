@@ -30,7 +30,7 @@ class Modal extends Component
 
     public $programacion_id;
 
-    protected $listeners = ['abrir_modal'];
+    protected $listeners = ['abrirModal'];
 
     protected function rules(){
         return [
@@ -81,7 +81,7 @@ class Modal extends Component
         $this->labores = Labor::all();
     }
 
-    public function abrir_modal($id){
+    public function abrirModal($id){
         $this->programacion_id = $id;
 
         if($id > 0){

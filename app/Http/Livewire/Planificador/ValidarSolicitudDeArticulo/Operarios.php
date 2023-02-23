@@ -14,7 +14,7 @@ class Operarios extends Component
     public $operarios_pendientes;
     public $operarios_validados;
 
-    protected $listeners = ['cambiar_sede'];
+    protected $listeners = ['cambiarSede'];
 
     public function mount($fecha_de_pedido,$sede_id){
         $this->fecha_de_pedido = $fecha_de_pedido;
@@ -28,7 +28,7 @@ class Operarios extends Component
         }
     }
 
-    public function cambiar_sede($id){
+    public function cambiarSede($id){
         $this->sede_id = $id;
         if($this->sede_id > 0){
             $this->operarios_pendientes = $this->listar_operarios('CERRADO');

@@ -25,7 +25,7 @@ class Modal extends Component
 
     public $reporte_id;
 
-    protected $listeners = ['abrir_modal'];
+    protected $listeners = ['abrirModal'];
 
     protected function rules(){
         return [
@@ -58,7 +58,7 @@ class Modal extends Component
         $this->deshabilitar_horometro_inicial = true;
     }
 
-    public function abrir_modal($id){
+    public function abrirModal($id){
         $this->reporte_id = $id;
 
         if($this->reporte_id > 0){

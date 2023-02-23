@@ -14,7 +14,7 @@ class Modal extends Component
     public $rutinario;
     public $accion;
 
-    protected $listeners = ['abrir_modal'];
+    protected $listeners = ['abrirModal'];
 
     public function mount(){
         $this->open = false;
@@ -23,7 +23,7 @@ class Modal extends Component
         $this->rutinario = 0;
     }
 
-    public function abrir_modal($programacion){
+    public function abrirModal($programacion){
         $this->rutinario = $programacion;
         if($programacion > 0){
             $this->accion = "editar";

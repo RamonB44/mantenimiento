@@ -13,7 +13,7 @@ class Botones extends Component
     public $material_nuevo;
     public $boton_activo;
 
-    protected $listeners = ['cambiar_material_nuevo','cambiar_implemento_id'];
+    protected $listeners = ['cambiarMaterialNuevo','cambiarImplemento_id'];
 
     public function mount($implemento_id,$fecha_de_pedido){
         $this->fecha_de_pedido = $fecha_de_pedido;
@@ -22,11 +22,11 @@ class Botones extends Component
         $this->boton_activo = false;
     }
 
-    public function cambiar_implemento($id){
+    public function cambiarImplemento($id){
         $this->implemento_id = $id;
     }
 
-    public function cambiar_material_nuevo($id){
+    public function cambiarMaterialNuevo($id){
         $this->material_nuevo = $id;
     }
 
@@ -34,7 +34,7 @@ class Botones extends Component
         $solicitud = SolicitudDeNuevoArticulo::find($this->material_nuevo);
         Storage::delete($solicitud->imagen);
         $solicitud->delete();
-        $this->emitTo('operario.solicitar-articulo-nuevo.tabla','cambiar_implemento',$this->implemento_id);
+        $this->emitTo('operario.solicitar-articulo-nuevo.tabla','cambiarImplemento',$this->implemento_id);
     }
 
     public function render()

@@ -18,12 +18,8 @@ class Botones extends Component
         $this->boton_activo = $this->programacion_id > 0;
     }
 
-    public function abrir_modal($id){
-        $this->emitTo('supervisor.programacion-de-tractores.modal','abrir_modal',$id);
-    }
-
     public function imprimir(){
-        $this->emitTo('supervisor.programacion-de-tractores.imprimir','abrir_modal');
+        $this->emitTo('supervisor.programacion-de-tractores.imprimir','abrirModal');
     }
 
     public function anular(){

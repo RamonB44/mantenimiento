@@ -14,7 +14,7 @@ class Tabla extends Component
     public $monto_total;
     public $estado;
 
-    protected $listeners = ['cambiar_solicitud'];
+    protected $listeners = ['cambiarSolicitud'];
 
     public function mount($solicitud_id,$tipo,$estado){
         $this->solicitud_id = $solicitud_id;
@@ -23,7 +23,7 @@ class Tabla extends Component
         $this->obtenerListaDeMateriales($solicitud_id);
     }
 
-    public function cambiar_solicitud($solicitud_id){
+    public function cambiarSolicitud($solicitud_id){
         $this->solicitud_id = $solicitud_id;
         $this->obtenerListaDeMateriales($this->solicitud_id);
     }

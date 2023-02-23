@@ -25,10 +25,6 @@ class Tabla extends Component
         $this->turno = "";
     }
 
-    public function abrir_modal($programacion){
-        $this->emitTo('supervisor.validar-rutinario.modal','abrir_modal',$programacion);
-    }
-
     public function filtrar($fecha,$turno,$operario,$implemento){
         $this->resetPage();
         $this->fecha = $fecha;
@@ -40,7 +36,7 @@ class Tabla extends Component
     public function render()
     {
         $rutinarios = ProgramacionDeTractor::where('validado_por',Auth::user()->id)->where('esta_anulado',0);
-        
+
         if($this->operario > 0){
             $rutinarios = $rutinarios->whereHas('Rutinarios',function($q){
                 $q->where('operario',$this->operario);

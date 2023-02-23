@@ -18,14 +18,14 @@ class Tabla extends Component
     public $implemento_id;
     public $fecha_de_pedido;
 
-    protected $listeners = ['cambiar_implemento','render'];
+    protected $listeners = ['cambiarImplemento','render'];
 
     public function mount($implemento_id,$fecha_de_pedido){
         $this->implemento_id = $implemento_id;
         $this->fecha_de_pedido = $fecha_de_pedido;
     }
 
-    public function cambiar_implemento($id){
+    public function cambiarImplemento($id){
         $this->implemento_id = $id;
     }
 

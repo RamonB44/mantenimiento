@@ -14,7 +14,7 @@ class Importar extends Component
     public $open;
     public $archivo;
 
-    protected $listeners = ['abrir_modal'];
+    protected $listeners = ['abrirModal'];
 
     public function mount()
     {
@@ -27,7 +27,7 @@ class Importar extends Component
         ];
     }
 
-    public function abrir_modal(){
+    public function abrirModal(){
         $this->open = true;
     }
 

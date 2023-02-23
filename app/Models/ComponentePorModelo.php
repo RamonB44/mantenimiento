@@ -15,4 +15,8 @@ class ComponentePorModelo extends Model
     public function Articulo(){
     	return $this->belongsTo(Articulo::class);
     }
+
+    public function Sistema() {
+        return $this->belongsTo(Sistema::class);
+    }
 }

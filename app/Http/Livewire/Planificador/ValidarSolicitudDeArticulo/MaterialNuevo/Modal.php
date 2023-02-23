@@ -10,7 +10,7 @@ class Modal extends Component
     public $open;
     public $solicitud_id;
 
-    protected $listeners = ['abrirModal','cambiarSolicitud'];
+    protected $listeners = ['abrirModal','cambiarSolicitud','render'];
 
     public function mount($solicitud_id) {
         $this->open = false;

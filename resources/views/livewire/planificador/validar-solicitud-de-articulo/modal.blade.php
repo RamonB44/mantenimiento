@@ -38,6 +38,6 @@
     </x-jet-dialog-modal>
     @if ($solicitud_id > 0)
         @livewire('planificador.validar-solicitud-de-articulo.material-nuevo.modal', ['solicitud_id' => $solicitud_id])
-        @livewire('planificador.validar-solicitud-de-articulo.material-nuevo.detalle', ['solicitud_id' => $solicitud_id])
+        @livewire('planificador.validar-solicitud-de-articulo.material-nuevo.detalle')
     @endif
 </div>

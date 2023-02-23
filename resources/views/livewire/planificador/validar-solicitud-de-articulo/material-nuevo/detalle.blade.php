@@ -14,9 +14,9 @@
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Especificaciones:</x-jet-label>
-                        <textarea readonly class="form-control w-full text-sm" rows=5 wire:model.defer="ficha_tecnica"></textarea>
+                        <textarea readonly class="w-full text-sm form-control" rows=5 wire:model.defer="ficha_tecnica"></textarea>
                     </div>
-                    <div class="p-2" style="margin-left:15px;margin-right:15px;max-height:16rem">
+                    <div class="p-2 text-center" style="margin-left:15px;margin-right:15px;max-height:16rem">
                         @if ($imagen != "")
                         <img style="display:inline;height:100%" src="{{ $imagen }}">
                         @endif
@@ -81,14 +81,14 @@
     </x-slot>
     <x-slot name="footer">
         <div class="mr-2">
-            <x-jet-button wire:loading.attr="disabled" wire:click="registrar">
-                Guardar
+            <x-jet-button wire:loading.remove wire:click="registrar">
+                Agregar
             </x-jet-button>
         </div>
-        <div wire:loading wire:target="registrar">
+        <div wire:loading>
             Registrando...
         </div>
-        <x-jet-button wire:loading.attr="disabled" wire:click="$emit('rechazarMaterialNuevo','{{$articulo}}')">
+        <x-jet-button wire:loading.remove wire:click="rechazar">
             Rechazar
         </x-jet-button>
         <x-jet-secondary-button wire:click="$set('open',false)" class="ml-2">

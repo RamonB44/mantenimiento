@@ -1,5 +1,3 @@
----------------------------------PLANNER:Validar Solicitud de Pedido------------------------------------
--Falta el formulario para agregar materiales nuevos
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
 -Ver solicitudes de pedido anteriores:
   --Por fecha de pedido, por sede y por ceco.

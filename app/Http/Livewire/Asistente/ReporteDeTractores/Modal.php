@@ -21,6 +21,7 @@ class Modal extends Component
     public $correlativo;
     public $horometro_inicial;
     public $horometro_final;
+    public $deshabilitar_horometro_inicial;
 
     public $reporte_id;
 
@@ -54,6 +55,7 @@ class Modal extends Component
         $this->fecha = date('Y-m-d');
         $this->turno = "MAÑANA";
         $this->accion = "crear";
+        $this->deshabilitar_horometro_inicial = true;
     }
 
     public function abrir_modal($id){
@@ -117,7 +119,7 @@ class Modal extends Component
             ReporteDeTractor::create([
                 'programacion_de_tractor_id' => $this->programacion_id,
                 'correlativo' => $this->correlativo,
-                'horometro_inicial' => ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro,
+                'horometro_inicial' => $this->deshabilitar_horometro_inicial ? ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro : $this->horometro_inicial,
                 'horometro_final' => $this->horometro_final,
                 'sede_id' => Auth::user()->sede_id,
                 'validado_por' => Auth::user()->id,
@@ -131,11 +133,13 @@ class Modal extends Component
     }
 
     public function updatedProgramacionId(){
-        if($this->programacion_id){
+        if($this->programacion_id > 0){
             $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
             $this->horometro_final = number_format($this->horometro_inicial + 8,2);
+            $this->deshabilitar_horometro_inicial = $this->horometro_inicial > 0;
         }else{
             $this->reset('horometro_inicial','horometro_final');
+            $this->deshabilitar_horometro_inicial = true;
         }
 
     }

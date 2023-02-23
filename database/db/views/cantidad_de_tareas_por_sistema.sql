@@ -1,2 +1,2 @@
-create view cantidad_de_tareas_por_sistema as
-select count(`t`.`id`) AS `cantidad_de_tareas`,`c`.`sistema` AS `sistema`,`m`.`id` AS `modelo_de_implemento` from ((`mantenimiento`.`componente_por_modelos` `c` join `mantenimiento`.`tareas` `t` on(`t`.`articulo_id` = `c`.`articulo_id`)) join `mantenimiento`.`modelo_del_implementos` `m` on(`m`.`id` = `c`.`modelo_id`)) group by `c`.`sistema`,`c`.`modelo_id`
+CREATE VIEW cantidad_de_tareas_por_sistema AS
+SELECT COUNT(t.id) AS cantidad_de_tareas,c.sistema_id,m.id AS modelo_de_implemento FROM componente_por_modelos c INNER JOIN tareas t ON t.articulo_id = c.articulo_id INNER JOIN modelo_del_implementos m ON m.id = c.modelo_id INNER JOIN sistemas s ON s.id = c.sistema_id GROUP BY c.sistema_id,c.modelo_id

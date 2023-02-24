@@ -35,7 +35,7 @@ class Tabla extends Component
 
     public function render()
     {
-        $rutinarios = ProgramacionDeTractor::where('validado_por',Auth::user()->id)->where('esta_anulado',0);
+        $rutinarios = ProgramacionDeTractor::where('supervisor',Auth::user()->id)->where('esta_anulado',0);
 
         if($this->operario > 0){
             $rutinarios = $rutinarios->whereHas('Rutinarios',function($q){

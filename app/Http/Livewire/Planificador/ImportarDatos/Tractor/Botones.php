@@ -9,9 +9,9 @@ class Botones extends Component
     public $tractor_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_tractor'];
+    protected $listeners = ['obtenerTractor'];
 
-    public function obtener_tractor($id){
+    public function obtenerTractor($id){
         $this->tractor_id = $id;
         $this->boton_activo = $id > 0;
     }

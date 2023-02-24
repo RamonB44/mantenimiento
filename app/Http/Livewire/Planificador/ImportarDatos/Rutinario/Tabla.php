@@ -19,7 +19,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->rutinario_id = $id;
-        $this->emitTo('planificador.importar-datos.rutinario.botones','obtener_rutinario',$id);
+        $this->emitTo('planificador.importar-datos.rutinario.botones','obtenerRutinario',$id);
 
     }
 

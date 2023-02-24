@@ -94,7 +94,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Agregado correctamente']);
             $this->resetExcept('open','implemento_id','existe_pedido','fecha_de_pedido');
-            $this->emitTo('operario.solicitar-articulo.cabecera','obtener_montos');
+            $this->emitTo('operario.solicitar-articulo.cabecera','obtenerMontos');
             $this->emitTo('operario.solicitar-articulo.tabla','render');
         }else{
             $this->emit('alerta',['center','error','Faltan datos']);

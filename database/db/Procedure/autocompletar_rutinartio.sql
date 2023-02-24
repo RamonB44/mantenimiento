@@ -11,7 +11,7 @@ OPEN cursor_tareas;
         FETCH cursor_tareas INTO tarea;
         IF NOT EXISTS (SELECT * FROM rutinarios WHERE programacion_de_tractor_id = programacion_id AND tarea_id = tarea) THEN
             SELECT responsable INTO operario FROM programacion_de_tractors WHERE id = programacion_id;
-            INSERT INTO rutinarios (programacion_de_tractor_id,tarea_id,operario,validado_por,created_at,updated_at) VALUES (programacion_id,tarea,responsable,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+            INSERT INTO rutinarios (programacion_de_tractor_id,tarea_id,operario,supervisor,created_at,updated_at) VALUES (programacion_id,tarea,responsable,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
         END IF;
 		IF tarea_final = 1 THEN
         	leave bucle_tareas;

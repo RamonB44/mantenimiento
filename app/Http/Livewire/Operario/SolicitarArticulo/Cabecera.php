@@ -21,7 +21,7 @@ class Cabecera extends Component
     public $mes_de_pedido;
     public $centro_de_costo;
 
-    protected $listeners = ['cambiarImplemento','obtener_montos'];
+    protected $listeners = ['cambiarImplemento','obtenerMontos'];
 
     public function mount($fecha_de_pedido,$implemento_id){
         Carbon::setLocale(LC_ALL, 'es_ES');
@@ -40,10 +40,10 @@ class Cabecera extends Component
 
     public function cambiarImplemento($id){
         $this->implemento_id = $id;
-        $this->obtener_montos();
+        $this->obtenerMontos();
     }
 
-    public function obtener_montos(){
+    public function obtenerMontos(){
         if($this->implemento_id > 0){
             $this->centro_de_costo = Implemento::find($this->implemento_id)->centro_de_costo_id;
            $this->monto_asignado = DB::table('detalle_monto_cecos_por_meses')->where('centro_de_costo_id',$this->centro_de_costo)->whereIn('mes',[intval($this->fecha_pedido)+1,intval($this->fecha_pedido)+2])->sum('monto');

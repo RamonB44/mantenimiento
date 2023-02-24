@@ -38,7 +38,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->reporte_id = $id;
-        $this->emitTo('asistente.reporte-de-tractores.botones','obtener_reporte',$id);
+        $this->emitTo('asistente.reporte-de-tractores.botones','obtenerReporte',$id);
     }
 
     public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
@@ -57,7 +57,7 @@ class Tabla extends Component
     {
         $reporte_de_tractores = ReporteDeTractor::where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0);
 
-        
+
         $reporte_de_tractores->whereHas('ProgramacionDeTractor',function($q){
             if($this->fecha != ''){
                 $q->where('fecha',$this->fecha);

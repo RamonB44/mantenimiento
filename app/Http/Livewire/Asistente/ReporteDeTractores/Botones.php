@@ -10,9 +10,9 @@ class Botones extends Component
     public $reporte_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_reporte'];
+    protected $listeners = ['obtenerReporte'];
 
-    public function obtener_reporte($id){
+    public function obtenerReporte($id){
         $this->reporte_id = $id;
     }
 

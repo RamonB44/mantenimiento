@@ -8,9 +8,9 @@ class ProgramacionDeTractores extends Component
 {
     public $programacion_id = 0;
 
-    protected $listeners = ['obtener_programacion'];
+    protected $listeners = ['obtenerProgramacion'];
 
-    public function obtener_programacion($id){
+    public function obtenerProgramacion($id){
         $this->programacion_id  = $id;
     }
 

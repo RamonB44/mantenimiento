@@ -9,9 +9,9 @@ class Botones extends Component
     public $usuario_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_usuario'];
+    protected $listeners = ['obtenerUsuario'];
 
-    public function obtener_usuario($id){
+    public function obtenerUsuario($id){
         $this->usuario_id = $id;
         $this->boton_activo = $id > 0;
     }

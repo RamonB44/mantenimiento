@@ -38,7 +38,7 @@ class Tareas extends Component
                 'programacion_de_tractor_id' => $this->programacion,
                 'operario' => Implemento::find($programacion->implemento_id)->responsable,
                 'tarea_id' => $tarea,
-                'validado_por' => Auth::user()->id,
+                'supervisor' => Auth::user()->id,
             ]);
         }
     }

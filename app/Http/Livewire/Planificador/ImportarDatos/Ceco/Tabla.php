@@ -19,7 +19,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->ceco_id = $id;
-        $this->emitTo('planificador.importar-datos.ceco.botones','obtener_ceco',$id);
+        $this->emitTo('planificador.importar-datos.ceco.botones','obtenerCeco',$id);
 
     }
 

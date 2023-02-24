@@ -27,7 +27,11 @@ class ReporteDeTractor extends Model
         return $this->belongsTo(Lote::class);
     }
 
-    public function ValidadoPor(){
-        return $this->belongsTo(User::class,'validado_por');
+    public function Asistente(){
+        return $this->belongsTo(User::class,'asistente');
+    }
+
+    public function ImplementoProgramacion() {
+        return $this->hasMany(ImplementoProgramacion::class);
     }
 }

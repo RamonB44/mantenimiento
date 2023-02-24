@@ -20,8 +20,8 @@ return new class extends Migration
             $table->decimal('horometro_inicial',8,2);
             $table->decimal('horometro_final',8,2);
             $table->foreignId('sede_id')->constrained();
-            $table->unsignedBigInteger('validado_por');
-            $table->foreign('validado_por')->references('id')->on('users');
+            $table->unsignedBigInteger('asistente');
+            $table->foreign('asistente')->references('id')->on('users');
             $table->boolean('esta_anulado')->default(false);
             $table->timestamps();
         });

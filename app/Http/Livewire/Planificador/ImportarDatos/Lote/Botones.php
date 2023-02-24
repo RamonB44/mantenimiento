@@ -9,9 +9,9 @@ class Botones extends Component
     public $lote_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_lote'];
+    protected $listeners = ['obtenerLote'];
 
-    public function obtener_lote($id){
+    public function obtenerLote($id){
         $this->lote_id = $id;
         $this->boton_activo = $id > 0;
     }

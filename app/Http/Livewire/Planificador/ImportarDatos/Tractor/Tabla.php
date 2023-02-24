@@ -19,7 +19,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->tractor_id = $id;
-        $this->emitTo('planificador.importar-datos.tractor.botones','obtener_tractor',$id);
+        $this->emitTo('planificador.importar-datos.tractor.botones','obtenerTractor',$id);
 
     }
 

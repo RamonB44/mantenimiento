@@ -9,9 +9,9 @@ class Botones extends Component
     public $labor_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_labor'];
+    protected $listeners = ['obtenerLabor'];
 
-    public function obtener_labor($id){
+    public function obtenerLabor($id){
         $this->labor_id = $id;
         $this->boton_activo = $id > 0;
     }

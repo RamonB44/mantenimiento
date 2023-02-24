@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('solicitud_de_pedidos', function (Blueprint $table) {
+        Schema::create('orden_de_trabajos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('solicitante');
-            $table->foreign('solicitante')->references('id')->on('users');
-            $table->foreignId('sede_id')->constrained();
             $table->foreignId('implemento_id')->constrained();
-            $table->enum('estado',['PENDIENTE', 'CERRADO', 'VALIDADO', 'RECHAZADO', 'CONCLUIDO'])->default('PENDIENTE');
-            $table->unsignedBigInteger('planificador')->nullable();
+            $table->unsignedBigInteger('operario');
+            $table->foreign('operario')->references('id')->on('users');
+            $table->enum('estado',['PENDIENTE','CONCLUIDO'])->default('PENDIENTE');
+            $table->unsignedBigInteger('planificador');
             $table->foreign('planificador')->references('id')->on('users');
-            $table->foreignId('fecha_de_pedido_id')->constrained();
+            $table->foreignId('ceco_id')->constrained();
+            $table->dateTime('hora_de_inicio');
+            $table->dateTime('hora_de_finalizacion')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitud_de_pedidos');
+        Schema::dropIfExists('orden_de_trabajos');
     }
 };

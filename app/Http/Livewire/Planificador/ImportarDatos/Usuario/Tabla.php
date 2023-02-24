@@ -19,7 +19,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->usuario_id = $id;
-        $this->emitTo('planificador.importar-datos.usuario.botones','obtener_usuario',$id);
+        $this->emitTo('planificador.importar-datos.usuario.botones','obtenerUsuario',$id);
 
     }
 

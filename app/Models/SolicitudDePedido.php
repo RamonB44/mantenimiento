@@ -19,8 +19,8 @@ class SolicitudDePedido extends Model
         return $this->belongsTo(Implemento::class);
     }
 
-    public function ValidadoPor(){
-        return $this->belongsTo(User::class,'validado_por');
+    public function Planificador(){
+        return $this->belongsTo(User::class,'planificador');
     }
 
     public function FechaDePedido(){

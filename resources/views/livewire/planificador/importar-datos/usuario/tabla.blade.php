@@ -34,7 +34,7 @@
                                 <span class="p-2 mr-2 font-medium text-white bg-{{ $item->name == 'asistente' ? 'cyan' : ( $item->name == 'operario' ? 'green' : ( $item->name == 'supervisor' ? 'red' : ( $item->name == 'planificador' ? 'amber' : 'indigo' ) ) ) }}-600 rounded-2xl">{{ strtoupper($item->name) }}</span>
                                 @endforeach
                                 @else
-                                <span class="font-medium">SIN ROL</span>
+                                <span class="p-2 mr-2 font-medium text-white bg-gray-600 rounded-2xl">TRACTORISTA</span>
                                 @endif
                             </div>
                         </td>

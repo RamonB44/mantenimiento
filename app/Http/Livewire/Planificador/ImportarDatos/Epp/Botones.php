@@ -9,9 +9,9 @@ class Botones extends Component
     public $epp_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_epp'];
+    protected $listeners = ['obtenerEpp'];
 
-    public function obtener_epp($id){
+    public function obtenerEpp($id){
         $this->epp_id = $id;
         $this->boton_activo = $id > 0;
     }

@@ -12,20 +12,30 @@ class Tabla extends Component
 
     public $labor_id;
 
+    public $labor;
+
+    protected $listeners = ['render','filtrar'];
+
     public function mount()
     {
         $this->labor_id = 0;
+        $this->labor = "";
     }
 
     public function seleccionar($id){
         $this->labor_id = $id;
-        $this->emitTo('planificador.importar-datos.labor.botones','obtener_labor',$id);
-
+        $this->emitTo('planificador.importar-datos.labor.botones','obtenerLabor',$id);
     }
 
     public function render()
     {
-        $labores = Labor::paginate(6);
+        $labores = new Labor();
+
+        if($this->labor != ""){
+            $labores = $labores->where('labor','like','%'.$this->labor.'%');
+        }
+
+        $labores = $labores->orderBy('labor','ASC')->paginate(6);
 
         return view('livewire.planificador.importar-datos.labor.tabla',compact('labores'));
     }

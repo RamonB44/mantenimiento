@@ -38,7 +38,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->programacion_id = $id;
-        $this->emitTo('supervisor.programacion-de-tractores.botones','obtener_programacion',$id);
+        $this->emitTo('supervisor.programacion-de-tractores.botones','obtenerProgramacion',$id);
     }
 
     public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
@@ -55,7 +55,7 @@ class Tabla extends Component
 
     public function render()
     {
-        $programacion_de_tractores = ProgramacionDeTractor::where('validado_por',Auth::user()->id)->where('esta_anulado',0);
+        $programacion_de_tractores = ProgramacionDeTractor::where('supervisor',Auth::user()->id)->where('esta_anulado',0);
 
         if($this->fecha != "") {
             $programacion_de_tractores->where('fecha',$this->fecha);

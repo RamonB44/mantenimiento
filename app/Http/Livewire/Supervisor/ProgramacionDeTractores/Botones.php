@@ -11,9 +11,9 @@ class Botones extends Component
     public $programacion_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_programacion'];
+    protected $listeners = ['obtenerProgramacion'];
 
-    public function obtener_programacion($id){
+    public function obtenerProgramacion($id){
         $this->programacion_id = $id;
         $this->boton_activo = $this->programacion_id > 0;
     }

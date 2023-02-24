@@ -19,7 +19,7 @@ class Tabla extends Component
 
     public function seleccionar($id){
         $this->articulo_id = $id;
-        $this->emitTo('planificador.importar-datos.articulo.botones','obtener_articulo',$id);
+        $this->emitTo('planificador.importar-datos.articulo.botones','obtenerArticulo',$id);
 
     }
 

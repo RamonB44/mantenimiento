@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rutinarios', function (Blueprint $table) {
+        Schema::create('tarea_orden_de_trabajos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('programacion_de_tractor_id')->constrained();
-            $table->unsignedBigInteger('operario');
-            $table->foreign('operario')->references('id')->on('users');
+            $table->foreignId('orden_de_trabajo_id')->constrained();
             $table->foreignId('tarea_id')->constrained();
-            $table->boolean('realizado')->default(false);
-            $table->unsignedBigInteger('supervisor')->nullable();
-            $table->foreign('supervisor')->references('id')->on('users');
+            $table->foreignId('componente_por_implemento_id')->nullable()->constrained();
+            $table->foreignId('pieza_por_componente_id')->nullable()->constrained();
+            $table->text('observacion')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rutinarios');
+        Schema::dropIfExists('tarea_orden_de_trabajos');
     }
 };

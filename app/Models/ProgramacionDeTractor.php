@@ -31,8 +31,8 @@ class ProgramacionDeTractor extends Model
         return $this->belongsTo(Lote::class);
     }
 
-    public function ValidadoPor(){
-        return $this->belongsTo(User::class,'validado_por');
+    public function Supervisor(){
+        return $this->belongsTo(User::class,'supervisor');
     }
 
     public function Rutinarios(){

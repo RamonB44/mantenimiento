@@ -134,7 +134,7 @@ class Modal extends Component
             $programacion->tractor_id = $this->tractor;
             $programacion->implemento_id = $this->implemento;
             $programacion->labor_id = $this->labor;
-            $programacion->validado_por = Auth::user()->id;
+            $programacion->supervisor = Auth::user()->id;
 
             $programacion->save();
 
@@ -153,7 +153,7 @@ class Modal extends Component
                 'tractor_id' => $this->tractor,
                 'implemento_id' => $this->implemento,
                 'labor_id' => $this->labor,
-                'validado_por' => Auth::user()->id,
+                'supervisor' => Auth::user()->id,
             ]);
 
 

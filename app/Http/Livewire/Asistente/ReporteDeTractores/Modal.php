@@ -108,7 +108,7 @@ class Modal extends Component
             $reporte->programacion_de_tractor_id = $this->programacion_id;
             $reporte->correlativo = $this->correlativo;
             $reporte->horometro_final = $this->horometro_final;
-            $reporte->validado_por = Auth::user()->id;
+            $reporte->asistente = Auth::user()->id;
 
             $reporte->save();
 
@@ -122,7 +122,7 @@ class Modal extends Component
                 'horometro_inicial' => $this->deshabilitar_horometro_inicial ? ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro : $this->horometro_inicial,
                 'horometro_final' => $this->horometro_final,
                 'sede_id' => Auth::user()->sede_id,
-                'validado_por' => Auth::user()->id,
+                'asistente' => Auth::user()->id,
             ]);
 
             $this->resetExcept('fecha','turno','open','accion');

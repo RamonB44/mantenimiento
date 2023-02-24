@@ -9,9 +9,9 @@ class Botones extends Component
     public $ceco_id = 0;
     public $boton_activo = false;
 
-    protected $listeners = ['obtener_ceco'];
+    protected $listeners = ['obtenerCeco'];
 
-    public function obtener_ceco($id){
+    public function obtenerCeco($id){
         $this->ceco_id = $id;
         $this->boton_activo = $id > 0;
     }

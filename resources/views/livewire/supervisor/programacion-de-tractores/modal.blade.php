@@ -62,6 +62,7 @@
                     <x-jet-label>Tractor:</x-jet-label>
                     <select id="tractor" class="form-select" style="width: 100%" wire:model.defer='tractor'>
                         <option value="0">Seleccione una opción</option>
+                        <option value="-1">Autopropulsado</option>
                         @foreach ($tractores as $tractor)
                             <option value="{{ $tractor->id }}">{{ $tractor->ModeloDeTractor->modelo_de_tractor }}
                                 {{ $tractor->numero }}</option>
@@ -73,16 +74,16 @@
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Implemento:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model.defer='implemento'>
-                        <option value="0">Seleccione una opción</option>
+                    <select class="select2 implementos" name="implementos[]" id="implementos_id" multiple="multiple" style="width: 100%" wire:model.defer='implemento_id'>
                     @foreach ($implementos as $implemento)
                         <option value="{{ $implemento->id }}">{{ $implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento->numero }}</option>
                     @endforeach
                     </select>
 
-                    <x-jet-input-error for="implemento"/>
+                    <x-jet-input-error for="implemento_id"/>
 
                 </div>
+
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Labor:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model.defer='labor'>
@@ -100,6 +101,11 @@
         <x-slot name="footer">
             <x-jet-button wire:loading.attr="disabled" wire:click="registrar()">
                 Guardar
+                @if ($implemento_id)
+                    @foreach ($implemento_id as $item)
+                        {{ $item }}
+                    @endforeach
+                @endif
             </x-jet-button>
             <div wire:loading wire:target="registrar">
                 Registrando...
@@ -109,4 +115,19 @@
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>
+    <script>
+        var implementos = [];
+        document.addEventListener('livewire:load', function() {
+            $('.select2').select2();
+            $('.implementos').on('select2:selecting select2:unselecting', function(e) {
+                var implemento = e.params.args.data.id;
+                if(implementos.includes(implemento)){
+                    implementos = implementos.filter((item) => item != implemento);
+                }else{
+                    implementos.push(implemento);
+                }
+                @this.set('implemento_id', implementos);
+            });
+        });
+    </script>
 </div>

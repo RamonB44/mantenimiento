@@ -10,6 +10,12 @@
 __________________
 --Crud de tablas. |
 ------------------
+-----------------------------PLANNER: Agregar materiales pedidos al stock---------------------
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
+Horas de los componentes - comparar con mantenimiento preventido y tiempo de vida.
+Generar ordenes de trabajo del implemento.
+Orden de trabajo: cabecera - detalle de tareas - articulos - epps
 ---------------------------OPERARIO: Verificar ordenes de trabajo(Generar reserva de materiales)--------------------------------
----------------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------------
+Verificar ordenes de trabajo y reservar los materiales para dicha orden dicho día.
+--------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------
+Validar la orden de trabajo cumplida.

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('disponible',8,2);
             $table->unsignedBigInteger('planificador');
             $table->foreign('planificador')->references('id')->on('users');
+            $table->foreignId('centro_de_costo_id')->constrained();
             $table->foreignId('sede_id')->constrained();
             $table->timestamps();
         });

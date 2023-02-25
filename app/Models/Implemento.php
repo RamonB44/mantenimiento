@@ -34,4 +34,8 @@ class Implemento extends Model
     public function ProgramacionDeTractor(){
         return $this->hasMany(ProgramacionDeTractor::class);
     }
+
+    public function ImplementoProgramacion(){
+        return $this->hasMany(ImplementoProgramacion::class);
+    }
 }

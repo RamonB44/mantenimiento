@@ -82,7 +82,7 @@ class Tabla extends Component
         }
 
         if($this->implemento > 0) {
-            $programacion_de_tractores->where('implemento_id',$this->implemento);
+
         }
 
         if($this->labor > 0) {

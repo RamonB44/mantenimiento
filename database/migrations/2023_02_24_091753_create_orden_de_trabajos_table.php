@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('estado',['PENDIENTE','CONCLUIDO'])->default('PENDIENTE');
             $table->unsignedBigInteger('planificador');
             $table->foreign('planificador')->references('id')->on('users');
-            $table->foreignId('ceco_id')->constrained();
+            $table->foreignId('centro_de_costo_id')->constrained();
             $table->dateTime('hora_de_inicio');
             $table->dateTime('hora_de_finalizacion')->nullable();
             $table->timestamps();

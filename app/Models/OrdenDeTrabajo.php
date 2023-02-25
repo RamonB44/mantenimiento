@@ -14,4 +14,8 @@ class OrdenDeTrabajo extends Model
     public function Tareas(){
         return $this->hasMany(TareaOrdenDeTrabajo::class);
     }
+
+    public function Epps(){
+        return $this->hasMany(EppOrdenDeTrabajo::class);
+    }
 }

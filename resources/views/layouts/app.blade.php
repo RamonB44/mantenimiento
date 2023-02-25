@@ -67,18 +67,27 @@
                 }
             });
 
+            Livewire.on('estiloSelect2',() => {
+                $('.select2').select2();
+            });
+
+            Livewire.on('reestablecerSelectImplementos',() => {
+                implementos = [];
+            });
+
+            Livewire.on('obtenerSelectImplementos',function (data) {
+                implementos = data;
+            });
+
             Livewire.on('checkout_all', () =>{
                 checkboxes = document.getElementsByName('check_tarea');
                 for(var i=0;i<checkboxes.length;i++) {
                     checkboxes[i].checked = false;
                 }
             });
-
             Livewire.on('focus',input =>{
                 document.getElementById(input).focus();
             });
-
-
         </script>
 
     </body>

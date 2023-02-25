@@ -13,17 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('salida_articulos', function (Blueprint $table) {
+        Schema::create('articulo_orden_de_trabajos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('orden_de_trabajo_id')->nullable()->constrained();
+            $table->foreignId('orden_de_trabajo_id')->constrained();
             $table->foreignId('articulo_id')->constrained();
             $table->decimal('cantidad',8,2);
-            $table->decimal('precio',8,2);
-            $table->unsignedBigInteger('operario');
-            $table->foreign('operario')->references('id')->on('users');
-            $table->foreignId('implemento_id')->constrained();
-            $table->foreignId('centro_de_costo_id')->constrained();
-            $table->foreignId('sede_id')->constrained();
             $table->timestamps();
         });
     }
@@ -35,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salida_articulos');
+        Schema::dropIfExists('articulo_orden_de_trabajos');
     }
 };

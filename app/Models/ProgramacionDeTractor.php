@@ -23,8 +23,8 @@ class ProgramacionDeTractor extends Model
         return $this->belongsTo(Tractor::class);
     }
 
-    public function Implemento(){
-        return $this->belongsTo(Implemento::class);
+    public function Implementos(){
+        return $this->hasMany(ImplementoProgramacion::class);
     }
 
     public function Lote(){

@@ -14,4 +14,8 @@ class ImplementoProgramacion extends Model
     public function ProgramacionDeTractor(){
         return $this->belongsTo(ProgramacionDeTractor::class);
     }
+
+    public function Implemento(){
+        return $this->belongsTo(Implemento::class);
+    }
 }

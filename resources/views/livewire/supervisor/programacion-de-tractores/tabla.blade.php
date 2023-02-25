@@ -13,7 +13,7 @@
                             width="25">
                     </th>
                     <th class="py-3 text-center">
-                        <span class="hidden sm:block">Implemento</span>
+                        <span class="hidden sm:block">Implementos</span>
                         <img class="flex mx-auto sm:hidden" src="/img/tabla/implemento.png" alt="implemento" width="25">
                     </th>
                     <th class="py-3 text-center">
@@ -40,12 +40,22 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $programacion_de_tractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion_de_tractor->Tractor->numero }}</span>
+                                <span class="font-medium">
+                                    @if ($programacion_de_tractor->Tractor == null)
+                                        Autopropulsado
+                                    @else
+                                    {{ $programacion_de_tractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion_de_tractor->Tractor->numero }}
+                                    @endif
+                                </span>
                             </div>
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $programacion_de_tractor->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion_de_tractor->Implemento->numero }}</span>
+                                <span class="font-medium">
+                                    @foreach ($programacion_de_tractor->Implementos as $implemento_programacion)
+                                        {{ $implemento_programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento_programacion->Implemento->numero }},
+                                    @endforeach
+                                </span>
                             </div>
                         </td>
                         <td class="py-3 text-center">

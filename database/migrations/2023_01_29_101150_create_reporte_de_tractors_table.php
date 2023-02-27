@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('reporte_de_tractors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('programacion_de_tractor_id')->constrained();
-            $table->string('correlativo',30)->unique();
+            $table->string('correlativo',30)->nullable()->unique();
             $table->decimal('horometro_inicial',8,2);
             $table->decimal('horometro_final',8,2);
             $table->foreignId('sede_id')->constrained();

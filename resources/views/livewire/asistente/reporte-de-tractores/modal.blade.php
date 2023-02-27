@@ -22,7 +22,13 @@
                     <select class="form-select" style="width: 100%" wire:model='programacion_id'>
                         <option value="0">Seleccione una opción</option>
                     @foreach ($programaciones as $programacion)
-                        <option value="{{ $programacion->id }}">Operador: {{ $programacion->Tractorista->name  }} | Tractor {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}</option>
+                        <option value="{{ $programacion->id }}">Operador: {{ $programacion->Tractorista->name  }} |
+                            @if ($programacion->Tractor == null)
+                            Autopropulsado
+                            @else
+                            Tractor {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}
+                            @endif
+                        </option>
                     @endforeach
                     </select>
                 </div>

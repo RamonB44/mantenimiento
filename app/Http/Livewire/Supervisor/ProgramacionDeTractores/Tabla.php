@@ -91,7 +91,7 @@ class Tabla extends Component
             $programacion_de_tractores->where('labor_id',$this->labor);
         }
 
-        $programacion_de_tractores = $programacion_de_tractores->orderBy('id','desc')->paginate(6);
+        $programacion_de_tractores = $programacion_de_tractores->latest()->paginate(6);
 
         return view('livewire.supervisor.programacion-de-tractores.tabla',compact('programacion_de_tractores'));
     }

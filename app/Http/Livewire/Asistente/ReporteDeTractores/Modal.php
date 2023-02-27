@@ -28,8 +28,13 @@ class Modal extends Component
     protected $listeners = ['abrirModal'];
 
     protected function rules(){
+        if($this->programacion_id > 0 && ProgramacionDeTractor::find($this->programacion_id)->tractor_id == null){
+            $correlativo = '';
+        }else{
+            $correlativo = 'required|';
+        }
         return [
-            'correlativo' => 'required|unique:reporte_de_tractors,correlativo,'.$this->programacion_id,
+            'correlativo' => $correlativo.'unique:reporte_de_tractors,correlativo,'.$this->reporte_id,
             'programacion_id' => 'required|exists:programacion_de_tractors,id',
             'horometro_final' => "required|gt:horometro_inicial",
         ];
@@ -65,7 +70,7 @@ class Modal extends Component
             $reporte = ReporteDeTractor::find($this->reporte_id);
             $tractor = $reporte->ProgramacionDeTractor->tractor_id;
             $programacion_del_tractor_actual = $reporte->programacion_de_tractor_id;
-            $ultima_programacion_del_tractor = ProgramacionDeTractor::where('tractor_id',$tractor)->orderBy('id','desc')->first()->id;
+            $ultima_programacion_del_tractor = ProgramacionDeTractor::where('tractor_id',$tractor)->latest()->first()->id;
             if($programacion_del_tractor_actual == $ultima_programacion_del_tractor){
                 $this->accion = "editar";
 
@@ -116,10 +121,15 @@ class Modal extends Component
             $this->emit('alerta',['center','success','Programación Editada']);
         }else{
             $this->accion = 'crear';
+            if(ProgramacionDeTractor::find($this->programacion_id)->Tractor != null && $this->deshabilitar_horometro_inicial){
+                $horometro_de_inicio = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
+            }else{
+                $horometro_de_inicio = $this->horometro_inicial;
+            }
             ReporteDeTractor::create([
                 'programacion_de_tractor_id' => $this->programacion_id,
                 'correlativo' => $this->correlativo,
-                'horometro_inicial' => $this->deshabilitar_horometro_inicial ? ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro : $this->horometro_inicial,
+                'horometro_inicial' => $horometro_de_inicio,
                 'horometro_final' => $this->horometro_final,
                 'sede_id' => Auth::user()->sede_id,
                 'asistente' => Auth::user()->id,
@@ -134,9 +144,16 @@ class Modal extends Component
 
     public function updatedProgramacionId(){
         if($this->programacion_id > 0){
-            $this->horometro_inicial = ProgramacionDeTractor::find($this->programacion_id)->Tractor->horometro;
-            $this->horometro_final = number_format($this->horometro_inicial + 8,2);
-            $this->deshabilitar_horometro_inicial = $this->horometro_inicial > 0;
+            $tractor = ProgramacionDeTractor::find($this->programacion_id)->Tractor;
+            if($tractor == null){
+                $this->horometro_inicial = 0;
+                $this->horometro_final = 8;
+                $this->deshabilitar_horometro_inicial = true;
+            }else{
+                $this->horometro_inicial = $tractor->horometro;
+                $this->horometro_final = number_format($this->horometro_inicial + 8,2);
+                $this->deshabilitar_horometro_inicial = $this->horometro_inicial > 0;
+            }
         }else{
             $this->reset('horometro_inicial','horometro_final');
             $this->deshabilitar_horometro_inicial = true;
@@ -148,15 +165,18 @@ class Modal extends Component
     {
         $programaciones = ProgramacionDeTractor::doesnthave('ReporteDeTractor')->where('fecha',$this->fecha)->where('turno',$this->turno)->where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->get();
 
-
         if($this->programacion_id > 0){
             $this->emit('focus',['correlativo']);
             $programacion = ProgramacionDeTractor::find($this->programacion_id);
             $fundo = $programacion->Lote->Fundo->fundo;
             $lote = $programacion->Lote->lote;
             $tractorista = $programacion->Tractorista->name;
-            $tractor = $programacion->Tractor->ModeloDeTractor->modelo_de_tractor.' '.$programacion->Tractor->numero;
-            $implemento = $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento.' '.$programacion->Implemento->numero;
+            $tractor = $programacion->Tractor == null ? 'AUTOPROPULSADO' : $programacion->Tractor->ModeloDeTractor->modelo_de_tractor.' '.$programacion->Tractor->numero;
+            $implemento = "";
+            foreach ($programacion->ImplementoProgramacion as $indice => $imp) {
+                $separador = $indice==0 ? '' : ',';
+                $implemento = $implemento.$separador.$imp->Implemento->ModeloDelImplemento->modelo_de_implemento.' '.$imp->Implemento->numero;
+            }
             $labor = $programacion->Labor->labor;
         }else{
             $fundo = "";

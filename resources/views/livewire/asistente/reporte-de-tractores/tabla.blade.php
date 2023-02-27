@@ -49,13 +49,18 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->numero }}</span>
-                            </div>
+                                <span class="font-medium">
+                                    @if ($reporte_de_tractor->ProgramacionDeTractor->Tractor == null)
+                                    Autopropulsado
+                                    @else
+                                    {{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->numero }}
+                                    @endif                            </div>
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $reporte_de_tractor->ProgramacionDeTractor->Implemento->numero }}</span>
-                            </div>
+                                @foreach ($reporte_de_tractor->ProgramacionDeTractor->Implementos as $implemento_programacion)
+                                {{ $implemento_programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento_programacion->Implemento->numero }},
+                                @endforeach                            </div>
                         </td>
                         <td class="py-3 text-center">
                             <div>

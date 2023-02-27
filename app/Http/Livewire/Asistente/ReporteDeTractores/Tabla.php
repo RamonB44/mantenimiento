@@ -86,7 +86,7 @@ class Tabla extends Component
             }
         });
 
-        $reporte_de_tractores = $reporte_de_tractores->orderBy('id','desc')->paginate(6);
+        $reporte_de_tractores = $reporte_de_tractores->latest()->paginate(6);
 
         return view('livewire.asistente.reporte-de-tractores.tabla',compact('reporte_de_tractores'));
     }

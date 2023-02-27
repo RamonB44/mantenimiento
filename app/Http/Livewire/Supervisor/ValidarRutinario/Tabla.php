@@ -58,7 +58,7 @@ class Tabla extends Component
             $rutinarios = $rutinarios->where('implemento_id',$this->implemento);
         }
 
-        $rutinarios = $rutinarios->orderBy('id','desc')->paginate(6);
+        $rutinarios = $rutinarios->latest()->paginate(6);
 
         return view('livewire.supervisor.validar-rutinario.tabla',compact('rutinarios'));
     }

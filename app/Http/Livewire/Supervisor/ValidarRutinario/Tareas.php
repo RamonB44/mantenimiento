@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Supervisor\ValidarRutinario;
 use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
 use App\Models\Implemento;
+use App\Models\ImplementoProgramacion;
 use App\Models\ProgramacionDeTractor;
 use App\Models\Rutinario;
 use App\Models\Tarea;
@@ -14,39 +15,36 @@ use Livewire\Component;
 
 class Tareas extends Component
 {
-    public $programacion = 0;
+    public $rutinario = 0;
     public $tarea = 0;
 
     protected $listeners = ['mostrarTareas'];
 
-    public function mostrarTareas($programacion){
-        $this->programacion = $programacion;
+    public function mostrarTareas($rutinario){
+        $this->rutinario = $rutinario;
     }
 
     public function autocompletar(){
-        if($this->programacion > 0){
-            DB::select('call autocompletar_rutinario(?,?)',[$this->programacion,Auth::user()->id]);
+        if($this->rutinario > 0){
+            DB::select('call autocompletar_rutinario(?)',[$this->rutinario]);
         }
     }
 
     public function toggle_tarea($tarea){
-        if(Rutinario::where('programacion_de_tractor_id',$this->programacion)->where('tarea_id',$tarea)->exists()){
-            Rutinario::where('programacion_de_tractor_id',$this->programacion)->where('tarea_id',$tarea)->delete();
+        if(Rutinario::where('implemento_programacion_id',$this->rutinario)->where('tarea_id',$tarea)->exists()){
+            Rutinario::where('implemento_programacion_id',$this->rutinario)->where('tarea_id',$tarea)->delete();
         }else{
-            $programacion = ProgramacionDeTractor::find($this->programacion);
             Rutinario::create([
-                'programacion_de_tractor_id' => $this->programacion,
-                'operario' => Implemento::find($programacion->implemento_id)->responsable,
+                'implemento_programacion_id' => $this->rutinario,
                 'tarea_id' => $tarea,
-                'supervisor' => Auth::user()->id,
             ]);
         }
     }
 
     private function listar_tareas(){
         $data = [];
-        if($this->programacion > 0){
-            $implemento = ProgramacionDeTractor::find($this->programacion)->Implemento;
+        if($this->rutinario > 0){
+            $implemento = ImplementoProgramacion::find($this->rutinario)->Implemento;
             $sistemas = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('sistema_id')->groupBy('sistema_id')->get();
             foreach($sistemas as $indice_sistema => $sistema) {
                 if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
@@ -64,7 +62,7 @@ class Tareas extends Component
                             foreach($tareas as $indice_tarea => $tarea){
                                 $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['id'] = $tarea->id;
                                 $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['tarea'] = $tarea->tarea;
-                                $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['estado'] =  Rutinario::where('programacion_de_tractor_id', $this->programacion)->where('tarea_id',$tarea->id)->exists();
+                                $data['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea]['estado'] =  Rutinario::where('implemento_programacion_id', $this->rutinario)->where('tarea_id',$tarea->id)->exists();
                             }
                         }else{
                             $restart++;

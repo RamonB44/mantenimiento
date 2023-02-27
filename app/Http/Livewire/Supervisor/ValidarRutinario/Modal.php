@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Supervisor\ValidarRutinario;
 
-use App\Models\ProgramacionDeTractor;
+use App\Models\ImplementoProgramacion;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -23,9 +23,9 @@ class Modal extends Component
         $this->rutinario = 0;
     }
 
-    public function abrirModal($programacion){
-        $this->rutinario = $programacion;
-        if($programacion > 0){
+    public function abrirModal($rutinario){
+        $this->rutinario = $rutinario;
+        if($rutinario > 0){
             $this->accion = "editar";
             $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',$this->rutinario);
         }else{
@@ -49,8 +49,10 @@ class Modal extends Component
 
     public function render()
     {
-        $programaciones = ProgramacionDeTractor::doesnthave('Rutinarios')->where('fecha',$this->fecha)->where('turno',$this->turno)->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->get();
+        $rutinarios = ImplementoProgramacion::doesnthave('Rutinarios')->whereHas('ProgramacionDeTractor',function($q){
+            $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('supervisor',Auth::user()->id)->where('esta_anulado',0);
+        })->get();
 
-        return view('livewire.supervisor.validar-rutinario.modal',compact('programaciones'));
+        return view('livewire.supervisor.validar-rutinario.modal',compact('rutinarios'));
     }
 }

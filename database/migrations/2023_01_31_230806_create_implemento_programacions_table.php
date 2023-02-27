@@ -12,6 +12,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('programacion_de_tractor_id')->constrained();
             $table->foreignId('implemento_id')->constrained();
+            $table->unsignedBigInteger('operario');
+            $table->foreign('operario')->references('id')->on('users');
+            $table->unsignedBigInteger('supervisor');
+            $table->foreign('supervisor')->references('id')->on('users');
             $table->timestamps();
         });
     }

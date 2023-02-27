@@ -27,14 +27,14 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $rutinario->Rutinarios->Operario->name }}</span>
+                                <span class="font-medium">{{ $rutinario->Operario->name }}</span>
                             </div>
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $rutinario->fecha }}</span>
+                                <span class="font-medium">{{ $rutinario->ProgramacionDeTractor->fecha }}</span>
                                 <div class="flex items-center justify-center">
-                                    <img src="/img/tabla/{{ $rutinario->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg"
+                                    <img src="/img/tabla/{{ $rutinario->ProgramacionDeTractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg"
                                         alt="turno" width="25">
                                 </div>
                             </div>

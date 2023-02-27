@@ -18,4 +18,16 @@ class ImplementoProgramacion extends Model
     public function Implemento(){
         return $this->belongsTo(Implemento::class);
     }
+
+    public function Rutinarios(){
+        return $this->belongsTo(Rutinario::class,'id','implemento_programacion_id');
+    }
+
+    public function Supervisor(){
+        return $this->belongsTo(User::class,'supervisor','id');
+    }
+
+    public function Operario(){
+        return $this->belongsTo(User::class,'operario','id');
+    }
 }

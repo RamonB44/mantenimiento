@@ -153,6 +153,8 @@ class Modal extends Component
                 ImplementoProgramacion::create([
                     'programacion_de_tractor_id' => $programacion->id,
                     'implemento_id' => $item,
+                    'operario' => Implemento::find($item)->responsable,
+                    'supervisor' => Auth::user()->id,
                 ]);
             }
 
@@ -176,6 +178,8 @@ class Modal extends Component
                 ImplementoProgramacion::create([
                     'programacion_de_tractor_id' => $programacion->id,
                     'implemento_id' => $item,
+                    'operario' => Implemento::find($item)->responsable,
+                    'supervisor' => Auth::user()->id,
                 ]);
             }
 

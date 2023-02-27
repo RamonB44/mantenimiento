@@ -1,4 +1,4 @@
-<div>
+<div wire:loading.remove wire:target="listar_tareas">
     @if($data != [])
     <div>
         <x-boton-crud accion="autocompletar" color="green">Autocompletar</x-boton-crud>

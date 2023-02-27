@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supervisor\ValidarRutinario;
 
+use App\Models\ImplementoProgramacion;
 use App\Models\ProgramacionDeTractor;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -35,7 +36,15 @@ class Tabla extends Component
 
     public function render()
     {
-        $rutinarios = ProgramacionDeTractor::where('supervisor',Auth::user()->id)->where('esta_anulado',0);
+        $rutinarios = ImplementoProgramacion::whereHas('ProgramacionDeTractor',function($q){
+            $q->where('supervisor',Auth::user()->id)->where('esta_anulado',0);
+            if($this->fecha != ""){
+                $q = $q->whereHas('fecha',$this->fecha);
+            }
+            if($this->turno != ""){
+                $q = $q->where('turno',$this->turno);
+            }
+        });
 
         if($this->operario > 0){
             $rutinarios = $rutinarios->whereHas('Rutinarios',function($q){
@@ -49,13 +58,6 @@ class Tabla extends Component
             $rutinarios = $rutinarios->where('implemento_id',$this->implemento);
         }
 
-        if($this->fecha != ""){
-            $rutinarios = $rutinarios->where('fecha',$this->fecha);
-        }
-
-        if($this->turno != ""){
-            $rutinarios = $rutinarios->where('turno',$this->turno);
-        }
         $rutinarios = $rutinarios->orderBy('id','desc')->paginate(6);
 
         return view('livewire.supervisor.validar-rutinario.tabla',compact('rutinarios'));

@@ -21,8 +21,8 @@
                     <x-jet-label>Programacion:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='rutinario'>
                         <option value="0">Seleccione una opción</option>
-                    @foreach ($programaciones as $programacion)
-                        <option value="{{ $programacion->id }}">{{ $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion->Implemento->numero }}</option>
+                    @foreach ($rutinarios as $rutinario)
+                        <option value="{{ $rutinario->id }}">{{ $rutinario->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $rutinario->Implemento->numero }}</option>
                     @endforeach
                     </select>
                 </div>

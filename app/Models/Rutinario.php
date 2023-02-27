@@ -15,11 +15,7 @@ class Rutinario extends Model
         return $this->belognsTo(Tarea::class);
     }
 
-    public function ProgramacioDeTractor(){
-        return $this->belognsTo(ProgramacioDeTractor::class);
-    }
-
-    public function Operario(){
-        return $this->belongsTo(User::class,'operario','id');
+    public function ImplementoProgramacion(){
+        return $this->hasMany(ImplementoProgramacion::class);
     }
 }

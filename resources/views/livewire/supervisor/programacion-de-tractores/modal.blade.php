@@ -1,5 +1,5 @@
 <div>
-    <x-jet-dialog-modal wire:model='open'>
+    <x-jet-dialog-modal wire:model='open' id="modal" maxWidth="2xl">
         <x-slot name="title">
             Registrar Programación de tractores
         </x-slot>
@@ -101,11 +101,6 @@
         <x-slot name="footer">
             <x-jet-button wire:loading.attr="disabled" wire:click="registrar()">
                 Guardar
-                @if ($implemento_id)
-                    @foreach ($implemento_id as $item)
-                        {{ $item }}
-                    @endforeach
-                @endif
             </x-jet-button>
             <div wire:loading wire:target="registrar">
                 Registrando...
@@ -120,6 +115,9 @@
         document.addEventListener('livewire:load', function() {
             $('.select2').select2();
             $('.implementos').on('select2:selecting select2:unselecting', function(e) {
+                if(implementos == null) {
+                    implementos = [];
+                }
                 var implemento = e.params.args.data.id;
                 if(implementos.includes(implemento)){
                     implementos = implementos.filter((item) => item != implemento);

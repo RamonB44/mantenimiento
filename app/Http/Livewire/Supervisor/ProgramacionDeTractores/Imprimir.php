@@ -24,7 +24,7 @@ class Imprimir extends Component
     }
 
     public function abrirModal(){
-        $this->open =true;
+        $this->open = true;
     }
 
     public function imprimirProgramacion(){
@@ -55,34 +55,36 @@ class Imprimir extends Component
             $titulo = 'Rutinario del '.$this->fecha.'.pdf';
 
             $data = [];
-            $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->select('implemento_id','turno')->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->orderBy('turno','asc')->get();
+            $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->orderBy('turno','asc')->get();
             $fecha = date_create($this->fecha);
-            foreach ($programaciones as $indice_implemento => $programacion) {
-                $implemento = Implemento::find($programacion->implemento_id);
-                $data['implementos'][$indice_implemento]['modelo'] = $implemento->ModeloDelImplemento->modelo_de_implemento;
-                $data['implementos'][$indice_implemento]['numero'] = $implemento->numero;
-                $data['implementos'][$indice_implemento]['fecha'] = $fecha;
-                $data['implementos'][$indice_implemento]['turno'] = $programacion->turno;
-                $data['implementos'][$indice_implemento]['operario'] = $implemento->Responsable->name;
-                $sistemas = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->select('sistema')->groupBy('sistema')->get();
-                foreach($sistemas as $indice_sistema => $sistema) {
-                    if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
-                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['sistema'] = $sistema->sistema;
-                        $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema',$sistema->sistema)->select('articulo_id')->get();
-                        $cantidad_de_tareas = DB::table('cantidad_de_tareas_por_sistema')->where('sistema',$sistema->sistema)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
-                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
-                        $restart = 0;
-                        foreach($componentes as $indice_componente => $componente) {
-                            if (Tarea::where('articulo_id',$componente->articulo_id)->count() > 0){
-                                $articulo = Articulo::find($componente->articulo_id);
-                                $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['componente'] = $articulo->articulo;
-                                $tareas = Tarea::where('articulo_id', $articulo->id)->select('tarea')->get();
-                                $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'] = [];
-                                foreach($tareas as $indice_tarea => $tarea){
-                                    $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea] = $tarea->tarea;
+            foreach ($programaciones as $programacion) {
+                foreach($programacion->ImplementoProgramacion as $indice_implemento => $implemento){
+                    //$implemento = Implemento::find($programacion->implemento_id);
+                    $data['implementos'][$indice_implemento]['modelo'] = $implemento->Implemento->ModeloDelImplemento->modelo_de_implemento;
+                    $data['implementos'][$indice_implemento]['numero'] = $implemento->Implemento->numero;
+                    $data['implementos'][$indice_implemento]['fecha'] = $fecha;
+                    $data['implementos'][$indice_implemento]['turno'] = $programacion->turno;
+                    $data['implementos'][$indice_implemento]['operario'] = $implemento->Implemento->Responsable->name;
+                    $sistemas = ComponentePorModelo::where('modelo_id',$implemento->Implemento->modelo_del_implemento_id)->groupBy('sistema_id')->get();
+                    foreach($sistemas as $indice_sistema => $sistema) {
+                        if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
+                            $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['sistema'] = $sistema->Sistema->sistema;
+                            $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema_id',$sistema->sistema_id)->select('articulo_id')->get();
+                            $cantidad_de_tareas = DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
+                            $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
+                            $restart = 0;
+                            foreach($componentes as $indice_componente => $componente) {
+                                if (Tarea::where('articulo_id',$componente->articulo_id)->count() > 0){
+                                    $articulo = Articulo::find($componente->articulo_id);
+                                    $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['componente'] = $articulo->articulo;
+                                    $tareas = Tarea::where('articulo_id', $articulo->id)->select('tarea')->get();
+                                    $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'] = [];
+                                    foreach($tareas as $indice_tarea => $tarea){
+                                        $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['componentes'][$indice_componente-$restart]['tareas'][$indice_tarea] = $tarea->tarea;
+                                    }
+                                }else{
+                                    $restart++;
                                 }
-                            }else{
-                                $restart++;
                             }
                         }
                     }

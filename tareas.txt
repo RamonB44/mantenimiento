@@ -1,3 +1,6 @@
+--Imprimir rutinarios.
+--Cambiar la vista de validar rutinarios.
+--Cambiar la vista del modal a varios implementos en el reporte de horas.
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
 -Ver solicitudes de pedido anteriores:
   --Por fecha de pedido, por sede y por ceco.

@@ -67,8 +67,19 @@
                             @foreach ($programaciones_am as $programacion)
                                 <tr>
                                     <td> {{ $programacion->Tractorista->name }} </td>
-                                    <td> {{ $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion->Implemento->numero }} </td>
-                                    <td> {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }} </td>
+                                    <td>
+                                        @foreach ($programacion->ImplementoProgramacion as $implementoProgramacion)
+                                        {{ $implementoProgramacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implementoProgramacion->Implemento->numero }},
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($programacion->Tractor == null)
+                                            Autopropulsado
+                                        @else
+                                        {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}
+                                        @endif
+
+                                    </td>
                                     <td> {{ $programacion->labor->labor }} </td>
                                     <td> {{ $programacion->Lote->lote }} </td>
                                 </tr>
@@ -94,8 +105,11 @@
                             @foreach ($programaciones_pm as $programacion)
                                 <tr>
                                     <td> {{ $programacion->Tractorista->name }} </td>
-                                    <td> {{ $programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $programacion->Implemento->numero }} </td>
-                                    <td> {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }} </td>
+                                    <td>
+                                        @foreach ($programacion->ImplementoProgramacion as $implementoProgramacion)
+                                            {{ $implementoProgramacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implementoProgramacion->Implemento->numero }},
+                                        @endforeach
+                                    </td>                                    <td> {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }} </td>
                                     <td> {{ $programacion->labor->labor }} </td>
                                     <td> {{ $programacion->Lote->lote }} </td>
                                 </tr>

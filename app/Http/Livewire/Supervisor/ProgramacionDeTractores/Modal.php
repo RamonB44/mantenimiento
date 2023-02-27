@@ -87,7 +87,7 @@ class Modal extends Component
             $this->fundo = $programacion->Lote->fundo_id;
             $this->lote = $programacion->lote_id;
             $this->tractorista = $programacion->tractorista;
-            $this->tractor = $programacion->tractor_id;
+            $this->tractor = $programacion->tractor_id  == null ? -1 : $programacion->tractor;
             $this->implemento_id = [];
             foreach($programacion->Implementos as $implemento){
                 array_push($this->implemento_id,$implemento->implemento_id);
@@ -142,12 +142,19 @@ class Modal extends Component
             $programacion->lote_id = $this->lote;
             $programacion->tractorista = $this->tractorista;
             $programacion->tractor_id = $this->tractor > 0 ? $this->tractor : null;
-            $programacion->implemento_id = $this->implemento_id;
             $programacion->labor_id = $this->labor;
             $programacion->supervisor = Auth::user()->id;
 
             $programacion->save();
 
+            ImplementoProgramacion::where('programacion_de_tractor_id',$programacion->id)->delete();
+
+            foreach($this->implemento_id as $item){
+                ImplementoProgramacion::create([
+                    'programacion_de_tractor_id' => $programacion->id,
+                    'implemento_id' => $item,
+                ]);
+            }
 
             $this->emit('alerta',['center','success','Programación Editada']);
 
@@ -165,8 +172,6 @@ class Modal extends Component
                 'supervisor' => Auth::user()->id,
             ]);
 
-            ImplementoProgramacion::where('programacion_de_tractor_id',$programacion->id)->delete();
-
             foreach($this->implemento_id as $item){
                 ImplementoProgramacion::create([
                     'programacion_de_tractor_id' => $programacion->id,
@@ -176,7 +181,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->resetExcept('fecha','turno','open','labores');
+            $this->resetExcept('open','fecha','turno','labores');
         }
 
 

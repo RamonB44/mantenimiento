@@ -42,4 +42,7 @@ class ProgramacionDeTractor extends Model
     public function ReporteDeTractor(){
         return $this->hasOne(ReporteDeTractor::class);
     }
+    public function ImplementoProgramacion(){
+        return $this->hasMany(ImplementoProgramacion::class);
+    }
 }

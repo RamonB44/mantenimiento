@@ -15,7 +15,7 @@
 
         <!-- Styles -->
         @livewireStyles
-        
+
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     </head>
@@ -57,6 +57,9 @@
                     timer: 1000
                 })
             });
+            Livewire.on('log', data => {
+                console.log(data);
+            })
             Livewire.on('check_all', () =>{
                 checkboxes = document.getElementsByName('check_tarea');
                 for(var i=0;i<checkboxes.length;i++) {

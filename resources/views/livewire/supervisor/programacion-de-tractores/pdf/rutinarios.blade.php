@@ -144,18 +144,18 @@
                                   @foreach ($sistema['componentes'] as $indice_componente => $componente)
                                   @foreach ($componente['tareas'] as $indice_tarea => $tarea)
                                     <tr>
-                                            @if ($indice_tarea == 0 && $indice_componente == 0)
-                                                <td rowspan="{{ $sistema['cantidad_de_tareas']}}"> {{$sistema['sistema']}} </td>
-                                            @endif
-                                            @if ($indice_tarea == 0)
-                                                <td  rowspan="{{count($componente['tareas'])}}">{{ $componente['componente'] }}</td>
-                                            @endif
-                                            <td>{{$tarea}}</td>
-                                            <td>
-                                                <div class="checkbox">
-                                                    <label for="checkbox"></label>
-                                                </div>
-                                            </td>
+                                        @if ($indice_tarea == 0 && $indice_componente == 0)
+                                            <td rowspan="{{ $sistema['cantidad_de_tareas']}}"> {{$sistema['sistema']}} </td>
+                                        @endif
+                                        @if ($indice_tarea == 0)
+                                            <td  rowspan="{{count($componente['tareas'])}}">{{ $componente['componente'] }}</td>
+                                        @endif
+                                        <td>{{$tarea}}</td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label for="checkbox"></label>
+                                            </div>
+                                        </td>
                                     </tr>
                                     @endforeach
                                   @endforeach

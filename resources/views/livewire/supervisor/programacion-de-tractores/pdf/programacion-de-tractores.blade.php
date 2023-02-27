@@ -59,7 +59,7 @@
                         <thead>
                             <th>Operador</th>
                             <th>Tractor</th>
-                            <th>Implemento</th>
+                            <th>Implementos</th>
                             <th>Labor</th>
                             <th>Lote</th>
                         </thead>
@@ -68,17 +68,16 @@
                                 <tr>
                                     <td> {{ $programacion->Tractorista->name }} </td>
                                     <td>
-                                        @foreach ($programacion->ImplementoProgramacion as $implementoProgramacion)
-                                        {{ $implementoProgramacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implementoProgramacion->Implemento->numero }},
-                                        @endforeach
-                                    </td>
-                                    <td>
                                         @if ($programacion->Tractor == null)
                                             Autopropulsado
                                         @else
                                         {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}
                                         @endif
-
+                                    </td>
+                                    <td>
+                                        @foreach ($programacion->ImplementoProgramacion as $implementoProgramacion)
+                                        {{ $implementoProgramacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implementoProgramacion->Implemento->numero }},
+                                        @endforeach
                                     </td>
                                     <td> {{ $programacion->labor->labor }} </td>
                                     <td> {{ $programacion->Lote->lote }} </td>

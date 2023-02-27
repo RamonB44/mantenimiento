@@ -87,7 +87,7 @@ class Modal extends Component
             $this->fundo = $programacion->Lote->fundo_id;
             $this->lote = $programacion->lote_id;
             $this->tractorista = $programacion->tractorista;
-            $this->tractor = $programacion->tractor_id  == null ? -1 : $programacion->tractor;
+            $this->tractor = $programacion->tractor_id  == null ? -1 : $programacion->tractor_id;
             $this->implemento_id = [];
             foreach($programacion->Implementos as $implemento){
                 array_push($this->implemento_id,$implemento->implemento_id);
@@ -183,8 +183,7 @@ class Modal extends Component
 
             $this->resetExcept('open','fecha','turno','labores');
         }
-
-
+        $this->emit('reestablecerSelectImplementos');
         $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
     }
 

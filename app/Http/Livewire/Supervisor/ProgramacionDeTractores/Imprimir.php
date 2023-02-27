@@ -57,8 +57,9 @@ class Imprimir extends Component
             $data = [];
             $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->orderBy('turno','asc')->get();
             $fecha = date_create($this->fecha);
+            $indice_implemento = 0;
             foreach ($programaciones as $programacion) {
-                foreach($programacion->ImplementoProgramacion as $indice_implemento => $implemento){
+                foreach($programacion->ImplementoProgramacion as $implemento){
                     //$implemento = Implemento::find($programacion->implemento_id);
                     $data['implementos'][$indice_implemento]['modelo'] = $implemento->Implemento->ModeloDelImplemento->modelo_de_implemento;
                     $data['implementos'][$indice_implemento]['numero'] = $implemento->Implemento->numero;
@@ -67,10 +68,10 @@ class Imprimir extends Component
                     $data['implementos'][$indice_implemento]['operario'] = $implemento->Implemento->Responsable->name;
                     $sistemas = ComponentePorModelo::where('modelo_id',$implemento->Implemento->modelo_del_implemento_id)->groupBy('sistema_id')->get();
                     foreach($sistemas as $indice_sistema => $sistema) {
-                        if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->exists()){
+                        if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->Implemento->modelo_del_implemento_id)->exists()){
                             $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['sistema'] = $sistema->Sistema->sistema;
-                            $componentes = ComponentePorModelo::where('modelo_id',$implemento->modelo_del_implemento_id)->where('sistema_id',$sistema->sistema_id)->select('articulo_id')->get();
-                            $cantidad_de_tareas = DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
+                            $componentes = ComponentePorModelo::where('modelo_id',$implemento->Implemento->modelo_del_implemento_id)->where('sistema_id',$sistema->sistema_id)->select('articulo_id')->get();
+                            $cantidad_de_tareas = DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->Implemento->modelo_del_implemento_id)->select('cantidad_de_tareas')->first();
                             $data['implementos'][$indice_implemento]['sistemas'][$indice_sistema]['cantidad_de_tareas'] = $cantidad_de_tareas->cantidad_de_tareas;
                             $restart = 0;
                             foreach($componentes as $indice_componente => $componente) {
@@ -88,8 +89,10 @@ class Imprimir extends Component
                             }
                         }
                     }
+                    $indice_implemento++;
                 }
             }
+
             $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.rutinarios', $data)->setPaper('a4')->output();
 
             return response()->streamDownload(

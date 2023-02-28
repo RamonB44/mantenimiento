@@ -1,10 +1,9 @@
---Imprimir rutinarios.
---Cambiar la vista de validar rutinarios.
---Cambiar la vista del modal a varios implementos en el reporte de horas.
+
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
 -Ver solicitudes de pedido anteriores:
   --Por fecha de pedido, por sede y por ceco.
   --Filtrar solicitudes de pedido
+--Agregar tabla de ingreso de materiales por sede trigger para obtener el total pedido y lo que falta llegar - por sede.
 --------------------------------PLANNER: Importar Datos al sistema mediante excel----------------------------------------------------
 -Importar tareas mantenimiento.
 -Importar tareas recambio.
@@ -14,10 +13,18 @@ __________________
 --Crud de tablas. |
 ------------------
 -----------------------------PLANNER: Agregar materiales pedidos al stock---------------------
+--Ver stock actual por sede.
+--Exportar un excel con las cantidad faltantes para que se complete el pedido realizado.
+--Importar el stock con la fecha de pedido y la sede actual.
+--Agregar materiales al stock de la sede dependiendo la fecha de pedido.
+--Cambiar tabla ingreso de materiales referenciando a la sede y a la fecha de pedido.
+--Crear tabla de trigger para cuando valide la cantidad de un pedido se añada a dicha tabla y de ahí controlar la cantidad de pedidos y el monto total.
+--Poner en dicha tabla tanto la cantidad como el precio y la cantidad usada de ese pedido para controlar la diferencia de precios.
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
 Horas de los componentes - comparar con mantenimiento preventido y tiempo de vida.
 Generar ordenes de trabajo del implemento.
 Orden de trabajo: cabecera - detalle de tareas - articulos - epps
+Salida de Materiales para la orden de trabajo.
 ---------------------------OPERARIO: Verificar ordenes de trabajo(Generar reserva de materiales)--------------------------------
 Verificar ordenes de trabajo y reservar los materiales para dicha orden dicho día.
 --------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------

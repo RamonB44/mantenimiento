@@ -2,9 +2,6 @@
 
 namespace App\Http\Livewire\Operario\SolicitarArticulo;
 
-use App\Models\DetalleDeSolicitudDePedido;
-use App\Models\FechaDePedido;
-use App\Models\SolicitudDePedido;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

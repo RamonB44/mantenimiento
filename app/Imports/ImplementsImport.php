@@ -58,7 +58,7 @@ class ImplementsImport implements OnEachRow,WithHeadingRow
             ],
             [
                 'sede_id' => $sede->id,
-                'monto'=> $row['monto_ceco'] == "" ? 0 : $row['monto']
+                'monto'=> $row['monto_ceco'] == "" ? 0 : $row['monto_ceco']
             ]
         );
 

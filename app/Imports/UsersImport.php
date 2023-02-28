@@ -14,7 +14,7 @@ class UsersImport implements OnEachRow,WithHeadingRow
 {
     public function onRow(Row $row)
     {
-        //Campos: sede, codigo, nombre, rol
+        //Campos: sede, codigo, dni, nombre, rol
         $sede = Sede::firstOrCreate([
             'sede' => strtoupper($row['sede'])
         ]);
@@ -22,8 +22,6 @@ class UsersImport implements OnEachRow,WithHeadingRow
        $usuario = User::firstOrCreate(
             [
                 'codigo' => $row['codigo'],
-            ],
-            [
                 'dni' => $row['dni'],
                 'name' => strtoupper($row['nombre']),
                 'email' => null,

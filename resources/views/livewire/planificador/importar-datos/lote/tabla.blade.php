@@ -32,6 +32,11 @@
                                 <span class="font-medium">{{ $lote->lote }}</span>
                             </div>
                         </td>
+                        <td class="py-3 text-center">
+                            <div>
+                                <span class="font-medium">{{ $lote->encargado}}</span>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

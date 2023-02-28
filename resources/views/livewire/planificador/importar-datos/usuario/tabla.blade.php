@@ -7,6 +7,9 @@
                         <span class="hidden sm:block">Codigo</span>
                     </th>
                     <th class="py-3 text-center">
+                        <span class="hidden sm:block">Codigo</span>
+                    </th>
+                    <th class="py-3 text-center">
                         <span class="hidden sm:block">Nombre</span>
                     </th>
                     <th class="py-3 text-center">
@@ -20,6 +23,11 @@
                         <td class="py-3 text-center">
                             <div>
                                 <span class="font-medium">{{ $usuario->codigo }}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 text-center">
+                            <div>
+                                <span class="font-medium">{{ $usuario->dni }}</span>
                             </div>
                         </td>
                         <td class="py-3 text-center">

@@ -8,6 +8,7 @@ use App\Models\Implemento;
 use App\Models\ProgramacionDeTractor;
 use App\Models\Tarea;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -37,7 +38,7 @@ class Imprimir extends Component
             $data = [
                 'programaciones_am' => $programaciones_am,
                 'programaciones_pm' => $programaciones_pm,
-                'fecha' => $this->fecha,
+                'fecha' => Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y'),
             ];
             $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4', 'landscape')->output();
 
@@ -56,7 +57,7 @@ class Imprimir extends Component
 
             $data = [];
             $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->orderBy('turno','asc')->get();
-            $fecha = date_create($this->fecha);
+            $fecha = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
             $indice_implemento = 0;
             foreach ($programaciones as $programacion) {
                 foreach($programacion->ImplementoProgramacion as $implemento){

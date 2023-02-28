@@ -10,7 +10,7 @@ class Base extends Component
     public $tabla;
 
     public function mount(){
-        $this->tablas = ['implemento','tractor','lote','usuario','articulo','centro de costo','epp','labor','rutinario'];
+        $this->tablas = ['implemento','tractor','lote','usuario','articulo','centro de costo','epp','labor','rutinario','fecha pedidos'];
         $this->tabla = "";
     }
 

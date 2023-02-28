@@ -36,6 +36,9 @@
     @case('rutinario')
     @livewire('planificador.importar-datos.rutinario.base')
         @break
+    @case('fecha pedidos')
+    @livewire('planificador.importar-datos.fecha-pedido.base')
+        @break
     @default
 
 @endswitch

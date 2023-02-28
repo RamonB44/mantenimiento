@@ -15,9 +15,9 @@ class FechaDePedidoSeeder extends Seeder
     public function run()
     {
         FechaDePedido::create([
-            'fecha_de_apertura' => '2023-02-06',
-            'fecha_de_cierre' => '2023-02-21',
-            'fecha_de_pedido' => '2023-02-22',
+            'fecha_de_apertura' => '2023-02-28',
+            'fecha_de_cierre' => '2023-03-01',
+            'fecha_de_pedido' => '2023-03-02',
             'fecha_de_llegada' => '2023-05-01',
         ]);
     }

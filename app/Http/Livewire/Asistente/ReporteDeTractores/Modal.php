@@ -28,13 +28,8 @@ class Modal extends Component
     protected $listeners = ['abrirModal'];
 
     protected function rules(){
-        if($this->programacion_id > 0 && ProgramacionDeTractor::find($this->programacion_id)->tractor_id == null){
-            $correlativo = '';
-        }else{
-            $correlativo = 'required|';
-        }
         return [
-            'correlativo' => $correlativo.'unique:reporte_de_tractors,correlativo,'.$this->reporte_id,
+            'correlativo' => 'required|unique:reporte_de_tractors,correlativo,'.$this->reporte_id,
             'programacion_id' => 'required|exists:programacion_de_tractors,id',
             'horometro_final' => "required|gt:horometro_inicial",
         ];

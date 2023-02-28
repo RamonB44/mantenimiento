@@ -7,7 +7,7 @@
                         <span class="hidden sm:block">Codigo</span>
                     </th>
                     <th class="py-3 text-center">
-                        <span class="hidden sm:block">Codigo</span>
+                        <span class="hidden sm:block">Dni</span>
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Nombre</span>

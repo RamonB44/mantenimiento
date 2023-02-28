@@ -80,9 +80,29 @@ class DatabaseSeeder extends Seeder
             'current_team_id' => null,
         ]);
 
+        $jefe = Role::create([
+            'name' => 'jefe',
+            'guard_name' => 'jefe',
+        ]);
+
+        $asistente = Role::create([
+            'name' => 'asistente',
+            'guard_name' => 'asistente',
+        ]);
+
+        $operario = Role::create([
+            'name' => 'operario',
+            'guard_name' => 'operario',
+        ]);
+
         $planificador = Role::create([
             'name' => 'planificador',
             'guard_name' => 'planificador',
+        ]);
+
+        $supervisor = Role::create([
+            'name' => 'supervisor',
+            'guard_name' => 'supervisor',
         ]);
         $usuario->assignRole($planificador);
     }

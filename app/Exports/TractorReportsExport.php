@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class TractorReportsExport implements FromCollection,ShouldAutoSize,WithHeadings,WithStyles
 {
-    
+
     private $fecha;
 
     public function __construct($fecha){
@@ -28,11 +28,12 @@ class TractorReportsExport implements FromCollection,ShouldAutoSize,WithHeadings
             'Fundo',
             'Lote',
             'Correlativo',
+            'Código',
             'Tractorista',
             'Tractor',
             'Horometro Inicial',
             'Horometro Final',
-            'Implemento',
+            'Implementos',
             'Labor',
         ];
     }
@@ -51,6 +52,6 @@ class TractorReportsExport implements FromCollection,ShouldAutoSize,WithHeadings
 
     public function collection()
     {
-        return DB::table('vista_reporte_de_tractores')->select('sede','fecha','turno','fundo','lote','correlativo','name','tractor','horometro_inicial','horometro_final','implemento','labor')->where('sede_id',Auth::user()->sede_id)->where('fecha',$this->fecha)->orderBy('turno')->get();
+        return DB::table('vista_reporte_de_tractores')->select('sede','fecha','turno','fundo','lote','correlativo','codigo_tractorista','tractorista','tractor','horometro_inicial','horometro_final','implementos','labor')->where('sede_id',Auth::user()->sede_id)->where('fecha',$this->fecha)->orderBy('turno')->get();
     }
 }

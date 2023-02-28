@@ -15,6 +15,9 @@
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Encargado</span>
                     </th>
+                    <th class="py-3 text-center">
+                        <span class="hidden sm:block">Cultivo</span>
+                    </th>
                 </tr>
             </thead>
             <tbody class="text-sm font-light text-gray-600">
@@ -38,6 +41,11 @@
                         <td class="py-3 text-center">
                             <div>
                                 <span class="font-medium">{{ $lote->Encargado->name}}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 text-center">
+                            <div>
+                                <span class="font-medium">{{ $lote->Cultivo->cultivo}}</span>
                             </div>
                         </td>
                     </tr>

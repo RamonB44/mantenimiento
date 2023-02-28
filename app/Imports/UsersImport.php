@@ -22,6 +22,8 @@ class UsersImport implements OnEachRow,WithHeadingRow
        $usuario = User::firstOrCreate(
             [
                 'codigo' => $row['codigo'],
+            ],
+            [
                 'dni' => $row['dni'],
                 'name' => strtoupper($row['nombre']),
                 'email' => null,

@@ -43,6 +43,16 @@ class Modal extends Component
         }
     }
 
+    public function updatedFecha(){
+        $this->reset('rutinario');
+        $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',0);
+    }
+
+    public function updatedTurno(){
+        $this->reset('rutinario');
+        $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',0);
+    }
+
     public function updatedRutinario(){
         $this->emitTo('supervisor.validar-rutinario.tareas','mostrarTareas',$this->rutinario);
     }

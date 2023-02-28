@@ -105,10 +105,17 @@
                                 <tr>
                                     <td> {{ $programacion->Tractorista->name }} </td>
                                     <td>
+                                        @if ($programacion->Tractor == null)
+                                            Autopropulsado
+                                        @else
+                                        {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}
+                                        @endif
+                                    </td>
+                                    <td>
                                         @foreach ($programacion->ImplementoProgramacion as $implementoProgramacion)
                                             {{ $implementoProgramacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implementoProgramacion->Implemento->numero }},
                                         @endforeach
-                                    </td>                                    <td> {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }} </td>
+                                    </td>
                                     <td> {{ $programacion->labor->labor }} </td>
                                     <td> {{ $programacion->Lote->lote }} </td>
                                 </tr>

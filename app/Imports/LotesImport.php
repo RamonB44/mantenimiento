@@ -27,6 +27,7 @@ class LotesImport implements OnEachRow,WithHeadingRow
                 'codigo' => $row['codigo'],
             ],
             [
+                'dni' => $row['dni'],
                 'name' => strtoupper($row['encargado']),
                 'email' => null,
                 'email_verified_at' => null,

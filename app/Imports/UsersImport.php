@@ -24,6 +24,7 @@ class UsersImport implements OnEachRow,WithHeadingRow
                 'codigo' => $row['codigo'],
             ],
             [
+                'dni' => $row['dni'],
                 'name' => strtoupper($row['nombre']),
                 'email' => null,
                 'email_verified_at' => null,

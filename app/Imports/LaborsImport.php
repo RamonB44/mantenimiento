@@ -13,7 +13,7 @@ class LaborsImport implements OnEachRow,WithHeadingRow
     {
         //Campos: labor
         Labor::firstOrCreate([
-            'labor' => strtoupper($row(['labor']))
+            'labor' => strtoupper($row['labor'])
         ]);
     }
 }

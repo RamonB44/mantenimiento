@@ -6,7 +6,7 @@
     <x-slot name="content">
         @if ($open)
         <div class="grid grid-cols-2">
-            <!-- Material Solicitado por el operador -->
+            <!-- Material Solicitado por el operario -->
                 <div class="grid">
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem;">
                         <x-jet-label>Cantidad:</x-jet-label>
@@ -27,16 +27,16 @@
                     <div class="py-2 text-center" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Código:</x-jet-label>
                         <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model="codigo" />
-    
+
                         <x-jet-input-error for="codigo"/>
-    
+
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Nombre:</x-jet-label>
                         <x-jet-input type="text" style="height:30px;width: 100%;text-align: center" wire:model="articulo" />
-    
+
                         <x-jet-input-error for="articulo"/>
-    
+
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Tipo: </x-jet-label>
@@ -45,9 +45,9 @@
                             <option>FUNGIBLE</option>
                             <option>HERRAMIENTA</option>
                         </select>
-    
+
                         <x-jet-input-error for="create_material_type"/>
-    
+
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Unidad de Medida: </x-jet-label>
@@ -57,23 +57,23 @@
                                 <option value="{{ $unidad_de_medida->id }}">{{ $unidad_de_medida->unidad_de_medida }} </option>
                             @endforeach
                         </select>
-    
+
                         <x-jet-input-error for="unidad_de_medida_id"/>
-    
+
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem; padding-right:1rem">
                         <x-jet-label>Precio Unitario:</x-jet-label>
                         <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model="precio" />
-    
+
                         <x-jet-input-error for="precio"/>
-    
+
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem; padding-right:1rem">
                         <x-jet-label>Cantidad:</x-jet-label>
                         <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model="cantidad" />
-    
+
                         <x-jet-input-error for="cantidad"/>
-    
+
                     </div>
                 </div>
             </div>

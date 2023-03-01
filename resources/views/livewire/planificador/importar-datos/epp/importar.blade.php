@@ -1,7 +1,7 @@
 <div>
     <x-jet-dialog-modal wire:model='open'>
         <x-slot name="title">
-            Importar Implementos
+            Importar Epp
         </x-slot>
         <x-slot name="content">
             <div class="py-2" style="padding-left: 1rem; padding-right:1rem">

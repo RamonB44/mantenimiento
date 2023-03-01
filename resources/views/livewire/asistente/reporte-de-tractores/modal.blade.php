@@ -22,7 +22,7 @@
                     <select class="form-select" style="width: 100%" wire:model='programacion_id'>
                         <option value="0">Seleccione una opción</option>
                     @foreach ($programaciones as $programacion)
-                        <option value="{{ $programacion->id }}">Operador: {{ $programacion->Tractorista->name  }} |
+                        <option value="{{ $programacion->id }}">Tractorista: {{ $programacion->Tractorista->name  }} |
                             @if ($programacion->Tractor == null)
                             Autopropulsado
                             @else
@@ -49,7 +49,7 @@
                     <x-jet-input-error for="correlativo"/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Operador:</x-jet-label>
+                    <x-jet-label>Tractorista:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$tractorista}}" disabled/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">

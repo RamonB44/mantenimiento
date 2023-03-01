@@ -57,7 +57,7 @@
                     </div>
                     <table>
                         <thead>
-                            <th>Operador</th>
+                            <th>Tractorista</th>
                             <th>Tractor</th>
                             <th>Implementos</th>
                             <th>Labor</th>
@@ -94,7 +94,7 @@
                     </div>
                     <table>
                         <thead>
-                            <th>Operador</th>
+                            <th>Tractorista</th>
                             <th>Tractor</th>
                             <th>Implemento</th>
                             <th>Labor</th>

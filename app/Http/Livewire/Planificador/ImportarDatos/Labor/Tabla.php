@@ -27,6 +27,11 @@ class Tabla extends Component
         $this->emitTo('planificador.importar-datos.labor.botones','obtenerLabor',$id);
     }
 
+    public function filtrar($labor) {
+        $this->resetPage();
+        $this->labor = $labor;
+    }
+
     public function render()
     {
         $labores = new Labor();

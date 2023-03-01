@@ -7,6 +7,7 @@ use App\Models\Implemento;
 use App\Models\ImplementoProgramacion;
 use App\Models\Labor;
 use App\Models\Lote;
+use App\Models\ModeloDeTractor;
 use App\Models\ProgramacionDeTractor;
 use App\Models\Tractor;
 use App\Models\User;
@@ -48,14 +49,14 @@ class Modal extends Component
         return [
             'fundo.required' => 'Seleccione una ubicación',
             'lote.required' => 'Seleccione el lote',
-            'tractorista.required' => 'Seleccione al operador',
+            'tractorista.required' => 'Seleccione al tractorista',
             'labor.required' => 'Seleccione la labor',
             'fecha.required' => 'Seleccione la fecha',
             'shift.required' => 'Seleccione el turno',
 
             'fundo.exists' => 'La ubicación no existe',
             'lote.exists' => 'El lote no existe',
-            'tractorista.exists' => 'El operador no existe',
+            'tractorista.exists' => 'El tractorista no existe',
             'labor.exists' => 'La labor no existe',
             'fecha.date' => 'Debe ingresar un fecha',
             'date.date_format' => 'Formato incorrecto',
@@ -207,28 +208,40 @@ class Modal extends Component
             if($this->programacion_id > 0){
                 $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
-                })->get();
+                })->orderBy('name','asc')->get();
                 $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
-                })->get();
+                })->orderBy(
+                    ModeloDeTractor::select('modelo_de_tractor')
+                        ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
+                    'asc'
+                )->orderBy('numero','asc')->get();
                 $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ImplementoProgramacion',function($q){
                     $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0)->whereNotIn('programacion_de_tractors.id',[$this->programacion_id]);
-                })->get();
+                })->orderBy('numero','asc')->get();
             }else{
                 $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0);
-                })->get();
+                })->orderBy('name','asc')->get();
                 $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0);
-                })->get();
+                })->orderBy(
+                    ModeloDeTractor::select('modelo_de_tractor')
+                        ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
+                    'asc'
+                )->orderBy('numero','desc')->get();
                 $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ImplementoProgramacion',function($q){
                     $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0);
-                })->get();
+                })->orderBy('numero','asc')->get();
             }
         }else{
-            $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->get();
-            $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->get();
-            $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->get();
+            $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->orderBy('name','asc')->get();
+            $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->orderBy(
+                ModeloDeTractor::select('modelo_de_tractor')
+                    ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
+                'asc'
+            )->orderBy('numero','asc')->get();
+            $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->orderBy('numero','asc')->get();
         }
 
         $this->emit('estiloSelect2');

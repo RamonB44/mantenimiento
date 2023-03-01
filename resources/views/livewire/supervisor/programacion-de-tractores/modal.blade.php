@@ -47,7 +47,7 @@
 
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Operador:</x-jet-label>
+                    <x-jet-label>Tractorista:</x-jet-label>
                     <select id="tractorista" class="form-select" style="width: 100%" wire:model.defer='tractorista'>
                         <option value="0">Seleccione una opción</option>
                         @foreach ($tractoristas as $tractorista)

@@ -11,16 +11,19 @@
                 <x-jet-input-error for="fecha"/>
 
             </div>
+            <div class="grid items-center grid-cols-1 p-6 bg-white sm:grid-cols-2">
+                <x-boton-crud accion="imprimirProgramacion" wire:loading.attr="disabled" color="gray">
+                    Imprimir Programación
+                </x-boton-crud>
+                <x-boton-crud accion="imprimirRutinario" wire:loading.attr="disabled" color="gray">
+                    Imprimir Rutinario
+                </x-boton-crud>
+
+            </div>
         </x-slot>
         <x-slot name="footer">
-            <x-jet-button wire:loading.attr="disabled" wire:click="imprimirProgramacion()">
-                Imprimir Programación
-            </x-jet-button>
-            <x-jet-button wire:loading.attr="disabled" wire:click="imprimirRutinario()">
-                Imprimir Rutinario
-            </x-jet-button>
             <x-jet-secondary-button wire:click="$set('open',false)" class="ml-2">
-                Cancelar
+                Cerrar
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>

@@ -1,5 +1,5 @@
 <?php
-    use App\Http\Livewire\Jefe\Dashboard;
-    use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Jefe\ProgramacionDeTractores\Base;
+use Illuminate\Support\Facades\Route;
 
-    Route::get('/',Dashboard::class)->name('jefe.dashboard');
+    Route::get('/',Base::class)->name('jefe.programacion-de-tractores');

@@ -32,7 +32,7 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $rutinario->ProgramacionDeTractor->fecha }}</span>
+                                <span class="font-medium">{{ date_format(date_create($rutinario->ProgramacionDeTractor->fecha),'d-m-Y') }}</span>
                                 <div class="flex items-center justify-center">
                                     <img src="/img/tabla/{{ $rutinario->ProgramacionDeTractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg"
                                         alt="turno" width="25">

@@ -68,7 +68,7 @@
                         </td>
                         <td class="px-2 py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $programacion_de_tractor->Lote->lote }}</span>
+                                <span class="font-medium">{{ $programacion_de_tractor->Lote->Fundo->fundo }} {{ $programacion_de_tractor->Lote->lote }}</span>
                             </div>
                         </td>
                         <td class="px-2 py-3 text-center">

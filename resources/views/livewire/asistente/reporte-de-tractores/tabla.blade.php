@@ -1,40 +1,40 @@
 <div>
     @if ($reporte_de_tractores->count())
-        <table class="w-full table-fixed overflow-x-scroll">
+        <table class="w-full overflow-x-scroll table-fixed">
             <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
                     <th class="py-3 text center">
                         <span class="hidden sm:block">Correlativo</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/correlativo.svg" alt="correlativo" width="25">
+                        <img class="flex mx-auto sm:hidden" src="/img/tabla/correlativo.svg" alt="correlativo" width="25">
                     </th>
                     <th class="py-3 text center">
                         <span class="hidden sm:block">Tractorista</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/tractorista.png" alt="tractortista" width="25">
+                        <img class="flex mx-auto sm:hidden" src="/img/tabla/tractorista.png" alt="tractortista" width="25">
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Tractor</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/tractor.svg" alt="tractor"
+                        <img class="flex mx-auto sm:hidden" src="/img/tabla/tractor.svg" alt="tractor"
                             width="25">
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Implemento</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/implemento.png" alt="implemento" width="25">
+                        <img class="flex mx-auto sm:hidden" src="/img/tabla/implemento.png" alt="implemento" width="25">
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Día</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/fecha.svg" alt="fecha" width="28">
+                        <img class="flex mx-auto sm:hidden" src="/img/tabla/fecha.svg" alt="fecha" width="28">
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Lote</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/lote.png" alt="fecha" width="25">
+                        <img class="flex mx-auto sm:hidden" src="/img/tabla/lote.png" alt="fecha" width="25">
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Labor</span>
-                        <img class="sm:hidden flex mx-auto" src="/img/tabla/labor.svg" alt="labor" width="25">
+                        <img class="flex mx-auto sm:hidden" src="/img/tabla/labor.svg" alt="labor" width="25">
                     </th>
                 </tr>
             </thead>
-            <tbody class="text-gray-600 text-sm font-light">
+            <tbody class="text-sm font-light text-gray-600">
                 @foreach ($reporte_de_tractores as $reporte_de_tractor)
                     <tr style="cursor:pointer" wire:click="seleccionar({{$reporte_de_tractor->id}})" class="border-b {{ $reporte_de_tractor->id == $reporte_id ? 'bg-blue-200' : '' }} border-gray-200">
                         <td class="py-3 text-center">
@@ -54,13 +54,15 @@
                                     Autopropulsado
                                     @else
                                     {{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->numero }}
-                                    @endif                            </div>
+                                    @endif
+                                </div>
                         </td>
                         <td class="py-3 text-center">
                             <div>
                                 @foreach ($reporte_de_tractor->ProgramacionDeTractor->Implementos as $implemento_programacion)
                                 {{ $implemento_programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento_programacion->Implemento->numero }},
-                                @endforeach                            </div>
+                                @endforeach
+                            </div>
                         </td>
                         <td class="py-3 text-center">
                             <div>
@@ -70,12 +72,12 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="py-3 px-2 text-center">
+                        <td class="px-2 py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->Lote->lote }}</span>
+                                <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->Lote->Fundo->fundo }} {{ $reporte_de_tractor->ProgramacionDeTractor->Lote->lote }}</span>
                             </div>
                         </td>
-                        <td class="py-3 px-2 text-center">
+                        <td class="px-2 py-3 text-center">
                             <div>
                                 <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->labor->labor }}</span>
                             </div>

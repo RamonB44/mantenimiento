@@ -80,7 +80,7 @@
                                         @endforeach
                                     </td>
                                     <td> {{ $programacion->labor->labor }} </td>
-                                    <td> {{ $programacion->Lote->lote }} </td>
+                                    <td> {{ $programacion->Lote->Fundo->fundo }} {{ $programacion->Lote->lote }} </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -117,7 +117,7 @@
                                         @endforeach
                                     </td>
                                     <td> {{ $programacion->labor->labor }} </td>
-                                    <td> {{ $programacion->Lote->lote }} </td>
+                                    <td> {{ $programacion->Lote->Fundo->fundo }} {{ $programacion->Lote->lote }} </td>
                                 </tr>
                             @endforeach
                         </tbody>

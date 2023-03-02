@@ -8,6 +8,7 @@ use App\Models\Labor;
 use App\Models\Lote;
 use App\Models\Tractor;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Filtros extends Component
@@ -37,7 +38,7 @@ class Filtros extends Component
         $this->open = false;
         $this->sede_id = 0;
         $this->supervisor_id = 0;
-        $this->fecha = "";
+        $this->fecha = date('Y-m-d');
         $this->turno = "";
         $this->fundoid = 0;
         $this->loteid = 0;
@@ -54,7 +55,8 @@ class Filtros extends Component
     }
 
     public function obtenerSupervisor($sede_id,$supervisor_id){
-        $this->resetExcept();
+        $this->resetExcept('fecha');
+        $this->fecha = date('Y-m-d');
         $this->fundos = Fundo::where('sede_id',$sede_id)->get();
         $this->lotes = [];
         $this->tractoristas = User::doesnthave('roles')->where('sede_id',$this->sede_id)->orderBy('name','asc')->get();

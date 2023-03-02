@@ -11,10 +11,12 @@
                         <span class="hidden sm:block">Tractor</span>
                         <img class="flex mx-auto sm:hidden" src="/img/tabla/tractor.svg" alt="tractor"
                             width="25">
+                        <label class="text-red-500">{{ $total_tractores }}</label>
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Implementos</span>
                         <img class="flex mx-auto sm:hidden" src="/img/tabla/implemento.png" alt="implemento" width="25">
+                        <label class="text-red-500">{{ $total_implementos }}</label>
                     </th>
                     <th class="py-3 text-center">
                         <span class="hidden sm:block">Día</span>

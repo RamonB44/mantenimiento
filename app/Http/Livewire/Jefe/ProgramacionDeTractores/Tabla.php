@@ -11,9 +11,7 @@ class Tabla extends Component
     use WithPagination;
 
     public $sede_id;
-
     public $supervisor_id;
-
     public $fecha;
     public $turno;
     public $fundo;
@@ -27,7 +25,7 @@ class Tabla extends Component
 
     public function mount($supervisor_id){
         $this->supervisor_id = $supervisor_id;
-        $this->fecha = "";
+        $this->fecha = date('Y-m-d');
         $this->turno = "";
         $this->fundo = 0;
         $this->lote = 0;
@@ -38,7 +36,8 @@ class Tabla extends Component
     }
 
     public function obtenerSupervisor($sede_id,$supervisor_id){
-        $this->resetExcept();
+        $this->resetExcept('fecha');
+        $this->fecha = date('Y-m-d');
         $this->supervisor_id = $supervisor_id;
         $this->render();
     }
@@ -92,9 +91,21 @@ class Tabla extends Component
         if($this->labor > 0) {
             $programacion_de_tractores->where('labor_id',$this->labor);
         }
+        if($this->fecha == ""){
+            $total_tractores = "";
+            $total_implementos = "";
+        }else{
+            $total_tractores = $programacion_de_tractores->count();
+            $implementos_por_programacion = $programacion_de_tractores->withCount('ImplementoProgramacion')->get();
+            $total_implementos = 0;
+            foreach($implementos_por_programacion as $implemento_programacion){
+                $total_implementos += $implemento_programacion->implemento_programacion_count;
+            }
+            $total_implementos = 'Total: '.$total_implementos;
+        }
 
         $programacion_de_tractores = $programacion_de_tractores->latest()->paginate(6);
 
-        return view('livewire.jefe.programacion-de-tractores.tabla',compact('programacion_de_tractores'));
+        return view('livewire.jefe.programacion-de-tractores.tabla',compact('programacion_de_tractores','total_tractores','total_implementos'));
     }
 }

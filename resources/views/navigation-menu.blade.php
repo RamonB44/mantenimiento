@@ -22,16 +22,16 @@
             <div class="flex space-x-4">
 
               @role('jefe')
-              <a href="{{ route('jefe.dashboard') }}" class="{{ request()->routeIs('jefe.dashboard') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Importar datos</a>
+              <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Programacion</a>
               @endrole
 
               @role('supervisor')
-              <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Programación de Tractores</a>
+              <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Programación</a>
               <a href="{{ route('supervisor.validar-rutinarios') }}" class="{{ request()->routeIs('supervisor.validar-rutinarios') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Validar Rutinarios</a>
               @endrole
 
               @role('asistente')
-              <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte de tractores</a>
+              <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte</a>
               @endrole
 
               @role('operario')
@@ -83,11 +83,11 @@
       <div class="px-2 pt-2 pb-3 space-y-1">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         @role('jefe')
-        <a href="{{ route('jefe.dashboard') }}" class="{{ request()->routeIs('jefe.dashboard') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Dashboard</a>
+        <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Dashboard</a>
         @endrole
 
         @role('supervisor')
-        <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programación de Tractores</a>
+        <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programación</a>
         @endrole
 
         @role('operario')
@@ -95,7 +95,7 @@
         @endrole
 
         @role('asistente')
-        <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Reporte de Tractores</a>
+        <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Reporte</a>
         @endrole
 
         @role('planificador')

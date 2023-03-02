@@ -46,7 +46,7 @@ class Filtros extends Component
 
         $this->fundos = Fundo::where('sede_id',Auth::user()->sede_id)->get();
         $this->lotes = [];
-        $this->tractoristas = User::all();
+        $this->tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->orderBy('name','asc')->get();
         $this->tractores = Tractor::where('sede_id',Auth::user()->sede_id)->get();
         $this->implementos = Implemento::where('sede_id',Auth::user()->sede_id)->get();
         $this->labores = Labor::all();

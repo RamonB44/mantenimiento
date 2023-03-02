@@ -24,7 +24,9 @@
                     @foreach ($programaciones as $programacion)
                         <option value="{{ $programacion->id }}">Tractorista: {{ $programacion->Tractorista->name  }} |
                             @if ($programacion->Tractor == null)
-                            Autopropulsado
+                            @foreach ($programacion->ImplementoProgramacion as $implemento_programacion)
+                                {{ $implemento_programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento_programacion->Implemento->numero }}
+                            @endforeach
                             @else
                             Tractor {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}
                             @endif
@@ -34,44 +36,44 @@
                 </div>
             @endif
             @if ($programacion_id > 0)
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Fundo:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$fundo}}" disabled/>
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Lote:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$lote}}" disabled/>
                 </div>
-                <div class="col-span-1 py-2 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="col-span-1 py-2 sm:col-span-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Correlativo:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" wire:model.defer="correlativo" id="correlativo"/>
 
                     <x-jet-input-error for="correlativo"/>
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Tractorista:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$tractorista}}" disabled/>
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Tractor:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$tractor}}" disabled/>
                 </div>
 
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Horometro Inicial:</x-jet-label>
                     <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_inicial" disabled="{{ $deshabilitar_horometro_inicial }}"/>
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Horometro Final:</x-jet-label>
                     <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_final"/>
 
                     <x-jet-input-error for="horometro_final"/>
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Implemento:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$implemento}}" disabled/>
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Labor:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$labor}}" disabled/>
                 </div>

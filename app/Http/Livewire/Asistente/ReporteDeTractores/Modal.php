@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Asistente\ReporteDeTractores;
 
+use App\Models\ImplementoProgramacion;
 use App\Models\ProgramacionDeTractor;
 use App\Models\ReporteDeTractor;
 use Illuminate\Support\Facades\Auth;
@@ -139,16 +140,17 @@ class Modal extends Component
 
     public function updatedProgramacionId(){
         if($this->programacion_id > 0){
-            $tractor = ProgramacionDeTractor::find($this->programacion_id)->Tractor;
-            if($tractor == null){
-                $this->horometro_inicial = 0;
-                $this->horometro_final = 8;
+            $programacion = ProgramacionDeTractor::find($this->programacion_id);
+            if($programacion->tractor == null){
+                $implemento_programacion = ImplementoProgramacion::where('programacion_de_tractor_id',$this->programacion_id)->first();
+                $this->horometro_inicial = $implemento_programacion->Implemento->horas_de_uso;
+                $this->horometro_final = $this->horometro_inicial + 8;
                 $this->deshabilitar_horometro_inicial = true;
             }else{
-                $this->horometro_inicial = $tractor->horometro;
+                $this->horometro_inicial = $programacion->tractor->horometro;
                 $this->horometro_final = number_format($this->horometro_inicial + 8,2);
-                $this->deshabilitar_horometro_inicial = $this->horometro_inicial > 0;
             }
+            $this->deshabilitar_horometro_inicial = $this->horometro_inicial > 0;
         }else{
             $this->reset('horometro_inicial','horometro_final');
             $this->deshabilitar_horometro_inicial = true;

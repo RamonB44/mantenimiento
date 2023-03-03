@@ -98,7 +98,7 @@ class Modal extends Component
             Lote::create([
                 'lote' => strtoupper($this->lote),
                 'fundo_id' => $fundo->id,
-                'encagado' => $this->encagado,
+                'encargado' => $this->encargado,
                 'cultivo_id' => $cultivo->id
             ]);
 

@@ -39,7 +39,7 @@
                     <select class="form-select" style="width: 100%" wire:model='lote'>
                         <option value="0">Seleccione una opción</option>
                         @foreach ($lotes as $lote)
-                            <option value="{{ $lote->id }}">{{ $lote->lote }}</option>
+                            <option value="{{ $lote->id }}">{{ $lote->lote }} - {{ $lote->Cultivo->cultivo }}</option>
                         @endforeach
                     </select>
 

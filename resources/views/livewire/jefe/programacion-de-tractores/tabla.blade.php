@@ -1,6 +1,6 @@
-<div wire:loading.remove>
-    @if ($programacion_de_tractores->count() && $supervisor_id > 0)
-        <table class="w-full overflow-x-scroll table-fixed" wire:loading.remove wire:target="filtrar">
+<div>
+    @if ($programacion_de_tractores->count())
+        <table class="w-full overflow-x-scroll table-fixed" wire:loading.remove>
             <thead>
                 <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
                     <th class="py-3 text center">
@@ -82,7 +82,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex wire:target="render">
+        <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
             <div class="text-center">
                 <h1 class="text-4xl font-bold">
                     CARGANDO DATOS...
@@ -94,7 +94,7 @@
             No existe ningún registro coincidente
         </div>
     @endif
-        <div class="px-4 py-4">
+        <div class="px-4 py-4" wire:loading.remove>
             {{ $programacion_de_tractores->links() }}
         </div>
 </div>

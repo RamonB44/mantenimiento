@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Supervisor\ProgramacionDeTractores;
 
 use App\Models\Articulo;
 use App\Models\ComponentePorModelo;
-use App\Models\Implemento;
 use App\Models\ProgramacionDeTractor;
 use App\Models\Tarea;
 use Barryvdh\DomPDF\Facade\Pdf;

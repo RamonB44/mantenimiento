@@ -23,7 +23,7 @@ class CecosImport implements OnEachRow,WithGroupedHeadingRow
             ],
             [
                 'sede_id' => $sede->id,
-                'monto'=> $row['monto_ceco']
+                'monto'=> $row['monto_ceco'] == "" ? 0 : $row['monto_ceco'],
             ]
         );
     }

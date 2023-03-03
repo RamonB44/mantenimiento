@@ -35,6 +35,7 @@ class Importar extends Component
         $this->validate();
         try {
             Excel::import(new LotesImport, $this->archivo);
+            $this->emitTo('planificador.importar-datos.lote.tabla','render');
             $this->emit('alerta',['center','success','Archivo Importado']);
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $errores = $e->failures();

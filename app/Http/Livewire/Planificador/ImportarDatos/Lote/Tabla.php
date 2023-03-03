@@ -12,6 +12,8 @@ class Tabla extends Component
 
     public $lote_id;
 
+    protected $listeners = ['render','filtrar'];
+
     public function mount()
     {
         $this->lote_id = 0;

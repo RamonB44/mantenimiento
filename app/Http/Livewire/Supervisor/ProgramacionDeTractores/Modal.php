@@ -195,11 +195,9 @@ class Modal extends Component
 
     public function render()
     {
-        $fundos = Fundo::whereHas('Lotes',function($q){
-            $q->where('encargado',Auth::user()->id);
-        })->get();
+        $fundos = Fundo::all();
         if($this->fundo > 0){
-            $lotes = Lote::where('fundo_id',$this->fundo)->where('encargado',Auth::user()->id)->get();
+            $lotes = Lote::where('fundo_id',$this->fundo)->get();
         }else{
             $lotes = [];
         }
@@ -208,7 +206,7 @@ class Modal extends Component
             if($this->programacion_id > 0){
                 $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
-                })->orderBy('name','asc')->get();
+                })->where('is_active',true)->orderBy('name','asc')->get();
                 $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
                 })->orderBy(
@@ -222,7 +220,7 @@ class Modal extends Component
             }else{
                 $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0);
-                })->orderBy('name','asc')->get();
+                })->where('is_active',true)->orderBy('name','asc')->get();
                 $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0);
                 })->orderBy(
@@ -235,7 +233,7 @@ class Modal extends Component
                 })->orderBy('numero','asc')->get();
             }
         }else{
-            $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->orderBy('name','asc')->get();
+            $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->where('is_active',true)->orderBy('name','asc')->get();
             $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->orderBy(
                 ModeloDeTractor::select('modelo_de_tractor')
                     ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),

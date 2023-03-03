@@ -79,9 +79,9 @@ class Modal extends Component
 
             $lote = Lote::find($this->lote_id);
             $lote->fundo_id = $fundo->id;
-            $lote->lote = strtoupper($this->lote_id);
+            $lote->lote = strtoupper($this->lote);
             $lote->encargado = $this->encargado;
-            $lote->cultivo_id =
+            $lote->cultivo_id = $cultivo->id;
             $lote->save();
 
             if(Lote::where('fundo_id', $fundo->id)->doesntExist()){

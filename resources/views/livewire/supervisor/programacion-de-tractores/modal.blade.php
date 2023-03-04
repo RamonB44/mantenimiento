@@ -34,9 +34,9 @@
                     <x-jet-input-error for="fundo"/>
 
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" style="padding-left: 1rem; padding-right:1rem" wire:loading.remove>
                     <x-jet-label>Lote:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model='lote'>
+                    <select class="form-select" style="width: 100%" wire:model.defer='lote'>
                         <option value="0">Seleccione una opción</option>
                         @foreach ($lotes as $lote)
                             <option value="{{ $lote->id }}">{{ $lote->lote }} - {{ $lote->Cultivo->cultivo }}</option>
@@ -45,6 +45,9 @@
 
                     <x-jet-input-error for="lote"/>
 
+                </div>
+                <div class="p-6 text-2xl text-center" wire:loading.flex>
+                    Cargando...
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Tractorista:</x-jet-label>
@@ -81,9 +84,9 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" style="padding-left: 1rem; padding-right:1rem" wire:loading.remove>
                     <x-jet-label>Implemento:</x-jet-label>
-                    <select class="select2 implementos" name="implementos[]" id="implementos_id" multiple="multiple" style="width: 100%" wire:model.defer='implemento_id'>
+                    <select class="select2 implementos" name="implementos[]" id="implementos_id" multiple="multiple" style="width: 100%" wire:model='implemento_id'>
                     @foreach ($implementos as $implemento)
                         <option value="{{ $implemento->id }}">{{ $implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento->numero }}</option>
                     @endforeach
@@ -92,7 +95,9 @@
                     <x-jet-input-error for="implemento_id"/>
 
                 </div>
-
+                <div class="p-6 text-2xl text-center" wire:loading.flex>
+                    Cargando...
+                </div>
                 <div class="py-2 md:col-span-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Labor:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model.defer='labor'>

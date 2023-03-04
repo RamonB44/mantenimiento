@@ -74,7 +74,7 @@ class Modal extends Component
         $this->lote = 0;
         $this->tractorista = 0;
         $this->tractor = 0;
-        $this->modelos_implemento = ModeloDelImplemento::all();
+        $this->modelos_implemento = ModeloDelImplemento::orderBy('modelo_de_implemento','asc')->select('id','modelo_de_implemento')->get();
         $this->modelo_de_implemento_id = 0;
         $this->implemento_id = array();
         $this->labor = 0;
@@ -107,8 +107,10 @@ class Modal extends Component
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->resetExcept('open','fecha','turno','labores','modelos_implemento');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote');
             $this->emit('reestablecerSelectImplementos');
+            $this->emit('obtenerFecha',$this->fecha);
+            //$this->emitTo('supervisor.programacion-de-tractores.tabla','render');
             $this->resetValidation();
         }
     }
@@ -166,7 +168,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Editada']);
 
-            $this->resetExcept('fecha','turno','labores','modelos_implemento');
+            $this->resetExcept('fecha','turno','labores','modelos_implemento','fundo','lote');
 
         }else{
             $programacion = ProgramacionDeTractor::create([
@@ -191,11 +193,9 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->resetExcept('open','fecha','turno','labores','modelos_implemento');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote');
         }
-        $this->emit('obtenerFecha',$this->fecha);
         $this->emit('reestablecerSelectImplementos');
-        $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
     }
 
 

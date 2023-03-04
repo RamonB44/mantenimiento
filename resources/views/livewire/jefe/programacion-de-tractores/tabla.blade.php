@@ -34,7 +34,7 @@
             </thead>
             <tbody class="text-sm font-light text-gray-600">
                 @foreach ($programacion_de_tractores as $programacion_de_tractor)
-                    <tr style="cursor:pointer" class="border-b border-gray-200">
+                    <tr style="cursor:pointer" class="border-b border-gray-200 {{ $programacion_de_tractor->supervisor == $programacion_de_tractor->Lote->encargado ? 'bg-amber-200' : '' }}">
                         <td class="py-3 text-center">
                             <div>
                                 <span class="font-medium">{{ $programacion_de_tractor->Tractorista->name }}</span>

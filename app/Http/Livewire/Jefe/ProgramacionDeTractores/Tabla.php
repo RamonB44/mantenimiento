@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Jefe\ProgramacionDeTractores;
 
 use App\Exports\TractorScheduleExport;
 use App\Models\ProgramacionDeTractor;
+use App\Models\Sede;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -42,7 +44,7 @@ class Tabla extends Component
 
     public function obtenerSupervisor($sede_id,$supervisor_id){
         $this->resetExcept('fecha');
-        $this->fecha = date('Y-m-d');
+        //$this->fecha = date('Y-m-d');
         $this->sede_id = $sede_id;
         $this->supervisor_id = $supervisor_id;
         $this->render();
@@ -61,37 +63,26 @@ class Tabla extends Component
     }
 
     public function pdf(){
-        $programacion_de_tractores = ProgramacionDeTractor::where('esta_anulado',0);
-        if($this->supervisor_id > 0){
-            $programacion_de_tractores = $programacion_de_tractores->where('supervisor',$this->supervisor_id);
-        }else{
-            $programacion_de_tractores = $programacion_de_tractores->where('sede_id',$this->sede_id);
-        }
-
-        if($this->fecha != "") {
-            $programacion_de_tractores->where('fecha',$this->fecha);
-        }
-
-        if($programacion_de_tractores->latest()->doesntExist()){
+        if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('esta_anulado',0)->doesntExist()){
             $this->emit('alerta',['center','warning','No existe programacion']);
         }else{
-            $titulo = 'Programación del '.$this->fecha.'.pdf';
-            $programaciones_am = new ProgramacionDeTractor();
-            $programaciones_pm = new ProgramacionDeTractor();
-            if($this->turno == ''){
-                $programaciones_am = $programacion_de_tractores->where('turno','MAÑANA')->get();
-                $programaciones_pm = $programacion_de_tractores->where('turno','NOCHE')->get();
-            }else if($this->turno == 'MAÑANA'){
-                $programaciones_am = $programacion_de_tractores->where('turno','MAÑANA')->get();
+            $titulo = 'Programación del '.$this->fecha;
+            if($this->supervisor_id > 0){
+                $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('supervisor',$this->supervisor_id)->where('esta_anulado',0)->get();
+                $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('supervisor',$this->supervisor_id)->where('esta_anulado',0)->get();
+                $titulo = $titulo.' - '.User::find($this->supervisor_id)->name;
             }else{
-                $programaciones_pm = $programacion_de_tractores->where('turno','NOCHE')->get();
+                $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('sede_id',$this->sede_id)->where('esta_anulado',0)->get();
+                $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('sede_id',$this->sede_id)->where('esta_anulado',0)->get();
+                $titulo = $titulo. ' - '.Sede::find($this->sede_id)->sede;
             }
+            $titulo = $titulo.'.pdf';
             $data = [
                 'programaciones_am' => $programaciones_am,
                 'programaciones_pm' => $programaciones_pm,
                 'fecha' => Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y'),
             ];
-            $pdfContent = Pdf::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4', 'landscape')->output();
+            $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4', 'landscape')->output();
 
             return response()->streamDownload(
                 fn () => print($pdfContent),

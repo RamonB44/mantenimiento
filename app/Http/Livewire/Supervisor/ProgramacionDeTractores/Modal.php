@@ -7,6 +7,7 @@ use App\Models\Implemento;
 use App\Models\ImplementoProgramacion;
 use App\Models\Labor;
 use App\Models\Lote;
+use App\Models\ModeloDelImplemento;
 use App\Models\ModeloDeTractor;
 use App\Models\ProgramacionDeTractor;
 use App\Models\Tractor;
@@ -25,10 +26,12 @@ class Modal extends Component
     public $correlativo;
     public $tractorista;
     public $tractor;
+    public $modelo_de_implemento_id;
     public $implemento_id;
     public $labor;
 
     public $labores;
+    public $modelos_implemento;
 
     public $programacion_id;
 
@@ -71,6 +74,8 @@ class Modal extends Component
         $this->lote = 0;
         $this->tractorista = 0;
         $this->tractor = 0;
+        $this->modelos_implemento = ModeloDelImplemento::all();
+        $this->modelo_de_implemento_id = 0;
         $this->implemento_id = array();
         $this->labor = 0;
         $this->programacion_id = 0;
@@ -102,7 +107,7 @@ class Modal extends Component
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->resetExcept('open','fecha','turno','labores');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento');
             $this->emit('reestablecerSelectImplementos');
             $this->resetValidation();
         }
@@ -161,7 +166,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Editada']);
 
-            $this->resetExcept('fecha','turno','labores');
+            $this->resetExcept('fecha','turno','labores','modelos_implemento');
 
         }else{
             $programacion = ProgramacionDeTractor::create([
@@ -186,7 +191,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->resetExcept('open','fecha','turno','labores');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento');
         }
         $this->emit('obtenerFecha',$this->fecha);
         $this->emit('reestablecerSelectImplementos');
@@ -240,7 +245,11 @@ class Modal extends Component
                     ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
                 'asc'
             )->orderBy('numero','asc')->get();
-            $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->orderBy('numero','asc')->get();
+            $implementos = Implemento::where('sede_id',Auth::user()->sede_id);
+            if($this->modelo_de_implemento_id > 0){
+                $implementos = $implementos->where('modelo_del_implemento_id',$this->modelo_de_implemento_id);;
+            }
+            $implementos = $implementos->orderBy('numero','asc')->get();
         }
 
         $this->emit('estiloSelect2');

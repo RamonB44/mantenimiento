@@ -73,6 +73,15 @@
 
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Modelo de Implemento:</x-jet-label>
+                    <select id="tractor" class="form-select" style="width: 100%" wire:model='modelo_de_implemento_id'>
+                        <option value="0">Seleccione una opción</option>
+                        @foreach ($modelos_implemento as $modelo)
+                            <option value="{{ $modelo->id }}">{{ $modelo->modelo_de_implemento }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Implemento:</x-jet-label>
                     <select class="select2 implementos" name="implementos[]" id="implementos_id" multiple="multiple" style="width: 100%" wire:model.defer='implemento_id'>
                     @foreach ($implementos as $implemento)
@@ -84,7 +93,7 @@
 
                 </div>
 
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2 md:col-span-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Labor:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model.defer='labor'>
                         <option value="0">Seleccione una opción</option>
@@ -125,6 +134,7 @@
                     implementos.push(implemento);
                 }
                 @this.set('implemento_id', implementos);
+                @this.set('modelo_de_implemento_id', 0);
             });
         });
     </script>

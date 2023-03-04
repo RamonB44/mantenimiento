@@ -1,4 +1,6 @@
-
+--------------------------------SUPERVISOR: Programacion de Tractores----------------------------------------------------------
+-Agregar filtro por modelo de implemento en el modal.
+-Cambiar vista reactiva.
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
 -Ver solicitudes de pedido anteriores:
   --Por fecha de pedido, por sede y por ceco.

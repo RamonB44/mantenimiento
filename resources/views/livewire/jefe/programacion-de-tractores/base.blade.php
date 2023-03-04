@@ -20,7 +20,7 @@
         @endif
     </div>
     @if ($sede_id > 0)
-        <div class="grid items-center grid-cols-3 p-6 bg-white">
+        <div class="grid items-center grid-cols-3 p-2 bg-white">
             <x-boton-crud accion="$emit('pdf')" color="red">PDF</x-boton-crud>
             <x-boton-crud accion="$emit('excel')" color="green">EXCEL</x-boton-crud>
             @livewire('jefe.programacion-de-tractores.filtros')

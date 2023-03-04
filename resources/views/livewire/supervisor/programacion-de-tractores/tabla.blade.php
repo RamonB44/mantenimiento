@@ -32,7 +32,7 @@
             </thead>
             <tbody class="text-sm font-light text-gray-600">
                 @foreach ($programacion_de_tractores as $programacion_de_tractor)
-                    <tr style="cursor:pointer" wire:click="seleccionar({{$programacion_de_tractor->id}})" class="border-b {{ $programacion_de_tractor->id == $programacion_id ? 'bg-blue-200' : '' }} border-gray-200">
+                    <tr style="cursor:pointer" wire:click="seleccionar({{$programacion_de_tractor->id}})" class="border-b {{ $programacion_de_tractor->id == $programacion_id ? 'bg-blue-200' : 'bg-white' }} border-gray-200">
                         <td class="py-3 text-center">
                             <div>
                                 <span class="font-medium">{{ $programacion_de_tractor->Tractorista->name }}</span>

@@ -134,7 +134,6 @@
                     implementos.push(implemento);
                 }
                 @this.set('implemento_id', implementos);
-                @this.set('modelo_de_implemento_id', 0);
             });
         });
     </script>

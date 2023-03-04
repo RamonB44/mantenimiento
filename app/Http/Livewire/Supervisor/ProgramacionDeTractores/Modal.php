@@ -188,6 +188,7 @@ class Modal extends Component
 
             $this->resetExcept('open','fecha','turno','labores');
         }
+        $this->emit('obtenerFecha',$this->fecha);
         $this->emit('reestablecerSelectImplementos');
         $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
     }

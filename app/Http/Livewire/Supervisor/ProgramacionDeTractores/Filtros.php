@@ -31,11 +31,11 @@ class Filtros extends Component
     public $implementos;
     public $labores;
 
-    protected $listeners = ['abrirModal'];
+    protected $listeners = ['abrirModal','obtenerFecha'];
 
     public function mount(){
         $this->open = false;
-        $this->fecha = "";
+        $this->fecha = date('Y-m-d');
         $this->turno = "";
         $this->fundoid = 0;
         $this->loteid = 0;
@@ -61,6 +61,12 @@ class Filtros extends Component
             $this->lotes = Lote::where('fundo_id',$this->fundoid)->get();
         }else{
             $this->lotes = [];
+        }
+    }
+
+    public function obtenerFecha($fecha){
+        if($this->fecha != $fecha) {
+            $this->fecha = $fecha;
         }
     }
 

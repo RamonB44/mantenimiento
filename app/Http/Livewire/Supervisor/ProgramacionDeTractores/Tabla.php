@@ -22,11 +22,11 @@ class Tabla extends Component
     public $implemento;
     public $labor;
 
-    protected $listeners = ['render','filtrar'];
+    protected $listeners = ['render','filtrar','obtenerFecha'];
 
     public function mount(){
         $this->programacion_id = 0;
-        $this->fecha = "";
+        $this->fecha = date('Y-m-d');
         $this->turno = "";
         $this->fundo = 0;
         $this->lote = 0;
@@ -39,6 +39,13 @@ class Tabla extends Component
     public function seleccionar($id){
         $this->programacion_id = $id;
         $this->emitTo('supervisor.programacion-de-tractores.botones','obtenerProgramacion',$id);
+    }
+
+    public function obtenerFecha($fecha){
+        if($fecha != $this->fecha){
+            $this->resetPage();
+            $this->fecha = $fecha;
+        }
     }
 
     public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
@@ -91,8 +98,20 @@ class Tabla extends Component
             $programacion_de_tractores->where('labor_id',$this->labor);
         }
 
+        if($this->fecha == ""){
+            $total_tractores = 0;
+            $total_implementos = 0;
+        }else{
+            $total_tractores = $programacion_de_tractores->count();
+            $implementos_por_programacion = $programacion_de_tractores->withCount('ImplementoProgramacion')->get();
+            $total_implementos = 0;
+            foreach($implementos_por_programacion as $implemento_programacion){
+                $total_implementos += $implemento_programacion->implemento_programacion_count;
+            }
+        }
+
         $programacion_de_tractores = $programacion_de_tractores->latest()->paginate(6);
 
-        return view('livewire.supervisor.programacion-de-tractores.tabla',compact('programacion_de_tractores'));
+        return view('livewire.supervisor.programacion-de-tractores.tabla',compact('programacion_de_tractores','total_implementos','total_tractores'));
     }
 }

@@ -222,7 +222,7 @@ class Modal extends Component
                 )->orderBy('numero','asc')->get();
                 $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ImplementoProgramacion',function($q){
                     $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0)->whereNotIn('programacion_de_tractors.id',[$this->programacion_id]);
-                })->orderBy('numero','asc')->get();
+                });
             }else{
                 $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
                     $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0);
@@ -236,7 +236,7 @@ class Modal extends Component
                 )->orderBy('numero','desc')->get();
                 $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ImplementoProgramacion',function($q){
                     $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0);
-                })->orderBy('numero','asc')->get();
+                });
             }
         }else{
             $tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->where('is_active',true)->orderBy('name','asc')->get();
@@ -246,12 +246,13 @@ class Modal extends Component
                 'asc'
             )->orderBy('numero','asc')->get();
             $implementos = Implemento::where('sede_id',Auth::user()->sede_id);
-            if($this->modelo_de_implemento_id > 0){
-                $implementos = $implementos->where('modelo_del_implemento_id',$this->modelo_de_implemento_id);;
-            }
-            $implementos = $implementos->orderBy('numero','asc')->get();
-        }
 
+
+        }
+        if($this->modelo_de_implemento_id > 0){
+            $implementos = $implementos->where('modelo_del_implemento_id',$this->modelo_de_implemento_id);
+        }
+        $implementos = $implementos->orderBy('numero','asc')->get();
         $this->emit('estiloSelect2');
         return view('livewire.supervisor.programacion-de-tractores.modal',compact('fundos','lotes','tractoristas','tractores','implementos'));
     }

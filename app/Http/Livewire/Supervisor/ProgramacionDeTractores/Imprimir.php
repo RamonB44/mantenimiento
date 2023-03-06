@@ -17,14 +17,18 @@ class Imprimir extends Component
     public $open = false;
     public $fecha;
 
-    protected $listeners = ['abrirModal'];
+    protected $listeners = ['abrirModal','obtenerFecha'];
 
     public function mount(){
-        $this->fecha = date('Y-m-d',strtotime(date('Y-m-d')."+1 days"));
+        $this->fecha = date('Y-m-d');
     }
 
     public function abrirModal(){
         $this->open = true;
+    }
+
+    public function obtenerFecha($fecha){
+        $this->fecha = $fecha;
     }
 
     public function imprimirProgramacion(){

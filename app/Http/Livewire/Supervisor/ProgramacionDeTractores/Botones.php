@@ -3,15 +3,31 @@
 namespace App\Http\Livewire\Supervisor\ProgramacionDeTractores;
 
 use App\Models\ProgramacionDeTractor;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Botones extends Component
 {
 
-    public $programacion_id = 0;
-    public $boton_activo = false;
+    public $programacion_id;
+    public $boton_activo;
+    public $fecha;
+    public $fecha_activa;
+    public $yesterday;
+    public $today;
+    public $tomorrow;
 
-    protected $listeners = ['obtenerProgramacion'];
+    protected $listeners = ['obtenerProgramacion','obtenerFecha'];
+
+    public function mount(){
+        $this->programacion_id = 0;
+        $this->boton_activo = false;
+        $this->fecha = date('Y-m-d');
+        $this->fecha_activa = 'today';
+        $this->yesterday = Carbon::yesterday()->isoFormat('Y-MM-DD');
+        $this->today = date('Y-m-d');
+        $this->tomorrow = Carbon::tomorrow()->isoFormat('Y-MM-DD');
+    }
 
     public function obtenerProgramacion($id){
         $this->programacion_id = $id;
@@ -20,6 +36,24 @@ class Botones extends Component
 
     public function imprimir(){
         $this->emitTo('supervisor.programacion-de-tractores.imprimir','abrirModal');
+    }
+
+    public function obtenerFecha($fecha){
+        $this->fecha = $fecha;
+        switch ($this->fecha) {
+            case $this->today:
+                $this->fecha_activa = 'today';
+                break;
+            case $this->yesterday:
+                $this->fecha_activa = 'yesterday';
+                break;
+            case $this->tomorrow:
+                $this->fecha_activa = 'tomorrow';
+                break;
+            default:
+                $this->fecha_activa = '';
+                break;
+        }
     }
 
     public function anular(){

@@ -12,6 +12,7 @@ use App\Models\ModeloDeTractor;
 use App\Models\ProgramacionDeTractor;
 use App\Models\Tractor;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -29,13 +30,17 @@ class Modal extends Component
     public $modelo_de_implemento_id;
     public $implemento_id;
     public $labor;
+    public $fecha_programacion;
+    public $yesterday;
+    public $today;
+    public $tomorrow;
 
     public $labores;
     public $modelos_implemento;
 
     public $programacion_id;
 
-    protected $listeners = ['abrirModal'];
+    protected $listeners = ['abrirModal','obtenerFecha'];
 
     protected function rules(){
         return [
@@ -68,7 +73,10 @@ class Modal extends Component
     }
 
     public function mount(){
-        $this->fecha = date('Y-m-d',strtotime(date('Y-m-d')."+1 days"));
+        $this->yesterday = Carbon::yesterday()->isoFormat('Y-MM-DD');
+        $this->today = Carbon::today()->isoFormat('Y-MM-DD');;
+        $this->tomorrow = Carbon::tomorrow()->isoFormat('Y-MM-DD');;
+        $this->fecha = $this->today;
         $this->turno = "MAÑANA";
         $this->fundo = 0;
         $this->lote = 0;
@@ -80,6 +88,12 @@ class Modal extends Component
         $this->labor = 0;
         $this->programacion_id = 0;
         $this->labores = Labor::all();
+        $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
+    }
+
+    public function obtenerFecha($fecha){
+        $this->fecha_programacion = Carbon::parse($fecha)->isoFormat('dddd').','.Carbon::parse($fecha)->isoFormat(' DD').' de '.Carbon::parse($fecha)->isoFormat(' MMMM').' del '.Carbon::parse($fecha)->isoFormat(' Y');
+        $this->fecha = $fecha;
     }
 
     public function abrirModal($id){
@@ -107,10 +121,9 @@ class Modal extends Component
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow');
             $this->emit('reestablecerSelectImplementos');
             $this->emit('obtenerFecha',$this->fecha);
-            //$this->emitTo('supervisor.programacion-de-tractores.tabla','render');
             $this->resetValidation();
         }
     }
@@ -120,6 +133,7 @@ class Modal extends Component
     }
 
     public function updatedFecha(){
+        $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
         $this->reset('tractorista','implemento_id','tractor');
     }
 
@@ -168,7 +182,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Editada']);
 
-            $this->resetExcept('fecha','turno','labores','modelos_implemento','fundo','lote');
+            $this->resetExcept('fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow');
 
         }else{
             $programacion = ProgramacionDeTractor::create([
@@ -193,7 +207,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow');
         }
         $this->emit('reestablecerSelectImplementos');
     }

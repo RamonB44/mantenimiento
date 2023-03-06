@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Supervisor\ProgramacionDeTractores;
 
 use App\Models\ProgramacionDeTractor;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,6 +22,7 @@ class Tabla extends Component
     public $tractor;
     public $implemento;
     public $labor;
+    public $fecha_programacion;
 
     protected $listeners = ['render','filtrar','obtenerFecha'];
 
@@ -34,6 +36,7 @@ class Tabla extends Component
         $this->tractor = 0;
         $this->implemento = 0;
         $this->labor = 0;
+        $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
     }
 
     public function seleccionar($id){
@@ -42,10 +45,9 @@ class Tabla extends Component
     }
 
     public function obtenerFecha($fecha){
-        if($fecha != $this->fecha){
-            $this->resetPage();
-            $this->fecha = $fecha;
-        }
+        $this->resetPage();
+        $this->fecha_programacion = Carbon::parse($fecha)->isoFormat('dddd').','.Carbon::parse($fecha)->isoFormat(' DD').' de '.Carbon::parse($fecha)->isoFormat(' MMMM').' del '.Carbon::parse($fecha)->isoFormat(' Y');
+        $this->fecha = $fecha;
     }
 
     public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
@@ -58,6 +60,7 @@ class Tabla extends Component
         $this->tractor = $tractor;
         $this->implemento = $implemento;
         $this->labor = $labor;
+        $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($fecha)->isoFormat(' Y');
     }
 
     public function render()

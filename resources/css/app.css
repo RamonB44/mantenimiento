@@ -240,6 +240,9 @@
   .sm\:col-span-1 {
     grid-column: span 1 / span 1;
   }
+  .sm\:col-span-4 {
+    grid-column: span 4 / span 4;
+  }
 }
 .h-48 {
   height: 12rem;

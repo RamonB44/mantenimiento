@@ -1,14 +1,17 @@
 <div>
-    <x-jet-dialog-modal wire:model='open' id="modal" maxWidth="2xl">
+    <x-jet-dialog-modal wire:model='open' id="modal" maxWidth="2xl" color="{{ $turno == 'MAÑANA' ? 'amber' : 'blue' }}">
         <x-slot name="title">
-            Registrar Programación de tractores
+            {{ ucfirst($fecha_programacion) }}
         </x-slot>
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Día:</x-jet-label>
-                    <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
-
+                    <select class="form-select" style="width: 100%" wire:model='fecha'>
+                        <option value="{{ $yesterday }}">AYER</option>
+                        <option value="{{ $today }}">HOY</option>
+                        <option value="{{ $tomorrow }}">MAÑANA</option>
+                    </select>
                     <x-jet-input-error for="fecha"/>
 
                 </div>

@@ -2,6 +2,9 @@
     @if ($programacion_de_tractores->count())
         @if ($total_tractores > 0)
         <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800">
+            <div class="text-lg font-black text-white col-span-2">
+                FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }}</span>
+            </div>
             <div class="text-lg font-black text-white">
                 TRACTORES : <span>{{ $total_tractores }}</span>
             </div>
@@ -116,8 +119,8 @@
             </div>
         </div>
     @else
-        <div class="px-6 py-4">
-            No existe ningún registro coincidente
+        <div class="px-6 py-4 text-2xl font-black">
+           NO EXISTE PROGRAMACIÓN EN EL DÍA {{ strtoupper($fecha_programacion) }}
         </div>
     @endif
         <div class="px-4 py-4" wire:loading.remove>

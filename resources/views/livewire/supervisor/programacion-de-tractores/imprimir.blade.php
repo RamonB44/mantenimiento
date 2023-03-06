@@ -6,7 +6,7 @@
         <x-slot name="content">
             <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                 <x-jet-label>Día:</x-jet-label>
-                <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
+                <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" disabled wire:model="fecha"/>
 
                 <x-jet-input-error for="fecha"/>
 

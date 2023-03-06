@@ -6,7 +6,6 @@
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Día:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='fecha'>
                         <option value="{{ $yesterday }}">AYER</option>
                         <option value="{{ $today }}">HOY</option>
@@ -18,7 +17,7 @@
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Turno:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='turno'>
-                        <option>MAÑANA</option>
+                        <option value="MAÑANA">DIA</option>
                         <option>NOCHE</option>
                     </select>
 

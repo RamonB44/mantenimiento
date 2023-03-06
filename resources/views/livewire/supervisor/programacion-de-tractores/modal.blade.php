@@ -86,7 +86,7 @@
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem" wire:loading.remove>
                     <x-jet-label>Implemento:</x-jet-label>
-                    <select class="select2 implementos" name="implementos[]" id="implementos_id" multiple="multiple" style="width: 100%" wire:model='implemento_id'>
+                    <select class="select2" name="implementos[]" id="implementos_id" multiple="multiple" style="width: 100%" wire:model='implemento_id'>
                     @foreach ($implementos as $implemento)
                         <option value="{{ $implemento->id }}">{{ $implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento->numero }}</option>
                     @endforeach
@@ -128,17 +128,21 @@
         var implementos = [];
         document.addEventListener('livewire:load', function() {
             $('.select2').select2();
-            $('.implementos').on('select2:selecting select2:unselecting', function(e) {
+            $('#implementos_id').on('select2:selecting select2:unselecting', function(event) {
                 if(implementos == null) {
                     implementos = [];
                 }
-                var implemento = e.params.args.data.id;
+                var implemento = event.params.args.data.id;
                 if(implementos.includes(implemento)){
                     implementos = implementos.filter((item) => item != implemento);
                 }else{
                     implementos.push(implemento);
                 }
                 @this.set('implemento_id', implementos);
+            });
+            $('#implementos_id').on('select2:opening select2:closing', function( event ) {
+                var $searchfield = $(this).parent().find('.select2-search__field');
+                $searchfield.prop('disabled', true);
             });
         });
     </script>

@@ -69,7 +69,6 @@
 
             Livewire.on('estiloSelect2',() => {
                 $('.select2').select2({
-                    dropdownParent: $('#modal'),
                     theme: 'classic',
                 });
             });

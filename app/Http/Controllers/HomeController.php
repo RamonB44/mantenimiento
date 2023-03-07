@@ -18,7 +18,7 @@ class HomeController extends Controller
             }else if($user->hasRole('supervisor')){
                 return redirect()->route('supervisor.programacion-de-tractores');
             }else if($user->hasRole('asistente')){
-                return redirect()->route('asistente.reporte-de-tractores');
+                return redirect()->route('asistente.programacion-de-tractores');
             }else if($user->hasRole('operario')){
                 return redirect()->route('operario.solicitar-articulos');
             }else if($user->hasRole('planificador')){

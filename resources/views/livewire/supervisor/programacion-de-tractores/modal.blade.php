@@ -27,7 +27,7 @@
                 </div>
                 <div class="py-2 md:col-span-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Solicita:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model='solicita'>
+                    <select class="form-select" style="width: 100%" wire:model.defer='solicita'>
                         <option value="0">Seleccione una opción</option>
                         @foreach ($solicitantes as $solicitante)
                             <option value="{{ $solicitante->id }}">{{ $solicitante->name }}</option>

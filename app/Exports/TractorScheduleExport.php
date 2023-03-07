@@ -16,7 +16,7 @@ class TractorScheduleExport implements FromCollection,ShouldAutoSize,WithHeading
     private $supervisor_id;
     public function __construct($fecha,$sede,$supervisor_id){
         $this->fecha = $fecha;
-        $this->sede = $sede;
+        $this->sede_id = $sede;
         $this->supervisor_id = $supervisor_id;
     }
     public function headings(): array
@@ -34,6 +34,7 @@ class TractorScheduleExport implements FromCollection,ShouldAutoSize,WithHeading
             'Tractor',
             'Implementos',
             'Labor',
+            'Solicitante',
         ];
     }
     public function styles(Worksheet $sheet)
@@ -49,7 +50,7 @@ class TractorScheduleExport implements FromCollection,ShouldAutoSize,WithHeading
     }
     public function collection()
     {
-        $programacion = DB::table('vista_programacion_de_tractores')->select('sede','fecha','turno','fundo','lote','cultivo','supervisor','codigo_tractorista','tractorista','tractor','implementos','labor');
+        $programacion = DB::table('vista_programacion_de_tractores')->select('sede','fecha','turno','fundo','lote','cultivo','supervisor','codigo_tractorista','tractorista','tractor','implementos','labor','solicitante');
         if($this->supervisor_id > 0){
             $programacion = $programacion->where('supervisor_id',$this->supervisor_id);
         }else{

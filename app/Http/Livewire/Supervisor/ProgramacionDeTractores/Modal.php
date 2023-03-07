@@ -120,14 +120,16 @@ class Modal extends Component
             $this->tractor = $programacion->tractor_id  == null ? -1 : $programacion->tractor_id;
             $this->implemento_id = [];
             foreach($programacion->Implementos as $implemento){
-                array_push($this->implemento_id,$implemento->implemento_id);
+                if(!in_array($implemento->implemento_id,$this->implemento_id)){
+                    array_push($this->implemento_id,$implemento->implemento_id);
+                }
             }
             $this->labor = $programacion->labor_id;
             $this->solicita = $programacion->solicitante;
+            $this->emit('obtenerSelectImplementos',$this->implemento_id);
         }
         $this->open = true;
 
-        $this->emit('obtenerSelectImplementos',$this->implemento_id);
     }
 
     public function updatedOpen(){
@@ -146,6 +148,7 @@ class Modal extends Component
     public function updatedFecha(){
         $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
         $this->reset('tractorista','implemento_id','tractor');
+        $this->emit('reestablecerSelectImplementos');
     }
 
     public function updatedTurno(){
@@ -197,7 +200,7 @@ class Modal extends Component
             }
 
             $this->emit('alerta',['center','success','Programación Editada']);
-
+            $this->emit('obtenerFecha',$this->fecha);
             $this->resetExcept('fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow','labor','solicita','solicitantes');
 
         }else{

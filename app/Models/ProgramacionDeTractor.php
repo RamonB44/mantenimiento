@@ -35,6 +35,10 @@ class ProgramacionDeTractor extends Model
         return $this->belongsTo(User::class,'supervisor');
     }
 
+    public function Solicitante(){
+        return $this->belongsTo(User::class,'solicitante');
+    }
+
     public function ReporteDeTractor(){
         return $this->hasOne(ReporteDeTractor::class);
     }

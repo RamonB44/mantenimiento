@@ -2,7 +2,7 @@
     @if ($programacion_de_tractores->count())
         @if ($total_tractores > 0)
         <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800">
-            <div class="text-lg font-black text-white col-span-2">
+            <div class="col-span-2 text-lg font-black text-white">
                 FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }}</span>
             </div>
             <div class="text-lg font-black text-white">
@@ -33,6 +33,9 @@
                     </th>
                     <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
                         <span class="hidden sm:block">Labor</span>
+                    </th>
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                        <span class="hidden sm:block">Solicitante</span>
                     </th>
                 </tr>
             </thead>
@@ -105,6 +108,14 @@
                                     <img src="/img/tabla/labor.svg" alt="labor" width="25">
                                 </span>
                                 <span class="font-medium">{{ $programacion_de_tractor->labor->labor }}</span>
+                            </div>
+                        </td>
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
+                            <div>
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/solicitante.png" alt="labor" width="25">
+                                </span>
+                                <span class="font-medium">{{ $programacion_de_tractor->solicitante == null ? 'NO REGISTRADO' : $programacion_de_tractor->Solicitante->name }}</span>
                             </div>
                         </td>
                     </tr>

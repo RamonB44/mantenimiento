@@ -1,6 +1,7 @@
---------------------------------SUPERVISOR: Programacion de Tractores----------------------------------------------------------
--Agregar filtro por modelo de implemento en el modal.
--Cambiar vista reactiva.
+--------------------------------ASISTENTE: Reporte de horas-------------------------------------------------------------
+-Pedir formatos que llena.
+--------------------------------JEFE: Programacion de Tractores----------------------------------------------------------
+-Habilitar botones de ayer hoy y MAÑANA
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
 -Ver solicitudes de pedido anteriores:
   --Por fecha de pedido, por sede y por ceco.

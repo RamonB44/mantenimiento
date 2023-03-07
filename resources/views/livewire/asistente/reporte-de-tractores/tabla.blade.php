@@ -1,97 +1,138 @@
 <div>
     @if ($reporte_de_tractores->count())
-        <table class="w-full overflow-x-scroll table-fixed">
-            <thead>
-                <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
-                    <th class="py-3 text center">
-                        <span class="hidden sm:block">Correlativo</span>
-                        <img class="flex mx-auto sm:hidden" src="/img/tabla/correlativo.svg" alt="correlativo" width="25">
-                    </th>
-                    <th class="py-3 text center">
+        <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800" wire:loading.remove>
+            <div class="col-span-2 text-lg font-black text-white">
+                FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }}</span>
+            </div>
+            <div class="text-lg font-black text-white">
+                TRACTORES : <span>{{ $total_tractores }}</span>
+            </div>
+            <div class="text-lg font-bold text-white">
+                IMPLEMENTOS : <span>{{ $total_implementos }}</span>
+            </div>
+        </div>
+        <table class="block min-w-full text-center border-collapse md:table" wire:loading.remove>
+            <thead class="block md:table-header-group">
+                <tr class="absolute block text-center border border-grey-500 md:border-none md:table-row -top-full md:top-auto -left-full md:left-auto md:relative">
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
                         <span class="hidden sm:block">Tractorista</span>
-                        <img class="flex mx-auto sm:hidden" src="/img/tabla/tractorista.png" alt="tractortista" width="25">
                     </th>
-                    <th class="py-3 text-center">
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
                         <span class="hidden sm:block">Tractor</span>
-                        <img class="flex mx-auto sm:hidden" src="/img/tabla/tractor.svg" alt="tractor"
-                            width="25">
                     </th>
-                    <th class="py-3 text-center">
-                        <span class="hidden sm:block">Implemento</span>
-                        <img class="flex mx-auto sm:hidden" src="/img/tabla/implemento.png" alt="implemento" width="25">
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                        <span class="hidden sm:block">Implementos</span>
                     </th>
-                    <th class="py-3 text-center">
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
                         <span class="hidden sm:block">Día</span>
-                        <img class="flex mx-auto sm:hidden" src="/img/tabla/fecha.svg" alt="fecha" width="28">
                     </th>
-                    <th class="py-3 text-center">
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
                         <span class="hidden sm:block">Lote</span>
-                        <img class="flex mx-auto sm:hidden" src="/img/tabla/lote.png" alt="fecha" width="25">
                     </th>
-                    <th class="py-3 text-center">
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
                         <span class="hidden sm:block">Labor</span>
-                        <img class="flex mx-auto sm:hidden" src="/img/tabla/labor.svg" alt="labor" width="25">
+                    </th>
+                    <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                        <span class="hidden sm:block">Solicitante</span>
                     </th>
                 </tr>
             </thead>
-            <tbody class="text-sm font-light text-gray-600">
+            <tbody class="block md:table-row-group">
                 @foreach ($reporte_de_tractores as $reporte_de_tractor)
-                    <tr style="cursor:pointer" wire:click="seleccionar({{$reporte_de_tractor->id}})" class="border-b {{ $reporte_de_tractor->id == $reporte_id ? 'bg-blue-200' : '' }} border-gray-200">
-                        <td class="py-3 text-center">
+                    <tr style="cursor: pointer" wire:click="seleccionar({{$reporte_de_tractor->id}})"  class="block font-medium bg-white border border-red-500 md:border-none md:table-row {{ $reporte_de_tractor->id == $reporte_id ? 'bg-blue-200' : 'bg-white' }}">
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                             <div>
-                                <span class="font-medium">{{ $reporte_de_tractor->correlativo  }}</span>
-                            </div>
-                        </td>
-                        <td class="py-3 text-center">
-                            <div>
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/tractorista.png" alt="tractortista" width="25">
+                                </span>
                                 <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->Tractorista->name }}</span>
                             </div>
                         </td>
-                        <td class="py-3 text-center">
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                             <div>
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/tractor.svg" alt="tractor" width="25">
+                                </span>
                                 <span class="font-medium">
                                     @if ($reporte_de_tractor->ProgramacionDeTractor->Tractor == null)
-                                    Autopropulsado
+                                        Autopropulsado
                                     @else
                                     {{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $reporte_de_tractor->ProgramacionDeTractor->Tractor->numero }}
                                     @endif
-                                </div>
-                        </td>
-                        <td class="py-3 text-center">
-                            <div>
-                                @foreach ($reporte_de_tractor->ProgramacionDeTractor->Implementos as $implemento_programacion)
-                                {{ $implemento_programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento_programacion->Implemento->numero }},
-                                @endforeach
+                                </span>
                             </div>
                         </td>
-                        <td class="py-3 text-center">
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                             <div>
-                                <span class="font-medium">{{ date_format(date_create($reporte_de_tractor->ProgramacionDeTractor->fecha),'d-m-Y') }}</span>
-                                <div class="flex items-center justify-center">
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/implemento.png" alt="implemento" width="25">
+                                </span>
+                                <span class="font-medium">
+                                    @foreach ($reporte_de_tractor->ProgramacionDeTractor->Implementos as $implemento_reporte)
+                                        {{ $implemento_reporte->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento_reporte->Implemento->numero }},
+                                    @endforeach
+                                </span>
+                            </div>
+                        </td>
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
+                            <div>
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/fecha.svg" alt="fecha" width="25">
+                                </span>
+                                <span class="absolute font-medium md:relative">
+                                    <img class="ml-2 md:hidden" src="/img/tabla/{{ $reporte_de_tractor->ProgramacionDeTractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg" align="right" alt="turno" width="25">{{ date_format(date_create($reporte_de_tractor->ProgramacionDeTractor->fecha),'d-m-Y') }}
+                                </span>
+                                <div class="items-center justify-center hidden md:flex">
                                     <img src="/img/tabla/{{ $reporte_de_tractor->ProgramacionDeTractor->turno == 'MAÑANA' ? 'sol' : 'luna' }}.svg" alt="turno" width="25">
                                 </div>
                             </div>
                         </td>
-                        <td class="px-2 py-3 text-center">
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                             <div>
-                                <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->Lote->Fundo->fundo }} {{ $reporte_de_tractor->ProgramacionDeTractor->Lote->lote }}</span>
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/lote.png" alt="lote" width="25">
+                                </span>
+                                <span class="absolute font-medium md:relative">
+                                    <img class="ml-2 md:hidden" src="/img/frutas/{{ strtolower($reporte_de_tractor->ProgramacionDeTractor->Lote->Cultivo->cultivo) }}.png" align="right" alt="cultivo" width="25">{{ $reporte_de_tractor->ProgramacionDeTractor->Lote->Fundo->fundo }} {{ $reporte_de_tractor->ProgramacionDeTractor->Lote->lote }}
+                                </span>
+                                <div class="items-center justify-center hidden md:flex">
+                                    <img class="ml-2" src="/img/frutas/{{ strtolower($reporte_de_tractor->ProgramacionDeTractor->Lote->Cultivo->cultivo) }}.png" alt="cultivo" width="25">
+                                </div>
                             </div>
                         </td>
-                        <td class="px-2 py-3 text-center">
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                             <div>
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/labor.svg" alt="labor" width="25">
+                                </span>
                                 <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->labor->labor }}</span>
+                            </div>
+                        </td>
+                        <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
+                            <div>
+                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                    <img src="/img/tabla/solicitante.png" alt="labor" width="25">
+                                </span>
+                                <span class="font-medium">{{ $reporte_de_tractor->ProgramacionDeTractor->solicitante == null ? 'NO REGISTRADO' : $reporte_de_tractor->ProgramacionDeTractor->Solicitante->name }}</span>
                             </div>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
+            <div class="text-center">
+                <h1 class="text-4xl font-bold">
+                    CARGANDO DATOS...
+                </h1>
+            </div>
+        </div>
     @else
-        <div class="px-6 py-4">
-            No existe ningún registro coincidente
+        <div class="px-6 py-4 text-2xl font-black">
+           NO EXISTE PROGRAMACIÓN EN EL DÍA
         </div>
     @endif
-        <div class="px-4 py-4">
+        <div class="px-4 py-4" wire:loading.remove>
             {{ $reporte_de_tractores->links() }}
         </div>
 </div>

@@ -40,8 +40,10 @@ class Tabla extends Component
     }
 
     public function seleccionar($id){
-        $this->programacion_id = $id;
-        $this->emitTo('supervisor.programacion-de-tractores.botones','obtenerProgramacion',$id);
+        if($this->programacion_id != $id){
+            $this->programacion_id = $id;
+            $this->emitTo('supervisor.programacion-de-tractores.botones','obtenerProgramacion',$id);
+        }
     }
 
     public function obtenerFecha($fecha){

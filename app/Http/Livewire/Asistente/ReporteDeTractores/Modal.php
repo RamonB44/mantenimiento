@@ -22,6 +22,7 @@ class Modal extends Component
     public $correlativo;
     public $horometro_inicial;
     public $horometro_final;
+    public $solicita;
     public $deshabilitar_horometro_inicial;
 
     public $reporte_id;
@@ -53,6 +54,7 @@ class Modal extends Component
         $this->correlativo = "";
         $this->horometro_inicial = 0;
         $this->horometro_final = 0;
+        $this->solicita = 0;
         $this->fecha = date('Y-m-d');
         $this->turno = "MAÑANA";
         $this->accion = "crear";
@@ -144,12 +146,12 @@ class Modal extends Component
             if($programacion->tractor == null){
                 $implemento_programacion = ImplementoProgramacion::where('programacion_de_tractor_id',$this->programacion_id)->first();
                 $this->horometro_inicial = $implemento_programacion->Implemento->horas_de_uso;
-                $this->horometro_final = $this->horometro_inicial + 8;
                 $this->deshabilitar_horometro_inicial = true;
             }else{
                 $this->horometro_inicial = $programacion->tractor->horometro;
-                $this->horometro_final = number_format($this->horometro_inicial + 8,2);
             }
+            $this->horometro_final = "";
+            $this->solicita = $programacion->Solicitante == null ? 'NO REGISTRADO' : $programacion->Solicitante->name;
             $this->deshabilitar_horometro_inicial = $this->horometro_inicial > 0;
         }else{
             $this->reset('horometro_inicial','horometro_final');

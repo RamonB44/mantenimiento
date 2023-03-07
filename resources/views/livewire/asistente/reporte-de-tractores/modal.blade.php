@@ -36,6 +36,10 @@
                 </div>
             @endif
             @if ($programacion_id > 0)
+                <div class="py-2 md:col-span-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Solicita:</x-jet-label>
+                    <x-jet-input type="text" style="height:40px;width: 100%" value="{{$solicita}}" disabled/>
+                </div>
                 <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Fundo:</x-jet-label>
                     <x-jet-input type="text" style="height:40px;width: 100%" value="{{$fundo}}" disabled/>

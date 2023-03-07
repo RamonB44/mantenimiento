@@ -21,6 +21,8 @@ class Tabla extends Component
     public $tractor;
     public $implemento;
     public $labor;
+    public $total_de_tractores;
+    public $total_de_implementos;
 
     protected $listeners = ['render','filtrar'];
 
@@ -37,8 +39,10 @@ class Tabla extends Component
     }
 
     public function seleccionar($id){
-        $this->reporte_id = $id;
-        $this->emitTo('asistente.reporte-de-tractores.botones','obtenerReporte',$id);
+        if($this->reporte_id != $id){
+            $this->reporte_id = $id;
+            $this->emitTo('asistente.reporte-de-tractores.botones','obtenerReporte',$id);
+        }
     }
 
     public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
@@ -83,6 +87,17 @@ class Tabla extends Component
             }
             if($this->labor > 0) {
                 $q->where('labor_id',$this->labor);
+            }
+            if($this->fecha == ""){
+                $this->total_tractores = 0;
+                $this->total_implementos = 0;
+            }else{
+                $this->total_tractores = $q->count();
+                $implementos_por_programacion = $q->withCount('ImplementoProgramacion')->get();
+                $this->total_implementos = 0;
+                foreach($implementos_por_programacion as $implemento_programacion){
+                    $this->total_implementos += $implemento_programacion->implemento_programacion_count;
+                }
             }
         });
 

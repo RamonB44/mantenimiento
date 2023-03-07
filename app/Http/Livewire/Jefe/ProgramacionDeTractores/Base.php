@@ -19,6 +19,9 @@ class Base extends Component
     public function updatingSedeId(){
         $this->supervisor_id = 0;
     }
+    public function updatedSedeId(){
+        $this->emit('obtenerSupervisor',$this->sede_id,0);
+    }
     public function updatedSupervisorId(){
         $this->emit('obtenerSupervisor',$this->sede_id,$this->supervisor_id);
     }

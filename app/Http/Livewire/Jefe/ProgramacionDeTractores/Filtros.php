@@ -57,14 +57,14 @@ class Filtros extends Component
     public function obtenerSupervisor($sede_id,$supervisor_id){
         $this->resetExcept('fecha');
         $this->fecha = date('Y-m-d');
-        $this->fundos = Fundo::where('sede_id',$sede_id)->get();
+        $this->fundos = Fundo::where('sede_id',$sede_id)->orderBy('fundo','asc')->get();
         $this->lotes = [];
         $this->tractoristas = User::doesnthave('roles')->where('sede_id',$this->sede_id)->orderBy('name','asc')->get();
         $this->tractores = Tractor::where('sede_id',$sede_id)->get();
         $this->implementos = Implemento::where('sede_id',$sede_id)->get();
         $this->sede_id = $sede_id;
         $this->supervisor_id = $supervisor_id;
-        $this->labores = Labor::all();
+        $this->labores = Labor::orderBy('fundo','asc');
         $this->render();
     }
 

@@ -44,12 +44,12 @@ class Filtros extends Component
         $this->implementoid = 0;
         $this->laborid = 0;
 
-        $this->fundos = Fundo::where('sede_id',Auth::user()->sede_id)->get();
+        $this->fundos = Fundo::where('sede_id',Auth::user()->sede_id)->orderBy('fundo','asc')->get();
         $this->lotes = [];
         $this->tractoristas = User::doesnthave('roles')->where('sede_id',Auth::user()->sede_id)->orderBy('name','asc')->get();
         $this->tractores = Tractor::where('sede_id',Auth::user()->sede_id)->get();
         $this->implementos = Implemento::where('sede_id',Auth::user()->sede_id)->get();
-        $this->labores = Labor::all();
+        $this->labores = Labor::orderBy('labor','asc')->get();
     }
 
     public function abrirModal() {

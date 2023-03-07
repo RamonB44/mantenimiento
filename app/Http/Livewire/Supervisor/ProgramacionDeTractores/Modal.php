@@ -80,8 +80,8 @@ class Modal extends Component
 
     public function mount(){
         $this->yesterday = Carbon::yesterday()->isoFormat('Y-MM-DD');
-        $this->today = Carbon::today()->isoFormat('Y-MM-DD');;
-        $this->tomorrow = Carbon::tomorrow()->isoFormat('Y-MM-DD');;
+        $this->today = Carbon::today()->isoFormat('Y-MM-DD');
+        $this->tomorrow = Carbon::tomorrow()->isoFormat('Y-MM-DD');
         $this->fecha = $this->today;
         $this->turno = "MAÑANA";
         $this->solicitantes = User::whereHas('roles',function($q){
@@ -97,7 +97,7 @@ class Modal extends Component
         $this->implemento_id = array();
         $this->labor = 0;
         $this->programacion_id = 0;
-        $this->labores = Labor::all();
+        $this->labores = Labor::orderBy('labor','asc')->get();
         $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
     }
 
@@ -235,7 +235,7 @@ class Modal extends Component
 
     public function render()
     {
-        $fundos = Fundo::all();
+        $fundos = Fundo::where('sede_id',Auth::user()->sede_id)->orderBy('fundo')->get();
         if($this->fundo > 0){
             $lotes = Lote::where('fundo_id',$this->fundo)->get();
         }else{

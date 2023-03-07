@@ -6,6 +6,7 @@
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>.</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='fecha'>
                         <option value="{{ $yesterday }}">AYER</option>
                         <option value="{{ $today }}">HOY</option>
@@ -22,6 +23,18 @@
                     </select>
 
                     <x-jet-input-error for="turno"/>
+
+                </div>
+                <div class="py-2 md:col-span-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Solicita:</x-jet-label>
+                    <select class="form-select" style="width: 100%" wire:model='solicita'>
+                        <option value="0">Seleccione una opción</option>
+                        @foreach ($solicitantes as $solicitante)
+                            <option value="{{ $solicitante->id }}">{{ $solicitante->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <x-jet-input-error for="solicita"/>
 
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">

@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
         //StockSede::factory(40)->create();
         //StockOperario::factory(35)->create();
 
-        Sede::create([
+        /*Sede::create([
             'sede' => 'ICA'
         ]);
 
@@ -104,6 +104,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'supervisor',
             'guard_name' => 'supervisor',
         ]);
-        $usuario->assignRole($planificador);
+        $usuario->assignRole($planificador);*/
+        $solicitante = Role::create([
+            'name' => 'solicitante',
+            'guard_name' => 'solicitante',
+        ]);
     }
 }

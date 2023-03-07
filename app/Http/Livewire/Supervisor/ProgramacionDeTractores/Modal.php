@@ -22,6 +22,8 @@ class Modal extends Component
 
     public $fecha;
     public $turno;
+    public $solicita;
+    public $solicitantes;
     public $fundo;
     public $lote;
     public $correlativo;
@@ -34,6 +36,7 @@ class Modal extends Component
     public $yesterday;
     public $today;
     public $tomorrow;
+    public $solicitas;
 
     public $labores;
     public $modelos_implemento;
@@ -49,7 +52,8 @@ class Modal extends Component
             'tractorista' => 'required|exists:users,id',
             'labor' => 'required|exists:labors,id',
             'fecha' => 'required|date|date_format:Y-m-d',
-            'turno' => 'required|in:MAÑANA,NOCHE'
+            'turno' => 'required|in:MAÑANA,NOCHE',
+            'solicita' => 'required|exists:users,id',
         ];
     }
 
@@ -61,6 +65,7 @@ class Modal extends Component
             'labor.required' => 'Seleccione la labor',
             'fecha.required' => 'Seleccione la fecha',
             'shift.required' => 'Seleccione el turno',
+            'solicita.required' => 'Seleccione quien lo solicita',
 
             'fundo.exists' => 'La ubicación no existe',
             'lote.exists' => 'El lote no existe',
@@ -69,6 +74,7 @@ class Modal extends Component
             'fecha.date' => 'Debe ingresar un fecha',
             'date.date_format' => 'Formato incorrecto',
             'fecha.in' => 'El turno no existe',
+            'solicita.exists' => 'Seleccione quien lo solicita',
         ];
     }
 
@@ -78,6 +84,10 @@ class Modal extends Component
         $this->tomorrow = Carbon::tomorrow()->isoFormat('Y-MM-DD');;
         $this->fecha = $this->today;
         $this->turno = "MAÑANA";
+        $this->solicitantes = User::whereHas('roles',function($q){
+            $q->where('name','solicitante');
+        })->get();
+        $this->solicita = 0;
         $this->fundo = 0;
         $this->lote = 0;
         $this->tractorista = 0;
@@ -113,6 +123,7 @@ class Modal extends Component
                 array_push($this->implemento_id,$implemento->implemento_id);
             }
             $this->labor = $programacion->labor_id;
+            $this->solicita = $programacion->solicitante;
         }
         $this->open = true;
 
@@ -121,7 +132,7 @@ class Modal extends Component
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow','labor','solicita','solicitantes');
             $this->emit('reestablecerSelectImplementos');
             $this->emit('obtenerFecha',$this->fecha);
             $this->resetValidation();
@@ -166,23 +177,28 @@ class Modal extends Component
             $programacion->tractor_id = $this->tractor > 0 ? $this->tractor : null;
             $programacion->labor_id = $this->labor;
             $programacion->supervisor = Auth::user()->id;
+            $programacion->solicitante = $this->solicita;
 
             $programacion->save();
 
             ImplementoProgramacion::where('programacion_de_tractor_id',$programacion->id)->delete();
 
             foreach($this->implemento_id as $item){
-                ImplementoProgramacion::create([
-                    'programacion_de_tractor_id' => $programacion->id,
-                    'implemento_id' => $item,
-                    'operario' => Implemento::find($item)->responsable,
-                    'supervisor' => Auth::user()->id,
-                ]);
+                ImplementoProgramacion::firstOrCreate(
+                    [
+                        'programacion_de_tractor_id' => $programacion->id,
+                        'implemento_id' => $item,
+                    ],
+                    [
+                        'operario' => Implemento::find($item)->responsable,
+                        'supervisor' => Auth::user()->id,
+                    ]
+                );
             }
 
             $this->emit('alerta',['center','success','Programación Editada']);
 
-            $this->resetExcept('fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow');
+            $this->resetExcept('fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow','labor','solicita','solicitantes');
 
         }else{
             $programacion = ProgramacionDeTractor::create([
@@ -194,6 +210,7 @@ class Modal extends Component
                 'tractor_id' => $this->tractor > 0 ? $this->tractor : null,
                 'labor_id' => $this->labor,
                 'supervisor' => Auth::user()->id,
+                'solicitante' => $this->solicita,
             ]);
 
             foreach($this->implemento_id as $item){
@@ -207,7 +224,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow','labor','solicita','solicitantes');
         }
         $this->emit('reestablecerSelectImplementos');
     }

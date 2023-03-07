@@ -122,7 +122,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex wire:target='filtrar'>
+        <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
             <div class="text-center">
                 <h1 class="text-4xl font-bold">
                     CARGANDO DATOS...

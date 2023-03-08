@@ -16,7 +16,7 @@ class Tabla extends Component
 
     public function mount($supervisor_id){
         $this->supervisor_id = $supervisor_id;
-        $this->fecha = '2023-03-07';
+        $this->fecha = date('Y-m-d');
     }
 
     public function obtenerFecha($fecha){
@@ -34,7 +34,7 @@ class Tabla extends Component
 
     public function render()
     {
-        $resumen_programaciones = DB::table('resumen_de_programacion')->where('fecha',$this->fecha)->orderBy('solicitante','asc')->orderBy('turno','asc')->get();
+        $resumen_programaciones = DB::table('resumen_de_programacion')->where('fecha',$this->fecha)->orderBy('solicitante','asc')->orderBy('turno','asc')->paginate(6);
 
         return view('livewire.asistente.programacion-de-tractores.tabla',compact('resumen_programaciones'));
     }

@@ -55,7 +55,7 @@ class Filtros extends Component
     }
 
     public function obtenerSupervisor($sede_id,$supervisor_id){
-        $this->resetExcept('fecha');
+        $this->resetExcept('fecha','labores');
         $this->fecha = date('Y-m-d');
         $this->fundos = Fundo::where('sede_id',$sede_id)->orderBy('fundo','asc')->get();
         $this->lotes = [];

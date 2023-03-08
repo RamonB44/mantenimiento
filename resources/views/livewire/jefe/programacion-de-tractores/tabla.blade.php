@@ -122,19 +122,19 @@
                 @endforeach
             </tbody>
         </table>
-        <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
-            <div class="text-center">
-                <h1 class="text-4xl font-bold">
-                    CARGANDO DATOS...
-                </h1>
-            </div>
+        <div class="px-4 py-4" wire:loading.remove>
+            {{ $programacion_de_tractores->links() }}
         </div>
     @else
         <div class="px-6 py-4">
             No existe ningún registro coincidente
         </div>
     @endif
-        <div class="px-4 py-4" wire:loading.remove>
-            {{ $programacion_de_tractores->links() }}
+    <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
+        <div class="text-center">
+            <h1 class="text-4xl font-bold">
+                CARGANDO DATOS...
+            </h1>
         </div>
+    </div>
 </div>

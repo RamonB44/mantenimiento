@@ -86,7 +86,7 @@ class Modal extends Component
         $this->turno = "MAÑANA";
         $this->solicitantes = User::whereHas('roles',function($q){
             $q->where('name','solicitante');
-        })->orderBy('name','asc')->get();
+        })->where('sede_id',Auth::user()->sede_id)->orderBy('name','asc')->get();
         $this->solicita = 0;
         $this->fundo = 0;
         $this->lote = 0;

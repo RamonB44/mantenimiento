@@ -1,10 +1,11 @@
 <div>
-    <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800">
+    @if ($resumen_programaciones->count())
+    <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800" wire:loading.remove>
         <div class="col-span-2 text-lg font-black text-white">
             FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }} - SEMANA: {{ date_format(date_create($fecha),'W') }}</span>
         </div>
     </div>
-    <table class="w-full min-w-max">
+    <table class="w-full min-w-max" wire:loading.remove>
         <thead>
             <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
                 <th class="py-3 text-center">
@@ -56,4 +57,19 @@
             @endforeach
         </tbody>
     </table>
+    <div class="px-4 py-4" wire:loading.remove>
+        {{ $resumen_programaciones->links() }}
+    </div>
+    @else
+    <div class="px-6 py-4" wire:loading.remove>
+        No existe ningún registro coincidente
+    </div>
+    @endif
+    <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
+        <div class="text-center">
+            <h1 class="text-4xl font-bold">
+                CARGANDO DATOS...
+            </h1>
+        </div>
+    </div>
 </div>

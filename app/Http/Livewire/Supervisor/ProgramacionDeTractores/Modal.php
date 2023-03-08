@@ -227,7 +227,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','fundo','lote','fecha_programacion','yesterday','today','tomorrow','labor','solicita','solicitantes');
+            $this->resetExcept('open','fecha','turno','labores','modelos_implemento','modelo_de_implemento_id','fundo','lote','fecha_programacion','yesterday','today','tomorrow','labor','solicita','solicitantes');
         }
         $this->emit('reestablecerSelectImplementos');
     }

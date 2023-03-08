@@ -44,7 +44,6 @@ class Tabla extends Component
 
     public function obtenerSupervisor($sede_id,$supervisor_id){
         $this->resetExcept('fecha');
-        //$this->fecha = date('Y-m-d');
         $this->sede_id = $sede_id;
         $this->supervisor_id = $supervisor_id;
         $this->render();

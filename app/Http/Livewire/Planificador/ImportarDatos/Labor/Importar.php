@@ -37,6 +37,7 @@ class Importar extends Component
             Excel::import(new LaborsImport, $this->archivo);
             $this->emitTo('planificador.importar-datos.labor.tabla','render');
             $this->emit('alerta',['center','success','Archivo Importado']);
+            $this->emitTo('planificador.importar-datos.labor.tabla','render');
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $errores = $e->failures();
             $this->emit('alerta',['center','warning',$errores[0]->errors()]);

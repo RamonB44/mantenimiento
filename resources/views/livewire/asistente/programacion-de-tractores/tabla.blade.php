@@ -5,52 +5,67 @@
             FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }} - SEMANA: {{ date_format(date_create($fecha),'W') }}</span>
         </div>
     </div>
-    <table class="w-full min-w-max" wire:loading.remove>
-        <thead>
-            <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
-                <th class="py-3 text-center">
-                    <span>FUNDO</span>
+    <table class="block min-w-full text-center border-collapse md:table" wire:loading.remove>
+        <thead class="block md:table-header-group">
+            <tr class="absolute block text-center border border-grey-500 md:border-none md:table-row -top-full md:top-auto -left-full md:left-auto md:relative">
+                <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                    <span class="hidden sm:block">FUNDO</span>
                 </th>
-                <th class="py-3 text-center">
-                    <span>LABOR</span>
+                <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                    <span class="hidden sm:block">LABOR</span>
                 </th>
-                <th class="py-3 text-center">
-                    <span># de MÁQUINAS </span>
+                <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                    <span class="hidden sm:block"># DE MAQUINAS</span>
                 </th>
-                <th class="py-3 text-center">
-                    <span>SOLICITA</span>
+                <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                    <span class="hidden sm:block">SOLICITA</span>
                 </th>
-                <th class="py-3 text-center">
-                    <span>TURNO</span>
+                <th class="block p-2 font-bold text-center text-white bg-gray-600 md:border md:border-grey-500 md:table-cell">
+                    <span class="hidden sm:block">TURNO</span>
                 </th>
             </tr>
         </thead>
-        <tbody class="text-sm font-light text-gray-600">
+        <tbody class="block md:table-row-group">
             @foreach ($resumen_programaciones as $resumen_programacion)
-                <tr class="border-b border-gray-200 unselected">
-                    <td class="px-6 py-3 text-center">
+                <tr style="cursor: pointer" class="block font-medium bg-white border border-red-500 md:border-none md:table-row">
+                    <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                         <div>
-                            <span class="font-medium">{{$resumen_programacion->fundo}} </span>
+                            <span class="inline-block font-bold md:hidden" style="width: 90px;padding-left: 0.4rem">
+                                FUNDO :
+                            </span>
+                            <span class="font-medium">{{ $resumen_programacion->fundo }}</span>
                         </div>
                     </td>
-                    <td class="px-6 py-3 text-center">
+                    <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                         <div>
-                            <span class="font-medium">{{$resumen_programacion->labor}} </span>
+                            <span class="inline-block font-bold md:hidden" style="width: 90px;padding-left: 0.4rem">
+                                LABOR :
+                            </span>
+                            <span class="font-medium">{{ $resumen_programacion->labor }}</span>
                         </div>
                     </td>
-                    <td class="px-6 py-3 text-center">
+                    <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                         <div>
-                            <span class="font-medium">{{$resumen_programacion->numero_de_maquinas}} </span>
+                            <span class="inline-block font-bold md:hidden" style="width: 90px;padding-left: 0.4rem">
+                                # MAQ. :
+                            </span>
+                            <span class="font-medium">{{ $resumen_programacion->numero_de_maquinas }}</span>
                         </div>
                     </td>
-                    <td class="px-6 py-3 text-center">
+                    <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                         <div>
-                            <span class="font-medium">{{$resumen_programacion->solicitante}} </span>
+                            <span class="inline-block font-bold md:hidden" style="width: 90px;padding-left: 0.4rem">
+                                SOLICITA :
+                            </span>
+                            <span class="font-medium">{{ $resumen_programacion->solicitante }}</span>
                         </div>
                     </td>
-                    <td class="px-6 py-3 text-center">
+                    <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                         <div>
-                            <span class="font-medium">{{$resumen_programacion->turno}} </span>
+                            <span class="inline-block font-bold md:hidden" style="width: 90px;padding-left: 0.4rem">
+                                TURNO :
+                            </span>
+                            <span class="font-medium">{{ $resumen_programacion->turno }}</span>
                         </div>
                     </td>
                 </tr>

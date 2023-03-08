@@ -12,6 +12,8 @@ class Tabla extends Component
 
     public $usuario_id;
 
+    protected $listeners = ['render','filtrar'];
+
     public function mount()
     {
         $this->usuario_id = 0;

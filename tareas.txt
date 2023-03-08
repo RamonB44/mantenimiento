@@ -25,6 +25,7 @@ __________________
 --Poner en dicha tabla tanto la cantidad como el precio y la cantidad usada de ese pedido para controlar la diferencia de precios.
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
 Horas de los componentes - comparar con mantenimiento preventido y tiempo de vida.
+Horas de los componentes - comparar horasz con las horas del ultimo mantenimiento preventivo;
 Generar ordenes de trabajo del implemento.
 Orden de trabajo: cabecera - detalle de tareas - articulos - epps
 Salida de Materiales para la orden de trabajo.

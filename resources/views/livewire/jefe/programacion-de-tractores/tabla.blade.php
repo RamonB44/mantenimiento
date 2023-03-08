@@ -1,7 +1,7 @@
 <div>
     @if ($programacion_de_tractores->count())
         @if ($total_tractores > 0)
-        <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800">
+        <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800" wire:loading.remove>
             <div class="col-span-2 text-lg font-black text-white">
                 FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }}</span>
             </div>

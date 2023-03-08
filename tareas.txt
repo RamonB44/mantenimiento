@@ -1,11 +1,12 @@
 --------------------------------ASISTENTE: Reporte de horas-------------------------------------------------------------
 -Pedir formatos que llena.
+-Eliminar el editar y volver a ejecutarlo.
 --------------------------------JEFE: Programacion de Tractores----------------------------------------------------------
 -Habilitar botones de ayer hoy y MAÑANA
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
 -Ver solicitudes de pedido anteriores:
   --Por fecha de pedido, por sede y por ceco.
-  --Filtrar solicitudes de pedido
+  --Filtrar solicitudes de pedido.
 --Agregar tabla de ingreso de materiales por sede trigger para obtener el total pedido y lo que falta llegar - por sede.
 --------------------------------PLANNER: Importar Datos al sistema mediante excel----------------------------------------------------
 -Importar tareas mantenimiento.
@@ -24,6 +25,7 @@ __________________
 --Crear tabla de trigger para cuando valide la cantidad de un pedido se añada a dicha tabla y de ahí controlar la cantidad de pedidos y el monto total.
 --Poner en dicha tabla tanto la cantidad como el precio y la cantidad usada de ese pedido para controlar la diferencia de precios.
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
+Crear tabla_mantenimientos_preventivos con el implemento, ultimo_dia_de_mantenimiento, mantenimiento preventivo y tiempo_de_vida.
 Horas de los componentes - comparar con mantenimiento preventido y tiempo de vida.
 Horas de los componentes - comparar horasz con las horas del ultimo mantenimiento preventivo;
 Generar ordenes de trabajo del implemento.

@@ -51,7 +51,7 @@ class Filtros extends Component
         $this->tractoristas = [];
         $this->tractores = [];
         $this->implementos = [];
-        $this->labores = Labor::orderBy('fundo','asc')->get();
+        $this->labores = Labor::orderBy('labor','asc')->get();
     }
 
     public function obtenerSupervisor($sede_id,$supervisor_id){

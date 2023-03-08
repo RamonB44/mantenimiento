@@ -25,9 +25,10 @@ __________________
 --Crear tabla de trigger para cuando valide la cantidad de un pedido se añada a dicha tabla y de ahí controlar la cantidad de pedidos y el monto total.
 --Poner en dicha tabla tanto la cantidad como el precio y la cantidad usada de ese pedido para controlar la diferencia de precios.
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
-Crear tabla_mantenimientos_preventivos con el implemento, ultimo_dia_de_mantenimiento, mantenimiento preventivo y tiempo_de_vida.
+Crear tabla de componente con mantenimiento y piezas con mantenimiento;
+Mostrar por implemento, los componentes y piezas que requieren mantenimiento;
 Horas de los componentes - comparar con mantenimiento preventido y tiempo de vida.
-Horas de los componentes - comparar horasz con las horas del ultimo mantenimiento preventivo;
+Horas de los componentes - comparar horas con las horas del ultimo mantenimiento preventivo;
 Generar ordenes de trabajo del implemento.
 Orden de trabajo: cabecera - detalle de tareas - articulos - epps
 Salida de Materiales para la orden de trabajo.

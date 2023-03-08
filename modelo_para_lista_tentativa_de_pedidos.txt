@@ -1,0 +1,23 @@
+id, implemento, componente, horas_de_uso
+1 , 1	      , 2	  , 15
+2 , 1	      , 2	  , 153
+
+id, componente_mantenimiento_id, pieza, horas_de_uso
+1 , 1                          , 2    , 15
+2 , 1                          , 3    , 15
+
+select cursor_mantenimiento cursor as select * from componentes_para_mantenimiento where implemento_id = 1;
+
+if not exists(detalle_orden_trabajo where componentes_para_mantenimiento_id = 2){
+	set horas = 0;
+}else{
+	set horas = horas_de_uso;
+}
+-Validar que el componente no requira recambio;
+-Validar que la pieza no requiera recambio;
+-Validar si el componente require mantenimiento preventivo;
+-Obtener los articulos necesarios para el mantenimiento preventivo;
+if el componente requiere recambio
+
+id, codigo, articulo, solicitado, almacen, stock
+

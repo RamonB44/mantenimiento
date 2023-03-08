@@ -5,10 +5,13 @@ namespace App\Http\Livewire\Asistente\ProgramacionDeTractores;
 use App\Exports\ScheduleSummaryExport;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Tabla extends Component
 {
+    use WithPagination;
+
     public $supervisor_id;
     public $fecha;
 

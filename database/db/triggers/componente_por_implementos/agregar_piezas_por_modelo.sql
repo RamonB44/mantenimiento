@@ -4,7 +4,6 @@ BEGIN
     DECLARE pieza_id INT;
     DECLARE modelo_del_componente INT;
     DECLARE pieza_final INT DEFAULT 0;
-    DECLARE cantidad_de_horas DECIMAL(8,2);
     DECLARE cursor_piezas CURSOR FOR SELECT pieza FROM pieza_por_modelos WHERE articulo_id = new.articulo_id;
     DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET pieza_final = 1;
     OPEN cursor_piezas;
@@ -13,7 +12,11 @@ BEGIN
             IF pieza_final = 1 THEN
                 leave bucle_piezas;
             END IF;
-            INSERT INTO pieza_por_componentes (pieza,componente_por_implemento_id,horas,created_at,updated_at) VALUES (pieza_id,new.id,new.horas,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+            IF EXISTS(pieza_por_componentes) THEN
+                UPDATE pieza_por_componentes SET horas = horas + new.horas WHERE pieza = pieza_id AND componente_por_implemento_id = new.id AND estado <> 'CAMBIADO';
+            ELSE
+                INSERT INTO pieza_por_componentes (pieza,componente_por_implemento_id,horas,created_at,updated_at) VALUES (pieza_id,new.id,new.horas,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+            END IF;
         END LOOP bucle_piezas;
     CLOSE cursor_piezas;
 END $$

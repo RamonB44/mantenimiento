@@ -162,7 +162,9 @@ class Modal extends Component
 
     public function render()
     {
-        $programaciones = ProgramacionDeTractor::doesnthave('ReporteDeTractor')->where('fecha',$this->fecha)->where('turno',$this->turno)->where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->get();
+        $programaciones = ProgramacionDeTractor::doesnthave('ReporteDeTractor')->where('fecha',$this->fecha)->where('turno',$this->turno)->where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)->get()->sortBy(function($programacion_de_tractor,$key){
+            return $programacion_de_tractor->Tractor->ModeloDeTractor->modelo_de_tractor.' '.$programacion_de_tractor->Tractor->numero;
+        });
 
         if($this->programacion_id > 0){
             $this->emit('focus',['correlativo']);

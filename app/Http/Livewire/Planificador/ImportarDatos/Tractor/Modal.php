@@ -7,6 +7,7 @@ use App\Models\Sede;
 use App\Models\Tractor;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Modal extends Component
@@ -17,6 +18,7 @@ class Modal extends Component
     public $sedes;
     public $modelo_de_tractor;
     public $modelo_de_tractor_antiguo;
+    public $modelo_de_tractor_actual;
     public $numero;
 
     protected $listeners = ['abrirModal'];
@@ -25,7 +27,12 @@ class Modal extends Component
         return [
             'sede_id' => 'required|exists:sedes,id',
             'modelo_de_tractor' => 'required',
-            'numero' => 'required|unique:tractors,numero,'.$this->tractor_id,
+            'numero' => [
+                'required',
+                Rule::unique('tractors')->where(function ($q){
+                    return $q->where('modelo_de_tractor_id',$this->modelo_de_tractor_actual)->where('numero',$this->numero);
+                })->ignore($this->tractor_id)
+            ]
         ];
     }
     public function mount() {
@@ -56,12 +63,12 @@ class Modal extends Component
     }
 
     public function registrar(){
+        $this->modelo_de_tractor_actual = ModeloDeTractor::firstOrCreate(['modelo_de_tractor' => strtoupper($this->modelo_de_tractor)])->id;
         $this->validate();
-        $modelo_de_tractor = ModeloDeTractor::firstOrCreate(['modelo_de_tractor' => strtoupper($this->modelo_de_tractor)]);
         if($this->tractor_id > 0){
             $tractor = Tractor::find($this->tractor_id);
             $tractor->sede_id = $this->sede_id;
-            $tractor->modelo_de_tractor_id = $modelo_de_tractor->id;
+            $tractor->modelo_de_tractor_id = $this->modelo_de_tractor_actual;
             $tractor->numero = $this->numero;
             $tractor->save();
             if(Tractor::where('modelo_de_tractor_id',$this->modelo_de_tractor_antiguo)->doesntExist()){
@@ -71,7 +78,7 @@ class Modal extends Component
         }else{
             Tractor::create([
                 'sede_id' => $this->sede_id,
-                'modelo_de_tractor_id' => $modelo_de_tractor->id,
+                'modelo_de_tractor_id' => $this->modelo_de_tractor_actual,
                 'numero' => $this->numero
             ]);
             $this->emit('alerta',['center','success','Agregado']);

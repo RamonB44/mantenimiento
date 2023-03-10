@@ -10,7 +10,7 @@ BEGIN
     SELECT tractor_id INTO tractor FROM programacion_de_tractors WHERE id = new.programacion_de_tractor_id LIMIT 1;
     IF tractor IS NOT NULL THEN
         UPDATE tractors SET horometro = new.horometro_final WHERE id = tractor;
-        SET horas = 6.8;
+        SET horas = (new.horometro_final - new.horometro_inicial)*0.85;
     ELSE
         SET horas = new.horometro_final - new.horometro_inicial;
     END IF;

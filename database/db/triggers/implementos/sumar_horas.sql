@@ -20,11 +20,6 @@ BEGIN
             ELSE
                 UPDATE componente_por_implementos SET horas = horas + cantidad_de_horas, updated_at = CURRENT_TIMESTAMP() WHERE articulo_id = componente AND implemento_id = new.id AND estado <> "CAMBIADO";
             END IF;
-            IF EXISTS(SELECT * FROM componentes_para_mantenimientos WHERE modelo_id = componente AND modelo_type = 'App\Models\ComponentesParaMantenimiento' AND orden_de_trabajo_id IS NULL) THEN
-                UPDATE componentes_para_mantenimientos SET horas_de_uso = horas_de_uso + cantidad_de_horas WHERE modelo_id = componente AND modelo_type = 'App\Models\ComponentesParaMantenimiento' AND orden_de_trabajo_id IS NULL;
-            ELSE
-                INSERT INTO componentes_para_mantenimientos(modelo_id,modelo_type,horas_de_uso,created_at,updated_at) VALUES (componente,'App\Models\ComponentesParaMantenimiento',cantidad_de_horas,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
-            END IF;
         END LOOP bucle_componentes;
     CLOSE cursor_componentes;
     END IF;

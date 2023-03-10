@@ -40,6 +40,7 @@
               @endrole
 
               @role('planificador')
+              <a href="{{ route('planificador.horas-implementos') }}" class="{{ request()->routeIs('planificador.horas-implementos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Implementos</a>
               <a href="{{ route('planificador.validar-solicitud-de-articulos') }}" class="{{ request()->routeIs('planificador.validar-solicitud-de-articulos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Validar Solicitud de Artículos</a>
               <a href="{{ route('planificador.importar-datos') }}" class="{{ request()->routeIs('planificador.importar-datos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Importar Datos</a>
               @endrole

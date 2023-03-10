@@ -19,7 +19,7 @@ class PiezaPorComponente extends Model
     	return $this->belongsTo(Articulo::class,'articulo_id','id');
     }
 
-    public function componentes_para_mantenimientos(){
+    public function ComponentesParaMantenimiento(){
         return $this->morphMany(ComponentesParaMantenimiento::class,'modelo');
     }
 }

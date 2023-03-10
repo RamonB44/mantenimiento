@@ -72,4 +72,7 @@ class User extends Authenticatable
     public function ProgramacionDeTractor(){
         return $this->hasMany(ProgramacionDeTractor::class,'tractorista');
     }
+    public function Implementos(){
+        return $this->hasMany(Implemento::class,'responsable');
+    }
 }

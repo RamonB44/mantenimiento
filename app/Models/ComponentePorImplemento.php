@@ -11,7 +11,10 @@ class ComponentePorImplemento extends Model
 
     protected $guarded = [];
 
-    public function componentes_para_mantenimientos(){
+    public function ComponentesParaMantenimiento(){
         return $this->morphMany(ComponentesParaMantenimiento::class,'modelo');
+    }
+    public function Articulo(){
+        return $this->belongsTo(Articulo::class);
     }
 }

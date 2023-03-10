@@ -12,6 +12,8 @@ class Tabla extends Component
 
     public $tractor_id;
 
+    protected $listeners = ['render'];
+
     public function mount()
     {
         $this->tractor_id = 0;

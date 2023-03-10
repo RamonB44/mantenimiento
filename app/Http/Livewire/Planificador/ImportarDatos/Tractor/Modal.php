@@ -16,7 +16,7 @@ class Modal extends Component
     public $sede_id;
     public $sedes;
     public $modelo_de_tractor;
-    private $modelo_de_tractor_antiguo;
+    public $modelo_de_tractor_antiguo;
     public $numero;
 
     protected $listeners = ['abrirModal'];
@@ -33,7 +33,7 @@ class Modal extends Component
         $this->sede_id = 0;
         $this->sedes = Sede::select('id','sede')->get();
         $this->modelo_de_tractor = "";
-        $this->modelo_de_tractor_antiguo = "";
+        $this->modelo_de_tractor_antiguo = 0;
         $this->numero = 0;
     }
 
@@ -47,7 +47,7 @@ class Modal extends Component
         if($id > 0){
             $tractor = Tractor::find($id);
             $this->sede_id = $tractor->sede_id;
-            $this->modelo_de_tractor_antiguo = $tractor->ModeloDeTractor->modelo_de_tractor;
+            $this->modelo_de_tractor_antiguo = $tractor->modelo_de_tractor_id;
             $this->modelo_de_tractor = $tractor->ModeloDeTractor->modelo_de_tractor;
             $this->numero = $tractor->numero;
         }
@@ -57,18 +57,15 @@ class Modal extends Component
 
     public function registrar(){
         $this->validate();
-        $modelo_de_tractor = ModeloDeTractor::firstOrCreate(['modelo_de_tractor' => $this->modelo_de_tractor]);
+        $modelo_de_tractor = ModeloDeTractor::firstOrCreate(['modelo_de_tractor' => strtoupper($this->modelo_de_tractor)]);
         if($this->tractor_id > 0){
             $tractor = Tractor::find($this->tractor_id);
             $tractor->sede_id = $this->sede_id;
             $tractor->modelo_de_tractor_id = $modelo_de_tractor->id;
             $tractor->numero = $this->numero;
             $tractor->save();
-            if(Tractor::whereHas('ModeloDeTractor',function($q){
-                $q->where('modelo_de_tractor',$this->modelo_de_tractor_antiguo);
-            })->doesntExist()){
-                $modelo_de_tractor_antiguo = ModeloDeTractor::where('modelo_de_tractor',$this->modelo_de_tractor_antiguo)->first();
-                ModeloDeTractor::find($modelo_de_tractor_antiguo->id)->delete();
+            if(Tractor::where('modelo_de_tractor_id',$this->modelo_de_tractor_antiguo)->doesntExist()){
+                ModeloDeTractor::find($this->modelo_de_tractor_antiguo)->delete();
             }
             $this->emit('alerta',['center','success','Actualizado']);
         }else{
@@ -79,6 +76,7 @@ class Modal extends Component
             ]);
             $this->emit('alerta',['center','success','Agregado']);
         }
+        $this->emitTo('planificador.importar-datos.tractor.tabla','render');
         $this->resetExcept('sedes');
 
     }

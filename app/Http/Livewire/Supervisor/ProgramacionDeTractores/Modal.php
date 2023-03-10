@@ -237,7 +237,7 @@ class Modal extends Component
     {
         $fundos = Fundo::where('sede_id',Auth::user()->sede_id)->orderBy('fundo')->get();
         if($this->fundo > 0){
-            $lotes = Lote::where('fundo_id',$this->fundo)->get();
+            $lotes = Lote::where('fundo_id',$this->fundo)->orderBy('lote','asc')->get();
         }else{
             $lotes = [];
         }
@@ -267,7 +267,7 @@ class Modal extends Component
                     ModeloDeTractor::select('modelo_de_tractor')
                         ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
                     'asc'
-                )->orderBy('numero','desc')->get();
+                )->orderBy('numero','asc')->get();
                 $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ImplementoProgramacion',function($q){
                     $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0);
                 });

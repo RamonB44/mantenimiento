@@ -13,7 +13,7 @@ class Botones extends Component
     public $material_nuevo;
     public $boton_activo;
 
-    protected $listeners = ['cambiarMaterialNuevo','cambiarImplemento_id'];
+    protected $listeners = ['cambiarMaterialNuevo','cambiarImplemento'];
 
     public function mount($implemento_id,$fecha_de_pedido){
         $this->fecha_de_pedido = $fecha_de_pedido;
@@ -23,7 +23,10 @@ class Botones extends Component
     }
 
     public function cambiarImplemento($id){
-        $this->implemento_id = $id;
+        if($id > 0){
+            $this->implemento_id = $id;
+        }
+
     }
 
     public function cambiarMaterialNuevo($id){

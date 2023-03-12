@@ -18,7 +18,8 @@ __________________
 ------------------
 -----------------------------PLANNER: Agregar materiales pedidos al stock---------------------
 --Ver stock actual por sede.
---Exportar un excel con las cantidad faltantes para que se complete el pedido realizado.
+--Al validar el pedido agregar dicha cantidad al stock del operario;(URGENTE)
+--Exportar un excel con las cantidad faltantes(cantidad_validada - cantidad_usada) para que se complete el pedido realizado.
 --Importar el stock con la fecha de pedido y la sede actual.
 --Agregar materiales al stock de la sede dependiendo la fecha de pedido.
 --Cambiar tabla ingreso de materiales referenciando a la sede y a la fecha de pedido.

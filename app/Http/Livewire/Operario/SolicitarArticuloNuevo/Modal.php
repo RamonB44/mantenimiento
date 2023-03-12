@@ -54,7 +54,9 @@ class Modal extends Component
     }
 
     public function cambiarImplemento($id){
-        $this->implemento_id = $id;
+        if($id > 0){
+            $this->implemento_id = $id;
+        }
     }
 
     public function udpatedImagen(){

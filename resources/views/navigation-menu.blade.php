@@ -43,6 +43,7 @@
               <a href="{{ route('planificador.horas-implementos') }}" class="{{ request()->routeIs('planificador.horas-implementos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Implementos</a>
               <a href="{{ route('planificador.validar-solicitud-de-articulos') }}" class="{{ request()->routeIs('planificador.validar-solicitud-de-articulos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Validar Solicitud de Artículos</a>
               <a href="{{ route('planificador.importar-datos') }}" class="{{ request()->routeIs('planificador.importar-datos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Importar Datos</a>
+              <a href="{{ route('planificador.stock') }}" class="{{ request()->routeIs('planificador.stock') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Stock</a>
               @endrole
             </div>
           </div>
@@ -99,10 +100,11 @@
         @role('asistente')
         <a href="{{ route('asistente.programacion-de-tractores') }}" class="{{ request()->routeIs('asistente.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programacion</a>
         <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Reporte</a>
+        <a href="{{ route('planificador.stock') }}" class="{{ request()->routeIs('planificador.stock') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Importar Datos</a>
         @endrole
 
         @role('planificador')
-        <a href="{{ route('planificador.validar-solicitud-de-articulos') }}" class="{{ request()->routeIs('planificador.validar-solicitud-de-articulos') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Validar Pedidos</a>
+        <a href="{{ route('planificador.validar-solicitud-de-articulos') }}" class="{{ request()->routeIs('planificador.validar-solicitud-de-articulos') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Stock</a>
         @endrole
       </div>
     </div>

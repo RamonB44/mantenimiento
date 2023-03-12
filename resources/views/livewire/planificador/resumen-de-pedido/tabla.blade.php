@@ -27,6 +27,9 @@
                         <th class="py-3 text-center">
                             <span>Total</span>
                         </th>
+                        <th class="py-3 text-center">
+                            <span>Almacén</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="text-sm font-light text-gray-600">
@@ -46,17 +49,22 @@
                             </td>
                             <td class="px-6 py-3 text-center">
                                 <div>
-                                    <span class="font-bold text-red-600">{{ $lista_de_material->cantidad }}</span>
+                                    <span class="font-bold">{{ $lista_de_material->cantidad }}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-3 text-center">
                                 <div>
-                                    <span class="font-bold text-red-600">S/. {{ $lista_de_material->precio }}</span>
+                                    <span class="font-bold">S/. {{ $lista_de_material->precio }}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-3 text-center">
                                 <div>
-                                    <span class="font-bold text-red-600">{{ floatval($lista_de_material->total) }}</span>
+                                    <span class="font-bold">{{ floatval($lista_de_material->total) }}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-3 text-center">
+                                <div>
+                                    <span class="font-bold">{{ floatval($lista_de_material->almacen) }}</span>
                                 </div>
                             </td>
                         </tr>

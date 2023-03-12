@@ -26,21 +26,21 @@
                 <div class="grid grid-cols-1">
                     <div class="py-2 text-center" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Código:</x-jet-label>
-                        <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model="codigo" />
+                        <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model.defer="codigo" />
 
                         <x-jet-input-error for="codigo"/>
 
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Nombre:</x-jet-label>
-                        <x-jet-input type="text" style="height:30px;width: 100%;text-align: center" wire:model="articulo" />
+                        <x-jet-input type="text" style="height:30px;width: 100%;text-align: center" wire:model.defer="articulo" />
 
                         <x-jet-input-error for="articulo"/>
 
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Tipo: </x-jet-label>
-                        <select class="form-select" style="width: 100%;text-align: center" wire:model='tipo'>
+                        <select class="form-select" style="width: 100%;text-align: center" wire:model.defer='tipo'>
                             <option value="">Seleccione una opción</option>
                             <option>FUNGIBLE</option>
                             <option>HERRAMIENTA</option>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                         <x-jet-label>Unidad de Medida: </x-jet-label>
-                        <select class="form-select" style="width: 100%;text-align: center" wire:model='unidad_de_medida_id'>
+                        <select class="form-select" style="width: 100%;text-align: center" wire:model.defer='unidad_de_medida_id'>
                             <option value="">Seleccione una opción</option>
                             @foreach ($unidades_de_medida as $unidad_de_medida)
                                 <option value="{{ $unidad_de_medida->id }}">{{ $unidad_de_medida->unidad_de_medida }} </option>
@@ -63,14 +63,14 @@
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem; padding-right:1rem">
                         <x-jet-label>Precio Unitario:</x-jet-label>
-                        <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model="precio" />
+                        <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model.defer="precio" />
 
                         <x-jet-input-error for="precio"/>
 
                     </div>
                     <div class="py-2" style="padding-left: 1rem; padding-right:1rem; padding-right:1rem">
                         <x-jet-label>Cantidad:</x-jet-label>
-                        <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model="cantidad" />
+                        <x-jet-input type="number" min="0" style="height:30px;width: 100%;text-align: center" wire:model.defer="cantidad" />
 
                         <x-jet-input-error for="cantidad"/>
 

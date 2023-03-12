@@ -1,6 +1,9 @@
-<div class="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-1" wire:loading.remove>
+<div class="grid grid-cols-1 gap-4 mt-2 sm:grid-cols-1" wire:loading.remove>
+    <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+        <x-jet-input type="text" style="height:40px;width: 100%" wire:model.lazy="articulo" id="articulo" placeholder="Ingrese el articulo"/>
+    </div>
     @if($stock->count())
-        <div style="overflow:auto">
+        <div style="height: 400px;overflow:auto">
             <table class="w-full min-w-max">
                 <thead>
                     <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
@@ -30,8 +33,9 @@
                 </tbody>
             </table>
         </div>
-        <div>
-            {{ $stock->links() }}
+    @else
+        <div class="px-6 py-4">
+            No existe ningún registro coincidente
         </div>
     @endif
 </div>

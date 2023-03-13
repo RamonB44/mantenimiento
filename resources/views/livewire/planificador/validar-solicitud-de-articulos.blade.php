@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
     @if ($existe_pedido)
     <div style="display:flex; align-items:center;justify-content:center;margin-bottom:15px">
         <h1 class="text-2xl font-bold text-center">PEDIDO DE {{  strtoupper($mes_de_pedido)  }} </h1>

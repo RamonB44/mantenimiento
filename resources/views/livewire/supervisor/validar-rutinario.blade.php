@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
     @livewire('supervisor.validar-rutinario.botones')
     @livewire('supervisor.validar-rutinario.filtros')
     @livewire('supervisor.validar-rutinario.tabla')

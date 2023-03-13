@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
     <div class="grid grid-cols-1 {{ $sede_id > 0 ? 'sm:grid-cols-2' : 'sm:grid-cols-1' }}">
         <div class="p-4" style="padding-left: 1rem; padding-right:1rem">
             <select class="form-control" id="id_implemento" style="width: 100%" wire:model='sede_id'>

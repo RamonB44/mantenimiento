@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
     @livewire('supervisor.programacion-de-tractores.botones')
     @livewire('supervisor.programacion-de-tractores.filtros')
     @livewire('supervisor.programacion-de-tractores.tabla')

@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
     @livewire('asistente.reporte-de-tractores.botones')
     @livewire('asistente.reporte-de-tractores.exportar')
     @livewire('asistente.reporte-de-tractores.filtros')

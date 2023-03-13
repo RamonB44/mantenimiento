@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
 <div class="p-4" style="padding-left: 1rem; padding-right:1rem">
     <div class="grid items-center grid-cols-2 p-2 bg-white">
         <div class="p-4" style="padding-left: 1rem; padding-right:1rem">

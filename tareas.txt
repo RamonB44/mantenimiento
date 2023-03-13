@@ -1,5 +1,4 @@
 --------------------------------ASISTENTE: Reporte de horas-------------------------------------------------------------
--Pedir formatos que llena.
 -Eliminar el editar y volver a ejecutarlo.
 --------------------------------JEFE: Programacion de Tractores----------------------------------------------------------
 -Habilitar botones de ayer hoy y MAÑANA
@@ -18,6 +17,7 @@ __________________
 ------------------
 -----------------------------PLANNER: Agregar materiales pedidos al stock---------------------
 --Exportar un excel con las cantidad faltantes(cantidad_validada - cantidad_usada) para que se complete el pedido realizado.
+--Triggers al agregar material al almacen(sumar cantidad a stock_sede y aumentar cantidad llegada a detalle de pedido)
 --Importar el stock con la fecha de pedido y la sede actual.
 --Agregar materiales al stock de la sede dependiendo la fecha de pedido.
 --Cambiar tabla ingreso de materiales referenciando a la sede y a la fecha de pedido.

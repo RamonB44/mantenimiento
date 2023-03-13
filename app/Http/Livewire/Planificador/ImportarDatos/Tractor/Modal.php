@@ -30,7 +30,7 @@ class Modal extends Component
             'numero' => [
                 'required',
                 Rule::unique('tractors')->where(function ($q){
-                    return $q->where('modelo_de_tractor_id',$this->modelo_de_tractor_actual)->where('numero',$this->numero);
+                    return $q->where('modelo_de_tractor_id',$this->modelo_de_tractor_actual)->where('numero',$this->numero)->where('sede_id',$this->sede_id);
                 })->ignore($this->tractor_id)
             ]
         ];

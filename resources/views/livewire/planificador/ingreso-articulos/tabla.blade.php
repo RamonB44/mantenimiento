@@ -3,6 +3,7 @@
         <x-boton-crud accion="$emitTo('planificador.ingreso-articulos.importar','abrirModal')" padding="2" color="green">Importar</x-boton-crud>
         <x-boton-crud accion="$emitTo('planificador.ingreso-articulos.filtros','abrirModal')" padding="2" color="indigo">Filtros</x-boton-crud>
     </div>
+    @livewire('planificador.ingreso-articulos.importar', ['sede_id' => $sede_id])
     @if ($ingreso_materiales->count())
     <table class="block min-w-full text-center border-collapse md:table" wire:loading.remove>
         <thead class="block md:table-header-group">

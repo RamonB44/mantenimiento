@@ -142,7 +142,9 @@
     <script>
         var implementos = [];
         document.addEventListener('livewire:load', function() {
-            $('.select2').select2();
+            $('.select2').select2({
+                language: "es"
+            });
             $('#implementos_id').on('select2:selecting select2:unselecting', function(event) {
                 if(implementos == null) {
                     implementos = [];

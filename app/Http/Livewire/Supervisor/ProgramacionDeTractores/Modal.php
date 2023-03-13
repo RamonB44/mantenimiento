@@ -92,7 +92,9 @@ class Modal extends Component
         $this->lote = 0;
         $this->tractorista = 0;
         $this->tractor = 0;
-        $this->modelos_implemento = ModeloDelImplemento::orderBy('modelo_de_implemento','asc')->select('id','modelo_de_implemento')->get();
+        $this->modelos_implemento = ModeloDelImplemento::whereHas('Implemento',function($q){
+            $q->where('sede_id',Auth::user()->sede_id);
+        })->orderBy('modelo_de_implemento','asc')->select('id','modelo_de_implemento')->get();
         $this->modelo_de_implemento_id = 0;
         $this->implemento_id = array();
         $this->labor = 0;

@@ -70,6 +70,17 @@
             Livewire.on('estiloSelect2',() => {
                 $('.select2').select2({
                     theme: 'classic',
+                    language: {
+
+                        noResults: function() {
+
+                        return "No hay resultado";
+                        },
+                        searching: function() {
+
+                        return "Buscando..";
+                        }
+                    }
                 });
             });
 

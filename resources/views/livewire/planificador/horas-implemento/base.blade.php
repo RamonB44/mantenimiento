@@ -19,6 +19,6 @@
         </div>
         @endif
     </div>
-    @livewire('planificador.horas-implemento.implemento', ['sede_id' => $sede_id])
+    @livewire('planificador.horas-implemento.implementos', ['sede_id' => $sede_id])
 
 </div>

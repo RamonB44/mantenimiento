@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('sede_id')->constrained();
             $table->foreignId('centro_de_costo_id')->constrained();
             $table->timestamps();
-            $table->unique(['modelo_del_implemento_id','numero']);
+            $table->unique(['modelo_del_implemento_id','numero','sede_id']);
         });
     }
 

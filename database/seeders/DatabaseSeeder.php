@@ -60,19 +60,19 @@ class DatabaseSeeder extends Seeder
         //StockSede::factory(40)->create();
         //StockOperario::factory(35)->create();
 
-        /*Sede::create([
-            'sede' => 'ICA'
+        Sede::create([
+            'sede' => 'CHINCHA'
         ]);
 
         $usuario = User::create([
-            'codigo' => '419738',
-            'dni' => '70821326',
-            'name' => 'CARLOS DANIEL ESCATE ROMÁN',
+            'codigo' => '442479',
+            'dni' => '71883064',
+            'name' => 'LURITA MENDOZA GIOVANNI DUVAN',
             'email' => null,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'is_admin' => false,
-            'sede_id' => 1,
+            'sede_id' => 2,
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
             'current_team_id' => null,
         ]);
 
-        $jefe = Role::create([
+        /*$jefe = Role::create([
             'name' => 'jefe',
             'guard_name' => 'jefe',
         ]);
@@ -103,11 +103,12 @@ class DatabaseSeeder extends Seeder
         $supervisor = Role::create([
             'name' => 'supervisor',
             'guard_name' => 'supervisor',
-        ]);
-        $usuario->assignRole($planificador);*/
-        $solicitante = Role::create([
+        ]);*/
+        $planificador = Role::find(4);
+        $usuario->assignRole($planificador);
+        /*$solicitante = Role::create([
             'name' => 'solicitante',
             'guard_name' => 'solicitante',
-        ]);
+        ]);*/
     }
 }

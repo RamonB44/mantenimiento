@@ -46,7 +46,6 @@ class Tabla extends Component
         $this->resetExcept('fecha');
         $this->sede_id = $sede_id;
         $this->supervisor_id = $supervisor_id;
-        $this->render();
     }
 
     public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){

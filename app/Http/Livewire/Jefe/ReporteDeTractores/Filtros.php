@@ -30,7 +30,7 @@ class Filtros extends Component
     public $implementos;
     public $labores;
 
-    protected $listeners = ['abrirModal','obtenerAsistente'];
+    protected $listeners = ['abrirModal','obtenerSede'];
 
     public function mount(){
         $this->open = false;
@@ -51,7 +51,7 @@ class Filtros extends Component
         $this->labores = Labor::orderBy('labor','asc')->get();
     }
 
-    public function obtenerAsistente($sede_id,$asistente_id){
+    public function obtenerSede($sede_id){
         $this->resetExcept('fecha','labores');
         $this->fecha = date('Y-m-d');
         $this->fundos = Fundo::where('sede_id',$sede_id)->orderBy('fundo','asc')->get();
@@ -75,7 +75,7 @@ class Filtros extends Component
     }
 
     public function filtrar(){
-        $this->emitTo('asistente.reporte-de-tractores.tabla','filtrar',$this->fecha, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
+        $this->emitTo('jefe.reporte-de-tractores.tabla','filtrar',$this->fecha, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
         $this->open = false;
     }
 

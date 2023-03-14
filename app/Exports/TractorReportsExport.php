@@ -14,9 +14,11 @@ class TractorReportsExport implements FromCollection,ShouldAutoSize,WithHeadings
 {
 
     private $fecha;
+    private $sede;
 
-    public function __construct($fecha){
+    public function __construct($fecha,$sede = 0){
         $this->fecha = $fecha;
+        $this->sede = $sede > 0 ? $sede : Auth::user()->sede_id;
     }
 
     public function headings(): array
@@ -52,6 +54,6 @@ class TractorReportsExport implements FromCollection,ShouldAutoSize,WithHeadings
 
     public function collection()
     {
-        return DB::table('vista_reporte_de_tractores')->select('sede','fecha','turno','fundo','lote','correlativo','codigo_tractorista','tractorista','tractor','horometro_inicial','horometro_final','implementos','labor')->where('sede_id',Auth::user()->sede_id)->where('fecha',$this->fecha)->orderBy('turno')->get();
+        return DB::table('vista_reporte_de_tractores')->select('sede','fecha','turno','fundo','lote','correlativo','codigo_tractorista','tractorista','tractor','horometro_inicial','horometro_final','implementos','labor')->where('sede_id',$this->sede)->where('fecha',$this->fecha)->orderBy('turno')->get();
     }
 }

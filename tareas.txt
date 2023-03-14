@@ -1,5 +1,5 @@
 --------------------------------ASISTENTE: Reporte de horas-------------------------------------------------------------
--Eliminar el editar y volver a ejecutarlo.
+--Modificar el exportar para que concuerde con la fecha del filtro de la tabla.
 --------------------------------JEFE: Programacion de Tractores----------------------------------------------------------
 -Habilitar botones de ayer hoy y MAÑANA
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------

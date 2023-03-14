@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('ingreso_articulos', function (Blueprint $table) {
-            $table->decimal('cantidad_ingresada',8,2)->after('precio')->default(0);
+            $table->decimal('cantidad_usada',8,2)->after('precio')->default(0);
         });
     }
 

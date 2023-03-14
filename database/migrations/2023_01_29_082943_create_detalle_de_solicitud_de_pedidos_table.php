@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('precio',8,2);
             $table->enum('estado',['PENDIENTE','RECHAZADO','VALIDADO','CONCLUIDO'])->default('PENDIENTE');
             $table->text('observacion')->nullable();
-            $table->decimal('cantidad_usada',8,2)->default(0);
+            $table->decimal('cantidad_llegada',8,2)->default(0);
             $table->timestamps();
         });
     }

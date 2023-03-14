@@ -9,9 +9,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class ScheduleSummaryExport implements FromCollection,WithHeadings,WithStyles,WithEvents
+class MissingAmountExport implements FromCollection,WithHeadings,WithStyles,WithEvents
 {
-
     private $data;
 
     public function __construct($data){
@@ -21,11 +20,11 @@ class ScheduleSummaryExport implements FromCollection,WithHeadings,WithStyles,Wi
     public function headings(): array
     {
         return [
-            'FUNDO',
-            'LABOR',
-            '# DE MÁQUINAS',
-            'SOLICITA',
-            'TURNO'
+            'SEDE',
+            'ARTICULO',
+            'CANTIDAD FALTANTE',
+            'CANTIDAD LLEGADA',
+            'PRECIO',
         ];
     }
 
@@ -80,4 +79,5 @@ class ScheduleSummaryExport implements FromCollection,WithHeadings,WithStyles,Wi
     {
         return $this->data;
     }
+
 }

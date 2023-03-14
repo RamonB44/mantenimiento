@@ -4,6 +4,9 @@
             <thead>
                 <tr class="text-sm leading-normal text-gray-600 uppercase bg-gray-200">
                     <th class="py-3 text-center">
+                        <span class="hidden sm:block">Sede</span>
+                    </th>
+                    <th class="py-3 text-center">
                         <span class="hidden sm:block">Codigo</span>
                     </th>
                     <th class="py-3 text-center">
@@ -19,7 +22,12 @@
             </thead>
             <tbody class="text-sm font-light text-gray-600">
                 @foreach ($usuarios as $usuario)
-                    <tr style="cursor:pointer" wire:click="seleccionar({{$usuario->id}})" class="border-b {{ $usuario->id == $usuario_id ? 'bg-blue-200' : '' }} border-gray-200">
+                    <tr style="cursor:pointer" wire:click="$emit('obtenerUsuario',{{$usuario->id}})" class="border-b {{ $usuario->id == $usuario_id ? 'bg-blue-200' : '' }} border-gray-200">
+                        <td class="py-3 text-center">
+                            <div>
+                                <span class="font-medium">{{ $usuario->Sede->sede }}</span>
+                            </div>
+                        </td>
                         <td class="py-3 text-center">
                             <div>
                                 <span class="font-medium">{{ $usuario->codigo }}</span>

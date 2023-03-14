@@ -10,10 +10,10 @@
         </div>
         @if ($sede_id > 0)
         <div class="p-4" style="padding-left: 1rem; padding-right:1rem">
-            <select class="form-control" style="width: 100%" wire:model='supervisor_id'>
-                <option value="0" class="font-bold text-center text-md">Seleccione el supervisor</option>
-                @foreach ($supervisores as $supervisor)
-                <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
+            <select class="form-control" style="width: 100%" wire:model='asistente_id'>
+                <option value="0" class="font-bold text-center text-md">Seleccione el asistente</option>
+                @foreach ($asistentes as $asistente)
+                <option value="{{ $asistente->id }}">{{ $asistente->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -23,8 +23,8 @@
         <div class="grid items-center grid-cols-3 p-2 bg-white">
             <x-boton-crud accion="$emit('pdf')" color="red">PDF</x-boton-crud>
             <x-boton-crud accion="$emit('excel')" color="green">EXCEL</x-boton-crud>
-            @livewire('jefe.programacion-de-tractores.filtros',['sede_id' => $sede_id])
+            @livewire('jefe.reporte-de-tractores.filtros',['sede_id' => $sede_id])
         </div>
-        @livewire('jefe.programacion-de-tractores.tabla', ['sede_id' => $sede_id,'supervisor_id' => $supervisor_id])
+        @livewire('jefe.reporte-de-tractores.tabla', ['sede_id' => $sede_id,'asistente_id' => $asistente_id])
     @endif
 </div>

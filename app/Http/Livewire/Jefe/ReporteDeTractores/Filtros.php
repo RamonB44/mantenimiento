@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Jefe\ProgramacionDeTractores;
+namespace App\Http\Livewire\Jefe\ReporteDeTractores;
 
 use App\Models\Fundo;
 use App\Models\Implemento;
@@ -8,7 +8,6 @@ use App\Models\Labor;
 use App\Models\Lote;
 use App\Models\Tractor;
 use App\Models\User;
-use Carbon\Carbon;
 use Livewire\Component;
 
 class Filtros extends Component
@@ -31,7 +30,7 @@ class Filtros extends Component
     public $implementos;
     public $labores;
 
-    protected $listeners = ['obtenerSupervisor'];
+    protected $listeners = ['abrirModal','obtenerAsistente'];
 
     public function mount(){
         $this->open = false;
@@ -52,7 +51,7 @@ class Filtros extends Component
         $this->labores = Labor::orderBy('labor','asc')->get();
     }
 
-    public function obtenerSupervisor($sede_id,$supervisor_id){
+    public function obtenerAsistente($sede_id,$asistente_id){
         $this->resetExcept('fecha','labores');
         $this->fecha = date('Y-m-d');
         $this->fundos = Fundo::where('sede_id',$sede_id)->orderBy('fundo','asc')->get();
@@ -61,6 +60,10 @@ class Filtros extends Component
         $this->tractores = Tractor::where('sede_id',$sede_id)->get();
         $this->implementos = Implemento::where('sede_id',$sede_id)->get();
         $this->sede_id = $sede_id;
+    }
+
+    public function abrirModal() {
+        $this->open = true;
     }
 
     public function updatedFundoid() {
@@ -72,12 +75,12 @@ class Filtros extends Component
     }
 
     public function filtrar(){
-        $this->emitTo('jefe.programacion-de-tractores.tabla','filtrar',$this->fecha, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
+        $this->emitTo('asistente.reporte-de-tractores.tabla','filtrar',$this->fecha, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
         $this->open = false;
     }
 
     public function render()
     {
-        return view('livewire.jefe.programacion-de-tractores.filtros');
+        return view('livewire.jefe.reporte-de-tractores.filtros');
     }
 }

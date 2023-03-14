@@ -88,8 +88,16 @@
                 implementos = [];
             });
 
+            Livewire.on('reestablecerSelectRoles',() => {
+                roles = [];
+            });
+
             Livewire.on('obtenerSelectImplementos',function (data) {
                 implementos = data;
+            });
+
+            Livewire.on('obtenerSelectRoles',function (data) {
+                roles = data;
             });
 
             Livewire.on('checkout_all', () =>{

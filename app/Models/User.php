@@ -75,4 +75,7 @@ class User extends Authenticatable
     public function Implementos(){
         return $this->hasMany(Implemento::class,'responsable');
     }
+    public function Sede(){
+        return $this->belongsTo(Sede::class);
+    }
 }

@@ -1,4 +1,5 @@
 <div>
+    <x-boton-crud colspan="2" colspansm="4" accion="$set('open',true)" color="indigo">Filtros</x-boton-crud>
     <x-jet-dialog-modal wire:model='open' class="bg-grey-500">
         <x-slot name="title">
             Filtrar Reporte de tractores

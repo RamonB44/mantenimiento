@@ -43,7 +43,8 @@ class Imprimir extends Component
         if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('esta_anulado',0)->doesntExist()){
             $this->emit('alerta',['center','warning','No existe programacion']);
         }else{
-            $titulo = 'Programación del '.$this->fecha.'.pdf';
+            $turno = $this->turno == "MAÑANA" ? ' - DIA' : ($this->turno == 'NOCHE' ? ' - NOCHE' : '');
+            $titulo = 'Programación del '.$this->fecha.''.$turno.'.pdf';
             if($this->turno != "NOCHE"){
                 $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->get();
             }else{

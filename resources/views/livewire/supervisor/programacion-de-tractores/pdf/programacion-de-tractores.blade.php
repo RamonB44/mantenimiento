@@ -52,7 +52,7 @@
                 <div class="sub">
                     <div class="title">
                         <h2>
-                            Programación de Tractores del {{ ucfirst($fecha) }} Turno Mañana
+                            Programación de Tractores del {{ ucfirst($fecha) }} Turno Dia
                         </h2>
                     </div>
                     <table>

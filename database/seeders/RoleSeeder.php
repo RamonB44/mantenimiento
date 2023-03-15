@@ -40,12 +40,16 @@ class RoleSeeder extends Seeder
             'name' => 'supervisor',
             'guard_name' => 'supervisor',
         ]);
-
+        $solicitante = Role::create([
+            'name' => 'solicitante',
+            'guard_name' => 'solicitante',
+        ]);
         User::find(1)->assignRole($operario);
         User::find(2)->assignRole($asistente);
         User::find(3)->assignRole($operario);
         User::find(4)->assignRole($planificador);
         User::find(5)->assignRole($supervisor);
+        User::find(6)->assignRole($solicitante);
 
 
         Permission::create([

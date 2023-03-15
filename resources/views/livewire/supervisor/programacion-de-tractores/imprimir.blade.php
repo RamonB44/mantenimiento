@@ -6,10 +6,18 @@
         <x-slot name="content">
             <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                 <x-jet-label>Día:</x-jet-label>
-                <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" disabled wire:model="fecha"/>
+                <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
 
                 <x-jet-input-error for="fecha"/>
 
+            </div>
+            <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <x-jet-label>Turno:</x-jet-label>
+                <select class="form-select" style="width: 100%" wire:model='turno'>
+                    <option value="">DIA Y NOCHE</option>
+                    <option value="MAÑANA">DIA</option>
+                    <option>NOCHE</option>
+                </select>
             </div>
             <div class="grid items-center grid-cols-1 p-6 bg-white sm:grid-cols-2">
                 <x-boton-crud accion="imprimirProgramacion" wire:loading.attr="disabled" color="gray">
@@ -18,7 +26,6 @@
                 <x-boton-crud accion="imprimirRutinario" wire:loading.attr="disabled" color="gray">
                     Imprimir Rutinario
                 </x-boton-crud>
-
             </div>
         </x-slot>
         <x-slot name="footer">

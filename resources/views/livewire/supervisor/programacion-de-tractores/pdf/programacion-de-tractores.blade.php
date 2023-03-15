@@ -48,7 +48,7 @@
     <div>
         <div class="container">
             <div>
-                @if ($programaciones_am->count())
+                @if ($turno != "NOCHE" &&$programaciones_am->count())
                 <div class="sub">
                     <div class="title">
                         <h2>
@@ -87,8 +87,8 @@
                     </table>
                 </div>
                 @endif
-                @if ($programaciones_pm->count())
-                <div class="sub {{ $programaciones_am->count() ? "page-break" : "" }}">
+                @if ($turno != "MAÑANA" && $programaciones_pm->count())
+                <div class="sub {{ ($turno != "NOCHE" && $programaciones_am->count()) ? "page-break" : "" }}">
                     <div class="title">
                         <h2>Programación de Tractores del {{ $fecha }} Turno Noche </h2>
                     </div>

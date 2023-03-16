@@ -78,6 +78,7 @@ class Tabla extends Component
             $data = [
                 'programaciones_am' => $programaciones_am,
                 'programaciones_pm' => $programaciones_pm,
+                'turno' => "",
                 'fecha' => Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y'),
             ];
             $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4', 'landscape')->output();

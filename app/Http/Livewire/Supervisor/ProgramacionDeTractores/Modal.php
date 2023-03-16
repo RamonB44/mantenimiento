@@ -28,7 +28,9 @@ class Modal extends Component
     public $lote;
     public $correlativo;
     public $tractorista;
+    public $nombre_tractorista;
     public $tractor;
+    public $nombre_tractor;
     public $modelo_de_implemento_id;
     public $implemento_id;
     public $labor;
@@ -43,7 +45,7 @@ class Modal extends Component
 
     public $programacion_id;
 
-    protected $listeners = ['abrirModal','obtenerFecha'];
+    protected $listeners = ['abrirModal','obtenerFecha','obtenerTractorista'];
 
     protected function rules(){
         return [
@@ -91,7 +93,9 @@ class Modal extends Component
         $this->fundo = 0;
         $this->lote = 0;
         $this->tractorista = 0;
+        $this->nombre_tractorista = "";
         $this->tractor = 0;
+        $this->nombre_tractor = "";
         $this->modelos_implemento = ModeloDelImplemento::whereHas('Implemento',function($q){
             $q->where('sede_id',Auth::user()->sede_id);
         })->orderBy('modelo_de_implemento','asc')->select('id','modelo_de_implemento')->get();
@@ -119,7 +123,7 @@ class Modal extends Component
             $this->fundo = $programacion->Lote->fundo_id;
             $this->lote = $programacion->lote_id;
             $this->tractorista = $programacion->tractorista;
-            $this->tractor = $programacion->tractor_id  == null ? -1 : $programacion->tractor_id;
+            $this->tractor = $programacion->tractor_id ?? -1;
             $this->implemento_id = [];
             foreach($programacion->Implementos as $implemento){
                 if(!in_array($implemento->implemento_id,$this->implemento_id)){
@@ -156,6 +160,11 @@ class Modal extends Component
     public function updatedTurno(){
         $this->reset('tractorista','implemento_id','tractor');
         $this->emit('reestablecerSelectImplementos');
+    }
+
+    public function obtenerTractorista(User $tractorista){
+        $this->tractorista = $tractorista->id;
+        $this->nombre_tractorista = $tractorista->name;
     }
 
     public function registrar(){

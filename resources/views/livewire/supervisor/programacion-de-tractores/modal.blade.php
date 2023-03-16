@@ -64,17 +64,16 @@
                 <div class="p-6 text-2xl text-center" wire:loading.flex>
                     Cargando...
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                <div class="py-2" style="padding-left: 1rem; padding-right:1rem" wire:loading.remove>
                     <x-jet-label>Tractorista:</x-jet-label>
-                    <select id="tractorista" class="form-select" style="width: 100%" wire:model.defer='tractorista'>
-                        <option value="0">Seleccione una opción</option>
-                        @foreach ($tractoristas as $tractorista)
-                            <option value="{{ $tractorista->id }}">{{ $tractorista->name }}</option>
-                        @endforeach
-                    </select>
+                    <x-jet-input type="text" style="height:40px;width: 100%;cursor:pointer" value="{{ $nombre_tractorista }}" readonly wire:click="$emitTo('supervisor.programacion-de-tractores.lista-tractoristas','abrirModal')"/>
+
 
                     <x-jet-input-error for="tractorista"/>
 
+                </div>
+                <div class="p-6 text-2xl text-center" wire:loading.flex>
+                    Cargando...
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Tractor:</x-jet-label>

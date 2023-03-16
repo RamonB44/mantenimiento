@@ -1,6 +1,6 @@
 <nav x-data="{ open:false }" class="bg-gray-800">
     <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div class="relative flex items-center justify-between h-16">
+      <div class="relative flex items-center justify-between h-20">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
           <!-- Mobile menu button-->
           <button x-on:click="open = !open" type="button" class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
@@ -18,7 +18,7 @@
             <img class="block w-auto h-8 lg:hidden" src="/img/logo.png" alt="Logo">
             <img class="hidden w-auto h-8 lg:block" src="/img/logo.png" alt="Logo">
           </a>
-          <div class="hidden sm:block sm:ml-6">
+          <div class="hidden sm:block sm:ml-6" style="width: 75vw;max-width: 54rem; overflow:auto">
             <div class="flex space-x-4">
 
               @role('jefe')

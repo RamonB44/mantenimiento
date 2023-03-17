@@ -12,7 +12,7 @@
                 <tbody class="text-sm font-light text-gray-600">
                     @foreach ($tractoristas as $tractorista)
                         <tr wire:click="$set('tractorista',{{ $tractorista->id }})" class="border-b border-gray-200 unselected">
-                            <td class="px-6 py-3 text-center">
+                            <td class="py-4 text-center">
                                 <div>
                                     <span class="font-medium">{{ $tractorista->name }} </span>
                                 </div>

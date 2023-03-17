@@ -31,8 +31,8 @@ class Modal extends Component
     public $nombre_tractorista;
     public $tractor;
     public $nombre_tractor;
-    public $modelo_de_implemento_id;
-    public $implemento_id;
+    public $implemento;
+    public $nombre_implemento;
     public $labor;
     public $fecha_programacion;
     public $yesterday;
@@ -40,14 +40,11 @@ class Modal extends Component
     public $tomorrow;
     public $solicitas;
 
-    public $existe_programacion;
-
     public $labores;
-    public $modelos_implemento;
 
     public $programacion_id;
 
-    protected $listeners = ['abrirModal','obtenerFecha','obtenerTractorista'];
+    protected $listeners = ['abrirModal','obtenerFecha','obtenerTractorista','obtenerTractor'];
 
     protected function rules(){
         return [
@@ -88,7 +85,6 @@ class Modal extends Component
         $this->tomorrow = Carbon::tomorrow()->isoFormat('Y-MM-DD');
         $this->fecha = $this->today;
         $this->turno = "MAÑANA";
-        $this->existe_programacion = 0;
         $this->solicitantes = User::whereHas('roles',function($q){
             $q->where('name','solicitante');
         })->where('sede_id',Auth::user()->sede_id)->orderBy('name','asc')->get();
@@ -99,11 +95,8 @@ class Modal extends Component
         $this->nombre_tractorista = "";
         $this->tractor = 0;
         $this->nombre_tractor = "";
-        $this->modelos_implemento = ModeloDelImplemento::whereHas('Implemento',function($q){
-            $q->where('sede_id',Auth::user()->sede_id);
-        })->orderBy('modelo_de_implemento','asc')->select('id','modelo_de_implemento')->get();
-        $this->modelo_de_implemento_id = 0;
-        $this->implemento_id = array();
+        $this->implemento = [];
+        $this->nombre_implemento = "";
         $this->labor = 0;
         $this->programacion_id = 0;
         $this->labores = Labor::orderBy('labor','asc')->get();
@@ -128,15 +121,14 @@ class Modal extends Component
             $this->tractorista = $programacion->tractorista;
             $this->nombre_tractorista = $programacion->Tractorista->name;
             $this->tractor = $programacion->tractor_id ?? -1;
-            $this->implemento_id = [];
+            $this->implemento = [];
             foreach($programacion->Implementos as $implemento){
-                if(!in_array($implemento->implemento_id,$this->implemento_id)){
-                    array_push($this->implemento_id,$implemento->implemento_id);
+                if(!in_array($implemento->implemento_id,$this->implemento)){
+                    array_push($this->implemento,$implemento->implemento_id);
                 }
             }
             $this->labor = $programacion->labor_id;
             $this->solicita = $programacion->solicitante;
-            $this->emit('obtenerSelectImplementos',$this->implemento_id);
         }
         $this->open = true;
 
@@ -144,8 +136,7 @@ class Modal extends Component
 
     public function updatedOpen(){
         if(!$this->open){
-            $this->reset('tractorista','nombre_tractorista','tractor','implemento_id');
-            $this->emit('reestablecerSelectImplementos');
+            $this->reset('tractorista','nombre_tractorista','tractor','nombre_tractor','implemento','nombre_implemento');
             $this->emit('obtenerFecha',$this->fecha);
             $this->resetValidation();
         }
@@ -157,18 +148,26 @@ class Modal extends Component
 
     public function updatedFecha(){
         $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
-        $this->reset('tractorista','nombre_tractorista','implemento_id','tractor');
-        $this->emit('reestablecerSelectImplementos');
+        $this->reset('tractorista','nombre_tractorista','implemento','nombre_implemento','tractor','nombre_tractor');
     }
 
     public function updatedTurno(){
-        $this->reset('tractorista','nombre_tractorista','implemento_id','tractor');
-        $this->emit('reestablecerSelectImplementos');
+        $this->reset('tractorista','nombre_tractorista','implemento','nombre_implemento','tractor','nombre_tractor');
     }
 
     public function obtenerTractorista(User $tractorista){
         $this->tractorista = $tractorista->id;
         $this->nombre_tractorista = $tractorista->name;
+    }
+
+    public function obtenerTractor(Tractor $tractor){
+        $this->tractor = $tractor->id;
+        $this->nombre_tractor = $tractor->ModeloDeTractor->modelo_de_tractor.' '.$tractor->numero;
+    }
+
+    public function obtenerImplemento($implemento,$nombre_implemento){
+        $this->implemento = $implemento;
+        $this->nombre_implemento = $nombre_implemento;
     }
 
     public function registrar(){
@@ -178,7 +177,7 @@ class Modal extends Component
             return false;
         }
 
-        if($this->implemento_id == []){
+        if($this->implemento == []){
             $this->emit('alerta',['center','warning','Seleccione el implemento']);
             return false;
         }
@@ -201,7 +200,7 @@ class Modal extends Component
 
             ImplementoProgramacion::where('programacion_de_tractor_id',$programacion->id)->delete();
 
-            foreach($this->implemento_id as $item){
+            foreach($this->implemento as $item){
                 ImplementoProgramacion::firstOrCreate(
                     [
                         'programacion_de_tractor_id' => $programacion->id,
@@ -216,7 +215,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Editada']);
             $this->emit('obtenerFecha',$this->fecha);
-            $this->reset('open','tractorista','nombre_tractorista','tractor','implemento_id');
+            $this->reset('open','tractorista','nombre_tractorista','tractor','nombre_tractor','implemento','nombre_implemento');
 
         }else{
             $programacion = ProgramacionDeTractor::create([
@@ -231,7 +230,7 @@ class Modal extends Component
                 'solicitante' => $this->solicita,
             ]);
 
-            foreach($this->implemento_id as $item){
+            foreach($this->implemento as $item){
                 ImplementoProgramacion::create([
                     'programacion_de_tractor_id' => $programacion->id,
                     'implemento_id' => $item,
@@ -242,8 +241,7 @@ class Modal extends Component
 
             $this->emit('alerta',['center','success','Programación Registrada']);
 
-            $this->reset('tractorista','nombre_tractorista','tractor','implemento_id');        }
-            $this->emit('reestablecerSelectImplementos');
+            $this->reset('tractorista','nombre_tractorista','tractor','nombre_tractor','implemento','nombre_implemento');        }
     }
 
 
@@ -255,48 +253,7 @@ class Modal extends Component
         }else{
             $lotes = [];
         }
-
-        if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->exists()){
-            $this->existe_programacion = 1;
-            if($this->programacion_id > 0){
-                $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
-                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotIn('id',[$this->programacion_id]);
-                })->orderBy(
-                    ModeloDeTractor::select('modelo_de_tractor')
-                        ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
-                    'asc'
-                )->orderBy('numero','asc')->get();
-                $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ImplementoProgramacion',function($q){
-                    $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0)->whereNotIn('programacion_de_tractors.id',[$this->programacion_id]);
-                });
-            }else{
-                $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ProgramacionDeTractor',function($q){
-                    $q->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0);
-                })->orderBy(
-                    ModeloDeTractor::select('modelo_de_tractor')
-                        ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
-                    'asc'
-                )->orderBy('numero','asc')->get();
-                $implementos = Implemento::where('sede_id',Auth::user()->sede_id)->whereDoesnthave('ImplementoProgramacion',function($q){
-                    $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0);
-                });
-            }
-        }else{
-            $this->existe_programacion = 0;
-            $tractores = Tractor::where('sede_id',Auth::user()->sede_id)->orderBy(
-                ModeloDeTractor::select('modelo_de_tractor')
-                    ->whereColumn('tractors.modelo_de_tractor_id', 'modelo_de_tractors.id'),
-                'asc'
-            )->orderBy('numero','asc')->get();
-            $implementos = Implemento::where('sede_id',Auth::user()->sede_id);
-
-
-        }
-        if($this->modelo_de_implemento_id > 0){
-            $implementos = $implementos->where('modelo_del_implemento_id',$this->modelo_de_implemento_id);
-        }
-        $implementos = $implementos->orderBy('numero','asc')->get();
         $this->emit('estiloSelect2');
-        return view('livewire.supervisor.programacion-de-tractores.modal',compact('fundos','lotes','tractores','implementos'));
+        return view('livewire.supervisor.programacion-de-tractores.modal',compact('fundos','lotes'));
     }
 }

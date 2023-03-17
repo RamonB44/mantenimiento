@@ -66,7 +66,7 @@
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem" wire:loading.remove>
                     <x-jet-label>Tractorista:</x-jet-label>
-                    <x-jet-input type="text" style="height:40px;width: 100%;cursor:pointer" value="{{ $nombre_tractorista }}" readonly wire:click="$emitTo('supervisor.programacion-de-tractores.lista-tractoristas','abrirModal')"/>
+                    <x-jet-input type="text" style="height:40px;width: 100%;cursor:pointer" value="{{ $nombre_tractorista }}" readonly wire:click="$emitTo('supervisor.programacion-de-tractores.lista-tractoristas','abrirModal','{{ $fecha }}','{{ $turno }}',{{ $existe_programacion }},'{{ $programacion_id }}')"/>
 
 
                     <x-jet-input-error for="tractorista"/>

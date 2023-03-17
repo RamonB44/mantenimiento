@@ -7,10 +7,14 @@
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Fecha:</x-jet-label>
-                    <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
+                    <x-jet-label>Fecha Inicial:</x-jet-label>
+                    <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha_inicial"/>
                 </div>
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+                    <x-jet-label>Fecha Final:</x-jet-label>
+                    <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha_final"/>
+                </div>
+                <div class="col-span-1 py-2 sm:col-span-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Turno:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='turno'>
                         <option value="">Seleccione un turno</option>

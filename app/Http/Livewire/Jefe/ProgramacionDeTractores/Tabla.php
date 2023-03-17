@@ -18,7 +18,8 @@ class Tabla extends Component
 
     public $sede_id;
     public $supervisor_id;
-    public $fecha;
+    public $fecha_inicial;
+    public $fecha_final;
     public $turno;
     public $fundo;
     public $lote;
@@ -32,7 +33,8 @@ class Tabla extends Component
     public function mount($sede_id){
         $this->sede_id = $sede_id;
         $this->supervisor_id = 0;
-        $this->fecha = date('Y-m-d');
+        $this->fecha_inicial = date('Y-m-d');
+        $this->fecha_final = date('Y-m-d');
         $this->turno = "";
         $this->fundo = 0;
         $this->lote = 0;
@@ -48,9 +50,10 @@ class Tabla extends Component
         $this->supervisor_id = $supervisor_id;
     }
 
-    public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
+    public function filtrar($fecha_inicial,$fecha_final,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
         $this->resetPage();
-        $this->fecha = $fecha;
+        $this->fecha_inicial = $fecha_inicial;
+        $this->fecha_final = $fecha_final;
         $this->turno = $turno;
         $this->fundo = $fundo;
         $this->lote = $lote;
@@ -66,12 +69,12 @@ class Tabla extends Component
         }else{
             $titulo = 'Programación del '.$this->fecha;
             if($this->supervisor_id > 0){
-                $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('supervisor',$this->supervisor_id)->where('esta_anulado',0)->get();
-                $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('supervisor',$this->supervisor_id)->where('esta_anulado',0)->get();
+                $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha_inicial)->where('turno','MAÑANA')->where('supervisor',$this->supervisor_id)->where('esta_anulado',0)->get();
+                $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha_inicial)->where('turno','NOCHE')->where('supervisor',$this->supervisor_id)->where('esta_anulado',0)->get();
                 $titulo = $titulo.' - '.User::find($this->supervisor_id)->name;
             }else{
-                $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('sede_id',$this->sede_id)->where('esta_anulado',0)->get();
-                $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('sede_id',$this->sede_id)->where('esta_anulado',0)->get();
+                $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha_inicial)->where('turno','MAÑANA')->where('sede_id',$this->sede_id)->where('esta_anulado',0)->get();
+                $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha_inicial)->where('turno','NOCHE')->where('sede_id',$this->sede_id)->where('esta_anulado',0)->get();
                 $titulo = $titulo. ' - '.Sede::find($this->sede_id)->sede;
             }
             $titulo = $titulo.'.pdf';

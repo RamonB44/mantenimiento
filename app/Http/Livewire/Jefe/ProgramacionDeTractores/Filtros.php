@@ -15,7 +15,8 @@ class Filtros extends Component
 {
     public $open;
     public $sede_id;
-    public $fecha;
+    public $fecha_inicial;
+    public $fecha_final;
     public $turno;
     public $fundoid;
     public $loteid;
@@ -36,7 +37,8 @@ class Filtros extends Component
     public function mount(){
         $this->open = false;
         $this->sede_id = 0;
-        $this->fecha = date('Y-m-d');
+        $this->fecha_inicial = date('Y-m-d');
+        $this->fecha_final = date('Y-m-d');
         $this->turno = "";
         $this->fundoid = 0;
         $this->loteid = 0;
@@ -54,7 +56,8 @@ class Filtros extends Component
 
     public function obtenerSupervisor($sede_id,$supervisor_id){
         $this->resetExcept('fecha','labores');
-        $this->fecha = date('Y-m-d');
+        $this->fecha_inicial = date('Y-m-d');
+        $this->fecha_final = date('Y-m-d');
         $this->fundos = Fundo::where('sede_id',$sede_id)->orderBy('fundo','asc')->get();
         $this->lotes = [];
         $this->tractoristas = User::doesnthave('roles')->where('sede_id',$sede_id)->orderBy('name','asc')->get();
@@ -72,7 +75,7 @@ class Filtros extends Component
     }
 
     public function filtrar(){
-        $this->emitTo('jefe.programacion-de-tractores.tabla','filtrar',$this->fecha, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
+        $this->emitTo('jefe.programacion-de-tractores.tabla','filtrar',$this->fecha_inicial,$this->fecha_final, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
         $this->open = false;
     }
 

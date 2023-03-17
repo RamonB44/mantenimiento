@@ -53,7 +53,7 @@
 
 
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>¿Está activo? {{ $is_active }}</x-jet-label>
+                    <x-jet-label>¿Está activo?</x-jet-label>
                     <x-jet-input type="checkbox" style="height:40px;width: 100%" wire:model="is_active"/>
 
                     <x-jet-input-error for="is_active"/>

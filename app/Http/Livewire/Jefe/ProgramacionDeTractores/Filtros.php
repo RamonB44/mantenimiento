@@ -54,8 +54,20 @@ class Filtros extends Component
         $this->labores = Labor::orderBy('labor','asc')->get();
     }
 
+    public  function updatedFechaInicial() {
+        if($this->fecha_final < $this->fecha_inicial){
+            $this->fecha_final = $this->fecha_inicial;
+        }
+    }
+
+    public function updatedFechaFinal() {
+        if($this->fecha_final < $this->fecha_inicial){
+            $this->fecha_inicial = $this->fecha_final;
+        }
+    }
+
     public function obtenerSupervisor($sede_id,$supervisor_id){
-        $this->resetExcept('fecha','labores');
+        $this->resetExcept('fecha_inicial','labores');
         $this->fecha_inicial = date('Y-m-d');
         $this->fecha_final = date('Y-m-d');
         $this->fundos = Fundo::where('sede_id',$sede_id)->orderBy('fundo','asc')->get();
@@ -75,8 +87,13 @@ class Filtros extends Component
     }
 
     public function filtrar(){
-        $this->emitTo('jefe.programacion-de-tractores.tabla','filtrar',$this->fecha_inicial,$this->fecha_final, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
-        $this->open = false;
+        if($this->fecha_inicial != "" && $this->fecha_final != ""){
+            $this->emitTo('jefe.programacion-de-tractores.tabla','filtrar',$this->fecha_inicial,$this->fecha_final, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
+            $this->open = false;
+        }else{
+            $this->emit('alerta',['center','warning','Ingrese la fecha']);
+        }
+
     }
 
     public function render()

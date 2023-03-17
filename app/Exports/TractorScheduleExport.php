@@ -11,11 +11,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class TractorScheduleExport implements FromCollection,ShouldAutoSize,WithHeadings,WithStyles
 {
-    private $fecha;
+    private $fecha_inicial;
+    private $fecha_final;
     private $sede_id;
     private $supervisor_id;
-    public function __construct($fecha,$sede,$supervisor_id){
-        $this->fecha = $fecha;
+    public function __construct($fecha_inicial,$fecha_final,$sede,$supervisor_id){
+        $this->fecha_inicial = $fecha_inicial;
+        $this->fecha_final = $fecha_final;
         $this->sede_id = $sede;
         $this->supervisor_id = $supervisor_id;
     }
@@ -56,7 +58,7 @@ class TractorScheduleExport implements FromCollection,ShouldAutoSize,WithHeading
         }else{
             $programacion = $programacion->where('sede_id',$this->sede_id);
         }
-        $programacion = $programacion->where('fecha',$this->fecha)->orderBy('turno')->get();
+        $programacion = $programacion->whereBetween('fecha',[$this->fecha_inicial,$this->fecha_final])->orderBy('fecha')->orderBy('turno')->get();
         return $programacion;
     }
 }

@@ -45,7 +45,7 @@ class Tabla extends Component
     }
 
     public function obtenerSupervisor($sede_id,$supervisor_id){
-        $this->resetExcept('fecha');
+        $this->resetExcept('fecha_inicial','fecha_final');
         $this->sede_id = $sede_id;
         $this->supervisor_id = $supervisor_id;
     }
@@ -94,10 +94,14 @@ class Tabla extends Component
     }
 
     public function excel(){
-        if($this->fecha == ""){
+        if($this->fecha_inicial == "" || $this->fecha_final == ""){
             $this->emit('alerta',['center','warning','Ingrese la fecha']);
         }else{
-            return Excel::download(new TractorScheduleExport($this->fecha,$this->sede_id,$this->supervisor_id),'Programacion de tractores del '.$this->fecha.'.xlsx');
+            $titulo = 'Programacion de tractores del '.date_format(date_create($this->fecha_inicial),'d-m-Y');
+            if($this->fecha_inicial != $this->fecha_final){
+                $titulo = $titulo.' al '.date_format(date_create($this->fecha_final),'d-m-Y');
+            }
+            return Excel::download(new TractorScheduleExport($this->fecha_inicial,$this->fecha_final,$this->sede_id,$this->supervisor_id),$titulo.'.xlsx');
         }
     }
 
@@ -111,40 +115,38 @@ class Tabla extends Component
             $programacion_de_tractores = $programacion_de_tractores->where('sede_id',$this->sede_id);
         }
 
-        if($this->fecha != "") {
-            $programacion_de_tractores->where('fecha',$this->fecha);
-        }
+        $programacion_de_tractores = $programacion_de_tractores->whereBetween('fecha',[$this->fecha_inicial,'2023-03-17']);
 
         if($this->turno != "") {
-            $programacion_de_tractores->where('turno',$this->turno);
+            $programacion_de_tractores = $programacion_de_tractores->where('turno',$this->turno);
         }
 
         if($this->lote > 0){
-            $programacion_de_tractores->where('lote_id',$this->lote);
+            $programacion_de_tractores = $programacion_de_tractores->where('lote_id',$this->lote);
         }else if($this->fundo > 0){
-            $programacion_de_tractores->whereHas('Lote',function($q){
+            $programacion_de_tractores = $programacion_de_tractores->whereHas('Lote',function($q){
                 $q->where('fundo_id',$this->fundo);
             });
         }
 
         if($this->tractorista > 0) {
-            $programacion_de_tractores->where('tractorista',$this->tractorista);
+            $programacion_de_tractores = $programacion_de_tractores->where('tractorista',$this->tractorista);
         }
 
         if($this->tractor > 0) {
-            $programacion_de_tractores->where('tractor_id',$this->tractor);
+            $programacion_de_tractores = $programacion_de_tractores->where('tractor_id',$this->tractor);
         }
 
         if($this->implemento > 0) {
-            $programacion_de_tractores->whereHas('ImplementoProgramacion',function($q){
+            $programacion_de_tractores = $programacion_de_tractores->whereHas('ImplementoProgramacion',function($q){
                 $q->where('implemento_id',$this->implemento);
             });
         }
 
         if($this->labor > 0) {
-            $programacion_de_tractores->where('labor_id',$this->labor);
+            $programacion_de_tractores = $programacion_de_tractores->where('labor_id',$this->labor);
         }
-        if($this->fecha == ""){
+        if($this->fecha_inicial != $this->fecha_final){
             $total_tractores = "";
             $total_implementos = "";
         }else{
@@ -156,7 +158,7 @@ class Tabla extends Component
             }
         }
 
-        $programacion_de_tractores = $programacion_de_tractores->latest()->paginate(6);
+        $programacion_de_tractores = $programacion_de_tractores->paginate(6);
 
         return view('livewire.jefe.programacion-de-tractores.tabla',compact('programacion_de_tractores','total_tractores','total_implementos'));
     }

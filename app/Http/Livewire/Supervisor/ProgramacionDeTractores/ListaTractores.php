@@ -39,10 +39,6 @@ class ListaTractores extends Component
         $this->open = true;
     }
 
-    public function getTractorProperty(){
-        return Tractor::find($this->tractor);
-    }
-
     public function updatedOpen(){
         if(!$this->open){
             $this->supervisor = Auth::user()->id;

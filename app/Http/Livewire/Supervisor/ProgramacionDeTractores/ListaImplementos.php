@@ -33,7 +33,7 @@ class ListaImplementos extends Component
             $q->where('name','supervisor');
         })->where('sede_id',Auth::user()->sede_id)->get();
         $this->supervisor = Auth::user()->id;
-        $this->modelos_varios = [1,4];
+        $this->modelos_varios = [25,26];
     }
 
     public function abrirModal($fecha,$turno,$programacion_id){

@@ -120,13 +120,14 @@ class Modal extends Component
             $this->lote = $programacion->lote_id;
             $this->tractorista = $programacion->tractorista;
             $this->nombre_tractorista = $programacion->Tractorista->name;
-            $this->tractor = $programacion->tractor_id ?? -1;
+            $this->obtenerTractor($programacion->tractor_id);
             $this->implemento = [];
             foreach($programacion->Implementos as $implemento){
                 if(!in_array($implemento->implemento_id,$this->implemento)){
                     array_push($this->implemento,$implemento->implemento_id);
                 }
             }
+            $this->obtenerImplemento($this->implemento);
             $this->labor = $programacion->labor_id;
             $this->solicita = $programacion->solicitante;
         }
@@ -160,9 +161,15 @@ class Modal extends Component
         $this->nombre_tractorista = $tractorista->name;
     }
 
-    public function obtenerTractor(Tractor $tractor){
-        $this->tractor = $tractor->id;
-        $this->nombre_tractor = $tractor->ModeloDeTractor->modelo_de_tractor.' '.$tractor->numero;
+    public function obtenerTractor($tractor){
+        if($tractor == null || $tractor == -1){
+            $this->tractor = -1;
+            $this->nombre_tractor = "AUTOPROPULSADO";
+        }else{
+            $tractor = Tractor::find($tractor);
+            $this->tractor = $tractor->id;
+            $this->nombre_tractor = $tractor->ModeloDeTractor->modelo_de_tractor.' '.$tractor->numero;
+        }
     }
 
     public function obtenerImplemento($implemento){
@@ -176,7 +183,7 @@ class Modal extends Component
 
     public function registrar(){
         $this->validate();
-        if($this->tractor == 0){
+        if($this->tractor <= 0 && $this->tractor != -1){
             $this->emit('alerta',['center','warning','Seleccione el tractor']);
             return false;
         }

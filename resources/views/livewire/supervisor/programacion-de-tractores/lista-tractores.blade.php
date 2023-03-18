@@ -10,6 +10,13 @@
         <x-slot name="content">
             <table class="w-full min-w-max">
                 <tbody class="text-sm font-light text-gray-600">
+                    <tr wire:click="$set('tractor',-1)" class="border-b border-gray-200 unselected">
+                        <td class="py-4 text-center">
+                            <div>
+                                <span class="font-medium">AUTOPROPULSADO</span>
+                            </div>
+                        </td>
+                    </tr>
                     @foreach ($tractores as $tractor)
                         <tr wire:click="$set('tractor',{{ $tractor->id }})" class="border-b border-gray-200 unselected">
                             <td class="py-4 text-center">

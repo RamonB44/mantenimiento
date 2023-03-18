@@ -22,7 +22,6 @@ class Modal extends Component
     public $correlativo;
     public $horometro_inicial;
     public $horometro_final;
-    public $solicita;
     public $deshabilitar_horometro_inicial;
 
     public $reporte_id;
@@ -53,7 +52,6 @@ class Modal extends Component
         $this->correlativo = "";
         $this->horometro_inicial = 0;
         $this->horometro_final = 0;
-        $this->solicita = 0;
         $this->fecha = date('Y-m-d');
         $this->turno = "MAÑANA";
         $this->accion = "crear";
@@ -65,20 +63,12 @@ class Modal extends Component
 
         if($this->reporte_id > 0){
             $reporte = ReporteDeTractor::find($this->reporte_id);
-            $tractor = $reporte->ProgramacionDeTractor->tractor_id;
-            $programacion_del_tractor_actual = $reporte->programacion_de_tractor_id;
-            $ultima_programacion_del_tractor = ProgramacionDeTractor::where('tractor_id',$tractor)->latest()->first()->id;
-            if($programacion_del_tractor_actual == $ultima_programacion_del_tractor){
-                $this->accion = "editar";
+            $this->accion = "editar";
+            $this->programacion_id = $reporte->programacion_de_tractor_id;
+            $this->correlativo = $reporte->correlativo;
+            $this->horometro_inicial = $reporte->horometro_inicial;
+            $this->horometro_final = $reporte->horometro_final;
 
-                $this->programacion_id = $reporte->programacion_de_tractor_id;
-                $this->correlativo = $reporte->correlativo;
-                $this->horometro_inicial = $reporte->horometro_inicial;
-                $this->horometro_final = $reporte->horometro_final;
-            }else{
-                $this->emit('alerta',['center','warning','Solo se puede editar el último reporte del tractor.']);
-                return false;
-            }
         }else{
             $this->accion = "crear";
         }
@@ -150,7 +140,6 @@ class Modal extends Component
                 $this->horometro_inicial = $programacion->tractor->horometro;
             }
             $this->horometro_final = "";
-            $this->solicita = $programacion->Solicitante == null ? 'NO REGISTRADO' : $programacion->Solicitante->name;
             $this->deshabilitar_horometro_inicial = $this->horometro_inicial > 0;
         }else{
             $this->reset('horometro_inicial','horometro_final');
@@ -170,6 +159,7 @@ class Modal extends Component
         if($this->programacion_id > 0){
             $this->emit('focus',['correlativo']);
             $programacion = ProgramacionDeTractor::find($this->programacion_id);
+            $solicita = $programacion->Solicitante->name ?? 'NO REGISTRADO';
             $fundo = $programacion->Lote->Fundo->fundo;
             $lote = $programacion->Lote->lote;
             $tractorista = $programacion->Tractorista->name;
@@ -181,6 +171,7 @@ class Modal extends Component
             }
             $labor = $programacion->Labor->labor;
         }else{
+            $solicita = "";
             $fundo = "";
             $lote = "";
             $tractorista = "";
@@ -190,6 +181,6 @@ class Modal extends Component
             $horometro_inicial = 0;
         }
 
-        return view('livewire.asistente.reporte-de-tractores.modal',compact('programaciones','fundo','lote','tractorista','tractor','implemento','labor'));
+        return view('livewire.asistente.reporte-de-tractores.modal',compact('programaciones','solicita','fundo','lote','tractorista','tractor','implemento','labor'));
     }
 }

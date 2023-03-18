@@ -23,6 +23,7 @@ class Tabla extends Component
     public $implemento;
     public $labor;
     public $fecha_programacion;
+    public $search;
 
     protected $listeners = ['render','filtrar','obtenerFecha'];
 
@@ -37,6 +38,7 @@ class Tabla extends Component
         $this->implemento = 0;
         $this->labor = 0;
         $this->fecha_programacion = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
+        $this->search = "";
     }
 
     public function seleccionar($id){
@@ -71,6 +73,8 @@ class Tabla extends Component
 
         if($this->fecha != "") {
             $programacion_de_tractores->where('fecha',$this->fecha);
+        }else{
+            $programacion_de_tractores->where('fecha',date('Y-m-d'));
         }
 
         if($this->turno != "") {
@@ -115,7 +119,20 @@ class Tabla extends Component
             }
         }
 
-        $programacion_de_tractores = $programacion_de_tractores->latest()->paginate(6);
+        $programacion_de_tractores = $programacion_de_tractores->get();
+
+        if($this->search != ""){
+            $programacion_de_tractores = $programacion_de_tractores->filter(function($programacion_de_tractores){
+                $hay_implementos = false;
+                foreach($programacion_de_tractores->Implementos as $implemento){
+                    $hay_implementos = false !== stripos($implemento->Implemento->ModeloDelImplemento,$this->search);
+                    if($hay_implementos){
+                        break;
+                    }
+                }
+                return false !== stripos($programacion_de_tractores->Tractorista->name,$this->search) || false !== stripos($programacion_de_tractores->Tractor->ModeloDeTractor->modelo_de_tractor,$this->search) || $hay_implementos || false !== stripos($programacion_de_tractores->Lote->Fundo->fundo,$this->search) || false !== stripos($programacion_de_tractores->Lote->Cultivo->cultivo,$this->search) || false !== stripos($programacion_de_tractores->Lote->lote,$this->search);
+            });
+        }
 
         return view('livewire.supervisor.programacion-de-tractores.tabla',compact('programacion_de_tractores','total_implementos','total_tractores'));
     }

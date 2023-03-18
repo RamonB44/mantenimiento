@@ -44,7 +44,7 @@ class Modal extends Component
 
     public $programacion_id;
 
-    protected $listeners = ['abrirModal','obtenerFecha','obtenerTractorista','obtenerTractor'];
+    protected $listeners = ['abrirModal','obtenerFecha','obtenerTractorista','obtenerTractor','obtenerImplemento'];
 
     protected function rules(){
         return [
@@ -167,9 +167,10 @@ class Modal extends Component
 
     public function obtenerImplemento($implemento){
         $this->implemento = $implemento;
+        $this->nombre_implemento = "";
         $implementos_asignados = Implemento::whereIn('id',$this->implemento)->get();
         foreach($implementos_asignados as $implemento){
-            $this->nombre_implemento = $this->nombre_implemento.''.$implemento->numero.',';
+            $this->nombre_implemento = $this->nombre_implemento.''.$implemento->ModeloDelImplemento->modelo_de_implemento.' '.$implemento->numero.', ';
         }
     }
 

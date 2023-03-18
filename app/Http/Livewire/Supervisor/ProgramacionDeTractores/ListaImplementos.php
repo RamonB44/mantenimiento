@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class ListaImplementos extends Component
 {
-
     public $open;
     public $fecha;
     public $turno;
@@ -19,6 +18,7 @@ class ListaImplementos extends Component
     public $implemento_id;
     public $supervisor;
     public $supervisores;
+    public $modelos_varios;
 
     protected $listeners = ['abrirModal'];
 
@@ -33,6 +33,7 @@ class ListaImplementos extends Component
             $q->where('name','supervisor');
         })->where('sede_id',Auth::user()->sede_id)->get();
         $this->supervisor = Auth::user()->id;
+        $this->modelos_varios = [1,4];
     }
 
     public function abrirModal($fecha,$turno,$programacion_id){
@@ -47,7 +48,6 @@ class ListaImplementos extends Component
             $this->supervisor = Auth::user()->id;
             $this->fecha = "";
             $this->turno = "";
-            $this->modelo_de_implemento_id = 0;
         }
     }
 
@@ -60,7 +60,13 @@ class ListaImplementos extends Component
         if (($clave = array_search($implemento, $this->implemento_id)) !== false) {
             unset($this->implemento_id[$clave]);
         }else{
-            array_push($this->implemento_id,$implemento);
+            $asignar_uno = !in_array($this->modelo_de_implemento_id,$this->modelos_varios);
+            if($asignar_uno){
+                $this->implemento_id = [$implemento];
+                $this->asignarImplemento(true);
+            }else{
+                array_push($this->implemento_id,$implemento);
+            }
         }
     }
 
@@ -68,9 +74,11 @@ class ListaImplementos extends Component
         $this->implemento_id = [];
     }
 
-    public function asignarImplemento(){
+    public function asignarImplemento($limpiarImplementos = false){
         $this->emitTo('supervisor.programacion-de-tractores.modal','obtenerImplemento',$this->implemento_id);
-        $this->implemento_id = [];
+        if($limpiarImplementos){
+            $this->implemento_id = [];
+        }
         $this->open = false;
     }
 

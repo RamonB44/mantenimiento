@@ -36,7 +36,7 @@
                 </tbody>
             </table>
             @endif
-            @if ($modelo_de_implemento_id > 0 && $implementos->count())
+            @if ($modelo_de_implemento_id > 0 && $implementos != [] && $implementos->count())
             <table class="w-full min-w-max" wire:loading.remove>
                 <thead>
                     <tr class="text-white bg-amber-600">
@@ -65,14 +65,17 @@
             </div>
         </x-slot>
         <x-slot name="footer">
-            @if ( !empty($implementos_asignados) && ($modelo_de_implemento_id == 1 || $modelo_de_implemento_id == 4))
+            @if ( !empty($implementos_asignados) && (in_array($modelo_de_implemento_id,$modelos_varios)))
             <x-jet-button wire:loading.attr="disabled" wire:click="asignarImplemento">
                 Asignar
             </x-jet-button>
-            <div wire:loading.flex>
-                Cargando...
+            <div wire:loading wire:target="registrar">
+                Registrando...
             </div>
             @endif
+            <x-jet-secondary-button wire:click="$set('open',false)" class="ml-2">
+                Cerrar
+            </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>
 </div>

@@ -31,7 +31,7 @@ class Modal extends Component
 
     protected function rules(){
         return [
-            'correlativo' => 'required|unique:reporte_de_tractors,correlativo,'.$this->reporte_id,
+            'correlativo' => 'required',
             'programacion_id' => 'required|exists:programacion_de_tractors,id',
             'horometro_final' => "required|gt:horometro_inicial",
         ];
@@ -43,7 +43,6 @@ class Modal extends Component
             'programacion_id.required' => 'Elija una programacion',
             'horometro_final.required' => 'Ingrese el horómetro final',
 
-            'correlativo.unique' => 'Correlativo duplicado',
             'programacion_id.exists' => 'La programacion no existe',
             'horometro_final.gt' => 'El horómetro final debe ser mayor que el inicial'
         ];

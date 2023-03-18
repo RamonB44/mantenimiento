@@ -16,7 +16,7 @@ class ListaImplementos extends Component
     public $turno;
     public $programacion_id;
     public $modelo_de_implemento_id;
-    public $implemento;
+    public $implemento_id;
     public $supervisor;
     public $supervisores;
 
@@ -27,7 +27,7 @@ class ListaImplementos extends Component
         $this->fecha = "";
         $this->turno = "";
         $this->programacion_id = 0;
-        $this->implemento = [];
+        $this->implemento_id = [];
         $this->modelo_de_implemento_id = 0;
         $this->supervisores = User::whereHas('roles',function($q){
             $q->where('name','supervisor');
@@ -55,15 +55,23 @@ class ListaImplementos extends Component
         $this->modelo_de_implemento_id = 0;
     }
 
-    public function updatedImplemento($implemento){
-        //$this->emitTo('supervisor.programacion-de-tractores.modal','obtenerImplemento',$this->implemento);
-        //$this->supervisor = Auth::user()->id;
-        //$this->fecha = "";
-        //$this->turno = "";
-        //$this->open = false;
-        if(!in_array($this->implemento,$implemento)){
-            array_push($implemento,$this->implemento);
+    public function toggleImplemento($implemento){
+        $this->implemento_id ?? [];
+        if (($clave = array_search($implemento, $this->implemento_id)) !== false) {
+            unset($this->implemento_id[$clave]);
+        }else{
+            array_push($this->implemento_id,$implemento);
         }
+    }
+
+    public function updatedModeloDeImplementoId(){
+        $this->implemento_id = [];
+    }
+
+    public function asignarImplemento(){
+        $this->emitTo('supervisor.programacion-de-tractores.modal','obtenerImplemento',$this->implemento_id);
+        $this->implemento_id = [];
+        $this->open = false;
     }
 
     public function render()
@@ -75,13 +83,13 @@ class ListaImplementos extends Component
             $modelos_de_implemento = ModeloDelImplemento::whereHas('Implemento',function($q){
                 $q->where('supervisor',$this->supervisor);
             })->orderBy('modelo_de_implemento')->get();
-            if(!empty($this->implemento)){
-                $implementos_asignados = Implemento::whereIn('id',$this->implemento)->get();
+            if(!empty($this->implemento_id)){
+                $implementos_asignados = Implemento::whereIn('id',$this->implemento_id)->get();
             }
             if($this->modelo_de_implemento_id > 0){
                 $implementos = Implemento::where('supervisor',$this->supervisor)->whereDoesnthave('ImplementoProgramacion',function($q){
                     $q->join('programacion_de_tractors','programacion_de_tractors.id', '=', 'implemento_programacions.programacion_de_tractor_id')->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('programacion_de_tractors.esta_anulado',0)->whereNotIn('programacion_de_tractors.id',[$this->programacion_id]);
-                })->where('modelo_del_implemento_id',$this->modelo_de_implemento_id)->orderBy('modelo_del_implemento_id')->orderBy('numero')->get();
+                })->where('modelo_del_implemento_id',$this->modelo_de_implemento_id)->whereNotIn('id',$this->implemento_id)->orderBy('modelo_del_implemento_id')->orderBy('numero')->get();
             }
         }
 

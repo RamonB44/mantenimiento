@@ -165,9 +165,12 @@ class Modal extends Component
         $this->nombre_tractor = $tractor->ModeloDeTractor->modelo_de_tractor.' '.$tractor->numero;
     }
 
-    public function obtenerImplemento($implemento,$nombre_implemento){
+    public function obtenerImplemento($implemento){
         $this->implemento = $implemento;
-        $this->nombre_implemento = $nombre_implemento;
+        $implementos_asignados = Implemento::whereIn('id',$this->implemento)->get();
+        foreach($implementos_asignados as $implemento){
+            $this->nombre_implemento = $this->nombre_implemento.''.$implemento->numero.',';
+        }
     }
 
     public function registrar(){

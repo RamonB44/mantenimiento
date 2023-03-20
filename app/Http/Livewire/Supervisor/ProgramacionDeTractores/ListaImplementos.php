@@ -41,6 +41,10 @@ class ListaImplementos extends Component
         $this->turno = $turno;
         $this->programacion_id = $programacion_id;
         $this->open = true;
+        if(!$this->supervisor == Auth::user()->id){
+            $this->supervisor = Auth::user()->id;
+            $this->modelo_de_implemento_id = 0;
+        }
     }
 
     public function updatedOpen(){
@@ -48,6 +52,7 @@ class ListaImplementos extends Component
             $this->supervisor = Auth::user()->id;
             $this->fecha = "";
             $this->turno = "";
+            $this->implemento_id = [];
         }
     }
 
@@ -63,7 +68,7 @@ class ListaImplementos extends Component
             $asignar_uno = !in_array($this->modelo_de_implemento_id,$this->modelos_varios);
             if($asignar_uno){
                 $this->implemento_id = [$implemento];
-                $this->asignarImplemento(true);
+                $this->asignarImplemento();
             }else{
                 array_push($this->implemento_id,$implemento);
             }
@@ -74,11 +79,9 @@ class ListaImplementos extends Component
         $this->implemento_id = [];
     }
 
-    public function asignarImplemento($limpiarImplementos = false){
+    public function asignarImplemento(){
         $this->emitTo('supervisor.programacion-de-tractores.modal','obtenerImplemento',$this->implemento_id);
-        if($limpiarImplementos){
-            $this->implemento_id = [];
-        }
+        $this->implemento_id = [];
         $this->open = false;
     }
 

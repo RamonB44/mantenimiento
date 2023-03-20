@@ -115,7 +115,7 @@ class Tabla extends Component
             $programacion_de_tractores = $programacion_de_tractores->where('sede_id',$this->sede_id);
         }
 
-        $programacion_de_tractores = $programacion_de_tractores->whereBetween('fecha',[$this->fecha_inicial,'2023-03-17']);
+        $programacion_de_tractores = $programacion_de_tractores->whereBetween('fecha',[$this->fecha_inicial,$this->fecha_final]);
 
         if($this->turno != "") {
             $programacion_de_tractores = $programacion_de_tractores->where('turno',$this->turno);
@@ -158,7 +158,7 @@ class Tabla extends Component
             }
         }
 
-        $programacion_de_tractores = $programacion_de_tractores->paginate(6);
+        $programacion_de_tractores = $programacion_de_tractores->orderBy('fecha')->orderBy('turno')->paginate(6);
 
         return view('livewire.jefe.programacion-de-tractores.tabla',compact('programacion_de_tractores','total_tractores','total_implementos'));
     }

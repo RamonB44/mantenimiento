@@ -62,14 +62,6 @@ class Modal extends Component
             $this->codigo = $usuario->codigo;
             $this->dni = $usuario->dni;
             $this->nombre = $usuario->name;
-            $this->roles_id = [];
-            foreach($usuario->roles as $rol){
-                if(!in_array($rol->id,$this->roles_id)){
-                    array_push($this->roles_id,$rol->id);
-                }
-            }
-            $this->is_active = $usuario->is_active;
-            $this->emit('obtenerSelectRoles',$this->roles_id);
         }
         $this->open = true;
     }
@@ -78,7 +70,6 @@ class Modal extends Component
         if(!$this->open){
             $this->resetExcept('open','sedes','usuario_id','roles');
             $this->is_active = 1;
-            $this->emit('reestablecerSelectRoles');
             $this->resetValidation();
         }
     }
@@ -117,7 +108,6 @@ class Modal extends Component
 
     public function render()
     {
-        $this->emit('estiloSelect2');
         return view('livewire.planificador.importar-datos.usuario.modal');
     }
 }

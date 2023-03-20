@@ -264,7 +264,6 @@ class Modal extends Component
         }else{
             $lotes = [];
         }
-        $this->emit('estiloSelect2');
         return view('livewire.supervisor.programacion-de-tractores.modal',compact('fundos','lotes'));
     }
 }

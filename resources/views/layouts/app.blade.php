@@ -9,7 +9,7 @@
         <link rel="icon" type="image/x-icon" href="/img/logo.png">
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
+        @wireUiScripts
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -65,39 +65,6 @@
                 for(var i=0;i<checkboxes.length;i++) {
                     checkboxes[i].checked = true;
                 }
-            });
-
-            Livewire.on('estiloSelect2',() => {
-                $('.select2').select2({
-                    theme: 'classic',
-                    language: {
-
-                        noResults: function() {
-
-                        return "No hay resultado";
-                        },
-                        searching: function() {
-
-                        return "Buscando..";
-                        }
-                    }
-                });
-            });
-
-            Livewire.on('reestablecerSelectImplementos',() => {
-                implementos = [];
-            });
-
-            Livewire.on('reestablecerSelectRoles',() => {
-                roles = [];
-            });
-
-            Livewire.on('obtenerSelectImplementos',function (data) {
-                implementos = data;
-            });
-
-            Livewire.on('obtenerSelectRoles',function (data) {
-                roles = data;
             });
 
             Livewire.on('checkout_all', () =>{

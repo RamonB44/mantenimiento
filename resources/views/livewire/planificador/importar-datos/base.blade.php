@@ -7,7 +7,13 @@
             @endforeach
 
         </select>
+        <x-datetime-picker
+        label="Appointment Date"
+        placeholder="Appointment Date"
+        wire:model.defer="normalPicker"
+    />
     </div>
+
     @switch($tabla)
     @case('tractor')
         @livewire('planificador.importar-datos.tractor.base')

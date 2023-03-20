@@ -39,18 +39,6 @@
                     <x-jet-input-error for="nombre"/>
 
                 </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Roles:</x-jet-label>
-                    <select class="select2" name="roles[]" id="roles_id" multiple="multiple" style="width: 100%" wire:model='roles_id'>
-                    @foreach ($roles as $rol)
-                        <option value="{{ $rol->id }}">{{ $rol->name }}</option>
-                    @endforeach
-                    </select>
-
-                    <x-jet-input-error for="roles_id"/>
-
-                </div>
-
 
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>¿Está activo?</x-jet-label>
@@ -73,26 +61,4 @@
             </x-jet-secondary-button>
         </x-slot>
     </x-jet-dialog-modal>
-    <script>
-        var roles = [];
-        document.addEventListener('livewire:load', function() {
-            $('.select2').select2();
-            $('#roles_id').on('select2:selecting select2:unselecting', function(event) {
-                if(roles == null) {
-                    roles = [];
-                }
-                var rol = event.params.args.data.id;
-                if(roles.includes(rol)){
-                    roles = roles.filter((item) => item != rol);
-                }else{
-                    roles.push(rol);
-                }
-                @this.set('roles_id', roles);
-            });
-            $('#roles_id').on('select2:opening select2:closing', function( event ) {
-                var $searchfield = $(this).parent().find('.select2-search__field');
-                $searchfield.prop('disabled', true);
-            });
-        });
-    </script>
 </div>

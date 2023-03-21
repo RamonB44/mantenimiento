@@ -66,7 +66,7 @@ class Base extends Component
         if($this->sede_id > 0 && $this->fecha != "" && $this->turno != ""){
             $supervisores = User::whereHas('roles',function($q){
                 $q->where('name','supervisor');
-            })->select('id','name')->get();
+            })->select('id','name')->where('sede_id',$this->sede_id)->get();
 
             $tractores_no_programados = DB::table('tractors')
             ->select(DB::raw("COUNT(*) as cantidad"),DB::raw("'NO PROGRAMADO' as estado"))

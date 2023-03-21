@@ -5,13 +5,7 @@
             @foreach ($tablas as $item)
             <option value="{{ $item }}">{{ ucfirst($item) }}</option>
             @endforeach
-
         </select>
-        <x-datetime-picker
-        label="Appointment Date"
-        placeholder="Appointment Date"
-        wire:model.defer="normalPicker"
-    />
     </div>
 
     @switch($tabla)

@@ -132,7 +132,12 @@ class Tabla extends Component
                         break;
                     }
                 }
-                return false !== stripos($programacion_de_tractores->Tractorista->name,$this->search) || false !== stripos($programacion_de_tractores->Tractor->ModeloDeTractor->modelo_de_tractor,$this->search) || $hay_implementos || false !== stripos($programacion_de_tractores->Lote->Fundo->fundo,$this->search) || false !== stripos($programacion_de_tractores->Lote->Cultivo->cultivo,$this->search) || false !== stripos($programacion_de_tractores->Lote->lote,$this->search);
+                if(is_null($programacion_de_tractores->Tractor)){
+                    $hay_tractor = false !== stripos('AUTOPROPULSADO',$this->search);
+                }else{
+                    $hay_tractor = false !== stripos($programacion_de_tractores->Tractor->ModeloDeTractor->modelo_de_tractor,$this->search);
+                }
+                return false !== stripos($programacion_de_tractores->Tractorista->name,$this->search) || $hay_tractor || $hay_implementos || false !== stripos($programacion_de_tractores->Lote->Fundo->fundo,$this->search) || false !== stripos($programacion_de_tractores->Lote->Cultivo->cultivo,$this->search) || false !== stripos($programacion_de_tractores->Lote->lote,$this->search);
             });
         }
         $programacion_de_tractores = $programacion_de_tractores->sortBy(function ($programacion_de_tractores,$key){

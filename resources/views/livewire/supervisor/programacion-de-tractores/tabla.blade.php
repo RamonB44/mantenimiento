@@ -60,7 +60,7 @@
                                 </span>
                                 <span class="font-medium">
                                     @if ($programacion_de_tractor->Tractor == null)
-                                        Autopropulsado
+                                        AUTOPROPULSADO
                                     @else
                                     {{ $programacion_de_tractor->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion_de_tractor->Tractor->numero }}
                                     @endif

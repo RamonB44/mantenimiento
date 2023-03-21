@@ -35,3 +35,5 @@ Salida de Materiales para la orden de trabajo.
 Verificar ordenes de trabajo y reservar los materiales para dicha orden dicho día.
 --------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------
 Validar la orden de trabajo cumplida.
+(----------------------------------------------------------------)
+SELECT f.id AS fundo_id,f.fundo,c.id AS cultivo_id,c.cultivo,COUNT(*) AS tractores,(SELECT COUNT(*) FROM tractors tt WHERE EXISTS(SELECT * FROM programacion_de_tractors pt WHERE pt.tractor_id = t.id AND tt.fundo_id = t.fundo_id AND tt.cultivo_id = t.cultivo_id AND pt.fecha = '2023-03-21' AND pt.turno = "MAÑANA")) AS programados FROM tractors t LEFT JOIN fundos f ON f.id = t.fundo_id INNER JOIN cultivos c ON c.id = t.cultivo_id WHERE t.fundo_id IS NOT NULL GROUP BY t.cultivo_id,t.fundo_id;

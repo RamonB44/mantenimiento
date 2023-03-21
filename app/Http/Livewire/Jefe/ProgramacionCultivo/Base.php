@@ -91,12 +91,13 @@ class Base extends Component
 
             if($this->supervisor_id > 0){
                 $cultivo_fundos = DB::table('tractors')
-                ->select('fundos.id as fundo_id', 'fundos.fundo', 'cultivos.id as cultivo_id', 'cultivos.cultivo')
-                ->join('fundos','fundos.id','tractors.fundo_id')
+                ->select('cultivos.id as cultivo_id','cultivos.cultivo','fundos.id as fundo_id','fundos.fundo')
+                ->leftJoin('fundos','fundos.id','tractors.fundo_id')
                 ->join('cultivos','cultivos.id','tractors.cultivo_id')
                 ->where('tractors.sede_id',$this->sede_id)
+                ->whereNotNull('tractors.cultivo_id')
                 ->where('tractors.supervisor',$this->supervisor_id)
-                ->groupBy('tractors.fundo_id','tractors.cultivo_id')
+                ->groupBy('tractors.cultivo_id','tractors.fundo_id')
                 ->get();
 
                 $tractores_no_programados = $tractores_no_programados->where('supervisor',$this->supervisor_id);
@@ -104,9 +105,16 @@ class Base extends Component
 
                 $cultivo_fundo = explode(",",$this->cultivo_fundo_id);
 
-                if($cultivo_fundo[0] > 0 && $cultivo_fundo[1] > 0){
+                if($cultivo_fundo[0] > 0){
                     $tractores_no_programados = $tractores_no_programados->where('cultivo_id',$cultivo_fundo[0]);
                     $tractores_programados = $tractores_programados->where('cultivo_id',$cultivo_fundo[0]);
+                    if ($cultivo_fundo[1] > 0) {
+                        $tractores_no_programados = $tractores_no_programados->where('fundo_id',$cultivo_fundo[1]);
+                        $tractores_programados = $tractores_programados->where('fundo_id',$cultivo_fundo[1]);
+                    }else{
+                        $tractores_no_programados = $tractores_no_programados->whereNull('fundo_id');
+                        $tractores_programados = $tractores_programados->whereNull('fundo_id');
+                    }
                 }
             }
 
@@ -124,7 +132,7 @@ class Base extends Component
                     ->setType('donut')
                     ->withOnSliceClickEvent('onSliceClick')
                     //->withoutLegend()
-                    ->legendPositionLeft()
+                    ->legendPositionTop()
                     ->legendHorizontallyAlignedCenter()
                     ->withDataLabels()
                     ->setColors($this->colors)

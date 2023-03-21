@@ -127,9 +127,6 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="px-4 py-4" wire:loading.remove>
-            {{ $programacion_de_tractores->links() }}
-        </div>
     @else
         <div class="px-6 py-4">
             No existe ningún registro coincidente

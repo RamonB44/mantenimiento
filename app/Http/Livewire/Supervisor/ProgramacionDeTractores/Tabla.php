@@ -111,7 +111,9 @@ class Tabla extends Component
             $total_tractores = 0;
             $total_implementos = 0;
         }else{
-            $total_tractores = $programacion_de_tractores->count();
+            $total_tractores = $programacion_de_tractores->get()->filter(function($item){
+                return !is_null($item->tractor_id);
+            })->count();
             $implementos_por_programacion = $programacion_de_tractores->withCount('ImplementoProgramacion')->get();
             $total_implementos = 0;
             foreach($implementos_por_programacion as $implemento_programacion){
@@ -133,7 +135,9 @@ class Tabla extends Component
                 return false !== stripos($programacion_de_tractores->Tractorista->name,$this->search) || false !== stripos($programacion_de_tractores->Tractor->ModeloDeTractor->modelo_de_tractor,$this->search) || $hay_implementos || false !== stripos($programacion_de_tractores->Lote->Fundo->fundo,$this->search) || false !== stripos($programacion_de_tractores->Lote->Cultivo->cultivo,$this->search) || false !== stripos($programacion_de_tractores->Lote->lote,$this->search);
             });
         }
-
+        $programacion_de_tractores = $programacion_de_tractores->sortBy(function ($programacion_de_tractores,$key){
+            return $programacion_de_tractores->Lote->Fundo->fundo.' '.$programacion_de_tractores->Lote->lote;
+        });
         return view('livewire.supervisor.programacion-de-tractores.tabla',compact('programacion_de_tractores','total_implementos','total_tractores'));
     }
 }

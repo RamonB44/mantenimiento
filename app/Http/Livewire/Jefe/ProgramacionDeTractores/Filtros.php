@@ -72,7 +72,7 @@ class Filtros extends Component
         $this->fecha_final = date('Y-m-d');
         $this->fundos = Fundo::where('sede_id',$sede_id)->orderBy('fundo','asc')->get();
         $this->lotes = [];
-        $this->tractoristas = User::doesnthave('roles')->where('sede_id',$sede_id)->orderBy('name','asc')->get();
+        $this->tractoristas = User::doesnthave('roles')->where('sede_id',$sede_id)->orderBy('name','asc')->get(['id','name']);
         $this->tractores = Tractor::where('sede_id',$sede_id)->get();
         $this->implementos = Implemento::where('sede_id',$sede_id)->get();
         $this->sede_id = $sede_id;

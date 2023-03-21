@@ -150,7 +150,9 @@ class Tabla extends Component
             $total_tractores = "";
             $total_implementos = "";
         }else{
-            $total_tractores = $programacion_de_tractores->count();
+            $total_tractores = $programacion_de_tractores->get()->filter(function($item){
+                return !is_null($item->tractor_id);
+            })->count();
             $implementos_por_programacion = $programacion_de_tractores->withCount('ImplementoProgramacion')->get();
             $total_implementos = 0;
             foreach($implementos_por_programacion as $implemento_programacion){
@@ -158,7 +160,9 @@ class Tabla extends Component
             }
         }
 
-        $programacion_de_tractores = $programacion_de_tractores->orderBy('fecha')->orderBy('turno')->paginate(6);
+        $programacion_de_tractores = $programacion_de_tractores->orderBy('fecha')->orderBy('turno')->get()->sortBy(function ($programacion_de_tractores,$key){
+            return $programacion_de_tractores->Lote->Fundo->fundo.' '.$programacion_de_tractores->Lote->lote;
+        });
 
         return view('livewire.jefe.programacion-de-tractores.tabla',compact('programacion_de_tractores','total_tractores','total_implementos'));
     }

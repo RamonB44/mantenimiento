@@ -45,7 +45,7 @@
         @stack('modals')
 
         @livewireScripts
-
+        @livewireChartsScripts
         <script>
             /*------Alerta para registro----------------------------------------------------*/
             Livewire.on('alerta', data =>{
@@ -76,7 +76,9 @@
             Livewire.on('focus',input =>{
                 document.getElementById(input).focus();
             });
+            Livewire.on('scroll_bottom',() => {
+                window.scrollTo(0, document.body.scrollHeight);
+            })
         </script>
-
     </body>
 </html>

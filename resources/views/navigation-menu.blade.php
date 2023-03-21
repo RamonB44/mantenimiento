@@ -20,8 +20,8 @@
           </a>
           <div class="hidden sm:block sm:ml-6" style="width: 75vw;max-width: 54rem; overflow:auto">
             <div class="flex space-x-4">
-
               @role('jefe')
+              <a href="{{ route('jefe.programacion-por-cultivo') }}" class="{{ request()->routeIs('jefe.programacion-por-cultivo') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Resumen Tractores</a>
               <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Programacion</a>
               <a href="{{ route('jefe.reporte-de-tractores') }}" class="{{ request()->routeIs('jefe.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte</a>
               @endrole
@@ -88,6 +88,7 @@
       <div class="px-2 pt-2 pb-3 space-y-1">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         @role('jefe')
+        <a href="{{ route('jefe.programacion-por-cultivo') }}" class="{{ request()->routeIs('jefe.programacion-por-cultivo') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Resumen Tractores</a>
         <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programacion</a>
         <a href="{{ route('jefe.reporte-de-tractores') }}" class="{{ request()->routeIs('jefe.reporte-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Reporte</a>
         @endrole

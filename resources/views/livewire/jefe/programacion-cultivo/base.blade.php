@@ -36,7 +36,7 @@
         @if ($supervisor_id > 0)
         <div class="p-4" style="padding-left: 1rem; padding-right:1rem">
             <select class="form-control" style="width: 100%" wire:model='cultivo_fundo_id'>
-                <option value="0,0" class="font-bold text-center text-md">Seleccione el supervisor</option>
+                <option value="0,0" class="font-bold text-center text-md">Seleccione el cultivo</option>
                 @foreach ($cultivo_fundos as $cultivo_fundo)
                 <option value="{{ $cultivo_fundo->cultivo_id }},{{ $cultivo_fundo->fundo_id }}">{{ $cultivo_fundo->cultivo }} - {{ $cultivo_fundo->fundo }}</option>
                 @endforeach

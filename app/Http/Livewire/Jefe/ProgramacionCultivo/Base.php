@@ -155,9 +155,6 @@ class Base extends Component
                 );
         }
 
-        $this->emit('scroll_bottom');
-
-
         return view('livewire.jefe.programacion-cultivo.base',compact('pieChartModel','supervisores','cultivo_fundos','tractores_por_cultivo'));
     }
 }

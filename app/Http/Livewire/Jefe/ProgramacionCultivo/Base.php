@@ -62,6 +62,7 @@ class Base extends Component
         $pieChartModel = [];
         $supervisores = [];
         $cultivo_fundos = [];
+        $tractores_por_cultivo = [];
 
         if($this->sede_id > 0 && $this->fecha != "" && $this->turno != ""){
             $supervisores = User::whereHas('roles',function($q){
@@ -88,6 +89,12 @@ class Base extends Component
                     ->where('programacion_de_tractors.fecha',$this->fecha)
                     ->where('turno',$this->turno);
             });
+            if($this->cultivo_fundo_id == '0,0'){
+                $tractores_por_cultivo = DB::table('tractors')
+                    ->select('tractors.supervisor','cultivos.cultivo', 'fundos.fundo', DB::raw("COUNT(*) as tractors"), DB::raw("(SELECT COUNT(*) FROM programacion_de_tractors pt INNER JOIN tractors tt ON tt.id = pt.tractor_id WHERE pt.sede_id = '".$this->sede_id."' AND tt.cultivo_id = tractors.cultivo_id AND tt.fundo_id = tractors.fundo_id AND pt.fecha = '".$this->fecha."' AND pt.turno = '".$this->turno."') as programado"))
+                    ->join('cultivos','cultivos.id','tractors.cultivo_id')
+                    ->leftJoin('fundos','fundos.id','tractors.fundo_id');
+            }
 
             if($this->supervisor_id > 0){
                 $cultivo_fundos = DB::table('tractors')
@@ -116,9 +123,18 @@ class Base extends Component
                         $tractores_programados = $tractores_programados->whereNull('fundo_id');
                     }
                 }
+                if($this->cultivo_fundo_id == '0,0'){
+                    $tractores_por_cultivo = $tractores_por_cultivo->where('tractors.supervisor',$this->supervisor_id);
+                }
             }
 
             $tractores_totales = $tractores_no_programados->union($tractores_programados)->get();
+
+            if($this->cultivo_fundo_id == '0,0'){
+                $tractores_por_cultivo = $tractores_por_cultivo
+                ->groupBy('tractors.cultivo_id','tractors.fundo_id','tractors.supervisor')
+                ->get();
+            }
 
             $pieChartModel = $tractores_totales
                 ->reduce(function ($pieChartModel, $data) {
@@ -139,10 +155,9 @@ class Base extends Component
                 );
         }
 
-
         $this->emit('scroll_bottom');
 
 
-        return view('livewire.jefe.programacion-cultivo.base',compact('pieChartModel','supervisores','cultivo_fundos'));
+        return view('livewire.jefe.programacion-cultivo.base',compact('pieChartModel','supervisores','cultivo_fundos','tractores_por_cultivo'));
     }
 }

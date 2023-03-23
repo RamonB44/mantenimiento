@@ -94,7 +94,7 @@ class Base extends Component
 	    $filtrar_por_supervisor = $this->supervisor_id > 0 ? " AND tt.supervisor = ".$this->supervisor_id : "";
             if($this->cultivo_fundo_id == '0,0'){
                 $tractores_por_cultivo = DB::table('tractors')
-                    ->select('tractors.supervisor','cultivos.cultivo', 'fundos.fundo', DB::raw("COUNT(*) as tractors"), DB::raw("(SELECT COUNT(*) FROM programacion_de_tractors pt INNER JOIN tractors tt ON tt.id = pt.tractor_id WHERE tt.sede_id = ".$this->sede_id." AND tt.cultivo_id = tractors.cultivo_id AND tt.fundo_id = tractors.fundo_id AND pt.fecha = '".$this->fecha."' AND pt.turno = '".$this->turno."'".$filtrar_por_supervisor.") as programado"))
+                    ->select('tractors.supervisor','cultivos.cultivo', 'fundos.fundo', DB::raw("COUNT(*) as tractors"), DB::raw("(SELECT COUNT(*) FROM programacion_de_tractors pt INNER JOIN tractors tt ON tt.id = pt.tractor_id WHERE tt.sede_id = ".$this->sede_id." AND tt.cultivo_id = tractors.cultivo_id AND COALESCE(tt.fundo_id,0) = COALESCE(tractors.fundo_id,0) AND pt.fecha = '".$this->fecha."' AND pt.turno = '".$this->turno."'".$filtrar_por_supervisor.") as programado"))
                     ->join('cultivos','cultivos.id','tractors.cultivo_id')
 		    ->leftJoin('fundos','fundos.id','tractors.fundo_id')
 	    	    ->where('tractors.sede_id',$this->sede_id);

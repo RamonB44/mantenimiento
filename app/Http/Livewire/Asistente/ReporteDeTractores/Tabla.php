@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Asistente\ReporteDeTractores;
 
 use App\Models\ReporteDeTractor;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -26,8 +27,8 @@ class Tabla extends Component
 
     public function mount(){
         $this->reporte_id = 0;
-        $this->fecha = "";
-        $this->turno = "";
+        $this->fecha =  Carbon::yesterday()->isoFormat('Y-MM-DD');
+        $this->turno = "MAÑANA";
         $this->fundo = 0;
         $this->lote = 0;
         $this->tractorista = 0;

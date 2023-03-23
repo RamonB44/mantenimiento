@@ -8,6 +8,7 @@ use App\Models\Labor;
 use App\Models\Lote;
 use App\Models\Tractor;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -35,8 +36,8 @@ class Filtros extends Component
 
     public function mount(){
         $this->open = false;
-        $this->fecha = "";
-        $this->turno = "";
+        $this->fecha =  Carbon::yesterday()->isoFormat('Y-MM-DD');
+        $this->turno = "MAÑANA";
         $this->fundoid = 0;
         $this->loteid = 0;
         $this->tractoristaid = 0;

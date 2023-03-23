@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Asistente\ReporteDeTractores;
 use App\Models\ImplementoProgramacion;
 use App\Models\ProgramacionDeTractor;
 use App\Models\ReporteDeTractor;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -52,7 +53,7 @@ class Modal extends Component
         $this->correlativo = "";
         $this->horometro_inicial = 0;
         $this->horometro_final = 0;
-        $this->fecha = date('Y-m-d');
+        $this->fecha = Carbon::yesterday()->isoFormat('Y-MM-DD');
         $this->turno = "MAÑANA";
         $this->accion = "crear";
         $this->deshabilitar_horometro_inicial = true;

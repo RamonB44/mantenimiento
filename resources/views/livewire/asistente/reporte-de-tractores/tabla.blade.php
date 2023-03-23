@@ -1,4 +1,5 @@
 <div>
+    <x-boton-crud color="red">Falta reportar 8 programaciones</x-boton-crud>
     @if ($reporte_de_tractores->count())
         <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800" wire:loading.remove>
             <div class="col-span-2 text-lg font-black text-white">
@@ -128,7 +129,7 @@
         </div>
     @else
         <div class="px-6 py-4 text-2xl font-black">
-           NO EXISTE PROGRAMACIÓN EN EL DÍA
+            PRESIONE REGISTRAR PARA REPORTAR DEL DÍA {{ date_format(date_create($fecha),'d-m-Y') }}
         </div>
     @endif
         <div class="px-4 py-4" wire:loading.remove>

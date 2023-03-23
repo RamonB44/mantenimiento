@@ -93,7 +93,13 @@
                 </thead>
                 <tbody class="block md:table-row-group">
                     @foreach ($tractores_por_cultivo as $tractor_por_cultivo)
-                    <tr style="cursor: pointer" class="block font-medium bg-white border border-red-500 md:border-none md:table-row">
+                    <tr style="cursor: pointer" class="block font-medium bg-white border border-red-500 md:border-none md:table-row"
+                    @if ($tractor_por_cultivo->programado > 0)
+                    wire:click="$emitTo('jefe.programacion-cultivo.modal-tabla','abrirModal','{{ $sede_id }}','{{ $fecha }}','{{ $turno }}',{{ $supervisor_id }},'{{ $tractor_por_cultivo->cultivo_id }},{{ $tractor_por_cultivo->fundo_id ?? '0' }}')"
+                    @else
+                        wire:click="$emit('alerta',['center','warning','Sin detalle'])"
+                    @endif
+                    >
                         <td class="block p-2 text-left md:text-center md:border md:border-grey-500 md:table-cell">
                             <div>
                                 <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
@@ -163,6 +169,7 @@
         </div>
         @endif
     </div>
+    @livewire('jefe.programacion-cultivo.modal-tabla', ['sede_id' => $sede_id])
     @endif
     <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>
         <div class="text-center">

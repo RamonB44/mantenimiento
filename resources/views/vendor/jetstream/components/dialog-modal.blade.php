@@ -1,4 +1,4 @@
-@props(['id' => null, 'maxWidth' => null, 'color' => ""])
+@props(['id' => null, 'maxWidth' => null, 'color' => "", 'posicion' => ""])
 
 <x-jet-modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
     <div class="px-6 py-4 {{ $color == "" ? '' : 'bg-'.$color.'-300' }}">
@@ -6,12 +6,12 @@
             {{ $title }}
         </div>
 
-        <div class="mt-4" style="max-height: 440px;overflow-y:auto">
+        <div class="mt-4 {{ $posicion }}" style="max-height: 440px;overflow-y:auto">
             {{ $content }}
         </div>
     </div>
 
-    <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 text-right">
+    <div class="flex flex-row justify-end px-6 py-4 text-right bg-gray-100">
         {{ $footer }}
     </div>
 </x-jet-modal>

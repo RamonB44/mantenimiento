@@ -52,7 +52,7 @@ class ModalTabla extends Component
 
     public function render()
     {
-        if($this->sede_id > 0 && $this->fecha != "" && $this->turno != "" && $this->cultivo_id > 0 && $this->fundo_id > 0){
+        if($this->sede_id > 0 && $this->fecha != "" && $this->turno != "" && $this->cultivo_id > 0){
             $programacion_de_tractores = ProgramacionDeTractor::join('tractors','tractors.id','programacion_de_tractors.tractor_id')->where('tractors.sede_id',$this->sede_id)->where('programacion_de_tractors.fecha',$this->fecha)->where('programacion_de_tractors.turno',$this->turno)->where('tractors.cultivo_id',$this->cultivo_id)->where(DB::raw('COALESCE(tractors.fundo_id,0)'),$this->fundo_id);
             if($this->supervisor > 0){
                 $programacion_de_tractores = $programacion_de_tractores->where('tractors.supervisor',$this->supervisor);

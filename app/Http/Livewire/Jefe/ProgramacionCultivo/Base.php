@@ -77,7 +77,8 @@ class Base extends Component
                     ->where('programacion_de_tractors.tractor_id',DB::raw('tractors.id'))
                     ->where('programacion_de_tractors.fecha',$this->fecha)
                     ->where('turno',$this->turno);
-            });
+	    })->whereNotNull('cultivo_id')
+	    ->where('sede_id',$this->sede_id);
 
             $tractores_programados = DB::table('tractors')
             ->select(DB::raw("COUNT(*) as cantidad"),DB::raw("'PROGRAMADO' as estado"))
@@ -88,12 +89,15 @@ class Base extends Component
                     ->where('programacion_de_tractors.tractor_id',DB::raw('tractors.id'))
                     ->where('programacion_de_tractors.fecha',$this->fecha)
                     ->where('turno',$this->turno);
-            });
+	    })->whereNotNull('cultivo_id')
+	    ->where('sede_id',$this->sede_id);
+	    $filtrar_por_supervisor = $this->supervisor_id > 0 ? " AND tt.supervisor = ".$this->supervisor_id : "";
             if($this->cultivo_fundo_id == '0,0'){
                 $tractores_por_cultivo = DB::table('tractors')
-                    ->select('tractors.supervisor','cultivos.cultivo', 'fundos.fundo', DB::raw("COUNT(*) as tractors"), DB::raw("(SELECT COUNT(*) FROM programacion_de_tractors pt INNER JOIN tractors tt ON tt.id = pt.tractor_id WHERE pt.sede_id = '".$this->sede_id."' AND tt.cultivo_id = tractors.cultivo_id AND tt.fundo_id = tractors.fundo_id AND pt.fecha = '".$this->fecha."' AND pt.turno = '".$this->turno."') as programado"))
+                    ->select('tractors.supervisor','cultivos.cultivo', 'fundos.fundo', DB::raw("COUNT(*) as tractors"), DB::raw("(SELECT COUNT(*) FROM programacion_de_tractors pt INNER JOIN tractors tt ON tt.id = pt.tractor_id WHERE tt.sede_id = ".$this->sede_id." AND tt.cultivo_id = tractors.cultivo_id AND tt.fundo_id = tractors.fundo_id AND pt.fecha = '".$this->fecha."' AND pt.turno = '".$this->turno."'".$filtrar_por_supervisor.") as programado"))
                     ->join('cultivos','cultivos.id','tractors.cultivo_id')
-                    ->leftJoin('fundos','fundos.id','tractors.fundo_id');
+		    ->leftJoin('fundos','fundos.id','tractors.fundo_id')
+	    	    ->where('tractors.sede_id',$this->sede_id);
             }
 
             if($this->supervisor_id > 0){
@@ -132,7 +136,7 @@ class Base extends Component
 
             if($this->cultivo_fundo_id == '0,0'){
                 $tractores_por_cultivo = $tractores_por_cultivo
-                ->groupBy('tractors.cultivo_id','tractors.fundo_id','tractors.supervisor')
+                ->groupBy('tractors.cultivo_id','tractors.fundo_id')
                 ->get();
             }
 

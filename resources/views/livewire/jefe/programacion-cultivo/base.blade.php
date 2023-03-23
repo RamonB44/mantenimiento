@@ -108,16 +108,34 @@
                             </div>
                         </td>
                         <td class="block p-2 text-left md:text-center md:border md:border-grey-500 md:table-cell">
-                            <div>
-                                <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
-                                    <img src="/img/tabla/tractor.svg" alt="tractor" width="25">
-                                </span>
-                                <span class="font-medium">
-                                    {{ $tractor_por_cultivo->tractors }}
-                                </span>
+                            <div class="grid grid-cols-3 md:grid-cols-1">
+                                <div>
+                                    <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                        <img src="/img/tabla/tractor.svg" alt="tractor" width="25">
+                                    </span>
+                                    <span class="font-medium">
+                                        {{ $tractor_por_cultivo->tractors }}
+                                    </span>
+                                </div>
+                                <div class="md:hidden">
+                                    <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                        <img src="/img/tabla/programado.png" alt="programado" width="25">
+                                    </span>
+                                    <span class="font-medium">
+                                        {{ $tractor_por_cultivo->programado }}
+                                    </span>
+                                </div>
+                                <div class="md:hidden">
+                                    <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
+                                        <img src="/img/tabla/no-programado.png" alt="no-programado" width="25">
+                                    </span>
+                                    <span class="font-medium">
+                                        {{ $tractor_por_cultivo->tractors - $tractor_por_cultivo->programado }}
+                                    </span>
+                                </div>
                             </div>
                         </td>
-                        <td class="block p-2 text-left md:text-center md:border md:border-grey-500 md:table-cell">
+                        <td class="hidden p-2 text-left md:text-center md:border md:border-grey-500 md:table-cell">
                             <div>
                                 <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
                                     <img src="/img/tabla/programado.png" alt="programado" width="25">
@@ -127,7 +145,7 @@
                                 </span>
                             </div>
                         </td>
-                        <td class="block p-2 text-left md:text-center md:border md:border-grey-500 md:table-cell">
+                        <td class="hidden p-2 text-left md:text-center md:border md:border-grey-500 md:table-cell">
                             <div>
                                 <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
                                     <img src="/img/tabla/no-programado.png" alt="no-programado" width="25">
@@ -137,6 +155,7 @@
                                 </span>
                             </div>
                         </td>
+                        </div>
                     </tr>
                     @endforeach
                 </tbody>

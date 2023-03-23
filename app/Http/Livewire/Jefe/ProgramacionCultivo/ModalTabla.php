@@ -75,7 +75,7 @@ class ModalTabla extends Component
                 if($this->supervisor > 0){
                     $programacion_de_tractores = $programacion_de_tractores->where('tractors.supervisor',$this->supervisor);
                 }
-                $programacion_de_tractores = $programacion_de_tractores->get();
+                $programacion_de_tractores = $programacion_de_tractores->orderBy('tractors.numero')->get();
             }
         }else{
             $tractores_no_programados = Tractor::join('modelo_de_tractors','modelo_de_tractors.id','tractors.modelo_de_tractor_id')
@@ -93,7 +93,7 @@ class ModalTabla extends Component
                 $tractores_no_programados = $tractores_no_programados->where('supervisor',$this->supervisor);
             }
 
-            $tractores_no_programados = $tractores_no_programados->where('sede_id',$this->sede_id)->get();
+            $tractores_no_programados = $tractores_no_programados->where('sede_id',$this->sede_id)->orderBy('numero')->get();
         }
 
 

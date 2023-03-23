@@ -19,10 +19,6 @@ class Base extends Component
 
     public $colors;
 
-    protected $listeners = [
-        'onSliceClick' => 'handleOnSliceClick',
-    ];
-
     public function mount(){
         $this->sede_id = 0;
         $this->sedes = Sede::select('id','sede')->get();
@@ -50,11 +46,6 @@ class Base extends Component
 
     public function updatedSupervisorId(){
         $this->cultivo_fundo_id = "0,0";
-    }
-
-    public function handleOnSliceClick($slice)
-    {
-        dd($slice);
     }
 
     public function render()
@@ -152,7 +143,7 @@ class Base extends Component
                     ->setTitle('Resumen de Tractores')
                     ->setAnimated(true)
                     ->setType('donut')
-                    ->withOnSliceClickEvent('onSliceClick')
+                    //->withOnSliceClickEvent('onSliceClick')
                     //->withoutLegend()
                     ->legendPositionTop()
                     ->legendHorizontallyAlignedCenter()

@@ -27,8 +27,13 @@ class Base extends Component
         $this->fecha = date('Y-m-d');
         $this->turno = "MAÑANA";
         $this->colors = [
-            'PROGRAMADO' => '#008000',
-            'NO PROGRAMADO' => '#808080',
+            '0' => '#8ea5cc',
+            '1' => '#dc346c',
+            '2' => '#fcbd9c',
+            '3' => '#391d9d',
+            '4' => '#aa579f',
+            '5' => '#4c325c',
+            '6' => '#543440'
         ];
     }
 
@@ -61,7 +66,7 @@ class Base extends Component
             })->select('id','name')->where('sede_id',$this->sede_id)->get();
 
             $tractores_no_programados = DB::table('tractors')
-            ->select(DB::raw("COUNT(*) as cantidad"),DB::raw("'NO PROGRAMADO' as estado"))
+            ->select(DB::raw("COUNT(*) as cantidad"),DB::raw("'NO PROGRAMADO' as name"))
             ->whereNotExists(function ($query) {
                 $query->from('programacion_de_tractors')
                     ->select('*')
@@ -72,18 +77,19 @@ class Base extends Component
 	    })->whereNotNull('cultivo_id')
 	    ->where('sede_id',$this->sede_id);
 
-            $tractores_programados = DB::table('tractors')
-            ->select(DB::raw("COUNT(*) as cantidad"),DB::raw("'PROGRAMADO' as estado"))
-            ->whereExists(function ($query) {
-                $query->from('programacion_de_tractors')
-                    ->select('*')
-                    ->where('programacion_de_tractors.sede_id',$this->sede_id)
-                    ->where('programacion_de_tractors.tractor_id',DB::raw('tractors.id'))
-                    ->where('programacion_de_tractors.fecha',$this->fecha)
-                    ->where('turno',$this->turno)
-                    ->where('esta_anulado',0);
-	    })->whereNotNull('cultivo_id')
-	    ->where('sede_id',$this->sede_id);
+        $tractores_programados = DB::table('programacion_de_tractors')
+                                    ->select(DB::raw("COUNT('programacion_de_tractors.id') as cantidad"), 'users.name')
+                                    ->join('tractors','tractors.id','=','programacion_de_tractors.tractor_id')
+                                    ->join('users','programacion_de_tractors.solicitante','=','users.id')
+                                    ->where('tractors.sede_id',$this->sede_id)
+                                    ->where('programacion_de_tractors.tractor_id',DB::raw('tractors.id'))
+                                    ->where('programacion_de_tractors.fecha',$this->fecha)
+                                    ->where('programacion_de_tractors.turno',$this->turno)
+                                    ->where('programacion_de_tractors.esta_anulado',0)
+                                    ->whereNotNull('tractors.cultivo_id')
+                                    ->having('cantidad','>',0)
+                                    ->groupBy('programacion_de_tractors.solicitante');
+
 	    $filtrar_por_supervisor = $this->supervisor_id > 0 ? " AND tt.supervisor = ".$this->supervisor_id : "";
             if($this->cultivo_fundo_id == '0,0'){
                 $tractores_por_cultivo = DB::table('tractors')
@@ -105,19 +111,19 @@ class Base extends Component
                 ->get();
 
                 $tractores_no_programados = $tractores_no_programados->where('supervisor',$this->supervisor_id);
-                $tractores_programados = $tractores_programados->where('supervisor',$this->supervisor_id);
+                $tractores_programados = $tractores_programados->where('tractors.supervisor',$this->supervisor_id);
 
                 $cultivo_fundo = explode(",",$this->cultivo_fundo_id);
 
                 if($cultivo_fundo[0] > 0){
                     $tractores_no_programados = $tractores_no_programados->where('cultivo_id',$cultivo_fundo[0]);
-                    $tractores_programados = $tractores_programados->where('cultivo_id',$cultivo_fundo[0]);
+                    $tractores_programados = $tractores_programados->where('tractors.cultivo_id',$cultivo_fundo[0]);
                     if ($cultivo_fundo[1] > 0) {
                         $tractores_no_programados = $tractores_no_programados->where('fundo_id',$cultivo_fundo[1]);
-                        $tractores_programados = $tractores_programados->where('fundo_id',$cultivo_fundo[1]);
+                        $tractores_programados = $tractores_programados->where('tractors.fundo_id',$cultivo_fundo[1]);
                     }else{
                         $tractores_no_programados = $tractores_no_programados->whereNull('fundo_id');
-                        $tractores_programados = $tractores_programados->whereNull('fundo_id');
+                        $tractores_programados = $tractores_programados->whereNull('tractors.fundo_id');
                     }
                 }
                 if($this->cultivo_fundo_id == '0,0'){
@@ -135,10 +141,10 @@ class Base extends Component
 
             $pieChartModel = $tractores_totales
                 ->reduce(function ($pieChartModel, $data) {
-                    $type = $data->estado;
+                    $type = $data->name;
                     $value = $data->cantidad;
-
-                    return $pieChartModel->addSlice($type, $value, $this->colors[$type]);
+                    $i = 0;
+                    return $pieChartModel->addSlice($type, $value, $this->colors[$i++]);
                 }, LivewireCharts::pieChartModel()
                     ->setTitle('Resumen de Tractores')
                     ->setAnimated(true)
@@ -148,7 +154,8 @@ class Base extends Component
                     ->legendPositionTop()
                     ->legendHorizontallyAlignedCenter()
                     ->withDataLabels()
-                    ->setColors($this->colors)
+                    ->sparklined()
+                    ->setColors(['#8ea5cc','#dc346c','#fcbd9c','#391d9d','#aa579f','#4c325c','#543440'])
                 );
         }
 

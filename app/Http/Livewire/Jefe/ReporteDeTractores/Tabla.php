@@ -3,11 +3,14 @@
 namespace App\Http\Livewire\Jefe\ReporteDeTractores;
 
 use App\Exports\TractorReportsExport;
+use App\Models\ProgramacionDeTractor;
 use App\Models\ReporteDeTractor;
 use App\Models\Sede;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 
 class Tabla extends Component
 {
@@ -16,42 +19,19 @@ class Tabla extends Component
     public $sede_id;
     public $fecha;
     public $turno;
-    public $fundo;
-    public $lote;
-    public $tractorista;
-    public $tractor;
-    public $implemento;
-    public $labor;
+    public $search;
 
     protected $listeners = ['obtenerSede','filtrar','pdf','excel'];
 
     public function mount($sede_id){
         $this->sede_id = $sede_id;
-        $this->fecha = date('Y-m-d');
-        $this->turno = "";
-        $this->fundo = 0;
-        $this->lote = 0;
-        $this->tractorista = 0;
-        $this->tractor = 0;
-        $this->implemento = 0;
-        $this->labor = 0;
+        $this->fecha = Carbon::yesterday()->isoFormat('Y-MM-DD');
+        $this->turno = "MAÑANA";
     }
 
     public function obtenerSede($sede_id){
-        $this->resetExcept('fecha');
+        $this->resetExcept('fecha','turno');
         $this->sede_id = $sede_id;
-    }
-
-    public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
-        $this->resetPage();
-        $this->fecha = $fecha;
-        $this->turno = $turno;
-        $this->fundo = $fundo;
-        $this->lote = $lote;
-        $this->tractorista = $tractorista;
-        $this->tractor = $tractor;
-        $this->implemento = $implemento;
-        $this->labor = $labor;
     }
 
     public function excel(){
@@ -65,39 +45,37 @@ class Tabla extends Component
 
     public function render()
     {
-        $reporte_de_tractores = ReporteDeTractor::where('sede_id',$this->sede_id)->where('esta_anulado',0);
+        $reporte_de_tractores = ReporteDeTractor::where('sede_id',$this->sede_id)->whereHas('ProgramacionDeTractor',function($q){ $q->where('fecha',$this->fecha)->where('turno',$this->turno); });
 
+        $reporte_de_tractores = $reporte_de_tractores->get();
 
-        $reporte_de_tractores->whereHas('ProgramacionDeTractor',function($q){
-            if($this->fecha != ''){
-                $q->where('fecha',$this->fecha);
-            }
-            if($this->turno != ""){
-                $q->where('turno',$this->turno);
-            }
-            if($this->lote > 0){
-                $q->where('lote_id',$this->lote);
-            }else if($this->fundo > 0){
-                $q->whereHas('Lote',function($q){
-                    $q->where('fundo_id',$this->fundo);
-                });
-            }
-            if($this->tractorista > 0) {
-                $q->where('tractorista',$this->tractorista);
-            }
-            if($this->tractor > 0) {
-                $q->where('tractor_id',$this->tractor);
-            }
-            if($this->implemento > 0) {
-                $q->where('implemento_id',$this->implemento);
-            }
-            if($this->labor > 0) {
-                $q->where('labor_id',$this->labor);
+        if($this->search != ""){
+            $reporte_de_tractores = $reporte_de_tractores->filter(function($reporte_de_tractores){
+                $hay_implementos = false;
+                foreach($reporte_de_tractores->ProgramacionDeTractor->Implementos as $implemento){
+                    $hay_implementos = false !== stripos($implemento->Implemento->ModeloDelImplemento,$this->search);
+                    if($hay_implementos){
+                        break;
+                    }
+                }
+                if(is_null($reporte_de_tractores->ProgramacionDeTractor->Tractor)){
+                    $hay_tractor = false !== stripos('AUTOPROPULSADO',$this->search);
+                }else{
+                    $hay_tractor = false !== stripos($reporte_de_tractores->ProgramacionDeTractor->Tractor->ModeloDeTractor->modelo_de_tractor,$this->search);
+                }
+                return false !== stripos($reporte_de_tractores->ProgramacionDeTractor->Tractorista->name,$this->search) || $hay_tractor || $hay_implementos || false !== stripos($reporte_de_tractores->ProgramacionDeTractor->Lote->Fundo->fundo,$this->search) || false !== stripos($reporte_de_tractores->ProgramacionDeTractor->Lote->Cultivo->cultivo,$this->search) || false !== stripos($reporte_de_tractores->ProgramacionDeTractor->Lote->lote,$this->search) || false !== stripos($reporte_de_tractores->ProgramacionDeTractor->Labor->labor,$this->search) || false !== stripos($reporte_de_tractores->ProgramacionDeTractor->Solicitante->name,$this->search);
+            });
+        }
+
+        $total_de_programaciones = ProgramacionDeTractor::where('sede_id',$this->sede_id)->where('fecha',$this->fecha)->where('turno',$this->turno)->count();
+
+        $reporte_de_tractores = $reporte_de_tractores->sortBy(function ($reporte_de_tractores,$key){
+            if(isset($reporte_de_tractores->ProgramacionDeTractor->Tractor)){
+                return $reporte_de_tractores->ProgramacionDeTractor->Tractor->numero;
             }
         });
 
-        $reporte_de_tractores = $reporte_de_tractores->latest()->paginate(6);
 
-        return view('livewire.jefe.reporte-de-tractores.tabla',compact('reporte_de_tractores'));
+        return view('livewire.jefe.reporte-de-tractores.tabla',compact('reporte_de_tractores','total_de_programaciones'));
     }
 }

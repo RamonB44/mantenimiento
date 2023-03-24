@@ -6,18 +6,6 @@
         <x-slot name="content">
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Día:</x-jet-label>
-                    <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
-                </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
-                    <x-jet-label>Turno:</x-jet-label>
-                    <select class="form-select" style="width: 100%" wire:model='turno'>
-                        <option value="">Seleccione un turno</option>
-                        <option>MAÑANA</option>
-                        <option>NOCHE</option>
-                    </select>
-                </div>
-                <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Fundo:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='fundoid'>
                         <option value="0">Seleccione una opción</option>

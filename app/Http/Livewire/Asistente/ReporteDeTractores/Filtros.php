@@ -16,8 +16,6 @@ class Filtros extends Component
 {
     public $open;
 
-    public $fecha;
-    public $turno;
     public $fundoid;
     public $loteid;
     public $tractoristaid;
@@ -36,8 +34,6 @@ class Filtros extends Component
 
     public function mount(){
         $this->open = false;
-        $this->fecha =  Carbon::yesterday()->isoFormat('Y-MM-DD');
-        $this->turno = "MAÑANA";
         $this->fundoid = 0;
         $this->loteid = 0;
         $this->tractoristaid = 0;
@@ -66,7 +62,7 @@ class Filtros extends Component
     }
 
     public function filtrar(){
-        $this->emitTo('asistente.reporte-de-tractores.tabla','filtrar',$this->fecha, $this->turno, $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
+        $this->emitTo('asistente.reporte-de-tractores.tabla','filtrar', $this->fundoid, $this->loteid, $this->tractoristaid, $this->tractorid, $this->implementoid, $this->laborid);
         $this->open = false;
     }
 

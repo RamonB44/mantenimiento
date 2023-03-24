@@ -78,4 +78,7 @@ class User extends Authenticatable
     public function Sede(){
         return $this->belongsTo(Sede::class);
     }
+    public function SupervisorModel(){
+        return $this->belongsTo(User::class,'supervisor');
+    }
 }

@@ -1,5 +1,22 @@
 <div>
-    <x-boton-crud color="red">Falta reportar 8 programaciones</x-boton-crud>
+    <x-boton-crud accion="$emitTo('asistente.reporte-de-tractores.modal','abrirModal',0)" color="red">Falta reportar 8 programaciones</x-boton-crud>
+    <div class="grid items-center grid-cols-2 p-2 bg-white md:grid-cols-4">
+        <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+            <x-jet-label>Día:</x-jet-label>
+            <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
+        </div>
+        <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+            <x-jet-label>Turno:</x-jet-label>
+            <select class="form-select" style="width: 100%" wire:model='turno'>
+                <option value="">Seleccione un turno</option>
+                <option>MAÑANA</option>
+                <option>NOCHE</option>
+            </select>
+        </div>
+        <div class="col-span-2 pt-4" style="padding-left: 1rem; padding-right:1rem">
+            <x-jet-input type="text" style="height:40px;width: 100%" wire:model.lazy="search" placeholder="Escriba algo y presione enter"/>
+        </div>
+    </div>
     @if ($reporte_de_tractores->count())
         <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800" wire:loading.remove>
             <div class="col-span-2 text-lg font-black text-white">
@@ -129,7 +146,7 @@
         </div>
     @else
         <div class="px-6 py-4 text-2xl font-black">
-            PRESIONE REGISTRAR PARA REPORTAR DEL DÍA {{ date_format(date_create($fecha),'d-m-Y') }}
+            PRESIONE REGISTRAR PARA COMENZAR A REPORTAR
         </div>
     @endif
         <div class="px-4 py-4" wire:loading.remove>

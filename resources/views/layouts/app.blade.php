@@ -9,7 +9,6 @@
         <link rel="icon" type="image/x-icon" href="/img/logo.png">
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-        @wireUiScripts
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

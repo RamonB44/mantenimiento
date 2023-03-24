@@ -1,10 +1,37 @@
 <div>
-    @if ($reporte_de_tractores->count())
-        <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800" wire:loading.remove>
-            <div class="col-span-2 text-lg font-black text-white">
-                FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }}</span>
-            </div>
+    <div class="grid items-center grid-cols-1 bg-white md:grid-cols-2">
+        <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+            <x-jet-label>Fecha:</x-jet-label>
+            <x-jet-input type="date" min="2022-05-18" style="height:40px;width: 100%" wire:model="fecha"/>
         </div>
+        <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+            <x-jet-label>Turno:</x-jet-label>
+            <select class="form-select" style="width: 100%" wire:model='turno'>
+                <option value="MAÑANA">DIA</option>
+                <option>NOCHE</option>
+            </select>
+        </div>
+        <div class="py-2" style="padding-left: 1rem; padding-right:1rem">
+            <x-jet-input type="text" style="height:40px;width: 100%" wire:model.lazy="search" placeholder="Escriba lo que desea buscar y presione enter"/>
+        </div>
+        <x-boton-crud accion="$emit('excel')" color="green">EXCEL</x-boton-crud>
+    </div>
+    @if ($total_de_programaciones == 0)
+    <div class="items-center p-2 text-center bg-amber-600" wire:loading.remove>
+        <div class="col-span-2 text-lg font-black text-white">
+            NADA PROGRAMADO AÚN
+        </div>
+    </div>
+    @elseif ($total_de_programaciones == $reporte_de_tractores->count())
+    <div class="items-center p-2 text-center bg-green-600" wire:loading.remove>
+        <div class="col-span-2 text-lg font-black text-white">
+            REPORTE COMPLETO
+        </div>
+    </div>
+    @else
+    <x-boton-crud color="red" accion="$emit('abrirModal',{{ $sede_id }},'{{ $fecha }}','{{ $turno }}')">Faltan reportar {{ $total_de_programaciones - $reporte_de_tractores->count() }} programaciones de {{ $total_de_programaciones }}</x-boton-crud>
+    @endif
+    @if ($reporte_de_tractores->count())
         <table class="block min-w-full text-center border-collapse md:table" wire:loading.remove>
             <thead class="block md:table-header-group">
                 <tr class="absolute block text-center border border-grey-500 md:border-none md:table-row -top-full md:top-auto -left-full md:left-auto md:relative">
@@ -36,7 +63,7 @@
             </thead>
             <tbody class="block md:table-row-group">
                 @foreach ($reporte_de_tractores as $reporte_de_tractor)
-                    <tr style="cursor: pointer" wire:click="seleccionar({{$reporte_de_tractor->id}})"  class="block font-medium bg-white border border-red-500 md:border-none md:table-row">
+                    <tr style="cursor: pointer" class="block font-medium bg-white border border-red-500 md:border-none md:table-row">
                         <td class="block p-2 text-left md:border md:border-grey-500 md:table-cell">
                             <div>
                                 <span class="inline-block font-bold md:hidden" style="width: 50px;padding-left: 0.4rem">
@@ -128,10 +155,7 @@
         </div>
     @else
         <div class="px-6 py-4 text-2xl font-black">
-           NO EXISTE PROGRAMACIÓN DEL {{ date_format(date_create($fecha),'d-m-Y') }}
+           Ningún registro coincidente
         </div>
     @endif
-        <div class="px-4 py-4" wire:loading.remove>
-            {{ $reporte_de_tractores->links() }}
-        </div>
 </div>

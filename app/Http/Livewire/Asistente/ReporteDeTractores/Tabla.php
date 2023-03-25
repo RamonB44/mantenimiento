@@ -24,7 +24,7 @@ class Tabla extends Component
     public $labor;
     public $search;
 
-    protected $listeners = ['render','filtrar'];
+    protected $listeners = ['render','filtrar','obtenerFecha'];
 
     public function mount(){
         $this->reporte_id = 0;
@@ -45,11 +45,19 @@ class Tabla extends Component
         }
     }
 
+    public function obtenerFecha($fecha,$turno){
+        $this->fecha = $fecha;
+        $this->turno = $turno;
+        $this->render();
+    }
+
     public function updatedFecha(){
         $this->resetPage();
+        $this->emit('obtenerFecha',$this->fecha,$this->turno);
     }
     public function updatedTurno(){
         $this->resetPage();
+        $this->emit('obtenerFecha',$this->fecha,$this->turno);
     }
 
     public function filtrar($fundo,$lote,$tractorista,$tractor,$implemento,$labor){
@@ -64,7 +72,7 @@ class Tabla extends Component
 
     public function render()
     {
-        if($this->fecha != ''){
+        if($this->fecha == ''){
             $this->fecha = date('Y-m-d');
         }
 
@@ -73,7 +81,7 @@ class Tabla extends Component
                                                     $q->where('fecha',$this->fecha)->where('turno',$this->turno);
                                                 });
 
-        $reporte_de_tractores = $reporte_de_tractores->search()->latest()->paginate(6);
+        $reporte_de_tractores = $reporte_de_tractores->latest()->paginate(6);
 
         return view('livewire.asistente.reporte-de-tractores.tabla',compact('reporte_de_tractores'));
     }

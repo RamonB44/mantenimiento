@@ -27,7 +27,7 @@ class Modal extends Component
 
     public $reporte_id;
 
-    protected $listeners = ['abrirModal'];
+    protected $listeners = ['abrirModal','obtenerFecha'];
 
     protected function rules(){
         return [
@@ -77,9 +77,14 @@ class Modal extends Component
         $this->open = true;
     }
 
-    public function updatedOpen(){
+    public function obtenerFecha($fecha,$turno){
+        $this->fecha = $fecha;
+        $this->turno = $turno;
+    }
+
+    public function updatedOpen() {
         if(!$this->open){
-            $this->resetExcept('open','fecha','turno');
+            $this->emit('obtenerFecha',$this->fecha,$this->turno);
         }
     }
 
@@ -126,8 +131,6 @@ class Modal extends Component
             $this->resetExcept('fecha','turno','open','accion');
             $this->emit('alerta',['center','success','Programación Registrada']);
         }
-
-        $this->emitTo('asistente.reporte-de-tractores.tabla','render');
     }
 
     public function updatedProgramacionId(){

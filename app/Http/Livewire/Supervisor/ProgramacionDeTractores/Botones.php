@@ -59,15 +59,11 @@ class Botones extends Component
     public function anular(){
         if($this->programacion_id > 0){
             $programacion = ProgramacionDeTractor::find($this->programacion_id);
-            if($programacion->fecha < now()->toDateString()){
-                $this->emit('alerta',['center','error','No se puede eliminar']);
-            }else{
-                $programacion->esta_anulado = 1;
-                $programacion->save();
-                $this->programacion_id = 0;
-                $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
-                $this->emit('alerta',['center','success','Anulado']);
-            }
+            $programacion->esta_anulado = 1;
+            $programacion->save();
+            $this->programacion_id = 0;
+            $this->emitTo('supervisor.programacion-de-tractores.tabla','render');
+            $this->emit('alerta',['center','success','Anulado']);
         }else{
             $this->emit('alerta',['center','warning','Ningún registro seleccionado']);
         }

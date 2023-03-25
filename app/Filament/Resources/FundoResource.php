@@ -18,20 +18,19 @@ class FundoResource extends Resource
 {
     protected static ?string $model = Fundo::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationGroup = 'Ubicaciones';
+
+    protected static ?string $navigationIcon = 'heroicon-o-home';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('sede_id')
-                    ->label('Sede')
-                    ->options(Sede::all()->pluck('sede', 'id'))
-                    ->searchable()
-                    ->required(),
-                Forms\Components\TextInput::make('fundo')
-                    ->required()
-                    ->maxLength(255),
+                ->label('Sede')->options(Sede::all()->pluck('sede','id'))
+                ->searchable()
+                ->required(),
+                Forms\Components\TextInput::make('fundo')->unique()->required()
             ]);
     }
 
@@ -40,32 +39,24 @@ class FundoResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('sede.sede'),
-                Tables\Columns\TextColumn::make('fundo'),
+                Tables\Columns\TextColumn::make('fundo')
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('sede')->relationship('sede','sede'),
-                ])
+                Tables\Filters\SelectFilter::make('sede')->relationship('sede','sede')
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFundos::route('/'),
-            'create' => Pages\CreateFundo::route('/create'),
-            'edit' => Pages\EditFundo::route('/{record}/edit'),
+            'index' => Pages\ManageFundos::route('/'),
         ];
     }
 }

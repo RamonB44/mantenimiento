@@ -23,9 +23,7 @@ class CultivoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('cultivo')
-                    ->required()
-                    ->maxLength(255),
+                //
             ]);
     }
 
@@ -33,36 +31,24 @@ class CultivoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('cultivo'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                //
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
     
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-    
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCultivos::route('/'),
-            'create' => Pages\CreateCultivo::route('/create'),
-            'edit' => Pages\EditCultivo::route('/{record}/edit'),
+            'index' => Pages\ManageCultivos::route('/'),
         ];
     }    
 }

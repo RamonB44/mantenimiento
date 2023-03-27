@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SedeResource\Pages;
-use App\Filament\Resources\SedeResource\RelationManagers;
-use App\Models\Sede;
+use App\Filament\Resources\ImplementoResource\Pages;
+use App\Filament\Resources\ImplementoResource\RelationManagers;
+use App\Models\Implemento;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,19 +13,19 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SedeResource extends Resource
+class ImplementoResource extends Resource
 {
-    protected static ?string $model = Sede::class;
+    protected static ?string $model = Implemento::class;
 
-    protected static ?string $navigationGroup = 'Ubicaciones';
+    protected static ?string $navigationGroup = 'Máquinas';
 
-    protected static ?string $navigationIcon = 'heroicon-o-home';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('sede')->required()
+                //
             ]);
     }
 
@@ -33,13 +33,14 @@ class SedeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('sede')
+                Tables\Columns\TextColumn::make('numero')->label('modelo_de_tractor')
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -49,7 +50,7 @@ class SedeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageSedes::route('/'),
+            'index' => Pages\ManageImplementos::route('/'),
         ];
     }
 }

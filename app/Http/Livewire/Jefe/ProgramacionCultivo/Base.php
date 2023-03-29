@@ -34,11 +34,7 @@ class Base extends Component
             '4' => '#aa579f',
             '5' => '#4c325c',
             '6' => '#543440',
-            '7' => '#fcbd9c',
-            '8' => '#391d9d',
-            '9' => '#aa579f',
-            '10' => '#4c325c',
-            '11' => '#543440'
+            '7' => '#34DC97'
         ];
     }
 
@@ -160,7 +156,7 @@ class Base extends Component
                     ->legendHorizontallyAlignedCenter()
                     ->withDataLabels()
                     ->sparklined()
-                    ->setColors(['#8ea5cc','#dc346c','#fcbd9c','#391d9d','#aa579f','#4c325c','#543440','#fcbd9c','#391d9d','#aa579f','#4c325c','#543440'])
+                    ->setColors(['#8ea5cc','#dc346c','#fcbd9c','#391d9d','#aa579f','#4c325c','#543440','#34DC97','#34DCD9'])
                 );
         }
 

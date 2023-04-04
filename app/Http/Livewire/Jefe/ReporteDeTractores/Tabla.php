@@ -67,7 +67,7 @@ class Tabla extends Component
             });
         }
 
-        $total_de_programaciones = ProgramacionDeTractor::where('sede_id',$this->sede_id)->where('fecha',$this->fecha)->where('turno',$this->turno)->count();
+        $total_de_programaciones = ProgramacionDeTractor::where('sede_id',$this->sede_id)->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotNull('tractor_id')->count();
 
         $reporte_de_tractores = $reporte_de_tractores->sortBy(function ($reporte_de_tractores,$key){
             if(isset($reporte_de_tractores->ProgramacionDeTractor->Tractor)){

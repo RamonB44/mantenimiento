@@ -40,7 +40,7 @@ class ReportesFaltantes extends Component
     {
         $tractores_no_reportados = [];
         if($this->sede_id > 0 && $this->fecha != ""){
-            $tractores_no_reportados  = ProgramacionDeTractor::doesntHave('ReporteDeTractor')->where('sede_id',$this->sede_id)->where('fecha',$this->fecha)->where('turno',$this->turno)->with(['tractor'])->select('tractor_id')->get();
+            $tractores_no_reportados  = ProgramacionDeTractor::doesntHave('ReporteDeTractor')->where('sede_id',$this->sede_id)->where('fecha',$this->fecha)->where('turno',$this->turno)->where('esta_anulado',0)->whereNotNull('tractor_id')->with(['tractor'])->select('tractor_id')->get();
         }
         return view('livewire.jefe.reporte-de-tractores.reportes-faltantes',compact('tractores_no_reportados'));
     }

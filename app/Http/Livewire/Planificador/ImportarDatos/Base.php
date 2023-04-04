@@ -16,7 +16,7 @@ class Base extends Component
     }
 
     public function descargarRespaldo(){
-        $path = Storage::disk('public')->path("\public\\respaldos\\respaldo_mantenimiento.sql");
+        $path = Storage::disk('public')->path("/public/respaldos/respaldo_mantenimiento.sql");
         return response()->download($path);
     }
 

@@ -6,7 +6,6 @@
             <option value="{{ $item }}">{{ ucfirst($item) }}</option>
             @endforeach
         </select>
-        <x-boton-crud accion="descargarRespaldo" color="blue">Descargar Respaldo</x-boton-crud>
     </div>
 
     @switch($tabla)

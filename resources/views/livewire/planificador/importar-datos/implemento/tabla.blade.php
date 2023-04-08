@@ -53,7 +53,7 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $implemento->Responsable->name }}</span>
+                                <span class="font-medium">{{ $implemento->ResponsableModel->name }}</span>
                             </div>
                         </td>
                     </tr>

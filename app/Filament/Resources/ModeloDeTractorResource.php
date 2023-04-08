@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CultivoResource\Pages;
-use App\Filament\Resources\CultivoResource\RelationManagers;
-use App\Models\Cultivo;
+use App\Filament\Resources\ModeloDeTractorResource\Pages;
+use App\Filament\Resources\ModeloDeTractorResource\RelationManagers;
+use App\Models\ModeloDeTractor;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,11 +13,15 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CultivoResource extends Resource
+class ModeloDeTractorResource extends Resource
 {
-    protected static ?string $model = Cultivo::class;
+    protected static ?string $model = ModeloDeTractor::class;
 
-    protected static ?string $navigationGroup = 'Ubicaciones';
+    protected static ?string $modelLabel = 'Modelo de Tractor';
+
+    protected static ?string $pluralModelLabel = 'Modelo de Tractores';
+
+    protected static ?string $navigationGroup = 'Tractores';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -25,7 +29,7 @@ class CultivoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('cultivo')->required()->unique()
+                Forms\Components\TextInput::make('modelo_de_tractor')->required()->unique()
             ]);
     }
 
@@ -33,14 +37,14 @@ class CultivoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextInputColumn::make('cultivo')->rules(['required','unique:cultivos,cultivo,except,id']),
+                Tables\Columns\TextInputColumn::make('modelo_de_tractor')->rules(['required','unique:modelo_de_tractors,modelo_de_tractor,except,id']),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 //Tables\Actions\EditAction::make(),
-                //Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -50,7 +54,7 @@ class CultivoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageCultivos::route('/'),
+            'index' => Pages\ManageModeloDeTractors::route('/'),
         ];
     }
 }

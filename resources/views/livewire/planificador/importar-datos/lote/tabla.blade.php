@@ -40,7 +40,7 @@
                         </td>
                         <td class="py-3 text-center">
                             <div>
-                                <span class="font-medium">{{ $lote->Encargado->name}}</span>
+                                <span class="font-medium">{{ $lote->EncargadoModel->name}}</span>
                             </div>
                         </td>
                         <td class="py-3 text-center">

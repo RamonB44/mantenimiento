@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CultivoResource\Pages;
-use App\Filament\Resources\CultivoResource\RelationManagers;
-use App\Models\Cultivo;
+use App\Filament\Resources\ModeloDelImplementoResource\Pages;
+use App\Filament\Resources\ModeloDelImplementoResource\RelationManagers;
+use App\Models\ModeloDelImplemento;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,11 +13,15 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CultivoResource extends Resource
+class ModeloDelImplementoResource extends Resource
 {
-    protected static ?string $model = Cultivo::class;
+    protected static ?string $model = ModeloDelImplemento::class;
 
-    protected static ?string $navigationGroup = 'Ubicaciones';
+    protected static ?string $modelLabel = 'Modelo del Implemento';
+
+    protected static ?string $pluralModelLabel = 'Modelo de los Implementos';
+
+    protected static ?string $navigationGroup = 'Implementos';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -25,7 +29,7 @@ class CultivoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('cultivo')->required()->unique()
+                Forms\Components\TextInput::make('modelo_de_implemento')->required()->unique(),
             ]);
     }
 
@@ -33,7 +37,7 @@ class CultivoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextInputColumn::make('cultivo')->rules(['required','unique:cultivos,cultivo,except,id']),
+                Tables\Columns\TextInputColumn::make('modelo_de_implemento')->rules(['required','unique:modelo_del_implementos,modelo_de_implemento,except,id'])
             ])
             ->filters([
                 //
@@ -50,7 +54,7 @@ class CultivoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageCultivos::route('/'),
+            'index' => Pages\ManageModeloDelImplementos::route('/'),
         ];
     }
 }

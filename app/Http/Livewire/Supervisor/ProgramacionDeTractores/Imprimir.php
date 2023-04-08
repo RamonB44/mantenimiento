@@ -91,7 +91,7 @@ class Imprimir extends Component
                     $data['implementos'][$indice_implemento]['numero'] = $implemento->Implemento->numero;
                     $data['implementos'][$indice_implemento]['fecha'] = $fecha;
                     $data['implementos'][$indice_implemento]['turno'] = $programacion->turno;
-                    $data['implementos'][$indice_implemento]['operario'] = $implemento->Implemento->Responsable->name;
+                    $data['implementos'][$indice_implemento]['operario'] = $implemento->Implemento->ResponsableModel->name;
                     $sistemas = ComponentePorModelo::where('modelo_id',$implemento->Implemento->modelo_del_implemento_id)->groupBy('sistema_id')->get();
                     foreach($sistemas as $indice_sistema => $sistema) {
                         if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->Implemento->modelo_del_implemento_id)->exists()){

@@ -19,7 +19,19 @@ class Tractor extends Model
         return $this->belongsTo(Sede::class);
     }
 
+    public function Fundo(){
+        return $this->belongsTo(Fundo::class);
+    }
+
+    public function Cultivo(){
+        return $this->belongsTo(Cultivo::class);
+    }
+
     public function ProgramacionDeTractor(){
         return $this->hasMany(ProgramacionDeTractor::class);
+    }
+
+    public function SupervisorModel(){
+        return $this->belongsTo(User::class, 'supervisor');
     }
 }

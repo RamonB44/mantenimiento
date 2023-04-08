@@ -25,7 +25,7 @@ class SedeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('sede')->required()
+                Forms\Components\TextInput::make('sede')->rules(['required','unique:sedes,sede,except,id']),
             ]);
     }
 
@@ -33,13 +33,13 @@ class SedeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('sede')
+                Tables\Columns\TextInputColumn::make('sede')->rules(['required','unique:sedes,sede,except,id']),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

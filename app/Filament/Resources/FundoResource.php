@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FundoResource\Pages;
-use App\Filament\Resources\FundoResource\RelationManagers;
 use App\Models\Fundo;
 use App\Models\Sede;
 use Filament\Forms;
@@ -11,8 +10,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FundoResource extends Resource
 {
@@ -30,7 +27,7 @@ class FundoResource extends Resource
                 ->label('Sede')->options(Sede::all()->pluck('sede','id'))
                 ->searchable()
                 ->required(),
-                Forms\Components\TextInput::make('fundo')->unique()->required()
+                Forms\Components\TextInput::make('fundo')->required()->unique()
             ]);
     }
 
@@ -46,7 +43,7 @@ class FundoResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                //Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

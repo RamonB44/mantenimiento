@@ -15,7 +15,7 @@ class Implemento extends Model
         return $this->belongsTo(Sede::class);
     }
 
-    public function Responsable(){
+    public function ResponsableModel(){
         return $this->belongsTo(User::class,'responsable');
     }
 

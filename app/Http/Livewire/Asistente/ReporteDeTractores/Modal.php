@@ -98,10 +98,6 @@ class Modal extends Component
 
     public function registrar(){
         $this->validate();
-        if($this->horometro_final - $this->horometro_inicial > 10){
-            $this->emit('alerta',['center','warning','No puedes poner más de 10 horas trabajadas']);
-            return false;
-        }
 
         if($this->reporte_id > 0){
             $this->accion = "editar";

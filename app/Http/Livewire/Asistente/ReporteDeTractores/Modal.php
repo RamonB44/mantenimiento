@@ -98,6 +98,10 @@ class Modal extends Component
 
     public function registrar(){
         $this->validate();
+        if($this->horometro_final - $this->horometro_inicial > 10){
+            $this->emit('alerta',['center','warning','No puedes poner más de 10 horas trabajadas']);
+            return false;
+        }
 
         if($this->reporte_id > 0){
             $this->accion = "editar";
@@ -105,6 +109,7 @@ class Modal extends Component
 
             $reporte->programacion_de_tractor_id = $this->programacion_id;
             $reporte->correlativo = $this->correlativo;
+            $reporte->horometro_inicial = $this->horometro_inicial;
             $reporte->horometro_final = $this->horometro_final;
             $reporte->asistente = Auth::user()->id;
 
@@ -127,10 +132,10 @@ class Modal extends Component
                 'sede_id' => Auth::user()->sede_id,
                 'asistente' => Auth::user()->id,
             ]);
-
             $this->resetExcept('fecha','turno','open','accion');
             $this->emit('alerta',['center','success','Programación Registrada']);
         }
+        $this->emit('obtenerFecha',$this->fecha,$this->turno);
     }
 
     public function updatedProgramacionId(){

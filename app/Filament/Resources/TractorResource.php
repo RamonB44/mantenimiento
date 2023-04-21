@@ -15,7 +15,6 @@ use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Validation\Rules\Unique;
-use Closure;
 
 class TractorResource extends Resource
 {

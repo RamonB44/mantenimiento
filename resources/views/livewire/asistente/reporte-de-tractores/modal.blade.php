@@ -66,7 +66,7 @@
 
                 <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Horometro Inicial:</x-jet-label>
-                    <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_inicial" disabled="{{ $deshabilitar_horometro_inicial }}"/>
+                    <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_inicial"/>
                 </div>
                 <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Horometro Final:</x-jet-label>

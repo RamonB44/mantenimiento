@@ -2,27 +2,20 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class Supervisor extends Model
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
-    use HasRoles;
+    use HasFactory, HasRoles;
 
-    protected $guard_name = 'web';
-    /**
+    protected $guard_name = 'supervisor';
+
+    protected $table = 'users';
+
+        /**
      * The attributes that are mass assignable.
      *
      * @var string[]
@@ -66,11 +59,4 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function SolicitudDePedido(){
-        return $this->hasMany(SolicitudDePedido::class,'solicitante');
-    }
-
-    public function ProgramacionDeTractor(){
-        return $this->hasMany(ProgramacionDeTractor::class,'tractorista');
-    }
 }

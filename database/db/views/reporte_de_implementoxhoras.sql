@@ -1,0 +1,4 @@
+CREATE VIEW vista_reporte_de_implementosxhoras AS
+SELECT pt.sede_id,s.sede,pt.fecha, sum(rt.horometro_final - rt.horometro_inicial) as Horas_Usado,
+mi.id as modelo_implemento_id,
+GROUP_CONCAT(mi.modelo_de_implemento,' ',i.numero) AS implementos FROM reporte_de_tractors rt INNER JOIN programacion_de_tractors pt ON pt.id = rt.programacion_de_tractor_id INNER JOIN sedes s ON s.id = pt.sede_id INNER JOIN lotes l ON l.id = pt.lote_id INNER JOIN fundos f ON f.id = l.fundo_id INNER JOIN users u ON u.id = pt.tractorista LEFT JOIN tractors t ON t.id = pt.tractor_id LEFT JOIN modelo_de_tractors mt ON mt.id = t.modelo_de_tractor_id INNER JOIN implemento_programacions ip ON ip.programacion_de_tractor_id = pt.id INNER JOIN implementos i ON i.id = ip.implemento_id INNER JOIN modelo_del_implementos mi ON mi.id = i.modelo_del_implemento_id GROUP BY mi.id, pt.fecha ORDER BY `pt`.`fecha` DESC;

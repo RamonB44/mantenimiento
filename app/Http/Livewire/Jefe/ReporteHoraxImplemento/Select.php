@@ -71,7 +71,6 @@ class Select extends Component
 
     public function render()
     {
-        // Log::info("rendering");
         return view('livewire.jefe.reporte-horax-implemento.select');
     }
 }

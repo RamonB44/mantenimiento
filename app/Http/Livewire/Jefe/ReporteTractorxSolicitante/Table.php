@@ -42,7 +42,7 @@ class Table extends Component
         }
         $qry .= 'fecha as created_at';
 
-        $data = DB::table('resumen_de_solicitud_tractoresv2')
+        $data = DB::table('resumen_de_solicitud_tractores')
             ->whereBetween(DB::raw('DATE_FORMAT(fecha, "%Y-%m-%d")'), [$fecha1->format('Y-m-d H:i'), $fecha2->format('Y-m-d H:i')])
             ->where('sede_id', $sede)
             ->where('solicitante_id', $solicitante)

@@ -27,8 +27,11 @@ class Select extends Component
         $this->end_date = Carbon::today()->toString();
     }
 
-    public function checkSelects(){
-
+    public function checkSelects()
+    {
+        if ($this->idSede != null && $this->idSolicitante != null  && $this->start_date != null && $this->end_date != null) {
+            $this->emit('renderBarChart', $this->start_date, $this->end_date, $this->idSede, $this->idSolicitante);
+        }
     }
 
     public function updatedidSede($value)

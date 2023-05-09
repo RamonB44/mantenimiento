@@ -65,6 +65,7 @@
             barChart._data.data.labels = labels;
             var max = tag.length;
             var dataset = [];
+            barChart._data.data.datasets = [];
             for (let index = 0; index < max; index++) {
                 var color = getRandomColor();
                 dataset = {

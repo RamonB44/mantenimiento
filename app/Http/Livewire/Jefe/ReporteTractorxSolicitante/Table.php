@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Jefe\ReporteTractorxSolicitante;
 
-use App\Models\Tractor;
+use App\Models\ModeloDeTractor;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Support\Facades\DB;
@@ -10,11 +10,11 @@ use Livewire\Component;
 
 class Table extends Component
 {
-    public $data = [];
-    public $labels = [];
-    public $hidden = [];
-    public $tag = [];
-    public $netoData = [];
+    public $newData;
+    public $labels;
+    public $hidden;
+    public $tag;
+    public $netoData;
 
     protected $listeners = [
         'renderBarChart',
@@ -27,30 +27,32 @@ class Table extends Component
         $diff = $fecha1->diff($fecha2);
         $qry = "";
         $this->labels = array();
-        $this->data = [];
-        $this->netoData = [];
+        $this->newData = array();
+        $this->netoData = array();
 
-        $tractor = Tractor::all();
+        $tractor = ModeloDeTractor::all();
 
         foreach ($tractor as $key => $value) {
             # code...
             // $label["label"][0][$key] = $value->description;
-            $this->tag[$key] = $value->description;
+            $this->tag[$key] = $value->modelo_de_tractor;
             $this->hidden[$key] = /*!in_array($value->id,$this->config['treg']);*/ false;
-            $qry .= "case modelo_de_implemento_id when " . $value->id . " then 1 else 0 end as " . $value->description . ",";
+            $qry .= "case modelo_de_tractor_id when " . $value->id . " then 1 else 0 end as " . $value->modelo_de_tractor . ",";
             $this->netoData[$value->id] = 0;
         }
-        $qry .= 'date(fecha) as created_at';
+        $qry .= 'fecha as created_at';
 
-        $data = DB::table('resumen_de_programacion_de_tractores')
-            ->whereBetween(DB::raw('UNIX_TIMESTAMP(DATE_FORMAT(fecha, "%Y-%m-%d %H:%i"))'), [strtotime($fecha1->format('Y-m-d H:i')), strtotime($fecha2->addHours(23)->addMinutes(59)->format('Y-m-d H:i'))])
+        $data = DB::table('resumen_de_solicitud_tractoresv2')
+            ->whereBetween(DB::raw('DATE_FORMAT(fecha, "%Y-%m-%d")'), [$fecha1->format('Y-m-d H:i'), $fecha2->format('Y-m-d H:i')])
             ->where('sede_id', $sede)
             ->where('solicitante_id', $solicitante)
             ->select(
                 DB::raw($qry),
             )
-            ->orderBy(DB::raw('date(fecha)', 'desc'))->get()->toArray();
-
+            ->orderBy("fecha")
+            ->get()
+            ->toArray();
+        // dd($data[0]["created_at"]);
         //to array
         $day = "";
         $week = "";
@@ -62,8 +64,9 @@ class Table extends Component
         if ($diff->days > 0 and $diff->days < 7) {
             //semana ordenado por dias L,MA,MI,J,V,S,D
             foreach ($data as $key => $value) {
+                $value = get_object_vars($value);
                 // $dataTime = DateTime::createFromFormat('Y-m-d H:i:s', $date->created_at);
-                $dataTime = Carbon::createFromFormat('Y-m-d H:i:s', $value["fecha"], new DateTimeZone('America/Lima'));
+                $dataTime = Carbon::createFromFormat('Y-m-d', $value["created_at"], new DateTimeZone('America/Lima'));
 
                 if ($bool) {
                     $this->labels[$contador] = $dataTime->translatedFormat('l/d');
@@ -75,9 +78,9 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
-                        $this->data[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
-                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                     }
                     //ok 25 [0]
                 } else {
@@ -91,18 +94,19 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
-                        $this->data[$p->id] = 0;
-                        $this->data["data"][$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        // $this->data[$p->id] = 0;
+                        $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
-                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                     }
                 }
             }
         } elseif ($diff->days > 7 and $diff->days < 31) {
             //mes ordenado por semanas W1,W2,W3,W4
             foreach ($data as $key => $value) {
+                $value = get_object_vars($value);
                 // $dataTime = DateTime::createFromFormat('Y-m-d H:i:s', $date->created_at);
-                $dataTime = Carbon::createFromFormat('Y-m-d H:i:s', $value["fecha"], new DateTimeZone('America/Lima'));
+                $dataTime = Carbon::createFromFormat('Y-m-d', $value["created_at"], new DateTimeZone('America/Lima'));
 
                 if ($bool) {
                     $this->labels[$contador] = "Semana N°" . $dataTime->format('W');
@@ -114,9 +118,9 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
-                        $this->data[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
-                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                     }
                 } else {
                     $contador++;
@@ -127,17 +131,20 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
-                        $this->data[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->netoData[$p->id] = 0;
+                        $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
-                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                     }
                 }
             }
         } elseif ($diff->days > 31 and $diff->days < 365) {
             //año ordenado por meses E,F,MAR,AB,MAY,JUN,JUL,AGO,SEP,OCTU,NOVI,DICI
             foreach ($data as $key => $value) {
+                // dd($value->created_at);
+                $value = get_object_vars($value);
                 // $dataTime = DateTime::createFromFormat('Y-m-d H:i:s', $date->created_at);
-                $dataTime = Carbon::createFromFormat('Y-m-d H:i:s', $value["fecha"], new DateTimeZone('America/Lima'));
+                $dataTime = Carbon::createFromFormat('Y-m-d', $value["created_at"], new DateTimeZone('America/Lima'));
 
                 if ($bool) {
                     $this->labels[$contador] = "Mes :" . $dataTime->translatedFormat('M');
@@ -149,9 +156,9 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
-                        $this->data[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
-                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                     }
                 } else {
                     $contador++;
@@ -162,9 +169,9 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
-                        $this->data[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
-                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["description"]];
+                        $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                     }
                 }
             }

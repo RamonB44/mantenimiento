@@ -63,20 +63,3 @@ window.chart = function (DOMElement, typeChart, barData) {
         optionsBarHorizontal
     );
 }
-
-window.updateBChart = (barChart, data, labels, hidden, tag) => {
-    barChart.data.labels = labels;
-    var max = tag.length;
-    var dataset = [];
-    for (let index = 0; index < max; index++) {
-        var color = getRandomColor();
-        dataset = {
-            label: tag[index],
-            backgroundColor: color,
-            hidden: hidden[index],
-            data: data[index]
-        }
-        barChart.data.datasets.push(dataset);
-    }
-    barChart.update();
-}

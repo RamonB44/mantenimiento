@@ -5,14 +5,15 @@ namespace App\Http\Livewire\Jefe\ReporteTractorxSolicitante;
 use App\Models\Sede;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Select extends Component
 {
     public $listSedes = [];
     public $listSolicitante = [];
-    public $start_date = null;
-    public $end_date = null;
+    public $startDate;
+    public $endDate;
 
     public $idSede, $idSolicitante;
 
@@ -23,26 +24,42 @@ class Select extends Component
         })->get();
         $this->listSedes = Sede::all();
 
-        $this->start_date = Carbon::yesterday()->toString();
-        $this->end_date = Carbon::today()->toString();
+        $this->startDate = Carbon::yesterday()->format('Y-m-d');
+        $this->endDate = Carbon::today()->format('Y-m-d');
     }
 
     public function checkSelects()
     {
-        if ($this->idSede != null && $this->idSolicitante != null  && $this->start_date != null && $this->end_date != null) {
-            $this->emit('renderBarChart', $this->start_date, $this->end_date, $this->idSede, $this->idSolicitante);
+        if ($this->idSede != null && $this->idSolicitante != null  && $this->startDate != null && $this->endDate != null) {
+            $this->emit('renderBarChart', $this->startDate, $this->endDate, $this->idSede, $this->idSolicitante);
         }
     }
 
     public function updatedidSede($value)
     {
         $this->idSede = $value;
-        $this->checkSelects();
+        // $this->checkSelects();
     }
 
     public function updatedidSolicitante($value)
     {
         $this->idSolicitante = $value;
+        // $this->checkSelects();
+    }
+
+    public function updatedstartDate($value){
+        Log::info("Update start date");
+        $this->startDate = $value;
+        // $this->checkSelects();
+    }
+
+    public function updatedendDate($value){
+        Log::info("Update end date");
+        $this->endDate = $value;
+        $this->checkSelects();
+    }
+
+    public function btnLoad(){
         $this->checkSelects();
     }
 

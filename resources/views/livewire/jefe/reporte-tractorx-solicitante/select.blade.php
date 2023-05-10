@@ -19,6 +19,14 @@
                 @endforelse
             </select>
 
+            <select id="cultivo" wire:model="idCultivo" data-te-select-init
+                data-te-select-placeholder="Cultivo">
+                <option value="" hidden selected></option>
+                @forelse ($listCultivo as $item)
+                    <option value="{{ $item->id }}">{{ $item->cultivo }}</option>
+                @empty
+                @endforelse
+            </select>
         </div>
     </div>
     <div class="row-span-1">

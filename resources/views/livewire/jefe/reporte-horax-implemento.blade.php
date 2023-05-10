@@ -19,5 +19,6 @@
             const weeks = window.multiSelect("#weeks");
             const days = window.multiSelect("#days");
         });
+
     </script>
 @endsection

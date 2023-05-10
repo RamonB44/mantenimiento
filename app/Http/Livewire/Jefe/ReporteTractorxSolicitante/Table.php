@@ -20,7 +20,7 @@ class Table extends Component
         'renderBarChart',
     ];
 
-    public function renderBarChart($start, $end, $sede, $solicitante)
+    public function renderBarChart($start, $end, $sede, $solicitante, $cultivo)
     {
         $fecha1 = Carbon::parse($start);
         $fecha2 = Carbon::parse($end);
@@ -42,10 +42,11 @@ class Table extends Component
         }
         $qry .= 'fecha as created_at';
 
-        $data = DB::table('resumen_de_solicitud_tractoresv2')
+        $data = DB::table('resumen_de_solicitud_tractores')
             ->whereBetween(DB::raw('DATE_FORMAT(fecha, "%Y-%m-%d")'), [$fecha1->format('Y-m-d H:i'), $fecha2->format('Y-m-d H:i')])
             ->where('sede_id', $sede)
             ->where('solicitante_id', $solicitante)
+            ->where('cultivo_id', $cultivo)
             ->select(
                 DB::raw($qry),
             )
@@ -94,14 +95,14 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
-                        // $this->data[$p->id] = 0;
+                        $this->netoData[$p->id] = 0;
                         $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
                         $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                     }
                 }
             }
-        } elseif ($diff->days > 7 and $diff->days < 31) {
+        } elseif ($diff->days >= 7 and $diff->days < 31) {
             //mes ordenado por semanas W1,W2,W3,W4
             foreach ($data as $key => $value) {
                 $value = get_object_vars($value);
@@ -138,7 +139,7 @@ class Table extends Component
                     }
                 }
             }
-        } elseif ($diff->days > 31 and $diff->days < 365) {
+        } elseif ($diff->days >= 30 and $diff->days < 365) {
             //año ordenado por meses E,F,MAR,AB,MAY,JUN,JUL,AGO,SEP,OCTU,NOVI,DICI
             foreach ($data as $key => $value) {
                 // dd($value->created_at);
@@ -169,6 +170,7 @@ class Table extends Component
 
                     foreach ($tractor as $u => $p) {
                         # code...
+                        $this->netoData[$p->id] = 0;
                         $this->newData[$u][$contador] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];
                         // $newData["hidden"][0] = !in_array(1,$this->config);
                         $this->netoData[$p->id] = (float) $this->netoData[$p->id] + (float) $value[$p["modelo_de_tractor"]];

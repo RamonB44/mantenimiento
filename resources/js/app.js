@@ -21,7 +21,7 @@ window.datepicker = (DOMElement, DatePicketOptions) => {
     return new Datepicker(datepickerDisableFuture, DatePicketOptions);
 }
 
-window.chart = function (DOMElement, typeChart, barData) {
+window.chart = (DOMElement, typeChart, barData) => {
     const dataBarHorizontal = {
         type: typeChart,
         data: barData,

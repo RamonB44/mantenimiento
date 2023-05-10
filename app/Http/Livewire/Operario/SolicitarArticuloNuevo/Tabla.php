@@ -29,13 +29,15 @@ class Tabla extends Component
     }
 
     public function cambiarImplemento($id){
-        $this->implemento_id = $id;
-        if($id > 0 && SolicitudDePedido::where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('implemento_id',$this->implemento_id)->exists()){
-            $this->lista_materiales_nuevos = SolicitudDeNuevoArticulo::whereHas('SolicitudDePedido',function($q){
-                $q->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('implemento_id',$this->implemento_id);
-            })->get();
-        }else{
-            $this->lista_materiales_nuevos = [];
+        if($id > 0){
+            $this->implemento_id = $id;
+            if(SolicitudDePedido::where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('implemento_id',$this->implemento_id)->exists()){
+                $this->lista_materiales_nuevos = SolicitudDeNuevoArticulo::whereHas('SolicitudDePedido',function($q){
+                    $q->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('implemento_id',$this->implemento_id);
+                })->get();
+            }else{
+                $this->lista_materiales_nuevos = [];
+            }
         }
     }
 

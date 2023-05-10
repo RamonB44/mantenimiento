@@ -1,13 +1,13 @@
-<div>
+<div class="w-full">
     <div class="p-4" style="padding-left: 1rem; padding-right:1rem">
         <select class="form-control" id="id_implemento" style="width: 100%" wire:model='tabla'>
             <option value="" class="font-bold text-center text-md">Seleccione una opción</option>
             @foreach ($tablas as $item)
             <option value="{{ $item }}">{{ ucfirst($item) }}</option>
             @endforeach
-
         </select>
     </div>
+
     @switch($tabla)
     @case('tractor')
         @livewire('planificador.importar-datos.tractor.base')

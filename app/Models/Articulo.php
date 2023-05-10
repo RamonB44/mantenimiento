@@ -38,4 +38,8 @@ class Articulo extends Model
     public function DetalleDeSolicitudDePedido(){
         return $this->hasMany(DetalleDeSolicitudDePedido::class);
     }
+
+    public function FrecuenciaMantenimiento() {
+        return $this->hasOne(FrecuenciaMantenimiento::class);
+    }
 }

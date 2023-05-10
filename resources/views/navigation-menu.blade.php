@@ -1,6 +1,6 @@
 <nav x-data="{ open:false }" class="bg-gray-800">
     <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div class="relative flex items-center justify-between h-16">
+      <div class="relative flex items-center justify-between h-20">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
           <!-- Mobile menu button-->
           <button x-on:click="open = !open" type="button" class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
@@ -18,23 +18,24 @@
             <img class="block w-auto h-8 lg:hidden" src="/img/logo.png" alt="Logo">
             <img class="hidden w-auto h-8 lg:block" src="/img/logo.png" alt="Logo">
           </a>
-          <div class="hidden sm:block sm:ml-6">
+          <div class="hidden sm:block sm:ml-6" style="width: 75vw;max-width: 54rem; overflow:auto">
             <div class="flex space-x-4">
-
               @role('jefe')
+              <a href="{{ route('jefe.programacion-por-cultivo') }}" class="{{ request()->routeIs('jefe.programacion-por-cultivo') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Resumen Tractores</a>
               <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Programacion</a>
               <a href="{{ route('jefe.reporte-hora-x-implementos') }}" class="{{ request()->routeIs('jefe.reporte-hora-x-implementos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte Hora x Implementos</a>
               <a href="{{ route('jefe.reporte-tractor-x-solicitante') }}" class="{{ request()->routeIs('jefe.reporte-tractor-x-solicitante') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte Tractor x Solicitante</a>
+              <a href="{{ route('jefe.reporte-de-tractores') }}" class="{{ request()->routeIs('jefe.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte</a>
               @endrole
 
               @role('supervisor')
-              <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Programación</a>
+              <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Programar</a>
               <a href="{{ route('supervisor.validar-rutinarios') }}" class="{{ request()->routeIs('supervisor.validar-rutinarios') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Validar Rutinarios</a>
               @endrole
 
               @role('asistente')
-              <a href="{{ route('asistente.programacion-de-tractores') }}" class="{{ request()->routeIs('asistente.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Programación</a>
-              <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte</a>
+              <a href="{{ route('asistente.programacion-de-tractores') }}" class="{{ request()->routeIs('asistente.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Resumen Programación</a>
+              <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reportar</a>
               @endrole
 
               @role('operario')
@@ -42,7 +43,10 @@
               @endrole
 
               @role('planificador')
-              <a href="{{ route('planificador.validar-solicitud-de-articulos') }}" class="{{ request()->routeIs('planificador.validar-solicitud-de-articulos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Validar Solicitud de Artículos</a>
+              <a href="{{ route('planificador.horas-implementos') }}" class="{{ request()->routeIs('planificador.horas-implementos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Implementos</a>
+              <a href="{{ route('planificador.validar-solicitud-de-articulos') }}" class="{{ request()->routeIs('planificador.validar-solicitud-de-articulos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Validar Pedidos</a>
+              <a href="{{ route('planificador.stock') }}" class="{{ request()->routeIs('planificador.stock') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Stock</a>
+              <a href="{{ route('planificador.ingreso-articulos') }}" class="{{ request()->routeIs('planificador.ingreso-articulos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Ingreso Materiales</a>
               <a href="{{ route('planificador.importar-datos') }}" class="{{ request()->routeIs('planificador.importar-datos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Importar Datos</a>
               @endrole
             </div>
@@ -86,11 +90,14 @@
       <div class="px-2 pt-2 pb-3 space-y-1">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         @role('jefe')
-        <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Dashboard</a>
+        <a href="{{ route('jefe.programacion-por-cultivo') }}" class="{{ request()->routeIs('jefe.programacion-por-cultivo') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Resumen Tractores</a>
+        <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programacion</a>
+        <a href="{{ route('jefe.reporte-de-tractores') }}" class="{{ request()->routeIs('jefe.reporte-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Reporte</a>
         @endrole
 
         @role('supervisor')
-        <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programación</a>
+        <a href="{{ route('supervisor.programacion-de-tractores') }}" class="{{ request()->routeIs('supervisor.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programar</a>
+        <a href="{{ route('supervisor.validar-rutinarios') }}" class="{{ request()->routeIs('supervisor.validar-rutinarios') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Validar Rutinarios</a>
         @endrole
 
         @role('operario')
@@ -98,12 +105,16 @@
         @endrole
 
         @role('asistente')
-        <a href="{{ route('asistente.programacion-de-tractores') }}" class="{{ request()->routeIs('asistente.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Programacion</a>
-        <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Reporte</a>
+        <a href="{{ route('asistente.programacion-de-tractores') }}" class="{{ request()->routeIs('asistente.programacion-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Resumen Programacion</a>
+        <a href="{{ route('asistente.reporte-de-tractores') }}" class="{{ request()->routeIs('asistente.reporte-de-tractores') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Reportar</a>
         @endrole
 
         @role('planificador')
+        <a href="{{ route('planificador.horas-implementos') }}" class="{{ request()->routeIs('planificador.horas-implementos') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Implementos</a>
         <a href="{{ route('planificador.validar-solicitud-de-articulos') }}" class="{{ request()->routeIs('planificador.validar-solicitud-de-articulos') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Validar Pedidos</a>
+        <a href="{{ route('planificador.ingreso-articulos') }}" class="{{ request()->routeIs('planificador.ingreso-articulos') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Ingreso Materiales</a>
+        <a href="{{ route('planificador.stock') }}" class="{{ request()->routeIs('planificador.stock') ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page"' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'}}">Stock</a>
+        <a href="{{ route('planificador.importar-datos') }}" class="{{ request()->routeIs('planificador.importar-datos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Importar Datos</a>
         @endrole
       </div>
     </div>

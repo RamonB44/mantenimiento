@@ -22,14 +22,15 @@
                     <select class="form-select" style="width: 100%" wire:model='programacion_id'>
                         <option value="0">Seleccione una opción</option>
                     @foreach ($programaciones as $programacion)
-                        <option value="{{ $programacion->id }}">Tractorista: {{ $programacion->Tractorista->name  }} |
+                        <option value="{{ $programacion->id }}">
                             @if ($programacion->Tractor == null)
                             @foreach ($programacion->ImplementoProgramacion as $implemento_programacion)
                                 {{ $implemento_programacion->Implemento->ModeloDelImplemento->modelo_de_implemento }} {{ $implemento_programacion->Implemento->numero }}
                             @endforeach
                             @else
-                            Tractor {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}
+                            TRACTOR: {{ $programacion->Tractor->ModeloDeTractor->modelo_de_tractor }} {{ $programacion->Tractor->numero }}
                             @endif
+                             | TRACTORISTA: {{ $programacion->Tractorista->name  }}
                         </option>
                     @endforeach
                     </select>
@@ -65,7 +66,7 @@
 
                 <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Horometro Inicial:</x-jet-label>
-                    <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_inicial" disabled="{{ $deshabilitar_horometro_inicial }}"/>
+                    <x-jet-input type="number" style="height:40px;width: 100%" wire:model.defer="horometro_inicial"/>
                 </div>
                 <div class="py-2" wire:loading.remove style="padding-left: 1rem; padding-right:1rem">
                     <x-jet-label>Horometro Final:</x-jet-label>

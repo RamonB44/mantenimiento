@@ -1,11 +1,11 @@
 --------------------------------ASISTENTE: Reporte de horas-------------------------------------------------------------
--Pedir formatos que llena.
+--Modificar el exportar para que concuerde con la fecha del filtro de la tabla.
 --------------------------------JEFE: Programacion de Tractores----------------------------------------------------------
 -Habilitar botones de ayer hoy y MAÑANA
 ---------------------------------PLANNER:Ve Solicitud de Pedidos Antiguos------------------------------------
 -Ver solicitudes de pedido anteriores:
   --Por fecha de pedido, por sede y por ceco.
-  --Filtrar solicitudes de pedido
+  --Filtrar solicitudes de pedido.
 --Agregar tabla de ingreso de materiales por sede trigger para obtener el total pedido y lo que falta llegar - por sede.
 --------------------------------PLANNER: Importar Datos al sistema mediante excel----------------------------------------------------
 -Importar tareas mantenimiento.
@@ -16,15 +16,18 @@ __________________
 --Crud de tablas. |
 ------------------
 -----------------------------PLANNER: Agregar materiales pedidos al stock---------------------
---Ver stock actual por sede.
---Exportar un excel con las cantidad faltantes para que se complete el pedido realizado.
+--Exportar un excel con las cantidad faltantes(cantidad_validada - cantidad_usada) para que se complete el pedido realizado.
+--Triggers al agregar material al almacen(sumar cantidad a stock_sede y aumentar cantidad llegada a detalle de pedido)
 --Importar el stock con la fecha de pedido y la sede actual.
 --Agregar materiales al stock de la sede dependiendo la fecha de pedido.
 --Cambiar tabla ingreso de materiales referenciando a la sede y a la fecha de pedido.
 --Crear tabla de trigger para cuando valide la cantidad de un pedido se añada a dicha tabla y de ahí controlar la cantidad de pedidos y el monto total.
 --Poner en dicha tabla tanto la cantidad como el precio y la cantidad usada de ese pedido para controlar la diferencia de precios.
 -----------------------------PLANNER: Implementos que requieren matenimiento(Generar ordenes de trabajo)-----------------------------
+Crear tabla de componente con mantenimiento y piezas con mantenimiento;
+Mostrar por implemento, los componentes y piezas que requieren mantenimiento;
 Horas de los componentes - comparar con mantenimiento preventido y tiempo de vida.
+Horas de los componentes - comparar horas con las horas del ultimo mantenimiento preventivo;
 Generar ordenes de trabajo del implemento.
 Orden de trabajo: cabecera - detalle de tareas - articulos - epps
 Salida de Materiales para la orden de trabajo.
@@ -32,3 +35,5 @@ Salida de Materiales para la orden de trabajo.
 Verificar ordenes de trabajo y reservar los materiales para dicha orden dicho día.
 --------------------PLANNER: Validar ordenes de trabajo(Como rutinario+materiales usados+epps usados)--------------------------
 Validar la orden de trabajo cumplida.
+(----------------------------------------------------------------)
+SELECT c.cultivo,f.fundo,COUNT(*) AS tractors,IF(EXISTS(SELECT * FROM programacion_de_tractors pt WHERE pt.sede_id = 1 AND pt.tractor_id = t.id AND pt.fecha = '2023-03-20' AND pt.turno = 'MAÑANA'),(SELECT COUNT(*) FROM programacion_de_tractors pt INNER JOIN tractors tt ON tt.id = pt.tractor_id WHERE pt.sede_id = 1 AND tt.cultivo_id = t.cultivo_id AND tt.fundo_id = t.fundo_id AND pt.fecha = '2023-03-20' AND pt.turno = 'MAÑANA'),0) AS programado FROM tractors t INNER JOIN cultivos c ON c.id = t.cultivo_id LEFT JOIN fundos f ON f.id = t.fundo_id GROUP BY t.cultivo_id, t.fundo_id;

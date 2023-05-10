@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
     <div wire:loading.remove>
     @if ($existe_pedido)
         @livewire('operario.solicitar-articulo.cabecera',['fecha_de_pedido' => $fecha_de_pedido,'implemento_id' => $implemento_id])

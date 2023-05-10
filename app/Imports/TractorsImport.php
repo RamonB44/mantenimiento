@@ -26,10 +26,10 @@ class TractorsImport implements OnEachRow,WithHeadingRow
             [
                 'modelo_de_tractor_id' => $modelo->id,
                 'numero' => $row['numero'],
+                'sede_id' => $sede->id
             ],
             [
                 'horometro' => $row['horometro'] == "" ? 0 : $row['horometro'],
-                'sede_id' => $sede->id
             ]
         );
     }

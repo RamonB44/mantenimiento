@@ -12,15 +12,15 @@ class Tabla extends Component
 
     public $usuario_id;
 
+    protected $listeners = ['render','filtrar','obtenerUsuario'];
+
     public function mount()
     {
         $this->usuario_id = 0;
     }
 
-    public function seleccionar($id){
+    public function obtenerUsuario($id){
         $this->usuario_id = $id;
-        $this->emitTo('planificador.importar-datos.usuario.botones','obtenerUsuario',$id);
-
     }
 
     public function render()

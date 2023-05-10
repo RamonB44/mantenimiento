@@ -9,7 +9,6 @@
         <link rel="icon" type="image/x-icon" href="/img/logo.png">
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -45,7 +44,7 @@
         @stack('modals')
 
         @livewireScripts
-
+        @livewireChartsScripts
         <script>
             /*------Alerta para registro----------------------------------------------------*/
             Livewire.on('alerta', data =>{
@@ -67,20 +66,6 @@
                 }
             });
 
-            Livewire.on('estiloSelect2',() => {
-                $('.select2').select2({
-                    theme: 'classic',
-                });
-            });
-
-            Livewire.on('reestablecerSelectImplementos',() => {
-                implementos = [];
-            });
-
-            Livewire.on('obtenerSelectImplementos',function (data) {
-                implementos = data;
-            });
-
             Livewire.on('checkout_all', () =>{
                 checkboxes = document.getElementsByName('check_tarea');
                 for(var i=0;i<checkboxes.length;i++) {
@@ -90,8 +75,12 @@
             Livewire.on('focus',input =>{
                 document.getElementById(input).focus();
             });
+            Livewire.on('scroll_bottom',() => {
+                window.scrollTo(0, document.body.scrollHeight);
+            })
         </script>
 
         @yield('js')
+
     </body>
 </html>

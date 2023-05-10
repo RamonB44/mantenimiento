@@ -1,9 +1,14 @@
 <div>
     @if ($programacion_de_tractores->count())
         @if ($total_tractores > 0)
-        <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800">
+        <div class="grid items-center grid-cols-2 p-2 text-center bg-blue-800" wire:loading.remove>
             <div class="col-span-2 text-lg font-black text-white">
-                FECHA : <span>{{ date_format(date_create($fecha),'d-m-Y') }}</span>
+                FECHA : <span>
+                    {{ date_format(date_create($fecha_inicial),'d-m-Y') }}
+                    @if ($fecha_inicial != $fecha_final)
+                        - {{ date_format(date_create($fecha_final),'d-m-Y') }}
+                    @endif
+                </span>
             </div>
             <div class="text-lg font-black text-white">
                 TRACTORES : <span>{{ $total_tractores }}</span>
@@ -122,12 +127,10 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="px-4 py-4" wire:loading.remove>
-            {{ $programacion_de_tractores->links() }}
-        </div>
     @else
         <div class="px-6 py-4">
             No existe ningún registro coincidente
+            {{ $fecha_inicial }}
         </div>
     @endif
     <div style="align-items:center;justify-content:center;margin-bottom:15px" wire:loading.flex>

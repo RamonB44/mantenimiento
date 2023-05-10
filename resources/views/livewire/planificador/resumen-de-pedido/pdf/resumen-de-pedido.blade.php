@@ -52,7 +52,7 @@
                 <div class="sub">
                     <div class="title">
                         <h2>
-                            Pedidos del {{ $fecha }} - Total : S/. {{ floatval($monto_total) }}
+                            Pedidos del {{ date_format(date_create($fecha),'d-m-Y') }} - Total : S/. {{ floatval($monto_total) }}
                         </h2>
                         @if ($ceco_id > 0)
                         <div>
@@ -67,15 +67,17 @@
                             <th>Cantidad</th>
                             <th>Precio</th>
                             <th>Total</th>
+                            <th>Almacén</th>
                         </thead>
                         <tbody>
                             @foreach ($lista_de_materiales as $lista_de_material)
                                 <tr>
                                     <td> {{ $lista_de_material->codigo}} </td>
                                     <td> {{ $lista_de_material->articulo }}</td>
-                                    <td> {{ floatval($lista_de_material->cantidad) }} {{ $lista_de_material->unidad_de_medida }} </td>
+                                    <td> {{ floatval($lista_de_material->cantidad) }} {{ $lista_de_material->unidad_de_medida }}</td>
                                     <td> S/.{{ floatval($lista_de_material->precio) }}</td>
                                     <td> S/.{{ floatval($lista_de_material->total) }}</td>
+                                    <td> {{ floatval($lista_de_material->almacen) }} {{ $lista_de_material->unidad_de_medida }} </td>
                                 </tr>
                             @endforeach
                         </tbody>

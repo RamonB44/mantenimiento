@@ -39,7 +39,7 @@ class Modal extends Component
 
     public function imprimir() {
 
-        $titulo = 'Programación del '.$this->fecha.'.pdf';
+        $titulo = 'Pedido del '.date_format(date_create($this->fecha),'d-m-Y').'.pdf';
         if($this->ceco_id > 0){
             $materiales = DB::table('resumen_pedido_por_ceco')->where('fecha_de_pedido_id',$this->fecha_de_pedido)->where('sede_id',$this->sede_id)->where('ceco_id',$this->ceco_id);
         }else{

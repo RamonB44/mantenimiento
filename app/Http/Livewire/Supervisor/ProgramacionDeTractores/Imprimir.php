@@ -16,11 +16,19 @@ class Imprimir extends Component
 {
     public $open = false;
     public $fecha;
+    public $turno;
 
     protected $listeners = ['abrirModal','obtenerFecha'];
 
     public function mount(){
         $this->fecha = date('Y-m-d');
+        $this->turno = "";
+    }
+
+    public function updatedOpen(){
+        if(!$this->open){
+            $this->emit('obtenerFecha',$this->fecha);
+        }
     }
 
     public function abrirModal(){
@@ -35,12 +43,22 @@ class Imprimir extends Component
         if(ProgramacionDeTractor::where('fecha',$this->fecha)->where('esta_anulado',0)->doesntExist()){
             $this->emit('alerta',['center','warning','No existe programacion']);
         }else{
-            $titulo = 'Programación del '.$this->fecha.'.pdf';
-            $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->get();
-            $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->get();
+            $turno = $this->turno == "MAÑANA" ? ' - DIA' : ($this->turno == 'NOCHE' ? ' - NOCHE' : '');
+            $titulo = 'Programación del '.$this->fecha.''.$turno.'.pdf';
+            if($this->turno != "NOCHE"){
+                $programaciones_am = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','MAÑANA')->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->get();
+            }else{
+                $programaciones_am = [];
+            }
+            if($this->turno != "MAÑANA"){
+                $programaciones_pm = ProgramacionDeTractor::where('fecha',$this->fecha)->where('turno','NOCHE')->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->get();
+            }else{
+                $programaciones_pm = [];
+            }
             $data = [
                 'programaciones_am' => $programaciones_am,
                 'programaciones_pm' => $programaciones_pm,
+                'turno' => $this->turno,
                 'fecha' => Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y'),
             ];
             $pdfContent = PDF::loadView('livewire.supervisor.programacion-de-tractores.pdf.programacion-de-tractores', $data)->setPaper('a4', 'landscape')->output();
@@ -59,7 +77,11 @@ class Imprimir extends Component
             $titulo = 'Rutinario del '.$this->fecha.'.pdf';
 
             $data = [];
-            $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha)->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->orderBy('turno','asc')->get();
+            $programaciones = ProgramacionDeTractor::where('fecha',$this->fecha);
+            if($this->turno != ""){
+                $programaciones = $programaciones->where('turno',$this->turno);
+            }
+            $programaciones = $programaciones->where('supervisor',Auth::user()->id)->where('esta_anulado',0)->orderBy('turno','asc')->get();
             $fecha = Carbon::parse($this->fecha)->isoFormat('dddd').','.Carbon::parse($this->fecha)->isoFormat(' DD').' de '.Carbon::parse($this->fecha)->isoFormat(' MMMM').' del '.Carbon::parse($this->fecha)->isoFormat(' Y');
             $indice_implemento = 0;
             foreach ($programaciones as $programacion) {
@@ -69,7 +91,7 @@ class Imprimir extends Component
                     $data['implementos'][$indice_implemento]['numero'] = $implemento->Implemento->numero;
                     $data['implementos'][$indice_implemento]['fecha'] = $fecha;
                     $data['implementos'][$indice_implemento]['turno'] = $programacion->turno;
-                    $data['implementos'][$indice_implemento]['operario'] = $implemento->Implemento->Responsable->name;
+                    $data['implementos'][$indice_implemento]['operario'] = $implemento->Implemento->ResponsableModel->name;
                     $sistemas = ComponentePorModelo::where('modelo_id',$implemento->Implemento->modelo_del_implemento_id)->groupBy('sistema_id')->get();
                     foreach($sistemas as $indice_sistema => $sistema) {
                         if(DB::table('cantidad_de_tareas_por_sistema')->where('sistema_id',$sistema->sistema_id)->where('modelo_de_implemento',$implemento->Implemento->modelo_del_implemento_id)->exists()){

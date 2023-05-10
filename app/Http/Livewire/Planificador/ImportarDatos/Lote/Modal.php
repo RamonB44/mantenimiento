@@ -16,9 +16,11 @@ class Modal extends Component
     public $sede_id;
     public $sedes;
     public $fundo;
+    public $fundo_antiguo;
     public $lote;
     public $lote_id;
     public $cultivo;
+    public $cultivo_antiguo;
     public $encargado;
 
     protected $listeners = ['abrirModal','eliminar'];
@@ -38,9 +40,11 @@ class Modal extends Component
         $this->sede_id = 0;
         $this->sedes = Sede::all();
         $this->fundo = "";
+        $this->fundo_antiguo = 0;
         $this->lote = "";
         $this->lote_id = 0;
         $this->cultivo = "";
+        $this->cultivo_antiguo = 0;
         $this->encargado = 0;
     }
 
@@ -50,8 +54,10 @@ class Modal extends Component
             $lote = Lote::find($id);
             $this->sede_id = $lote->Fundo->sede_id;
             $this->fundo = $lote->Fundo->fundo;
+            $this->fundo_antiguo = $lote->fundo_id;
             $this->lote = $lote->lote;
             $this->cultivo = $lote->Cultivo->cultivo;
+            $this->cultivo_antiguo = $lote->cultivo_id;
             $this->encargado = $lote->encargado;
         }
         $this->open = true;
@@ -84,12 +90,12 @@ class Modal extends Component
             $lote->cultivo_id = $cultivo->id;
             $lote->save();
 
-            if(Lote::where('fundo_id', $fundo->id)->doesntExist()){
-                $fundo::find($fundo->id)->delete();
+            if(Lote::where('fundo_id', $this->fundo_antiguo)->doesntExist()){
+                $fundo::find($this->fundo_antiguo)->delete();
             }
 
-            if(Lote::where('cultivo_id', $cultivo->id)->doesntExist()){
-                $cultivo::find($cultivo->id)->delete();
+            if(Lote::where('cultivo_id', $this->cultivo_antiguo)->doesntExist()){
+                $cultivo::find($this->cultivo_antiguo)->delete();
             }
 
             $this->emit('alerta',['center','success','Lote editado']);

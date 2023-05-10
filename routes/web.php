@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Tractoristas;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,5 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('api/tractoristas',[Tractoristas::class,'__invoke'])->name('api.tractoristas');
 });

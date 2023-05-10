@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Asistente\ReporteDeTractores;
 
 use App\Models\ReporteDeTractor;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,15 +22,14 @@ class Tabla extends Component
     public $tractor;
     public $implemento;
     public $labor;
-    public $total_de_tractores;
-    public $total_de_implementos;
+    public $search;
 
-    protected $listeners = ['render','filtrar'];
+    protected $listeners = ['render','filtrar','obtenerFecha'];
 
     public function mount(){
         $this->reporte_id = 0;
-        $this->fecha = "";
-        $this->turno = "";
+        $this->fecha =  Carbon::yesterday()->isoFormat('Y-MM-DD');
+        $this->turno = "MAÑANA";
         $this->fundo = 0;
         $this->lote = 0;
         $this->tractorista = 0;
@@ -45,10 +45,23 @@ class Tabla extends Component
         }
     }
 
-    public function filtrar($fecha,$turno,$fundo,$lote,$tractorista,$tractor,$implemento,$labor){
-        $this->resetPage();
+    public function obtenerFecha($fecha,$turno){
         $this->fecha = $fecha;
         $this->turno = $turno;
+        $this->render();
+    }
+
+    public function updatedFecha(){
+        $this->resetPage();
+        $this->emit('obtenerFecha',$this->fecha,$this->turno);
+    }
+    public function updatedTurno(){
+        $this->resetPage();
+        $this->emit('obtenerFecha',$this->fecha,$this->turno);
+    }
+
+    public function filtrar($fundo,$lote,$tractorista,$tractor,$implemento,$labor){
+        $this->resetPage();
         $this->fundo = $fundo;
         $this->lote = $lote;
         $this->tractorista = $tractorista;
@@ -59,47 +72,14 @@ class Tabla extends Component
 
     public function render()
     {
-        $reporte_de_tractores = ReporteDeTractor::where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0);
+        if($this->fecha == ''){
+            $this->fecha = date('Y-m-d');
+        }
 
-
-        $reporte_de_tractores->whereHas('ProgramacionDeTractor',function($q){
-            if($this->fecha != ''){
-                $q->where('fecha',$this->fecha);
-            }
-            if($this->turno != ""){
-                $q->where('turno',$this->turno);
-            }
-            if($this->lote > 0){
-                $q->where('lote_id',$this->lote);
-            }else if($this->fundo > 0){
-                $q->whereHas('Lote',function($q){
-                    $q->where('fundo_id',$this->fundo);
-                });
-            }
-            if($this->tractorista > 0) {
-                $q->where('tractorista',$this->tractorista);
-            }
-            if($this->tractor > 0) {
-                $q->where('tractor_id',$this->tractor);
-            }
-            if($this->implemento > 0) {
-                $q->where('implemento_id',$this->implemento);
-            }
-            if($this->labor > 0) {
-                $q->where('labor_id',$this->labor);
-            }
-            if($this->fecha == ""){
-                $this->total_tractores = 0;
-                $this->total_implementos = 0;
-            }else{
-                $this->total_tractores = $q->count();
-                $implementos_por_programacion = $q->withCount('ImplementoProgramacion')->get();
-                $this->total_implementos = 0;
-                foreach($implementos_por_programacion as $implemento_programacion){
-                    $this->total_implementos += $implemento_programacion->implemento_programacion_count;
-                }
-            }
-        });
+        $reporte_de_tractores = ReporteDeTractor::where('sede_id',Auth::user()->sede_id)->where('esta_anulado',0)
+                                                ->whereHas('ProgramacionDeTractor',function($q){
+                                                    $q->where('fecha',$this->fecha)->where('turno',$this->turno);
+                                                });
 
         $reporte_de_tractores = $reporte_de_tractores->latest()->paginate(6);
 

@@ -14,7 +14,7 @@ class HomeController extends Controller
         }else{
             $user = User::find(auth()->user()->id);
             if($user->hasRole('jefe')){
-                return redirect()->route('jefe.programacion-de-tractores');
+                return redirect()->route('jefe.programacion-por-cultivo');
             }else if($user->hasRole('supervisor')){
                 return redirect()->route('supervisor.programacion-de-tractores');
             }else if($user->hasRole('asistente')){

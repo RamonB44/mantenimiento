@@ -13,7 +13,7 @@
                     <x-jet-label>Turno:</x-jet-label>
                     <select class="form-select" style="width: 100%" wire:model='turno'>
                         <option value="">Seleccione un turno</option>
-                        <option>MAÑANA</option>
+                        <option value="MAÑANA">DIA</option>
                         <option>NOCHE</option>
                     </select>
                 </div>

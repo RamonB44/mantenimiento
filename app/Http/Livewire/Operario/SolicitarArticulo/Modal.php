@@ -158,13 +158,9 @@ class Modal extends Component
             if($this->articulo > 0){
                 if(StockOperario::where('user_id',Auth::user()->id)->where('articulo_id',$this->articulo)->exists()){
                     $stock = StockOperario::where('user_id',Auth::user()->id)->where('articulo_id',$this->articulo)->first()->cantidad;
-                }else{
-                    $stock = 0;
                 }
                 if(StockSede::where('sede_id',Auth::user()->sede_id)->where('articulo_id',$this->articulo)->exists()){
                     $en_proceso = StockSede::where('sede_id',Auth::user()->sede_id)->where('articulo_id',$this->articulo)->first()->cantidad;
-                }else{
-                    $en_proceso = 0;
                 }
             }
         }

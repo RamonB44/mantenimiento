@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('horometro',8,2);
             $table->foreignId('sede_id')->constrained();
             $table->timestamps();
-            $table->unique(['modelo_de_tractor_id','numero']);
+            $table->unique(['modelo_de_tractor_id','numero','sede_id']);
         });
     }
 

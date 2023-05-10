@@ -26,8 +26,8 @@ class SeleccionarImplemento extends Component
         $solicitud_de_pedido->estado = "CERRADO";
         $solicitud_de_pedido->save();
         $this->emit('alerta',['center','success','Solicitud Cerrada']);
-        $this->reset('implemento_id');
-        $this->emit('cambiarImplemento',$this->implemento_id);
+        $this->implemento_id = 0;
+        $this->emit('cambiarImplemento',0);
     }
 
     public function render()

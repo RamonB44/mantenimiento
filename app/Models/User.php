@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -72,5 +72,17 @@ class User extends Authenticatable
 
     public function ProgramacionDeTractor(){
         return $this->hasMany(ProgramacionDeTractor::class,'tractorista');
+    }
+    public function Implementos(){
+        return $this->hasMany(Implemento::class,'responsable');
+    }
+    public function Sede(){
+        return $this->belongsTo(Sede::class);
+    }
+    public function SupervisorModel(){
+        return $this->belongsTo(User::class,'supervisor');
+    }
+    public function canAccessFilament(): bool{
+        return $this->is_admin;
     }
 }

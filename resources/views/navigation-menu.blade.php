@@ -23,6 +23,8 @@
               @role('jefe')
               <a href="{{ route('jefe.programacion-por-cultivo') }}" class="{{ request()->routeIs('jefe.programacion-por-cultivo') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Resumen Tractores</a>
               <a href="{{ route('jefe.programacion-de-tractores') }}" class="{{ request()->routeIs('jefe.programacion-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Programacion</a>
+              <a href="{{ route('jefe.reporte-hora-x-implementos') }}" class="{{ request()->routeIs('jefe.reporte-hora-x-implementos') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte Hora x Implementos</a>
+              <a href="{{ route('jefe.reporte-tractor-x-solicitante') }}" class="{{ request()->routeIs('jefe.reporte-tractor-x-solicitante') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte Tractor x Solicitante</a>
               <a href="{{ route('jefe.reporte-de-tractores') }}" class="{{ request()->routeIs('jefe.reporte-de-tractores') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} px-3 py-2 rounded-md text-sm font-medium">Reporte</a>
               @endrole
 

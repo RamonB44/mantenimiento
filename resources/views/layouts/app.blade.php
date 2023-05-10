@@ -16,7 +16,7 @@
         @livewireStyles
 
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        @yield('css')
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -79,5 +79,8 @@
                 window.scrollTo(0, document.body.scrollHeight);
             })
         </script>
+
+        @yield('js')
+
     </body>
 </html>

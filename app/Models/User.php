@@ -21,6 +21,7 @@ class User extends Authenticatable implements FilamentUser
     use TwoFactorAuthenticatable;
     use HasRoles;
 
+    protected $guard_name = 'web';
     /**
      * The attributes that are mass assignable.
      *

@@ -10,7 +10,7 @@ module.exports = {
 
         './resources/**/*.js',
         './resources/**/*.vue',
-        './node_modules/tw-elements/dist/js/**/*.js'
+        './node_modules/tw-elements/dist/js/**/*.js',
 
         './vendor/wireui/wireui/resources/**/*.blade.php',
         './vendor/wireui/wireui/ts/**/*.ts',

@@ -9,16 +9,40 @@
 
 @section('js')
     <script>
+        var users = null;
         document.addEventListener('DOMContentLoaded', function() {
-            // datos obligatorios para generar reporte
-            const sedes = window.multiSelect("#sedes");
-            const users = window.multiSelect("#supervisor");
-            const tmaquina = window.multiSelect("#tmaquina");
-
-            const months = window.multiSelect("#months");
-            const weeks = window.multiSelect("#weeks");
-            const days = window.multiSelect("#days");
+            // $(".js-mimplemento-matcher").select2({
+            //     matcher: matchCustom
+            // });
         });
 
+        Livewire.hook('message.received', (message, component) => {
+            // console.log(message)
+            // console.log(component)
+
+            // if (component.name == "jefe.reporte-horax-implemento.select") {
+            //     // document.querySelector();
+            //     // let supervisores = document.querySelector("#supervisor");
+            //     // supervisores.querySelectorAll(":scope > option").forEach(element => {
+            //     //     // console.log(element.value)
+            //     //     element.hidden = true;
+            //     //     if(element.value){
+            //     //         let filtered = component.data.filterSupervisors.filter(e => e.id == element.value);
+            //     //         console.log(filtered);
+            //     //     }
+            //     // });
+            //     // component.data.filterSupervisors.forEach(e => {
+            //     //     // let element = users.options.filter(ele => ele.value == e.id).map(v => v.hidden = true);
+            //     //     let elements = supervisores.querySelectorAll(":scope > option");
+            //     //     let filter = Array.prototype.filter;
+            //     //     filter.call(elements, function(node) {
+            //     //         console.log(node)
+            //     //         if(node.value == e.id){
+            //     //             document.querySelector(node).hidden = true;
+            //     //         }
+            //     //     });
+            //     // });
+            // }
+        });
     </script>
 @endsection

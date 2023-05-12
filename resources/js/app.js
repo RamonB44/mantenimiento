@@ -3,6 +3,7 @@ import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
 import { Ripple, Select, Tab, Datepicker, Input, Chart, initTE } from "tw-elements";
 window.Alpine = Alpine;
+
 initTE({ Select, Ripple, Tab, Datepicker, Input, Chart });
 
 Alpine.plugin(focus);
@@ -61,4 +62,8 @@ window.chart = (DOMElement, typeChart, barData) => {
         dataBarHorizontal,
         optionsBarHorizontal
     );
+}
+
+window.initTE = () => {
+    initTE({ Select, Ripple, Tab, Datepicker, Input, Chart });
 }

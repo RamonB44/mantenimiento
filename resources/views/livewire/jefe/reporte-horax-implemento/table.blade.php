@@ -6,12 +6,12 @@
                 <div class="lg:flex flex-row items-center">
                     <div class="grow-0 shrink-0 basis-auto w-full lg:w-7/12">
                         <h5 class="text-lg font-bold mb-2">
-                            {{ $dias_semana[\Carbon\Carbon::parse($item->fecha)->dayOfWeek + 1] }}</h5>
+                            {{ $dias_ing_esp[\Carbon\Carbon::parse($item->fecha)->format('l')] }} {{ \Carbon\Carbon::parse($item->fecha)->format('m-d') }}</h5>
                         <p class="text-gray-500 mb-4">Total de Horas: {{ $item->Horas_Usado }}</p>
                         @foreach (explode(',', $item->implementos) as $i)
                             <ul class="w-auto">
                                 <li
-                                    class="w-full border-b-2 border-neutral-100 border-opacity-100 py-4 dark:border-opacity-50">
+                                    class="w-full p-4 " <?php if(!str_contains($i,$nombreImplemento)) { echo "hidden";} ?>>
                                     {{ $i }}
                                 </li>
                             </ul>

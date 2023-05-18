@@ -9,6 +9,8 @@ class ComponentePorModelo extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function Modelo(){
         return $this->belongsTo(ModeloDelImplemento::class,'modelo_id','id');
     }

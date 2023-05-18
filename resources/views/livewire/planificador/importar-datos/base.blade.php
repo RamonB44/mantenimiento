@@ -21,9 +21,9 @@
     @case('usuario')
     @livewire('planificador.importar-datos.usuario.base')
         @break
-    @case('articulo')
+    {{-- @case('articulo')
     @livewire('planificador.importar-datos.articulo.base')
-        @break
+        @break --}}
     @case('centro de costo')
     @livewire('planificador.importar-datos.ceco.base')
         @break
@@ -38,6 +38,9 @@
         @break
     @case('fecha pedidos')
     @livewire('planificador.importar-datos.fecha-pedido.base')
+        @break
+    @case('datos implementos')
+    @livewire('planificador.importar-datos-implementos.base')
         @break
     @default
 

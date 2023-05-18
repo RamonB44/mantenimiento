@@ -1,10 +1,10 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
-import { Ripple, Select, Tab, Datepicker, Input, Chart, initTE } from "tw-elements";
+import { Ripple, Select, Tab, Datepicker, Input, Chart, Offcanvas, Collapse, initTE } from "tw-elements";
 window.Alpine = Alpine;
 
-initTE({ Select, Ripple, Tab, Datepicker, Input, Chart });
+initTE({ Select, Ripple, Tab, Datepicker, Input, Chart, Offcanvas, Collapse });
 
 Alpine.plugin(focus);
 
@@ -64,6 +64,21 @@ window.chart = (DOMElement, typeChart, barData) => {
     );
 }
 
-window.initTE = () => {
-    initTE({ Select, Ripple, Tab, Datepicker, Input, Chart });
+window.offCanvas = (DOMElement) => {
+    // '[data-te-offcanvas-init]'
+    const offcanvasElementList = [].slice.call(document.querySelectorAll(DOMElement))
+    const offcanvasList = offcanvasElementList.map((offcanvasEl) => {
+        return new Offcanvas(offcanvasEl)
+    });
+    return offcanvasList;
+}
+
+window.initCollapse = (DOMElement) => {
+    const collapseElementList = [].slice.call(document.querySelectorAll(DOMElement))
+    const collapseList = collapseElementList.map((collapseEl) => {
+      return new Collapse(collapseEl, {
+        toggle: false,
+      });
+    });
+    return collapseList;
 }

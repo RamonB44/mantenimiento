@@ -45,9 +45,7 @@ class Tabla extends Component
 
     public function render()
     {
-        $reporte_de_tractores = ReporteDeTractor::where('sede_id',$this->sede_id)->whereHas('ProgramacionDeTractor',function($q){ $q->where('fecha',$this->fecha)->where('turno',$this->turno); });
-
-        $reporte_de_tractores = $reporte_de_tractores->get();
+        $reporte_de_tractores = ReporteDeTractor::where('sede_id',$this->sede_id)->whereHas('ProgramacionDeTractor',function($q){ $q->where('fecha',$this->fecha)->where('turno',$this->turno); })->get();
 
         if($this->search != ""){
             $reporte_de_tractores = $reporte_de_tractores->filter(function($reporte_de_tractores){

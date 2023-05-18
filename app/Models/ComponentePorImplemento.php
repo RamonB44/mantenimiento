@@ -17,4 +17,8 @@ class ComponentePorImplemento extends Model
     public function Articulo(){
         return $this->belongsTo(Articulo::class);
     }
+
+    public function Implemento(){
+        return $this->belongsTo(Implemento::class);
+    }
 }

@@ -20,7 +20,8 @@ BEGIN
             IF implemento_final = 1 THEN
         	    leave bucle_implementos;
             END IF;
-            UPDATE implementos SET horas_de_uso = horas_de_uso + horas WHERE id = implemento;
+            UPDATE implementos SET horas_de_uso = horas_de_uso + horas
+            WHERE id = implemento;
         END LOOP bucle_implementos;
     CLOSE cursor_implementos;
 END $$

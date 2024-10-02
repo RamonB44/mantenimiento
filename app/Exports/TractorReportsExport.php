@@ -32,6 +32,7 @@ class TractorReportsExport implements FromCollection,ShouldAutoSize,WithHeadings
             'Correlativo',
             'Código',
             'Tractorista',
+            'Solicitante',
             'Tractor',
             'Horometro Inicial',
             'Horometro Final',
@@ -54,6 +55,6 @@ class TractorReportsExport implements FromCollection,ShouldAutoSize,WithHeadings
 
     public function collection()
     {
-        return DB::table('vista_reporte_de_tractores')->select('sede','fecha','turno','fundo','lote','correlativo','codigo_tractorista','tractorista','tractor','horometro_inicial','horometro_final','implementos','labor')->where('sede_id',$this->sede)->where('fecha',$this->fecha)->orderBy('turno')->get();
+        return DB::table('vista_reporte_de_tractores2')->select('sede','fecha','turno','fundo','lote','correlativo','codigo_tractorista','tractorista','solicitante','tractor','horometro_inicial','horometro_final','implementos','labor')->where('sede_id',$this->sede)->where('fecha',$this->fecha)->orderBy('turno')->get();
     }
 }
